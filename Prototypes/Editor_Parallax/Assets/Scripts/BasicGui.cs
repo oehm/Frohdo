@@ -17,6 +17,9 @@ public class BasicGui : MonoBehaviour {
 	private int buttonW = 100;
 	private int buttonH = 100;
 
+    private Transform[] samplesItems;
+    private string seleceted = "";
+
     private Vector2 scrollViewVector = Vector2.zero;
     //Styles
     
@@ -26,6 +29,9 @@ public class BasicGui : MonoBehaviour {
         layerVisible[0] = true;
         layerVisible[1] = true;
         layerVisible[2] = true;
+
+        samplesItems = samples.GetComponentsInChildren<Transform>();
+
     }
 	
 	// Update is called once per frame
@@ -39,7 +45,9 @@ public class BasicGui : MonoBehaviour {
 		//Boxes
 	        GUI.Box(new Rect(0, 0, 250, Screen.height),"");
 	        //Text
-	        levelName = GUI.TextArea(new Rect(5, 2, 240, 20), levelName);	
+	        levelName = GUI.TextArea(new Rect(5, 2, 240, 20), levelName);
+
+            GUI.Label(new Rect(5, 35, 240, 20), "Selected: " + seleceted);
 	        //CheckBox
             layerVisible[0] = GUI.Toggle(new Rect(25, 100, 70, 30), layerVisible[0], new GUIContent("L1"));
             layerVisible[1] = GUI.Toggle(new Rect(95, 100, 70, 30), layerVisible[1], new GUIContent("L2"));
@@ -55,14 +63,14 @@ public class BasicGui : MonoBehaviour {
 	        scrollViewVector = GUI.BeginScrollView(new Rect(5, 145, 240, 450), scrollViewVector, new Rect(0, 0, 200, 10*(buttonH/2+5)));
 			int curX = 5;
 			int curY = 5;
-			Transform [] samplesItems = samples.GetComponentsInChildren<Transform>();
+			
             for (int i = 1; i < samplesItems.Length; i++)
             {
                 GameObject t = samplesItems[i].gameObject;
                 if (GUI.Button(new Rect(curX, curY, buttonW, buttonH), new GUIContent(t.name)))
                 {
+                    seleceted = t.name;
                     gm.setElement(t);
-                    //gm.setElement().prefab);
                 }
                 if (curX + 2 * buttonW + 5 > 240)
                 {
@@ -77,5 +85,4 @@ public class BasicGui : MonoBehaviour {
 	        GUI.EndScrollView();
 		GUI.EndGroup();
     }
-
 }
