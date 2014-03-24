@@ -192,6 +192,8 @@ public class GameObjectController : MonoBehaviour {
                     grids[i][x + y * GridResXnew].transform.localScale = new Vector3(gridSize, gridSize, 0);
                     grids[i][x + y * GridResXnew].name = (x + y * GridResXnew).ToString();
                     grids[i][x + y * GridResXnew].transform.parent = layers[i].transform;
+                    //grids[i][x + y * GridResXnew].GetComponent<MeshRenderer>().enabled = false;
+
                 }
             }
         }
