@@ -61,7 +61,7 @@ public class BasicGui : MonoBehaviour {
                 GameObject t = samplesItems[i].gameObject;
                 if (GUI.Button(new Rect(curX, curY, buttonW, buttonH), new GUIContent(t.name)))
                 {
-                    gm.setElement(t.GetComponent<LevelElements>().prefab);
+                    gm.setElement(t);
                     //gm.setElement().prefab);
                 }
                 if (curX + 2 * buttonW + 5 > 240)

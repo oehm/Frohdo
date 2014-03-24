@@ -61,7 +61,7 @@ public class GameObjectController : MonoBehaviour {
             leftDown = true;
             if (prefab != null)
             {
-                curObj = Instantiate(prefab,new Vector3(0,0,0), Quaternion.identity) as GameObject;
+                curObj = Instantiate(prefab.GetComponent<LevelElements>().prefab,new Vector3(0,0,0), Quaternion.identity) as GameObject;
                 curObj.name = "ToInsert";
                 mRenderer = curObj.GetComponent<MeshRenderer>();
                 mRenderer.enabled = false;
@@ -71,7 +71,7 @@ public class GameObjectController : MonoBehaviour {
 
         if (Input.GetMouseButtonUp(0) && curObj != null)
         {
-            if (isValid && state[activeLayer][hitIndex] != 2)
+            if (isValid && isFree()) //&& state[activeLayer][hitIndex] != 2
             {
                 state[activeLayer][hitIndex] = 2;
                 curObj.name = prefab.name;
@@ -196,5 +196,37 @@ public class GameObjectController : MonoBehaviour {
             }
         }
         setActiveLayer(mainLayer);
+    }
+
+    private bool isFree()
+    {
+        //check if free
+        int GridResXnew = Mathf.Abs((mainLayer - activeLayer)) * 2 * gridResX;
+        if (activeLayer == mainLayer) GridResXnew = gridResX;
+        for (int i = 0; i< prefab.GetComponent<LevelElements>().width; i++)
+        {
+            for (int j = 0; j < prefab.GetComponent<LevelElements>().height; j++)
+            {
+                
+                int x = hitIndex % GridResXnew + i;
+                int y = hitIndex / GridResXnew + j;
+                
+                if (x >= GridResXnew || y >= gridResY ) return false; //pos in grid
+                int indexToTest = x + y * GridResXnew;
+                if (state[activeLayer][indexToTest] == 2) return false; // grid free;
+            }
+        }
+        //mark hit indices
+        for (int i = 0; i < prefab.GetComponent<LevelElements>().width; i++)
+        {
+            for (int j = 0; j < prefab.GetComponent<LevelElements>().height; j++)
+            {
+                int x = hitIndex % GridResXnew + i;
+                int y = hitIndex / GridResXnew + j;
+                int indexToTest = x + y * GridResXnew;
+                state[activeLayer][indexToTest] = 2;
+            }
+        }
+        return true;
     }
 }
