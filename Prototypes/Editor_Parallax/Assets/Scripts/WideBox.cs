@@ -29,7 +29,14 @@ public class WideBox : LevelElements {
         uvs[2] = new Vector2(0.5f, 1.5f);
         uvs[3] = new Vector2(-0.5f, -0.5f);
 
+        Vector3[] normals = new Vector3[4];
+        normals[0] = new Vector3(0, 0, -1);
+        normals[1] = new Vector3(0, 0, -1);
+        normals[2] = new Vector3(0, 0, -1);
+        normals[3] = new Vector3(0, 0, -1);
+
         mMesh.vertices = veterx;
+        mMesh.normals = normals;
         mMesh.SetIndices(indices, MeshTopology.Triangles, 0);
 
 
