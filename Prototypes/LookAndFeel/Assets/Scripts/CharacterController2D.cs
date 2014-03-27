@@ -7,6 +7,8 @@ public class CharacterController2D : MonoBehaviour {
     private float hor = 0;
     private float jump = 0;
 
+    public float maxSpeed = 5;
+
     public float horMoveForce = 10;
     public float jumpForce = 3;
     public float minDistToGround = 0.001f;
@@ -40,8 +42,8 @@ public class CharacterController2D : MonoBehaviour {
 
         float dt = Time.deltaTime;
 
-        if (hor > 0) hor = 1;
-        else if (hor < 0) hor = -1;
+        //if (hor > 0) hor = 1;
+        //else if (hor < 0) hor = -1;
 
         Vector2 force = new Vector2(0, 0);
 
@@ -57,15 +59,30 @@ public class CharacterController2D : MonoBehaviour {
 
         GetComponent<Rigidbody2D>().AddForce(force);
 
+        bool inAir = !grounded;
+        GetComponent<Animator>().SetBool("InAir", inAir);
+        GetComponent<Animator>().SetFloat("Horizontal", hor);
+
+
 	}
 
     void FixedUpdate()
     {
-        if (hor == 0)
+        Vector3 curVel = rigidbody2D.velocity;
+        if (curVel.x > maxSpeed)
         {
-            Vector2 curVel = GetComponent<Rigidbody2D>().velocity;
-            curVel.x = curVel.x * slowParama;
-            GetComponent<Rigidbody2D>().velocity = curVel;
+            curVel.x = maxSpeed;
         }
+        else if (curVel.x < -maxSpeed)
+        {
+            curVel.x = -maxSpeed;
+        }
+        rigidbody2D.velocity = curVel;
+        //if (hor == 0)
+        //{
+        //    Vector2 curVel = GetComponent<Rigidbody2D>().velocity;
+        //    curVel.x = curVel.x * slowParama;
+        //    GetComponent<Rigidbody2D>().velocity = curVel;
+        //}
     }
 }
