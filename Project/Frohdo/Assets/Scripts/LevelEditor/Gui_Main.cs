@@ -5,6 +5,7 @@ public class Gui_Main : MonoBehaviour {
 
     public int leftAreaWidth;
     public GUIStyle leftAreaStyle;
+    public GUIStyle toolTipStyle;
 
     public Texture testTex;
 
@@ -27,11 +28,10 @@ public class Gui_Main : MonoBehaviour {
             activeLayerStings[i] = (i+1).ToString();
             visibleLayer[i] = true;
         }
-        levelObjects_content = new GUIContent[100];
-        int texS = (leftAreaWidth - 24)/3;
+        levelObjects_content = new GUIContent[20];
 
         for(int i=0; i<levelObjects_content.Length; i++){
-            levelObjects_content[i] = new GUIContent(testTex);
+            levelObjects_content[i] = new GUIContent(testTex,"LevelItem "+i.ToString());
         }
 	}
 	
@@ -56,9 +56,11 @@ public class Gui_Main : MonoBehaviour {
         GUILayout.EndHorizontal();
         GUILayout.Label("LEVELOBJECT");
         scrollPos = GUILayout.BeginScrollView(scrollPos);
-        GUILayout.SelectionGrid(selectedLevelobject, levelObjects_content, 2,GUILayout.Width(leftAreaWidth-24));
+        selectedLevelobject = GUILayout.SelectionGrid(selectedLevelobject, levelObjects_content, 2,GUILayout.Width(leftAreaWidth-24));
         GUILayout.EndScrollView();
         GUILayout.Button("PLAY");
         GUILayout.EndArea();
+
+        GUI.Label(new Rect(leftAreaWidth+10, Screen.height - Input.mousePosition.y, 100, 20), GUI.tooltip, toolTipStyle);
     }
 }
