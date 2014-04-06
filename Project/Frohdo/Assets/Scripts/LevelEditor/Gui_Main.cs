@@ -19,11 +19,11 @@ public class Gui_Main : MonoBehaviour {
     private GUIContent[] levelObjects_content;
 
     // Use this for initialization
-	void Start () { 
-        activeLayerStings = new string[5];
-        visibleLayer = new bool[5];
+	void Start () {
+        activeLayerStings = new string[GlobalVars.numberofLayers];
+        visibleLayer = new bool[GlobalVars.numberofLayers];
         scrollPos = new Vector2(0, 0);
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < GlobalVars.numberofLayers; i++)
         {
             activeLayerStings[i] = (i+1).ToString();
             visibleLayer[i] = true;
@@ -37,7 +37,17 @@ public class Gui_Main : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+        //set the culing mask for main camera
+        int cullingMask=0;
+        cullingMask += 1 << 0; //default
+        cullingMask += 1 << 1; //transparentFX
+        cullingMask += 1 << 2; //ignore raycast
+
+        for (int i = 0; i < visibleLayer.Length; i++)
+        {
+            if (visibleLayer[i]) cullingMask += 1 << i + 8; //layer[i]_mask
+        }
+        Camera.main.cullingMask = cullingMask;
 	}
 
     void OnGUI ()
