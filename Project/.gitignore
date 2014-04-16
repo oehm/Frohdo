@@ -6,7 +6,8 @@
 /*.csproj
 /*.unityproj
 /*.sln
-/*.suo
+*.suo
+/*.v11.suo
 /*.user
 /*.userprefs
 /*.pidb
