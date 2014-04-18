@@ -8,6 +8,9 @@ public class Layer : MonoBehaviour {
     public LevelObjectController levelObjectController_;
     public Camera camera_;
 
+    //parallaxFactor_ has to be ]-1.0, inf[
+    //parallaxFactor_ < 0 means simulation of farther away
+    //parallaxFactor_ > 0 means simulation of closer
     public Vector2 parallaxFactor_;
     public bool hasColliders_;
 
@@ -21,11 +24,37 @@ public class Layer : MonoBehaviour {
 
         //float distanceToCamera = transform.position.z - camera_.transform.position.z;
 
-        for (int x = -6; x <= 6; x += 2)
+        //test setup
+        for (int x = -16; x < 16; x ++)
         {
-            for (int y = -6; y <= 6; y += 2)
+            for (int y = -16; y < 16; y ++)
             {
-                AddLevelObjectByName("1x1Tile_Test", new Vector2(x, y));
+
+                if (x + y < -15 || y == -16 || x == -16 || x == 15)
+                {
+                    if (hasColliders_)
+                    {
+                        if ((x * y) % 2 == 0)
+                        {
+                            AddLevelObjectByName("1x1Tile_Test", "R", new Vector2(x, y));
+                        }
+                        else
+                        {
+                            AddLevelObjectByName("1x1Tile_Test", "G", new Vector2(x, y));
+                        }
+                    }
+                    else
+                    {
+                        if ((x * y) % 2 == 0)
+                        {
+                            AddLevelObjectByName("1x1Tile_Test", "B", new Vector2(x, y));
+                        }
+                        else
+                        {
+                            AddLevelObjectByName("1x1Tile_Test", "Y", new Vector2(x, y));
+                        }
+                    }
+                }
             }
         }
 	}
@@ -48,7 +77,7 @@ public class Layer : MonoBehaviour {
 	}
 
 
-    public void AddLevelObjectByName(string prefabName, Vector2 position)
+    public void AddLevelObjectByName(string prefabName, string color, Vector2 position)
     {
         GameObject prefab;
         try
@@ -65,6 +94,8 @@ public class Layer : MonoBehaviour {
         levelObject.name = prefabName;
         levelObject.transform.parent = transform;
         levelObject.transform.localPosition = position;
+        levelObject.renderer.material.color = levelObjectController_.GetColor(color);
+
         levelObject.GetComponent<Collider2D>().enabled = hasColliders_;
 
         //levelObjects_.Add(levelObject);
