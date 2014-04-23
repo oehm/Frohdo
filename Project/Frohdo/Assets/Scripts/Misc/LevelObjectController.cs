@@ -70,10 +70,10 @@ public class LevelObjectController : ScriptableObject {
         }
         else
         {
+            Destroy(this);
 
             Debug.Log("There is a instance of LevelObjectController already. Cant create Another one.");
             //throw new System.Exception("There is a instance of LevelObjectController already. Cant create Another one.");
-            Destroy(this);
         }
     }
 }
