@@ -56,6 +56,10 @@ public class Layer : MonoBehaviour {
                 }
             }
         }
+        if (hasColliders_)
+        {
+            AddLevelObjectByName("Character", "C", new Vector2(0, 0));
+        }
 	}
 
 
@@ -70,7 +74,7 @@ public class Layer : MonoBehaviour {
 	}
 
 
-    public void AddLevelObjectByName(string prefabName, string colorName, Vector2 position)
+    public GameObject AddLevelObjectByName(string prefabName, string colorName, Vector2 position)
     {
         GameObject prefab;
         Color color;
@@ -82,16 +86,17 @@ public class Layer : MonoBehaviour {
         catch
         {
             Debug.Log("LevelObject not added to Layer: " + prefabName);
-            return;
+            return null;
         }
 
         GameObject levelObject = (GameObject)Instantiate(prefab);
         levelObject.name = prefabName;
         levelObject.transform.parent = transform;
         levelObject.transform.localPosition = position;
-        levelObject.renderer.material.color = color;
+        levelObject.GetComponentInChildren<Renderer>().material.color = color;
         levelObject.GetComponent<Collider2D>().enabled = hasColliders_;
 
+        return levelObject;
         //levelObjects_.Add(levelObject);
     }
 }

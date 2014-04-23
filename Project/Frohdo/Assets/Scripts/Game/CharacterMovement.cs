@@ -3,7 +3,7 @@ using System.Collections;
 
 public class CharacterMovement : MonoBehaviour {
 
-    public GameObject Character_;
+    private GameObject character_;
 
     //private
     public float maxSpeedX_;
@@ -24,6 +24,8 @@ public class CharacterMovement : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        character_ = transform.parent.gameObject;
+
         inputAxis_ = new Vector2(0.0f, 0.0f);
         shouldJump_ = false;
         canJump_ = true;
@@ -45,15 +47,15 @@ public class CharacterMovement : MonoBehaviour {
             movementForce2.y = accelJump_;
         }
 
-        Character_.rigidbody2D.AddForce(movementForce2);
+        character_.rigidbody2D.AddForce(movementForce2);
 
-        Vector2 velocity2 = Character_.rigidbody2D.velocity;
+        Vector2 velocity2 = character_.rigidbody2D.velocity;
 
         if (Mathf.Abs(velocity2.x) > maxSpeedX_)
         {
             velocity2.x = Mathf.Sign(velocity2.x) * maxSpeedX_;
         }
 
-        Character_.rigidbody2D.velocity = velocity2;
+        character_.rigidbody2D.velocity = velocity2;
     }
 }
