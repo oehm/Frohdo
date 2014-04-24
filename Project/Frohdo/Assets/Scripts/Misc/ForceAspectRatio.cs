@@ -23,7 +23,7 @@ public class ForceAspectRatio : MonoBehaviour
     static Camera backgroundCam;
 
 	void Awake () {
-		Screen.fullScreen = true;
+		Screen.fullScreen = Screen.fullScreen;
 		_landscapeModeOnly = landscapeModeOnly;
         cam = camera;
         if (!cam) {
@@ -75,10 +75,11 @@ public class ForceAspectRatio : MonoBehaviour
 
 		// Debug.Log ("currentAspectRatio = " + currentAspectRatio + ", wantedAspectRatio = " + wantedAspectRatio);
 
-        if ((!Screen.fullScreen) && ((int)(currentAspectRatio * 100) / 100.0f == (int)(wantedAspectRatio * 100) / 100.0f)) 
-		{
+        if ((!Screen.fullScreen) && ((int)(currentAspectRatio * 100) / 100.0f == (int)(wantedAspectRatio * 100) / 100.0f))
+        {
             cam.rect = new Rect(0.0f, 0.0f, 1.0f, 1.0f);
-            if (backgroundCam) {
+            if (backgroundCam)
+            {
                 Destroy(backgroundCam.gameObject);
             }
             return;

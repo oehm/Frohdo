@@ -24,7 +24,7 @@ public class Gui_MainMenu : MonoBehaviour
         resolutions = new GUIContent[numberOfResolution];
         for (int i = 0; i < numberOfResolution; i++)
         {
-            if (Screen.resolutions[i].width == Screen.currentResolution.width || Screen.resolutions[i].height == Screen.currentResolution.height)
+            if (Screen.resolutions[i].width == Screen.width || Screen.resolutions[i].height == Screen.height)
             {
                 resolutionopt = i;
             }
