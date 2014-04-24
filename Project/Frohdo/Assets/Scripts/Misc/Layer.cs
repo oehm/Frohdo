@@ -24,42 +24,7 @@ public class Layer : MonoBehaviour {
         //float distanceToCamera = transform.position.z - camera_.transform.position.z;
 
         //test setup
-        for (int x = -16; x < 16; x ++)
-        {
-            for (int y = -16; y < 16; y ++)
-            {
-
-                if (x + y < -15 || y == -16 || x == -16 || x == 15)
-                {
-                    if (hasColliders_)
-                    {
-                        if ((x * y) % 2 == 0)
-                        {
-                            AddLevelObjectByName("1x1Tile_Test", "R", new Vector2(x, y));
-                        }
-                        else
-                        {
-                            AddLevelObjectByName("1x1Tile_Test", "G", new Vector2(x, y));
-                        }
-                    }
-                    else
-                    {
-                        if ((x * y) % 2 == 0)
-                        {
-                            AddLevelObjectByName("1x1Tile_Test", "B", new Vector2(x, y));
-                        }
-                        else
-                        {
-                            AddLevelObjectByName("1x1Tile_Test", "Y", new Vector2(x, y));
-                        }
-                    }
-                }
-            }
-        }
-        if (hasColliders_)
-        {
-            AddLevelObjectByName("Character", "C", new Vector2(0, 0));
-        }
+        
 	}
 
 
