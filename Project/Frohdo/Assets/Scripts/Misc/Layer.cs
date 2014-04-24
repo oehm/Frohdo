@@ -24,38 +24,7 @@ public class Layer : MonoBehaviour {
         //float distanceToCamera = transform.position.z - camera_.transform.position.z;
 
         //test setup
-        for (int x = -16; x < 16; x ++)
-        {
-            for (int y = -16; y < 16; y ++)
-            {
-
-                if (x + y < -15 || y == -16 || x == -16 || x == 15)
-                {
-                    if (hasColliders_)
-                    {
-                        if ((x * y) % 2 == 0)
-                        {
-                            AddLevelObjectByName("1x1Tile_Test", "R", new Vector2(x, y));
-                        }
-                        else
-                        {
-                            AddLevelObjectByName("1x1Tile_Test", "G", new Vector2(x, y));
-                        }
-                    }
-                    else
-                    {
-                        if ((x * y) % 2 == 0)
-                        {
-                            AddLevelObjectByName("1x1Tile_Test", "B", new Vector2(x, y));
-                        }
-                        else
-                        {
-                            AddLevelObjectByName("1x1Tile_Test", "Y", new Vector2(x, y));
-                        }
-                    }
-                }
-            }
-        }
+        
 	}
 
 
@@ -70,7 +39,7 @@ public class Layer : MonoBehaviour {
 	}
 
 
-    public void AddLevelObjectByName(string prefabName, string colorName, Vector2 position)
+    public GameObject AddLevelObjectByName(string prefabName, string colorName, Vector2 position)
     {
         GameObject prefab;
         Color color;
@@ -82,16 +51,17 @@ public class Layer : MonoBehaviour {
         catch
         {
             Debug.Log("LevelObject not added to Layer: " + prefabName);
-            return;
+            return null;
         }
 
         GameObject levelObject = (GameObject)Instantiate(prefab);
         levelObject.name = prefabName;
         levelObject.transform.parent = transform;
         levelObject.transform.localPosition = position;
-        levelObject.renderer.material.color = color;
+        levelObject.GetComponentInChildren<Renderer>().material.color = color;
         levelObject.GetComponent<Collider2D>().enabled = hasColliders_;
 
+        return levelObject;
         //levelObjects_.Add(levelObject);
     }
 }
