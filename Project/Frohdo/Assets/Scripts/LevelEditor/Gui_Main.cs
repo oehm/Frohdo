@@ -63,10 +63,10 @@ public class Gui_Main : MonoBehaviour
     {
         //left Area
         GUILayout.BeginArea(new Rect(0, 0, leftAreaWidth, Screen.height));
-        levelName = GUILayout.TextField(levelName,guiSkin.textField);
+        levelName = GUILayout.TextField(levelName, guiSkin.textField);
         GUILayout.Label("ACTIVE LAYER");
         activeLayer = GUILayout.Toolbar(activeLayer, activeLayerStings);
-        GUILayout.Label("VIVIBLE LAYER",guiSkin.label);
+        GUILayout.Label("VIVIBLE LAYER", guiSkin.label);
         GUILayout.BeginHorizontal();
         for (int i = 0; i < visibleLayer.Length; i++)
         {
@@ -74,7 +74,7 @@ public class Gui_Main : MonoBehaviour
         }
         GUILayout.EndHorizontal();
         GUILayout.Label("LEVELOBJECT");
-        scrollPos = GUILayout.BeginScrollView(scrollPos,guiSkin.scrollView);
+        scrollPos = GUILayout.BeginScrollView(scrollPos, guiSkin.scrollView);
         selectedLevelobject = GUILayout.SelectionGrid(selectedLevelobject, levelObjects_content, 2, guiSkin.customStyles[0]);
         GUILayout.EndScrollView();
         GUILayout.Button("PLAY");
