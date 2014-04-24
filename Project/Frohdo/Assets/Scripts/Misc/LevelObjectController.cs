@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 //use as a Singleton! always use the static instance and dont try to create one
+[System.Serializable]
 public class LevelObjectController : ScriptableObject {
 
     private static LevelObjectController instance = null;
@@ -13,8 +14,11 @@ public class LevelObjectController : ScriptableObject {
         {
             if (instance == null)
             {
-                Debug.Log("No instance of LevelObjectController found. Have you forgotten to instantiate it?");
-                throw new System.Exception("No instance of LevelObjectController found. Have you forgotten to instantiate it?");
+                instance = (LevelObjectController)Resources.Load("ScriptableObjectInstances/LevelObjectControllerInstance");
+                DontDestroyOnLoad(instance); 
+
+                //Debug.Log("No instance of LevelObjectController found. Have you forgotten to instantiate it?");
+                //throw new System.Exception("No instance of LevelObjectController found. Have you forgotten to instantiate it?");
             }
 
             return instance;
@@ -63,17 +67,12 @@ public class LevelObjectController : ScriptableObject {
 
     void OnEnable()
     {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(instance);
-        }
-        else
+        if (instance != null)
         {
             Destroy(this);
 
             Debug.Log("There is a instance of LevelObjectController already. Cant create Another one.");
-            //throw new System.Exception("There is a instance of LevelObjectController already. Cant create Another one.");
+            throw new System.Exception("There is a instance of LevelObjectController already. Cant create Another one.");
         }
     }
 }
