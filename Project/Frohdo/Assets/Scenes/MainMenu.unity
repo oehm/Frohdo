@@ -170,6 +170,7 @@ GameObject:
   - 124: {fileID: 336384388}
   - 81: {fileID: 336384387}
   - 114: {fileID: 336384392}
+  - 114: {fileID: 336384393}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -250,6 +251,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
+--- !u!114 &336384393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 336384386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8200875e660d34a43b17b73c44d309b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1066836129
 GameObject:
   m_ObjectHideFlags: 0
@@ -340,6 +352,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainStyle: {fileID: 11400000, guid: 79d5e9a2b7a540c4ea45f588b18d0c11, type: 2}
+  quallityOptions:
+  - m_Text: FuckLOW!
+    m_Image: {fileID: 0}
+    m_Tooltip: 
+  - m_Text: MediumLOW!
+    m_Image: {fileID: 0}
+    m_Tooltip: 
+  - m_Text: OKAYish..
+    m_Image: {fileID: 0}
+    m_Tooltip: 
+  - m_Text: Pretty nice!
+    m_Image: {fileID: 0}
+    m_Tooltip: 
+  - m_Text: So MUCH GRAPHICS!!
+    m_Image: {fileID: 0}
+    m_Tooltip: 
 --- !u!4 &1556133849
 Transform:
   m_ObjectHideFlags: 0
