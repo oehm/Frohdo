@@ -5,7 +5,6 @@ using System.Collections.Generic;
 public class Layer : MonoBehaviour {
 
     //public
-    public LevelObjectController levelObjectController_;
     public Camera camera_;
 
     //parallaxFactor_ has to be ]-1.0, inf[
@@ -68,25 +67,21 @@ public class Layer : MonoBehaviour {
         newPosition.x = -parallaxFactor_.x * camera_.transform.position.x;
         newPosition.y = -parallaxFactor_.y * camera_.transform.position.y;
         transform.position = newPosition;
-
-        //test
-        //if(Input.GetButton("Jump"))
-        //{
-        //    AddLevelObjectByName("TestPrefab");
-        //}
 	}
 
 
-    public void AddLevelObjectByName(string prefabName, string color, Vector2 position)
+    public void AddLevelObjectByName(string prefabName, string colorName, Vector2 position)
     {
         GameObject prefab;
+        Color color;
         try
         {
-            prefab = levelObjectController_.GetPrefabByName(prefabName);
+            prefab = LevelObjectController.Instance.GetPrefabByName(prefabName);
+            color = LevelObjectController.Instance.GetColor(colorName);
         }
         catch
         {
-            Debug.Log("LevelObject prefab not added to Layer: " + prefabName);
+            Debug.Log("LevelObject not added to Layer: " + prefabName);
             return;
         }
 
@@ -94,8 +89,7 @@ public class Layer : MonoBehaviour {
         levelObject.name = prefabName;
         levelObject.transform.parent = transform;
         levelObject.transform.localPosition = position;
-        levelObject.renderer.material.color = levelObjectController_.GetColor(color);
-
+        levelObject.renderer.material.color = color;
         levelObject.GetComponent<Collider2D>().enabled = hasColliders_;
 
         //levelObjects_.Add(levelObject);

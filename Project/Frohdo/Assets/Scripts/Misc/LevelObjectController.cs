@@ -2,7 +2,25 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class LevelObjectController : MonoBehaviour {
+//use as a Singleton! always use the static instance and dont try to create one
+public class LevelObjectController : ScriptableObject {
+
+    private static LevelObjectController instance = null;
+
+    public static LevelObjectController Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                Debug.Log("No instance of LevelObjectController found. Have you forgotten to instantiate it?");
+                throw new System.Exception("No instance of LevelObjectController found. Have you forgotten to instantiate it?");
+            }
+
+            return instance;
+        }
+    }
+
     //public
     public List<GameObject> levelObjectPrefabs_;
 
@@ -35,13 +53,27 @@ public class LevelObjectController : MonoBehaviour {
     }
 
     //color definitions
-    public static Color W = new Color(1.0f, 1.0f, 1.0f);
-    public static Color R = new Color(1.0f, 0.0f, 0.0f);
-    public static Color G = new Color(0.0f, 1.0f, 0.0f);
-    public static Color B = new Color(0.0f, 0.0f, 1.0f);
-    public static Color Y = new Color(1.0f, 1.0f, 0.0f);
-    public static Color C = new Color(0.0f, 1.0f, 1.0f);
-    public static Color M = new Color(1.0f, 0.0f, 1.0f);
+    public readonly static Color W = new Color(1.0f, 1.0f, 1.0f);
+    public readonly static Color R = new Color(1.0f, 0.0f, 0.0f);
+    public readonly static Color G = new Color(0.0f, 1.0f, 0.0f);
+    public readonly static Color B = new Color(0.0f, 0.0f, 1.0f);
+    public readonly static Color Y = new Color(1.0f, 1.0f, 0.0f);
+    public readonly static Color C = new Color(0.0f, 1.0f, 1.0f);
+    public readonly static Color M = new Color(1.0f, 0.0f, 1.0f);
 
-    
+    void OnEnable()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(instance);
+        }
+        else
+        {
+
+            Debug.Log("There is a instance of LevelObjectController already. Cant create Another one.");
+            //throw new System.Exception("There is a instance of LevelObjectController already. Cant create Another one.");
+            Destroy(this);
+        }
+    }
 }
