@@ -24,7 +24,7 @@ public class Gui_MainMenu : MonoBehaviour
         resolutions = new GUIContent[numberOfResolution];
         for (int i = 0; i < numberOfResolution; i++)
         {
-            if (Screen.resolutions[i].width == Screen.currentResolution.width || Screen.resolutions[i].height == Screen.currentResolution.height)
+            if (Screen.resolutions[i].width == Screen.width || Screen.resolutions[i].height == Screen.height)
             {
                 resolutionopt = i;
             }
@@ -44,11 +44,11 @@ public class Gui_MainMenu : MonoBehaviour
         GUILayout.BeginArea(new Rect(Screen.width / 2 - 300, Screen.height / 2 - 200, 600, 400));
         if (GUILayout.Button("GameScene", mainStyle.button))
         {
-            Application.LoadLevel(1);
+            Application.LoadLevel(2);
         }
         if (GUILayout.Button("LevelEditorScene", mainStyle.button))
         {
-            Application.LoadLevel(2);
+            Application.LoadLevel(3);
         }
         if (GUILayout.Button("Options", mainStyle.button))
         {
@@ -75,9 +75,6 @@ public class Gui_MainMenu : MonoBehaviour
         {
             resolutionopt = resolutionoptnew;
             Screen.SetResolution(Screen.resolutions[resolutionopt].width, Screen.resolutions[resolutionopt].height, Screen.fullScreen);
-            GlobalVars.curResX = Screen.resolutions[resolutionopt].width;
-            GlobalVars.curResY = Screen.resolutions[resolutionopt].height;
-            Camera.main.GetComponent<ForceAspectRatio>().changeRatio();
         }
 
 
