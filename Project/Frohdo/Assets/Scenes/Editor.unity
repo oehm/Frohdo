@@ -649,6 +649,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8200875e660d34a43b17b73c44d309b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _wantedAspectRatio: 1.77777803
+  landscapeModeOnly: 1
 --- !u!1 &872730249
 GameObject:
   m_ObjectHideFlags: 0
@@ -779,6 +781,7 @@ Transform:
   - {fileID: 647271153}
   - {fileID: 1884209936}
   - {fileID: 1854715557}
+  - {fileID: 1513275730}
   m_Father: {fileID: 0}
 --- !u!1001 &897587652
 Prefab:
@@ -1361,6 +1364,44 @@ Prefab:
   m_RootGameObject: {fileID: 1370936899}
   m_IsPrefabParent: 0
   m_IsExploded: 1
+--- !u!1 &1513275729
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1513275730}
+  - 114: {fileID: 1513275731}
+  m_Layer: 0
+  m_Name: PauseMenu
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1513275730
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1513275729}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 12.1713018, y: -.330460072, z: 18.4757843}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 897562638}
+--- !u!114 &1513275731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1513275729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e01373aa31b19334d95bba2d1ee89694, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1621907231
 GameObject:
   m_ObjectHideFlags: 0
