@@ -81,5 +81,18 @@ public class Gui_Main : MonoBehaviour
         GUILayout.EndArea();
 
         GUI.Label(new Rect(leftAreaWidth + 10, Screen.height - Input.mousePosition.y, 100, 20), GUI.tooltip, guiSkin.label);
+
+        GUILayout.BeginArea(new Rect(Screen.width -150, 10, 150, Screen.height-20));
+        if(GUILayout.Button("Save"))
+        {
+            Level testLevel = new Level();
+            testLevel.backgroundColor = "TEST!!";
+            XML_Loader.Save(Application.dataPath + "MySave.sav", testLevel);
+        }
+        if(GUILayout.Button("Load"))
+        {
+            Debug.Log(XML_Loader.Load(Application.dataPath + "MySave.sav").backgroundColor);
+        }
+        GUILayout.EndArea();        
     }
 }

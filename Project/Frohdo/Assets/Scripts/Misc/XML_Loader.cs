@@ -1,8 +1,9 @@
-﻿using System.Xml;
+﻿using UnityEngine;
+using System.Xml;
 using System.Xml.Serialization;
 using System.IO;
 
-public class XML_Loader
+public class XML_Loader : MonoBehaviour
 {
     public static void Save(string path, Level level)
     {
