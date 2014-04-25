@@ -5,13 +5,20 @@ using System.Xml.Serialization;
 [XmlRoot("Level")]
 public class Level
 {
-    [XmlArray("LevelObjects")]
-    [XmlArrayItem("LevelObject")]
-    public List<LevelObject> levelObjects = new List<LevelObject>();
-    [XmlAttribute("LevelSize")]
-    public SerializableVector2 levelSize;
-    [XmlAttribute("PlayerPosition")]
+    [XmlElement("Size")]
+    public SerializableVector2 size;
+    [XmlElement("PlayerPosition")]
     public SerializableVector2 playerStartPos;
-    [XmlAttribute("BackgroundColor")]
+    [XmlElement("BackgroundColor")]
     public string backgroundColor;
+    [XmlArray("Layers"), XmlArrayItem("Layer")]
+    public List<LayerXML> layers = new List<LayerXML>();
+}
+
+public class LayerXML
+{
+    [XmlAttribute("LayerID")]
+    public int layerId;
+    [XmlArray("LevelObjects"), XmlArrayItem("LevelObject")]
+    public List<LevelObject> levelObjects = new List<LevelObject>();
 }
