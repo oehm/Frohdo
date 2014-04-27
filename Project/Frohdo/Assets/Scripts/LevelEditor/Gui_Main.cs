@@ -65,6 +65,7 @@ public class Gui_Main : MonoBehaviour
         for (int i = 0; i < visibleLayer.Length; i++)
         {
             if (visibleLayer[i]) cullingMask += 1 << i + 8; //layer[i]_mask
+            if (visibleLayer[i]) cullingMask += 1 << i + 14; //layer[i]_mask
         }
         Camera.main.cullingMask = cullingMask;
     }

@@ -7,6 +7,7 @@ public class EditorObjectPlacement : MonoBehaviour
     public GameObject gridPref;
     public GameObject level;
 
+
     private GameObject[][][] grids;
 
     public void init(Vector2 size)
@@ -28,7 +29,7 @@ public class EditorObjectPlacement : MonoBehaviour
                 grids[i][x] = new GameObject[(int)size.y];
                 for (int y = 0; y < size.y; y++)
                 {
-                    grids[i][x][y] = Instantiate(gridPref, new Vector3(x, y), Quaternion.identity) as GameObject;
+                    grids[i][x][y] = Instantiate(gridPref, new Vector3(x, y, i), Quaternion.identity) as GameObject;
                     grids[i][x][y].layer = 14 + i;
                     grids[i][x][y].tag = "Grid";
                     grids[i][x][y].transform.parent = layer.transform;
