@@ -76,7 +76,7 @@ public class TestLevelBuilder : MonoBehaviour {
 
             inputController_.character_ = character.GetComponentInChildren<CharacterMovement>();
 
-            camera_.GetComponent<TestCameraMovement>().player = character;
+            camera_.GetComponent<CameraMovementGame>().player_ = character;
         }
     }
 }

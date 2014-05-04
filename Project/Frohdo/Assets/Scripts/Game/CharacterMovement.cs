@@ -39,8 +39,6 @@ public class CharacterMovement : MonoBehaviour {
     // FixedUpdate is called once per physic frame
     void FixedUpdate()
     {
-        Debug.Log(isGrounded());
-
         //add run and jump force
         Vector2 movementForce2 = new Vector2(runInput_.x * runForce_, 0.0f);
         if (jumpInput_ && isGrounded())
