@@ -7,8 +7,6 @@ public class Level
 {
     [XmlElement("Size")]
     public SerializableVector2 size;
-    [XmlElement("PlayerPosition")]
-    public SerializableVector2 playerStartPos;
     [XmlElement("BackgroundColor")]
     public string backgroundColor;
     [XmlArray("Layers"), XmlArrayItem("Layer")]
