@@ -31,11 +31,6 @@ public class LevelEditorParser : MonoBehaviour {
         level.backgroundColor = color;
     }
 
-    public void setPlayerPos(Vector2 pos)
-    {
-        level.playerStartPos = new SerializableVector2(pos);
-    }
-
     public void setSize(Vector2 size)
     {
         level.size = new SerializableVector2(size);

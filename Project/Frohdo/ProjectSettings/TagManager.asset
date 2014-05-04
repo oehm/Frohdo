@@ -3,6 +3,8 @@
 --- !u!78 &1
 TagManager:
   tags:
+  - Character
+  - LevelObject
   - Grid
   - 
   Builtin Layer 0: Default
@@ -13,11 +15,11 @@ TagManager:
   Builtin Layer 5: 
   Builtin Layer 6: 
   Builtin Layer 7: 
-  User Layer 8: Layer0
-  User Layer 9: Layer1
-  User Layer 10: Layer2
-  User Layer 11: Layer3
-  User Layer 12: Layer4
+  User Layer 8: Environment
+  User Layer 9: 
+  User Layer 10: 
+  User Layer 11: 
+  User Layer 12: 
   User Layer 13: 
   User Layer 14: SelectionGrud0
   User Layer 15: SelectionGrud1
