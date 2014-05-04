@@ -3,32 +3,32 @@ using System.Collections;
 
 public class CharacterMovement : MonoBehaviour {
 
-    private GameObject character_;
+
+    //public
+    public float runMaxSpeed_;
+    public float runForce_;
+    public float jumpMaxSpeed_;
+    public float jumpForce_;
 
     //private
-    public float maxSpeedX_;
-    public float accelX_;
-    public float accelJump_;
+    private GameObject character_;
 
-    private Vector2 inputAxis_;
-    private bool shouldJump_;
-
-    private bool canJump_;
+    private Vector2 runInput_;
+    private bool jumpInput_;
 
 
-    public void InputMovement(Vector2 axis, bool jump)
+    public void InputMovement(Vector2 run, bool jump)
     {
-        inputAxis_ = axis;
-        shouldJump_ = jump;
+        runInput_ = run;
+        jumpInput_ = jump;
     }
 
 	// Use this for initialization
 	void Start () {
         character_ = transform.parent.gameObject;
 
-        inputAxis_ = new Vector2(0.0f, 0.0f);
-        shouldJump_ = false;
-        canJump_ = true;
+        runInput_ = new Vector2(0.0f, 0.0f);
+        jumpInput_ = false;
 	}
 	
 	// Update is called once per frame
@@ -39,23 +39,36 @@ public class CharacterMovement : MonoBehaviour {
     // FixedUpdate is called once per physic frame
     void FixedUpdate()
     {
+        Debug.Log(isGrounded());
 
-        Vector2 movementForce2 = new Vector2(inputAxis_.x * accelX_, 0.0f);
-
-        if (shouldJump_ && canJump_)
+        //add run and jump force
+        Vector2 movementForce2 = new Vector2(runInput_.x * runForce_, 0.0f);
+        if (jumpInput_ && isGrounded())
         {
-            movementForce2.y = accelJump_;
+            movementForce2.y = jumpForce_;
         }
-
         character_.rigidbody2D.AddForce(movementForce2);
 
+        //limit run velocity
         Vector2 velocity2 = character_.rigidbody2D.velocity;
 
-        if (Mathf.Abs(velocity2.x) > maxSpeedX_)
-        {
-            velocity2.x = Mathf.Sign(velocity2.x) * maxSpeedX_;
-        }
+        velocity2.x = Mathf.Clamp(velocity2.x, -runMaxSpeed_, runMaxSpeed_);
+        velocity2.y = Mathf.Clamp(velocity2.y, - jumpMaxSpeed_, jumpMaxSpeed_);
 
         character_.rigidbody2D.velocity = velocity2;
+    }
+
+    bool isGrounded()
+    {
+        int layerMask = 1 << LayerMask.NameToLayer("Environment");
+
+        Vector2 startPoint = character_.transform.position;
+        startPoint += new Vector2(-0.5f, -2.1f);
+        Vector2 endPoint = character_.transform.position;
+        endPoint +=new Vector2(0.5f, -2.1f);
+
+        RaycastHit2D hit = Physics2D.Linecast(startPoint, endPoint, layerMask);
+
+        return hit.collider != null;
     }
 }
