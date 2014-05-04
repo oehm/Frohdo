@@ -5,5 +5,5 @@ public class LevelObject
 {
     public string name;
     public string color;
-    public SerializableVector3 pos;
+    public SerializableVector2 pos;
 }

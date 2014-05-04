@@ -1,46 +1,56 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Gui_Main : MonoBehaviour
 {
+    private delegate void MenuDelegate();
+    private MenuDelegate menuFunction;
+
+    public LevelEditorParser level;
+    public EditorObjectPlacement objPlacement;
+
     public RenderGameObjectToTexture objRenderer;
 
     public int leftAreaWidth;
 
     public GUISkin guiSkin;
-    //public GUIStyle leftAreaStyle;
-    //public GUIStyle toolTipStyle;
-    //public GUIStyle leftselectionGrid;
-
-    public Texture testTex;
-    public GameObject testObj;
 
     private string levelName = "Enter level name";
+    public Vector2 levelSize = new Vector2(20, 20);
 
     private int activeLayer = 1;
     private string[] activeLayerStings;
     private bool[] visibleLayer;
-    private Vector2 scrollPos;
+    private Vector2 scrollPos = new Vector2(0, 0);
     private int selectedLevelobject = 0;
     private GUIContent[] levelObjects_content;
 
     // Use this for initialization
     void Start()
     {
+        level.setSize(levelSize);
+        menuFunction = setup;
+
         activeLayerStings = new string[GlobalVars.numberofLayers];
         visibleLayer = new bool[GlobalVars.numberofLayers];
-        scrollPos = new Vector2(0, 0);
         for (int i = 0; i < GlobalVars.numberofLayers; i++)
         {
             activeLayerStings[i] = (i + 1).ToString();
             visibleLayer[i] = true;
         }
-        levelObjects_content = new GUIContent[20];
 
-        for (int i = 0; i < levelObjects_content.Length; i++)
+        List<GUIContent> tempCont = new List<GUIContent>();
+        for (int i = 0; i < LevelObjectController.Instance.levelObjectPrefabs_.Count; i++)
         {
-            levelObjects_content[i] = new GUIContent(objRenderer.renderGameObjectToTexture(testObj, 256, 256), "LevelItem " + i.ToString());
+            GameObject obj = LevelObjectController.Instance.levelObjectPrefabs_[i];
+            if (obj.name == "Character")
+            {
+                continue;
+            }
+            tempCont.Add(new GUIContent(objRenderer.renderGameObjectToTexture(obj, 256, 256), obj.name));
         }
+        levelObjects_content = tempCont.ToArray();
     }
 
     // Update is called once per frame
@@ -55,15 +65,31 @@ public class Gui_Main : MonoBehaviour
         for (int i = 0; i < visibleLayer.Length; i++)
         {
             if (visibleLayer[i]) cullingMask += 1 << i + 8; //layer[i]_mask
+            if (visibleLayer[i]) cullingMask += 1 << i + 14; //layer[i]_mask
         }
         Camera.main.cullingMask = cullingMask;
     }
 
     void OnGUI()
     {
-        //left Area
-        GUILayout.BeginArea(new Rect(0, 0, leftAreaWidth, Screen.height));
+        menuFunction();
+    }
+    void setup()
+    {
+        GUILayout.BeginArea(new Rect(ForceAspectRatio.xOffset, ForceAspectRatio.yOffset, leftAreaWidth, ForceAspectRatio.screenHeight));
         levelName = GUILayout.TextField(levelName, guiSkin.textField);
+        if (GUILayout.Button("Next", guiSkin.button))
+        {
+            objPlacement.init(levelSize);
+            level.setLevelName(levelName);
+            menuFunction = edit;
+        }
+        GUILayout.EndArea();
+    }
+
+    void edit()
+    {
+        GUILayout.BeginArea(new Rect(ForceAspectRatio.xOffset, ForceAspectRatio.yOffset, leftAreaWidth, ForceAspectRatio.screenHeight));
         GUILayout.Label("ACTIVE LAYER");
         activeLayer = GUILayout.Toolbar(activeLayer, activeLayerStings);
         GUILayout.Label("VIVIBLE LAYER", guiSkin.label);
@@ -77,22 +103,31 @@ public class Gui_Main : MonoBehaviour
         scrollPos = GUILayout.BeginScrollView(scrollPos, guiSkin.scrollView);
         selectedLevelobject = GUILayout.SelectionGrid(selectedLevelobject, levelObjects_content, 2, guiSkin.customStyles[0]);
         GUILayout.EndScrollView();
+        if (GUILayout.Button("Save"))
+        {
+            //Level testLevel = new Level();
+            //testLevel.backgroundColor = "TEST!!";
+            //testLevel.size = new SerializableVector2(new Vector2(50, 50));
+            //testLevel.playerStartPos = new SerializableVector2(Vector2.one);
+            //testLevel.layers.Add(new LayerXML());
+            //testLevel.layers.Add(new LayerXML());
+            //foreach (LayerXML l in testLevel.layers)
+            //{
+            //    l.layerId = 0;
+            //    l.levelObjects.Add(new LevelObject());
+            //    l.levelObjects.Add(new LevelObject());
+            //    foreach (LevelObject obj in l.levelObjects)
+            //    {
+            //        obj.color = "BLACK";
+            //        obj.name = "FASSL";
+            //        obj.pos = new SerializableVector2(Vector2.zero);
+            //    }
+            //}
+            level.saveLevel();
+        }
         GUILayout.Button("PLAY");
         GUILayout.EndArea();
 
         GUI.Label(new Rect(leftAreaWidth + 10, Screen.height - Input.mousePosition.y, 100, 20), GUI.tooltip, guiSkin.label);
-
-        GUILayout.BeginArea(new Rect(Screen.width -150, 10, 150, Screen.height-20));
-        if(GUILayout.Button("Save"))
-        {
-            Level testLevel = new Level();
-            testLevel.backgroundColor = "TEST!!";
-            XML_Loader.Save(Application.dataPath + "MySave.sav", testLevel);
-        }
-        if(GUILayout.Button("Load"))
-        {
-            Debug.Log(XML_Loader.Load(Application.dataPath + "MySave.sav").backgroundColor);
-        }
-        GUILayout.EndArea();        
     }
 }

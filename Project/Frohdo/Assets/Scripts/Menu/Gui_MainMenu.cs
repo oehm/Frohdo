@@ -41,7 +41,7 @@ public class Gui_MainMenu : MonoBehaviour
 
     void mainMenu()
     {
-        GUILayout.BeginArea(new Rect(Screen.width / 2 - 300, Screen.height / 2 - 200, 600, 400));
+        GUILayout.BeginArea(new Rect((ForceAspectRatio.screenWidth+ForceAspectRatio.xOffset) / 2 - 300, (ForceAspectRatio.screenHeight+ForceAspectRatio.yOffset) / 2 - 200, 600, 400));
         if (GUILayout.Button("GameScene", mainStyle.button))
         {
             Application.LoadLevel(2);
@@ -63,7 +63,7 @@ public class Gui_MainMenu : MonoBehaviour
 
     void options()
     {
-        GUILayout.BeginArea(new Rect(Screen.width / 2 - 300, Screen.height / 2 - 200, 600, 400));
+        GUILayout.BeginArea(new Rect((ForceAspectRatio.screenWidth + ForceAspectRatio.xOffset) / 2 - 300, (ForceAspectRatio.screenHeight + ForceAspectRatio.yOffset) / 2 - 200, 600, 400));
 
         GUILayout.Label("QuallityLevel", mainStyle.label);
         quallity = GUILayout.Toolbar(quallity, quallityOptions);
