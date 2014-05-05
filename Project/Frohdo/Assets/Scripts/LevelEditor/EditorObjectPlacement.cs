@@ -9,11 +9,21 @@ public class EditorObjectPlacement : MonoBehaviour
 
     private bool ready = false;
     private Vector2[] planeSizes;
-    private GameObject[][][] grids;
+    private float[] depth;
+
+
+    private bool[][][] grids;
 
     public void init(Vector2 size)
     {
-        planeSizes = CalculatePlaneInFrustum.getPlaneSizes(size, cam);        
+        planeSizes = CalculatePlaneInFrustum.getPlaneSizes(size, cam);
+        depth = new float[planeSizes.Length];
+        depth[0] = GlobalVars.layer1Z;
+        depth[1] = GlobalVars.layer2Z;
+        depth[2] = GlobalVars.layer3Z;
+        depth[3] = GlobalVars.layer4Z;
+        depth[4] = GlobalVars.layer5Z;
+
         makeGrid();
         ready = true;
     }
@@ -24,32 +34,33 @@ public class EditorObjectPlacement : MonoBehaviour
     }
     private void makeGrid()
     {
-        float []depth = new float[planeSizes.Length];
-        depth[0] = GlobalVars.layer1Z;
-        depth[1] = GlobalVars.layer2Z;
-        depth[2] = GlobalVars.layer3Z;
-        depth[3] = GlobalVars.layer4Z;
-        depth[4] = GlobalVars.layer5Z;
-        
-        grids = new GameObject[planeSizes.Length][][];
+
+        grids = new bool[planeSizes.Length][][];
         for (int i = 0; i < level.GetComponentsInChildren<Layer>().Length; i++)
         {
-            GameObject layer = new GameObject("SelectionGrid" + (i + 1).ToString());
-            layer.transform.parent = level.GetComponentsInChildren<Layer>()[i].transform;
-            layer.tag = "Grid";
+            GameObject upperBorder = Instantiate(gridPref, new Vector3(0, planeSizes[i].y / 2 + 0.5f, depth[i]), Quaternion.identity) as GameObject;
+            upperBorder.transform.localScale = new Vector3(planeSizes[i].x+2,1,1);
+            upperBorder.transform.parent = level.GetComponentsInChildren<Layer>()[i].transform;
 
-            grids[i] = new GameObject[(int)planeSizes[i].x][];
+            GameObject lowerBorder = Instantiate(gridPref, new Vector3(0, -planeSizes[i].y / 2 - 0.5f, depth[i]), Quaternion.identity) as GameObject;
+            lowerBorder.transform.localScale = new Vector3(planeSizes[i].x+2, 1, 1);
+            lowerBorder.transform.parent = level.GetComponentsInChildren<Layer>()[i].transform;
+
+            GameObject leftBorder = Instantiate(gridPref, new Vector3(-planeSizes[i].x / 2 - 0.5f, 0, depth[i]), Quaternion.identity) as GameObject;
+            leftBorder.transform.localScale = new Vector3(1, planeSizes[i].y, 1);
+            leftBorder.transform.parent = level.GetComponentsInChildren<Layer>()[i].transform;
+
+            GameObject rightBorder = Instantiate(gridPref, new Vector3(planeSizes[i].x / 2 + 0.5f, 0, depth[i]), Quaternion.identity) as GameObject;
+            rightBorder.transform.localScale = new Vector3(1, planeSizes[i].y, 1);
+            rightBorder.transform.parent = level.GetComponentsInChildren<Layer>()[i].transform;
+
+            grids[i] = new bool[(int)planeSizes[i].x][];
             for (int x = 0; x < (int)planeSizes[i].x; x++)
             {
-                grids[i][x] = new GameObject[(int)planeSizes[i].y];
+                grids[i][x] = new bool[(int)planeSizes[i].y];
                 for (int y = 0; y < (int)planeSizes[i].y; y++)
                 {
-                    grids[i][x][y] = Instantiate(gridPref, new Vector3(x - (int)planeSizes[i].x / 2, y - (int)planeSizes[i].y / 2, depth[i]), Quaternion.identity) as GameObject;
-                    //grids[i][x][y].transform.localScale = new Vector3(0.75f, 0.75f, 1);
-                    grids[i][x][y].layer = 14 + i;
-                    grids[i][x][y].tag = "Grid";
-                    grids[i][x][y].transform.parent = layer.transform;
-
+                    grids[i][x][y] = false;
                 }
             }
         }
