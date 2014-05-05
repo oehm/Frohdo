@@ -22,7 +22,7 @@ public class CameraMovement : MonoBehaviour {
 		}
 		lastmousePos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
 		//CameraZoom
-		if (Input.GetAxis ("Mouse ScrollWheel") < 0 && Input.mousePosition.x > 250) // back
+        if (Input.GetAxis("Mouse ScrollWheel") < 0 && Input.mousePosition.x > 250) // back
             transform.position = transform.position - new Vector3(0, 0, scrollSpeed);
         if (Input.GetAxis("Mouse ScrollWheel") > 0 && Input.mousePosition.x > 250) // forward
             transform.position = transform.position + new Vector3(0, 0, scrollSpeed);

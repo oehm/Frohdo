@@ -17,7 +17,7 @@ public class Gui_Main : MonoBehaviour
     public GUISkin guiSkin;
 
     private string levelName = "Enter level name";
-    public Vector2 levelSize = new Vector2(20, 20);
+    public Vector2 levelSize = new Vector2(100, 100);
 
     private int activeLayer = 1;
     private string[] activeLayerStings;
@@ -30,6 +30,12 @@ public class Gui_Main : MonoBehaviour
     void Start()
     {
         level.setSize(levelSize);
+        level.setLevelBackground("blue");
+        //LevelObject charakter = new LevelObject();
+        //charakter.color = "white";
+        //charakter.name = "chrakter";
+        //charakter.pos = new SerializableVector2(new Vector2(10,10));
+        //level.addLevelObject(2,charakter);
         menuFunction = setup;
 
         activeLayerStings = new string[GlobalVars.numberofLayers];
@@ -65,7 +71,10 @@ public class Gui_Main : MonoBehaviour
         for (int i = 0; i < visibleLayer.Length; i++)
         {
             if (visibleLayer[i]) cullingMask += 1 << i + 8; //layer[i]_mask
-            if (visibleLayer[i]) cullingMask += 1 << i + 14; //layer[i]_mask
+            if (i == activeLayer)
+            {
+                if (visibleLayer[i]) cullingMask += 1 << i + 14; //for viewing grid
+            }
         }
         Camera.main.cullingMask = cullingMask;
     }

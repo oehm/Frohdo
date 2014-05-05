@@ -41,5 +41,10 @@ public class LevelEditorParser : MonoBehaviour {
         XML_Loader.Save(Application.dataPath+savePath+levelName, level);
     }
 
+    public void addLevelObject(int layerIndex, LevelObject obj)
+    {
+        if(layerIndex >= level.layers.Count || layerIndex<= 0) return;
+        level.layers[layerIndex].levelObjects.Add(obj);
+    }
 	
 }
