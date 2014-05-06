@@ -38,6 +38,8 @@ public class GlobalVars : ScriptableObject
     public List<float> layerZPos;
     public List<Vector2> layerParallax;
 
+    public int playLayer;
+
 
     void OnEnable()
     {

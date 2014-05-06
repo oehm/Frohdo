@@ -11,14 +11,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e582b7cbe46ab0240867c967f4aad1f9, type: 3}
   m_Name: GlobalVarsInstance
   m_EditorClassIdentifier: 
-  numberofLayers: 5
   mainCamerZ: -10
-  layer1Z: -5
-  layer2Z: -2.5
-  layer3Z: 0
-  layer4Z: 2.5
-  layer5Z: 5
-  parralax1: {x: -.5, y: -.00999999978}
-  parralax2: {x: 0, y: 0}
-  parralax4: {x: 0, y: 0}
-  parralax5: {x: .5, y: 0}
+  layerZPos:
+  - 5
+  - 2.5
+  - 0
+  - -2.5
+  - -5
+  layerParallax:
+  - {x: -.5, y: -.00999999978}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: .5, y: .00999999978}
+  playLayer: 2
