@@ -14,7 +14,7 @@ public class EditorObjectPlacement : MonoBehaviour
     private Vector2 mousePos = new Vector2(0, 0);
     private int activeLayer = 2;
 
-    private GameObject* [][][] grids;
+    private GameObject [][][] grids;
 
     public void init(Vector2 size)
     {
@@ -43,7 +43,7 @@ public class EditorObjectPlacement : MonoBehaviour
     private void makeGrid()
     {
 
-        grids = new GameObject*[planeSizes.Length][][];
+        grids = new GameObject[planeSizes.Length][][];
         for (int i = 0; i < level.GetComponentsInChildren<Layer>().Length; i++)
         {
             GameObject upperBorder = Instantiate(gridPref, new Vector3(0, planeSizes[i].y / 2 + 0.5f, depth[i]), Quaternion.identity) as GameObject;
@@ -66,13 +66,13 @@ public class EditorObjectPlacement : MonoBehaviour
             rightBorder.transform.parent = level.GetComponentsInChildren<Layer>()[i].transform;
             rightBorder.layer = 14 + i;
 
-            grids[i] = new bool[(int)planeSizes[i].x][];
+            grids[i] = new GameObject[(int)planeSizes[i].x][];
             for (int x = 0; x < (int)planeSizes[i].x; x++)
             {
-                grids[i][x] = new bool[(int)planeSizes[i].y];
+                grids[i][x] = new GameObject[(int)planeSizes[i].y];
                 for (int y = 0; y < (int)planeSizes[i].y; y++)
                 {
-                    grids[i][x][y] = false;
+                    grids[i][x][y] = null;
                 }
             }
         }

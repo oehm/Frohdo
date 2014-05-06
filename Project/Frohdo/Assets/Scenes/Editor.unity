@@ -628,9 +628,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77126724de0aaa242ab156a0e3aa5888, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridPref: {fileID: 100000, guid: 1a0d287094acebc40a3d6e0263288920, type: 2}
   level: {fileID: 397076327}
-  cam: {fileID: 871366285}
+  gridPref: {fileID: 100000, guid: 1a0d287094acebc40a3d6e0263288920, type: 2}
 --- !u!1 &543055656
 GameObject:
   m_ObjectHideFlags: 0
@@ -2020,7 +2019,6 @@ MonoBehaviour:
   level: {fileID: 397076329}
   objPlacement: {fileID: 461279947}
   objRenderer: {fileID: 647271154}
-  leftAreaWidth: 200
   guiSkin: {fileID: 11400000, guid: 483c0d88aa3c78d4e9eb96e1294c9aa7, type: 2}
   levelSize: {x: 35, y: 20}
 --- !u!1001 &1924372334
