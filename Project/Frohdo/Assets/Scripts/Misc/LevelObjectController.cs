@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 
 //use as a Singleton! always use the static instance and dont try to create one
-[System.Serializable]
-public class LevelObjectController : ScriptableObject {
+public class LevelObjectController : ScriptableObject 
+{
 
     private static LevelObjectController instance = null;
 
@@ -16,9 +16,6 @@ public class LevelObjectController : ScriptableObject {
             {
                 instance = (LevelObjectController)Resources.Load("ScriptableObjectInstances/LevelObjectControllerInstance");
                 DontDestroyOnLoad(instance); 
-
-                //Debug.Log("No instance of LevelObjectController found. Have you forgotten to instantiate it?");
-                //throw new System.Exception("No instance of LevelObjectController found. Have you forgotten to instantiate it?");
             }
 
             return instance;
