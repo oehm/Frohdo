@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e582b7cbe46ab0240867c967f4aad1f9, type: 3}
+  m_Name: GlobalVarsInstance
+  m_EditorClassIdentifier: 
+  numberofLayers: 5
+  mainCamerZ: -10
+  layer1Z: -5
+  layer2Z: -2.5
+  layer3Z: 0
+  layer4Z: 2.5
+  layer5Z: 5
+  parralax1: {x: -.5, y: -.00999999978}
+  parralax2: {x: 0, y: 0}
+  parralax4: {x: 0, y: 0}
+  parralax5: {x: .5, y: 0}

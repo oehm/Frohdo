@@ -37,7 +37,7 @@ public class CalculatePlaneInFrustum : MonoBehaviour
     public  static Vector2[] getPlaneSizes(Vector2 levelSize, Camera camera)
     {
         Camera cam = camera;
-        cam.transform.position = new Vector3(0, 0, GlobalVars.mainCamerZ);
+        cam.transform.position = new Vector3(0, 0, GlobalVars.Instance.mainCamerZ);
 
         Vector2 levelLeftDownCorner = new Vector2(-levelSize.x / 2, -levelSize.y / 2);
 
@@ -47,36 +47,36 @@ public class CalculatePlaneInFrustum : MonoBehaviour
         Vector2 plane5 = new Vector2();
 
         //calulate the field of vision of the camera
-        Vector3[] visonPlane = getPlane(Mathf.Abs(GlobalVars.layer3Z - cam.transform.position.z), cam);
+        Vector3[] visonPlane = getPlane(Mathf.Abs(GlobalVars.Instance.layer3Z - cam.transform.position.z), cam);
         //move the camera to downloeftCorner so it exectly sees the level corner of the main layer
         float diffx = visonPlane[0].x - levelLeftDownCorner.x;
         float diffy = visonPlane[0].y - levelLeftDownCorner.y;
         cam.transform.position -= new Vector3(diffx, diffy, 0);
         //now calc the visonplane for the different layers
-        visonPlane = getPlane(Mathf.Abs(GlobalVars.layer1Z - cam.transform.position.z), cam);
+        visonPlane = getPlane(Mathf.Abs(GlobalVars.Instance.layer1Z - cam.transform.position.z), cam);
         plane1.x = Mathf.Abs(visonPlane[0].x) * 2;
-        plane1.x += diffx * GlobalVars.parralax1.x * 2;
+        plane1.x += diffx * GlobalVars.Instance.parralax1.x * 2;
         plane1.y = Mathf.Abs(visonPlane[0].y) * 2;
-        plane1.y += diffy * GlobalVars.parralax1.y * 2;
+        plane1.y += diffy * GlobalVars.Instance.parralax1.y * 2;
     
 
-        visonPlane = getPlane(Mathf.Abs(GlobalVars.layer2Z - cam.transform.position.z), cam);
+        visonPlane = getPlane(Mathf.Abs(GlobalVars.Instance.layer2Z - cam.transform.position.z), cam);
         plane2.x = Mathf.Abs(visonPlane[0].x) * 2;
-        plane2.x += diffx * GlobalVars.parralax2.x * 2;
+        plane2.x += diffx * GlobalVars.Instance.parralax2.x * 2;
         plane2.y = Mathf.Abs(visonPlane[0].y) * 2;
-        plane2.y += diffy * GlobalVars.parralax2.y * 2;
+        plane2.y += diffy * GlobalVars.Instance.parralax2.y * 2;
 
-        visonPlane = getPlane(Mathf.Abs(GlobalVars.layer4Z - cam.transform.position.z), cam);
+        visonPlane = getPlane(Mathf.Abs(GlobalVars.Instance.layer4Z - cam.transform.position.z), cam);
         plane4.x = Mathf.Abs(visonPlane[0].x) * 2;
-        plane4.x += diffx * GlobalVars.parralax4.x * 2;
+        plane4.x += diffx * GlobalVars.Instance.parralax4.x * 2;
         plane4.y = Mathf.Abs(visonPlane[0].y) * 2;
-        plane4.y += diffy * GlobalVars.parralax4.y * 2;
+        plane4.y += diffy * GlobalVars.Instance.parralax4.y * 2;
 
-        visonPlane = getPlane(Mathf.Abs(GlobalVars.layer5Z - cam.transform.position.z), cam);
+        visonPlane = getPlane(Mathf.Abs(GlobalVars.Instance.layer5Z - cam.transform.position.z), cam);
         plane5.x = Mathf.Abs(visonPlane[0].x) * 2;
-        plane5.x += diffx * GlobalVars.parralax5.x * 2;
+        plane5.x += diffx * GlobalVars.Instance.parralax5.x * 2;
         plane5.y = Mathf.Abs(visonPlane[0].y) * 2;
-        plane5.y += diffy * GlobalVars.parralax5.y * 2;
+        plane5.y += diffy * GlobalVars.Instance.parralax5.y * 2;
 
         Vector2[] sizes = new Vector2[5];
         sizes[0] = plane1;
@@ -85,7 +85,7 @@ public class CalculatePlaneInFrustum : MonoBehaviour
         sizes[3] = plane4;
         sizes[4] = plane5;
 
-        camera.transform.position = new Vector3(0,0,GlobalVars.mainCamerZ);
+        camera.transform.position = new Vector3(0,0,GlobalVars.Instance.mainCamerZ);
         return sizes;
     }
 }
