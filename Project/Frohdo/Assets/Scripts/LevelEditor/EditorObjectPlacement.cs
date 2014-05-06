@@ -47,22 +47,22 @@ public class EditorObjectPlacement : MonoBehaviour
         for (int i = 0; i < level.GetComponentsInChildren<Layer>().Length; i++)
         {
             GameObject upperBorder = Instantiate(gridPref, new Vector3(0, planeSizes[i].y / 2 + 0.5f, depth[i]), Quaternion.identity) as GameObject;
-            upperBorder.transform.localScale = new Vector3(planeSizes[i].x + 2, 1, 1);
+            upperBorder.transform.localScale = new Vector3(planeSizes[i].x + 2, 0.3f, 1);
             upperBorder.transform.parent = level.GetComponentsInChildren<Layer>()[i].transform;
             upperBorder.layer = 14+i;
 
             GameObject lowerBorder = Instantiate(gridPref, new Vector3(0, -planeSizes[i].y / 2 - 0.5f, depth[i]), Quaternion.identity) as GameObject;
-            lowerBorder.transform.localScale = new Vector3(planeSizes[i].x + 2, 1, 1);
+            lowerBorder.transform.localScale = new Vector3(planeSizes[i].x + 2, 0.3f, 1);
             lowerBorder.transform.parent = level.GetComponentsInChildren<Layer>()[i].transform;
             lowerBorder.layer = 14+i;
 
             GameObject leftBorder = Instantiate(gridPref, new Vector3(-planeSizes[i].x / 2 - 0.5f, 0, depth[i]), Quaternion.identity) as GameObject;
-            leftBorder.transform.localScale = new Vector3(1, planeSizes[i].y, 1);
+            leftBorder.transform.localScale = new Vector3(0.3f, planeSizes[i].y, 1);
             leftBorder.transform.parent = level.GetComponentsInChildren<Layer>()[i].transform;
             leftBorder.layer = 14 + i;
 
             GameObject rightBorder = Instantiate(gridPref, new Vector3(planeSizes[i].x / 2 + 0.5f, 0, depth[i]), Quaternion.identity) as GameObject;
-            rightBorder.transform.localScale = new Vector3(1, planeSizes[i].y, 1);
+            rightBorder.transform.localScale = new Vector3(0.3f, planeSizes[i].y, 1);
             rightBorder.transform.parent = level.GetComponentsInChildren<Layer>()[i].transform;
             rightBorder.layer = 14 + i;
 
