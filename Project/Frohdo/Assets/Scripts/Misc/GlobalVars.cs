@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class GlobalVars : ScriptableObject
 {
@@ -19,21 +20,24 @@ public class GlobalVars : ScriptableObject
         }
     }
 
+    public float mainCamerZ;
 
-    public int numberofLayers = 5;
+    public int LayerCount
+    {
+        get
+        {
+            if (layerZPos.Capacity != layerParallax.Capacity)
+            {
+                Debug.Log("Somethings wrong with the layer configuration.");
+                throw new System.Exception("Somethings wrong with the layer configuration.");
+            }
+            return layerZPos.Capacity;
+        }
+    }
 
-    public float mainCamerZ = -10.0f;
+    public List<float> layerZPos;
+    public List<Vector2> layerParallax;
 
-    public float layer1Z = -5.0f;
-    public float layer2Z = -2.5f;
-    public float layer3Z = 0.0f;
-    public float layer4Z = 2.5f;
-    public float layer5Z = 5.0f;
-
-    public Vector2 parralax1 = new Vector2(-0.5f, -0.01f);
-    public Vector2 parralax2 = new Vector2(0, 0);
-    public Vector2 parralax4 = new Vector2(0, 0);
-    public Vector2 parralax5 = new Vector2(0.5f, 0);
 
     void OnEnable()
     {
