@@ -26,12 +26,12 @@ public class GlobalVars : ScriptableObject
     {
         get
         {
-            if (layerZPos.Capacity != layerParallax.Capacity)
+            if (layerZPos.Count != layerParallax.Count)
             {
                 Debug.Log("Somethings wrong with the layer configuration.");
                 throw new System.Exception("Somethings wrong with the layer configuration.");
             }
-            return layerZPos.Capacity;
+            return layerZPos.Count;
         }
     }
 
