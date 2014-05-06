@@ -12,7 +12,7 @@ public class Gui_Main : MonoBehaviour
 
     public RenderGameObjectToTexture objRenderer;
 
-    public int leftAreaWidth;
+    public static int leftAreaWidth = 300;
 
     public GUISkin guiSkin;
 
@@ -23,8 +23,10 @@ public class Gui_Main : MonoBehaviour
     private string[] activeLayerStings;
     private bool[] visibleLayer;
     private Vector2 scrollPos = new Vector2(0, 0);
-    private int selectedLevelobject = 0;
+    private int selectedLevelobject = -1;
     private GUIContent[] levelObjects_content;
+
+    private GameObject[] levelObjects;
 
     // Use this for initialization
     void Start()
@@ -47,6 +49,7 @@ public class Gui_Main : MonoBehaviour
         }
 
         List<GUIContent> tempCont = new List<GUIContent>();
+        List<GameObject> tempObjs = new List<GameObject>();
         for (int i = 0; i < LevelObjectController.Instance.levelObjectPrefabs_.Count; i++)
         {
             GameObject obj = LevelObjectController.Instance.levelObjectPrefabs_[i];
@@ -55,8 +58,10 @@ public class Gui_Main : MonoBehaviour
                 continue;
             }
             tempCont.Add(new GUIContent(objRenderer.renderGameObjectToTexture(obj, 256, 256), obj.name));
+            tempObjs.Add(LevelObjectController.Instance.levelObjectPrefabs_[i]);
         }
         levelObjects_content = tempCont.ToArray();
+        levelObjects = tempObjs.ToArray();
     }
 
     // Update is called once per frame
@@ -100,7 +105,14 @@ public class Gui_Main : MonoBehaviour
     {
         GUILayout.BeginArea(new Rect(ForceAspectRatio.xOffset, ForceAspectRatio.yOffset, leftAreaWidth, ForceAspectRatio.screenHeight));
         GUILayout.Label("ACTIVE LAYER");
+        
+        int oldActive = activeLayer;
         activeLayer = GUILayout.Toolbar(activeLayer, activeLayerStings);
+        if(oldActive != activeLayer)
+        {
+            objPlacement.setActiveLayer(activeLayer);
+        }
+        
         GUILayout.Label("VIVIBLE LAYER", guiSkin.label);
         GUILayout.BeginHorizontal();
         for (int i = 0; i < visibleLayer.Length; i++)
@@ -110,33 +122,26 @@ public class Gui_Main : MonoBehaviour
         GUILayout.EndHorizontal();
         GUILayout.Label("LEVELOBJECT");
         scrollPos = GUILayout.BeginScrollView(scrollPos, guiSkin.scrollView);
+        int oldSelected = selectedLevelobject;
         selectedLevelobject = GUILayout.SelectionGrid(selectedLevelobject, levelObjects_content, 2, guiSkin.customStyles[0]);
+        if (oldSelected != selectedLevelobject)
+        {
+            Debug.Log("place item " + selectedLevelobject);
+            objPlacement.selectObject(levelObjects[selectedLevelobject]);
+        }
         GUILayout.EndScrollView();
         if (GUILayout.Button("Save"))
         {
-            //Level testLevel = new Level();
-            //testLevel.backgroundColor = "TEST!!";
-            //testLevel.size = new SerializableVector2(new Vector2(50, 50));
-            //testLevel.playerStartPos = new SerializableVector2(Vector2.one);
-            //testLevel.layers.Add(new LayerXML());
-            //testLevel.layers.Add(new LayerXML());
-            //foreach (LayerXML l in testLevel.layers)
-            //{
-            //    l.layerId = 0;
-            //    l.levelObjects.Add(new LevelObject());
-            //    l.levelObjects.Add(new LevelObject());
-            //    foreach (LevelObject obj in l.levelObjects)
-            //    {
-            //        obj.color = "BLACK";
-            //        obj.name = "FASSL";
-            //        obj.pos = new SerializableVector2(Vector2.zero);
-            //    }
-            //}
             level.saveLevel();
         }
         GUILayout.Button("PLAY");
         GUILayout.EndArea();
 
         GUI.Label(new Rect(leftAreaWidth + 10, Screen.height - Input.mousePosition.y, 100, 20), GUI.tooltip, guiSkin.label);
+    }
+
+    public static bool isMouseOnGui(Vector2 pos)
+    {
+        return pos.x > leftAreaWidth;
     }
 }
