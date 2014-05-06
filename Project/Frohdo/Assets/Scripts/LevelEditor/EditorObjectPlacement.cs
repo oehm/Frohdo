@@ -20,11 +20,11 @@ public class EditorObjectPlacement : MonoBehaviour
     {
         planeSizes = CalculatePlaneInFrustum.getPlaneSizes(size, Camera.main);
         depth = new float[planeSizes.Length];
-        depth[0] = GlobalVars.layer1Z;
-        depth[1] = GlobalVars.layer2Z;
-        depth[2] = GlobalVars.layer3Z;
-        depth[3] = GlobalVars.layer4Z;
-        depth[4] = GlobalVars.layer5Z;
+        depth[0] = GlobalVars.Instance.layerZPos[0];
+        depth[1] = GlobalVars.Instance.layerZPos[1];
+        depth[2] = GlobalVars.Instance.layerZPos[2];
+        depth[3] = GlobalVars.Instance.layerZPos[3];
+        depth[4] = GlobalVars.Instance.layerZPos[4];
 
         makeGrid();
         ready = true;

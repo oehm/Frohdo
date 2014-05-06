@@ -40,9 +40,9 @@ public class Gui_Main : MonoBehaviour
         //level.addLevelObject(2,charakter);
         menuFunction = setup;
 
-        activeLayerStings = new string[GlobalVars.numberofLayers];
-        visibleLayer = new bool[GlobalVars.numberofLayers];
-        for (int i = 0; i < GlobalVars.numberofLayers; i++)
+        activeLayerStings = new string[GlobalVars.Instance.LayerCount];
+        visibleLayer = new bool[GlobalVars.Instance.LayerCount];
+        for (int i = 0; i < GlobalVars.Instance.LayerCount; i++)
         {
             activeLayerStings[i] = (i + 1).ToString();
             visibleLayer[i] = true;

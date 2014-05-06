@@ -48,7 +48,7 @@ public class TestLevelBuilder : MonoBehaviour {
                     {
                         if ((x * y) % 2 == 0)
                         {
-                            layer.AddLevelObjectByName("1x1Tile_Test", "R", new Vector2(x, y));
+                            layer.AddLevelObjectByName("1x1Tile_Test2", "R", new Vector2(x, y));
                         }
                         else
                         {
@@ -60,7 +60,7 @@ public class TestLevelBuilder : MonoBehaviour {
                         if((x * y) % 5 == 0)
                         if ((x * y) % 2 == 0)
                         {
-                            layer.AddLevelObjectByName("1x1Tile_Test", "B", new Vector2(x, y));
+                            layer.AddLevelObjectByName("1x1Tile_Test2", "B", new Vector2(x, y));
                         }
                         else
                         {

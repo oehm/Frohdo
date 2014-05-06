@@ -1,21 +1,54 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
-public class GlobalVars  {
-    public static int numberofLayers = 5;
+public class GlobalVars : ScriptableObject
+{
+    private static GlobalVars instance = null;
 
-    public static float mainCamerZ = -10.0f;
+    public static GlobalVars Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = (GlobalVars)Resources.Load("ScriptableObjectInstances/GlobalVarsInstance");
+                DontDestroyOnLoad(instance);
+            }
 
-    public static float layer1Z = -5.0f;
-    public static float layer2Z = -2.5f;
-    public static float layer3Z = 0.0f;
-    public static float layer4Z = 2.5f;
-    public static float layer5Z = 5.0f;
+            return instance;
+        }
+    }
 
-    public static Vector2 parralax1 = new Vector2(-0.5f, -0.01f);
-    public static Vector2 parralax2 = new Vector2(0, 0);
-    public static Vector2 parralax4 = new Vector2(0, 0);
-    public static Vector2 parralax5 = new Vector2(0.5f, 0);
-   
-    
+    public float mainCamerZ;
+
+    public int LayerCount
+    {
+        get
+        {
+            if (layerZPos.Capacity != layerParallax.Capacity)
+            {
+                Debug.Log("Somethings wrong with the layer configuration.");
+                throw new System.Exception("Somethings wrong with the layer configuration.");
+            }
+            return layerZPos.Capacity;
+        }
+    }
+
+    public List<float> layerZPos;
+    public List<Vector2> layerParallax;
+
+    public int playLayer;
+
+
+    void OnEnable()
+    {
+        if (instance != null)
+        {
+            Destroy(this);
+
+            Debug.Log("There is a instance of LevelObjectController already. Cant create Another one.");
+            throw new System.Exception("There is a instance of LevelObjectController already. Cant create Another one.");
+        }
+    }
 }
