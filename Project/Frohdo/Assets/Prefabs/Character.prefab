@@ -229,6 +229,8 @@ MonoBehaviour:
   runForce_: 100
   jumpMaxSpeed_: 13
   jumpForce_: 1400
+  pukeForce_: 500
+  pukePrefab_: {fileID: 100000, guid: fcc617b266a060342b7ba4b1c79c2b1e, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

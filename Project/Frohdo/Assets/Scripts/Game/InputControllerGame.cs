@@ -13,7 +13,13 @@ public class InputControllerGame : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        Vector2 input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        character_.InputMovement(input, Input.GetButton("Jump"));
+        float inputX = Input.GetAxis("Horizontal");
+        inputX = inputX == 0.0f ? 0 : Mathf.Sign(inputX);
+
+        float inputY = Input.GetAxis("Vertical");
+        inputY = inputY == 0.0f ? 0 : Mathf.Sign(inputY);
+
+        Vector2 input = new Vector2(inputX, inputY);
+        character_.InputMovement(input, Input.GetButton("Jump"), Input.GetButton("Puke"));
 	}
 }
