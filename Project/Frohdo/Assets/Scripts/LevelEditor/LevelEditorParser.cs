@@ -10,7 +10,7 @@ public class LevelEditorParser : MonoBehaviour {
     
 	void Start () {
         level = new Level();
-        foreach(Layer l in GetComponentsInChildren<Layer>()  )
+        for(int i = 0; i< GlobalVars.Instance.LayerCount; i++)
         {
             level.layers.Add(new LayerXML());
         }

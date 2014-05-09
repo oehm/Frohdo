@@ -25,6 +25,20 @@ public class LevelObjectController : ScriptableObject
     //public
     public List<GameObject> levelObjectPrefabs_;
 
+    public string[] getColors()
+    {
+        string[] colors = new string[7];
+        colors[0] = "W";
+        colors[1] = "R";
+        colors[2] = "G";
+        colors[3] = "B";
+        colors[4] = "Y";
+        colors[5] = "C";
+        colors[6] = "M";
+
+        return colors;
+    }
+
     public GameObject GetPrefabByName(string name)
     {
         foreach (GameObject levelObjectPrefab in levelObjectPrefabs_)

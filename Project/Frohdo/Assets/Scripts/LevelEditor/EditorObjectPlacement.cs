@@ -11,6 +11,7 @@ public class EditorObjectPlacement : MonoBehaviour
     private float[] depth;
 
     private GameObject curSelected = null;
+    private LevelObject curLevelObject = null;
     private Vector2 mousePos = new Vector2(0, 0);
     private int activeLayer = 2;
 
@@ -80,7 +81,8 @@ public class EditorObjectPlacement : MonoBehaviour
 
     public void mouseDown()
     {
-
+        if (Gui_Main.isMouseOnGui(mousePos)) return;
+        //level.GetComponentsInChildren<Layer>()[activeLayer].AddLevelObjectByName()
     }
     public void mouseUp()
     {
@@ -92,13 +94,18 @@ public class EditorObjectPlacement : MonoBehaviour
         mousePos = mousePos_;
     }
 
-    public void selectObject(GameObject gameObj)
+    public void selectObject(LevelObject levelObj)
     {
         if (curSelected != null)
         {
             DestroyImmediate(curSelected);
         }
-        curSelected = Instantiate(gameObj) as GameObject;
+        curSelected = Instantiate(LevelObjectController.Instance.GetPrefabByName(levelObj.name)) as GameObject;
+        //curSelected.AddComponent<LevelObject>();
+        
+        
+        Color c = LevelObjectController.Instance.GetColor(levelObj.color);
+        curSelected.GetComponentInChildren<Renderer>().material.color = c;
         curSelected.transform.position = getObjPosition();
     }
 
@@ -110,8 +117,8 @@ public class EditorObjectPlacement : MonoBehaviour
     private Vector3 getObjPosition()
     {
         Vector3 pos = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, depth[activeLayer] - Camera.main.transform.position.z));
-        pos.x = Mathf.Floor(pos.x) + curSelected.transform.localScale.x / 2;
-        pos.y = Mathf.Floor(pos.y) + curSelected.transform.localScale.y / 2; ;
+        pos.x = Mathf.Floor(pos.x) - curSelected.transform.localScale.x / 2;
+        pos.y = Mathf.Floor(pos.y) - curSelected.transform.localScale.y / 2;
 
         return pos;
     }

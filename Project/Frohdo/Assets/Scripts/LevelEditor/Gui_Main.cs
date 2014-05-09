@@ -22,10 +22,13 @@ public class Gui_Main : MonoBehaviour
     private int activeLayer = 1;
     private string[] activeLayerStings;
     private bool[] visibleLayer;
-    private Vector2 scrollPos = new Vector2(0, 0);
-    private int selectedLevelobject = -1;
-    private GUIContent[] levelObjects_content;
 
+    private Vector2 scrollPos = new Vector2(0, 0);
+    
+    private int selectedLevelobject = -1;
+    
+    private GUIContent[] levelObjects_content;
+    private string[] colors;
     private GameObject[] levelObjects;
 
     // Use this for initialization
@@ -33,12 +36,9 @@ public class Gui_Main : MonoBehaviour
     {
         level.setSize(levelSize);
         level.setLevelBackground("blue");
-        //LevelObject charakter = new LevelObject();
-        //charakter.color = "white";
-        //charakter.name = "chrakter";
-        //charakter.pos = new SerializableVector2(new Vector2(10,10));
-        //level.addLevelObject(2,charakter);
         menuFunction = setup;
+
+        colors = LevelObjectController
 
         activeLayerStings = new string[GlobalVars.Instance.LayerCount];
         visibleLayer = new bool[GlobalVars.Instance.LayerCount];
@@ -126,8 +126,8 @@ public class Gui_Main : MonoBehaviour
         selectedLevelobject = GUILayout.SelectionGrid(selectedLevelobject, levelObjects_content, 2, guiSkin.customStyles[0]);
         if (oldSelected != selectedLevelobject)
         {
-            Debug.Log("place item " + selectedLevelobject);
-            objPlacement.selectObject(levelObjects[selectedLevelobject]);
+            LevelObject obj = 
+            //objPlacement.selectObject();
         }
         GUILayout.EndScrollView();
         if (GUILayout.Button("Save"))
