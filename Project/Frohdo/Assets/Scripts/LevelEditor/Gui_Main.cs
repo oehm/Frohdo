@@ -9,6 +9,7 @@ public class Gui_Main : MonoBehaviour
 
     public LevelEditorParser level;
     public EditorObjectPlacement objPlacement;
+    public EditCommandManager commandManger;
 
     public RenderGameObjectToTexture objRenderer;
 
@@ -21,13 +22,16 @@ public class Gui_Main : MonoBehaviour
 
     private int activeLayer = 1;
     private string[] activeLayerStings;
+    
     private bool[] visibleLayer;
+    private GUIContent eye;
+
+    private int selectedColor = 0;
+    private GUIContent[] colorButtons;
 
     private Vector2 scrollPos = new Vector2(0, 0);
-    
-    private int selectedLevelobject = -1;
-    
-    private GUIContent[] levelObjects_content;
+
+    private GUIContent[][] levelObjects_content;
     private string[] colors;
     private GameObject[] levelObjects;
 
@@ -38,32 +42,56 @@ public class Gui_Main : MonoBehaviour
         level.setLevelBackground("blue");
         menuFunction = setup;
 
-        colors = LevelObjectController
+        colors = LevelObjectController.Instance.getColors();
+        colorButtons = new GUIContent[colors.Length];
+        for (int i = 0; i < colors.Length; i++)
+        {
+            Texture2D tex = new Texture2D(30, 30);
+            Color[] c = tex.GetPixels();
+            for (int j = 0; j < c.Length; j++) c[j] = LevelObjectController.Instance.GetColor(colors[i]);
+            tex.SetPixels(c);
+            tex.Apply();
+            colorButtons[i] = new GUIContent(tex);
+        }
 
         activeLayerStings = new string[GlobalVars.Instance.LayerCount];
         visibleLayer = new bool[GlobalVars.Instance.LayerCount];
+        eye = new GUIContent("");
         for (int i = 0; i < GlobalVars.Instance.LayerCount; i++)
         {
             activeLayerStings[i] = (i + 1).ToString();
             visibleLayer[i] = true;
         }
 
+
+
         List<GUIContent> tempCont = new List<GUIContent>();
+        
         List<GameObject> tempObjs = new List<GameObject>();
+
+        levelObjects_content = new GUIContent[colors.Length][];
+
         for (int i = 0; i < LevelObjectController.Instance.levelObjectPrefabs_.Count; i++)
         {
             GameObject obj = LevelObjectController.Instance.levelObjectPrefabs_[i];
-            if (obj.name == "Character")
-            {
-                continue;
-            }
-            tempCont.Add(new GUIContent(objRenderer.renderGameObjectToTexture(obj, 256, 256), obj.name));
+            if (obj.name == "Character")  continue;
             tempObjs.Add(LevelObjectController.Instance.levelObjectPrefabs_[i]);
         }
-        levelObjects_content = tempCont.ToArray();
         levelObjects = tempObjs.ToArray();
-    }
 
+        for (int i = 0; i < colors.Length; i++ )
+        {
+            for(int o = 0; o< tempObjs.Count; o++)
+            {
+                tempCont.Add(new GUIContent(objRenderer.renderGameObjectToTexture(tempObjs[o], 256, 256, colors[i]), tempObjs[o].name));
+            }
+            levelObjects_content[i] = tempCont.ToArray();
+            tempCont.Clear();
+        }
+
+            
+        
+    }
     // Update is called once per frame
     void Update()
     {
@@ -90,7 +118,7 @@ public class Gui_Main : MonoBehaviour
     }
     void setup()
     {
-        GUILayout.BeginArea(new Rect(ForceAspectRatio.xOffset, ForceAspectRatio.yOffset, leftAreaWidth, ForceAspectRatio.screenHeight));
+        GUILayout.BeginArea(new Rect(ForceAspectRatio.xOffset, ForceAspectRatio.yOffset, leftAreaWidth, ForceAspectRatio.screenHeight),guiSkin.customStyles[3]);
         levelName = GUILayout.TextField(levelName, guiSkin.textField);
         if (GUILayout.Button("Next", guiSkin.button))
         {
@@ -103,9 +131,10 @@ public class Gui_Main : MonoBehaviour
 
     void edit()
     {
-        GUILayout.BeginArea(new Rect(ForceAspectRatio.xOffset, ForceAspectRatio.yOffset, leftAreaWidth, ForceAspectRatio.screenHeight));
-        GUILayout.Label("ACTIVE LAYER");
+        GUILayout.BeginArea(new Rect(ForceAspectRatio.xOffset, ForceAspectRatio.yOffset, leftAreaWidth, ForceAspectRatio.screenHeight),guiSkin.customStyles[3]);
+        GUILayout.Label("LAYER",guiSkin.label);
         
+        //Active LAyer
         int oldActive = activeLayer;
         activeLayer = GUILayout.Toolbar(activeLayer, activeLayerStings);
         if(oldActive != activeLayer)
@@ -113,35 +142,64 @@ public class Gui_Main : MonoBehaviour
             objPlacement.setActiveLayer(activeLayer);
         }
         
-        GUILayout.Label("VIVIBLE LAYER", guiSkin.label);
+        //Visible LAyer
+        //GUILayout.Label("VIVIBLE LAYER", guiSkin.label);
         GUILayout.BeginHorizontal();
         for (int i = 0; i < visibleLayer.Length; i++)
         {
-            visibleLayer[i] = GUILayout.Toggle(visibleLayer[i], (i + 1).ToString());
+            visibleLayer[i] = GUILayout.Toggle(visibleLayer[i],eye,guiSkin.customStyles[2]);
         }
         GUILayout.EndHorizontal();
-        GUILayout.Label("LEVELOBJECT");
+        
+        //Colors
+        selectedColor = GUILayout.Toolbar(selectedColor, colorButtons,guiSkin.customStyles[1]);
+
+        //LevelObjects
+        //GUILayout.Label("LEVELOBJECT");
         scrollPos = GUILayout.BeginScrollView(scrollPos, guiSkin.scrollView);
-        int oldSelected = selectedLevelobject;
-        selectedLevelobject = GUILayout.SelectionGrid(selectedLevelobject, levelObjects_content, 2, guiSkin.customStyles[0]);
-        if (oldSelected != selectedLevelobject)
+        for (int i = 0; i < levelObjects_content[selectedColor].Length; i++ )
         {
-            LevelObject obj = 
-            //objPlacement.selectObject();
+            if(GUILayout.Button(levelObjects_content[selectedColor][i], guiSkin.customStyles[0]))
+            {
+                LevelObject obj = new LevelObject();
+                obj.name = levelObjects_content[selectedColor][i].tooltip;
+                obj.color = colors[selectedColor];
+                objPlacement.selectObject(obj);
+            }
         }
+
         GUILayout.EndScrollView();
-        if (GUILayout.Button("Save"))
+        GUILayout.BeginHorizontal("box");
+        if (GUILayout.Button("Save",guiSkin.button))
         {
+            objPlacement.updateXMLLevelObjects(level);
             level.saveLevel();
         }
-        GUILayout.Button("PLAY");
+        GUILayout.Button("PLAY",guiSkin.button);
+        GUILayout.EndHorizontal();
+
         GUILayout.EndArea();
 
-        GUI.Label(new Rect(leftAreaWidth + 10, Screen.height - Input.mousePosition.y, 100, 20), GUI.tooltip, guiSkin.label);
+        GUILayout.BeginArea(new Rect(ForceAspectRatio.xOffset + leftAreaWidth+45, ForceAspectRatio.yOffset, 100, 100), guiSkin.customStyles[3]);
+        if(GUILayout.Button("Undo",guiSkin.button))
+        {
+            commandManger.undo();
+        }
+
+        if (GUILayout.Button("Redo", guiSkin.button))
+        {
+            commandManger.redo();
+        }
+
+        GUILayout.EndArea();
+
+
+        GUI.Label(new Rect(leftAreaWidth + 30, Screen.height - Input.mousePosition.y, 100, 20), GUI.tooltip, guiSkin.label);
     }
 
     public static bool isMouseOnGui(Vector2 pos)
     {
-        return pos.x > leftAreaWidth;
+        Rect hist = new Rect(ForceAspectRatio.xOffset + leftAreaWidth+45, ForceAspectRatio.screenHeight - ForceAspectRatio.yOffset - 100, 100, 100);
+        return (pos.x < leftAreaWidth || hist.Contains(pos));
     }
 }

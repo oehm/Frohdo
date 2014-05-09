@@ -4,7 +4,6 @@ using System.Collections;
 public class LevelEditorParser : MonoBehaviour {
 
     public string savePath;
-
     private string levelName;
     private Level level;
     
@@ -46,5 +45,12 @@ public class LevelEditorParser : MonoBehaviour {
         if(layerIndex >= level.layers.Count || layerIndex<= 0) return;
         level.layers[layerIndex].levelObjects.Add(obj);
     }
-	
+
+    public void clear()
+    {
+        for(int i=0; i< level.layers.Count; i++)
+        {
+            level.layers[i].levelObjects.Clear();
+        }
+    }
 }
