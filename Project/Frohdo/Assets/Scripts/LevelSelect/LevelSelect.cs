@@ -122,184 +122,190 @@ public class LevelSelect : MonoBehaviour {
         // 4: bottombar -- elem
         // 5: forwardbackwardbutton -- button
         // 6: bottombarCurLevelLabel -- label
+        // 7: mainbox -- elem
 
-        style.customStyles[0].fixedWidth = Screen.width / 2;
-        style.customStyles[0].fixedHeight = Screen.height * 0.9f;
+        float screenHeight = ForceAspectRatio.screenHeight;
+        float screenWidth = ForceAspectRatio.screenWidth;
 
-        style.customStyles[1].fixedWidth = Screen.width;
-        style.customStyles[1].fixedHeight = Screen.height * 0.1f;
+        style.customStyles[0].fixedWidth = screenWidth / 2;
+        style.customStyles[0].fixedHeight = screenHeight * 0.9f;
 
-        style.customStyles[2].fixedHeight = Screen.height * 0.1f;
-        style.customStyles[2].fixedWidth = Screen.width / 6;
-        style.customStyles[2].fontSize = (int)(Screen.height * 0.05f);
+        style.customStyles[1].fixedWidth = screenWidth;
+        style.customStyles[1].fixedHeight = screenHeight * 0.1f;
 
-        style.customStyles[3].fixedWidth = Screen.width / 2;
-        style.customStyles[3].fixedHeight = Screen.height * 0.8f;
+        style.customStyles[2].fixedHeight = screenHeight * 0.1f;
+        style.customStyles[2].fixedWidth = screenWidth / 6;
+        style.customStyles[2].fontSize = (int)(screenHeight * 0.05f);
 
-        style.customStyles[4].fixedWidth = Screen.width / 2;
-        style.customStyles[4].fixedHeight = Screen.height * 0.1f;
+        style.customStyles[3].fixedWidth = screenWidth / 2;
+        style.customStyles[3].fixedHeight = screenHeight * 0.8f;
 
-        style.customStyles[5].fixedWidth = Screen.width / 6;
-        style.customStyles[5].fixedHeight = Screen.height * 0.1f;
-        style.customStyles[5].fontSize = (int)(Screen.height * 0.05f);
+        style.customStyles[4].fixedWidth = screenWidth / 2;
+        style.customStyles[4].fixedHeight = screenHeight * 0.1f;
 
-        style.customStyles[6].fixedWidth = Screen.width / 10;
-        style.customStyles[6].fixedHeight = Screen.height * 0.1f;
-        style.customStyles[6].fontSize = (int)(Screen.height * 0.05f);
+        style.customStyles[5].fixedWidth = screenWidth / 6;
+        style.customStyles[5].fixedHeight = screenHeight * 0.1f;
+        style.customStyles[5].fontSize = (int)(screenHeight * 0.05f);
 
-        style.button.fixedWidth = Screen.width / 2;
-        style.button.fixedHeight = Screen.height * 0.8f / LevelsToShow;
-        style.button.fontSize = (int)((Screen.height * 0.8f / LevelsToShow) * 0.5f);
+        style.customStyles[6].fixedWidth = screenWidth / 10;
+        style.customStyles[6].fixedHeight = screenHeight * 0.1f;
+        style.customStyles[6].fontSize = (int)(screenHeight * 0.05f);
 
-        style.label.fontSize = (int)((Screen.height * 0.8f / LevelsToShow) * 0.5f);
+        style.customStyles[7].fixedWidth = screenWidth;
+        style.customStyles[7].fixedHeight = screenHeight;
+
+        style.button.fixedWidth = screenWidth / 2;
+        style.button.fixedHeight = screenHeight * 0.8f / LevelsToShow;
+        style.button.fontSize = (int)((screenHeight * 0.8f / LevelsToShow) * 0.5f);
+
+        style.label.fontSize = (int)((screenHeight * 0.8f / LevelsToShow) * 0.5f);
 
         GUI.skin = style;
-
-        GUILayout.BeginVertical("box");
-
-            GUILayout.BeginHorizontal("", "topbar");
-                GUILayout.FlexibleSpace();
-                if (regsiterToShow == 3)
-                {
-                    GUI.enabled = false;
-                    GUILayout.Button("<color=" + buttonDisabledColorHexString + ">Story</color>", "topbarbutton");
-                    GUI.enabled = true;
-                }
-                else
-                {
-                    if (GUILayout.Button("Story", "topbarbutton"))
+        GUILayout.BeginVertical();
+            GUILayout.BeginArea(new Rect(ForceAspectRatio.xOffset, ForceAspectRatio.yOffset, screenWidth, screenHeight), "", style.customStyles[7]);
+                GUILayout.BeginHorizontal("", "topbar");
+                    GUILayout.FlexibleSpace();
+                    if (regsiterToShow == 3)
                     {
-                        regsiterToShow = 3;
-                        reloadLevels = true;
-                    }
-                }
-
-                if (regsiterToShow == 2)
-                {
-                    GUI.enabled = false;
-                    GUILayout.Button("<color=" + buttonDisabledColorHexString + ">Playlist</color>", "topbarbutton");
-                    GUI.enabled = true;
-                }
-                else
-                {
-                    if (GUILayout.Button("Playlist", "topbarbutton"))
-                    {
-                        regsiterToShow = 2;
-                        reloadLevels = true;
-                    }
-                }
-
-                if (regsiterToShow == 0)
-                {
-                    GUI.enabled = false;
-                    GUILayout.Button("<color=" + buttonDisabledColorHexString + ">Eigene Levels</color>", "topbarbutton");
-                    GUI.enabled = true;
-                }
-                else
-                {
-                    if (GUILayout.Button("Eigene Levels", "topbarbutton"))
-                    {
-                        regsiterToShow = 0;
-                        reloadLevels = true;
-                    }
-                }
-
-                if (regsiterToShow == 1)
-                {
-                    GUI.enabled = false;
-                    GUILayout.Button("<color=" + buttonDisabledColorHexString + ">Top Online</color>", "topbarbutton");
-                    GUI.enabled = true;
-                }
-                else
-                {
-                    if (GUILayout.Button("Top Online", "topbarbutton"))
-                    {
-                        regsiterToShow = 1;
-                        reloadLevels = true;
-                    }
-                }
-                GUILayout.FlexibleSpace();
-
-            GUILayout.EndHorizontal();
-
-            GUILayout.BeginHorizontal();
-
-                GUILayout.BeginVertical("box");
-                    GUILayout.BeginVertical("levelselectbox");
-                    if (levels != null && levels.Count != 0)
-                    {
-                        for (int i = LevelsToShow * LevelsCurPage; i < levels.Count; i++)
-                        {
-                            if (selectedLevelid == levels[i].id)
-                            {
-                                GUI.enabled = false;
-                                GUILayout.Button("<color=" + buttonDisabledColorHexString + ">" + levels[i].name + "</color>", "button");
-                                GUI.enabled = true;
-                            }
-                            else
-                            {
-                                if (GUILayout.Button(levels[i].name, "button"))
-                                {
-                                    selectedLevelid = levels[i].id;
-                                }
-                            }
-                            if (i == LevelsToShow * LevelsCurPage + LevelsToShow - 1) break;
-                        }
+                        GUI.enabled = false;
+                        GUILayout.Button("<color=" + buttonDisabledColorHexString + ">Story</color>", "topbarbutton");
+                        GUI.enabled = true;
                     }
                     else
                     {
-                        GUILayout.Label("");
+                        if (GUILayout.Button("Story", "topbarbutton"))
+                        {
+                            regsiterToShow = 3;
+                            reloadLevels = true;
+                        }
+                    }
+
+                    if (regsiterToShow == 2)
+                    {
+                        GUI.enabled = false;
+                        GUILayout.Button("<color=" + buttonDisabledColorHexString + ">Playlist</color>", "topbarbutton");
+                        GUI.enabled = true;
+                    }
+                    else
+                    {
+                        if (GUILayout.Button("Playlist", "topbarbutton"))
+                        {
+                            regsiterToShow = 2;
+                            reloadLevels = true;
+                        }
+                    }
+
+                    if (regsiterToShow == 0)
+                    {
+                        GUI.enabled = false;
+                        GUILayout.Button("<color=" + buttonDisabledColorHexString + ">Eigene Levels</color>", "topbarbutton");
+                        GUI.enabled = true;
+                    }
+                    else
+                    {
+                        if (GUILayout.Button("Eigene Levels", "topbarbutton"))
+                        {
+                            regsiterToShow = 0;
+                            reloadLevels = true;
+                        }
+                    }
+
+                    if (regsiterToShow == 1)
+                    {
+                        GUI.enabled = false;
+                        GUILayout.Button("<color=" + buttonDisabledColorHexString + ">Top Online</color>", "topbarbutton");
+                        GUI.enabled = true;
+                    }
+                    else
+                    {
+                        if (GUILayout.Button("Top Online", "topbarbutton"))
+                        {
+                            regsiterToShow = 1;
+                            reloadLevels = true;
+                        }
+                    }
+                    GUILayout.FlexibleSpace();
+
+                GUILayout.EndHorizontal();
+
+                GUILayout.BeginHorizontal();
+
+                    GUILayout.BeginVertical("box");
+                        GUILayout.BeginVertical("levelselectbox");
+                        if (levels != null && levels.Count != 0)
+                        {
+                            for (int i = LevelsToShow * LevelsCurPage; i < levels.Count; i++)
+                            {
+                                if (selectedLevelid == levels[i].id)
+                                {
+                                    GUI.enabled = false;
+                                    GUILayout.Button("<color=" + buttonDisabledColorHexString + ">" + levels[i].name + "</color>", "button");
+                                    GUI.enabled = true;
+                                }
+                                else
+                                {
+                                    if (GUILayout.Button(levels[i].name, "button"))
+                                    {
+                                        selectedLevelid = levels[i].id;
+                                    }
+                                }
+                                if (i == LevelsToShow * LevelsCurPage + LevelsToShow - 1) break;
+                            }
+                        }
+                        else
+                        {
+                            GUILayout.Label("");
+                        }
+
+                        GUILayout.EndVertical();
+
+                        GUILayout.BeginHorizontal("bottombar");
+
+                        GUILayout.FlexibleSpace();
+
+                        if (LevelsCurPage == 0)
+                        {
+                            GUI.enabled = false;
+                            GUILayout.Button("", "forwardbackwardbutton");
+                            GUI.enabled = true;
+                        }
+                        else
+                        {
+                            if (GUILayout.Button("< Page " + LevelsCurPage, "forwardbackwardbutton"))
+                            {
+                                LevelsCurPage -= 1;
+                            }
+                        }
+                        GUILayout.Label("<color=" + buttonDisabledColorHexString + ">" + (LevelsCurPage + 1).ToString() + "</color>", "bottombarCurLevelLabel");
+                        if (LevelsCurPage == LevelMaxPages - 1)
+                        {
+                            GUI.enabled = false;
+                            GUILayout.Button("", "forwardbackwardbutton");
+                            GUI.enabled = true;
+                        }
+                        else
+                        {
+                            if (GUILayout.Button("Page: " + (LevelsCurPage + 2) + " >", "forwardbackwardbutton"))
+                            {
+                                LevelsCurPage += 1;
+                            }
+                        }
+                        GUILayout.FlexibleSpace();
+                    
+                        GUILayout.EndHorizontal();
+
+                    GUILayout.EndVertical();
+            
+                    GUILayout.BeginVertical("", "infoBox");
+                
+                    if(selectedLevelid != -1){
+                        GUILayout.Label("ID: " + levels[selectedLevelid].id);
                     }
 
                     GUILayout.EndVertical();
 
-                    GUILayout.BeginHorizontal("bottombar");
-
-                    GUILayout.FlexibleSpace();
-
-                    if (LevelsCurPage == 0)
-                    {
-                        GUI.enabled = false;
-                        GUILayout.Button("", "forwardbackwardbutton");
-                        GUI.enabled = true;
-                    }
-                    else
-                    {
-                        if (GUILayout.Button("< Page " + LevelsCurPage, "forwardbackwardbutton"))
-                        {
-                            LevelsCurPage -= 1;
-                        }
-                    }
-                    GUILayout.Label("<color=" + buttonDisabledColorHexString + ">" + (LevelsCurPage + 1).ToString() + "</color>", "bottombarCurLevelLabel");
-                    if (LevelsCurPage == LevelMaxPages - 1)
-                    {
-                        GUI.enabled = false;
-                        GUILayout.Button("", "forwardbackwardbutton");
-                        GUI.enabled = true;
-                    }
-                    else
-                    {
-                        if (GUILayout.Button("Page: " + (LevelsCurPage + 2) + " >", "forwardbackwardbutton"))
-                        {
-                            LevelsCurPage += 1;
-                        }
-                    }
-                    GUILayout.FlexibleSpace();
-                    
-                    GUILayout.EndHorizontal();
-
-                GUILayout.EndVertical();
-            
-                GUILayout.BeginVertical("", "infoBox");
-                
-                if(selectedLevelid != -1){
-                    GUILayout.Label("ID: " + levels[selectedLevelid].id);
-                }
-
-                GUILayout.EndVertical();
-
-            GUILayout.EndHorizontal();
-
+                GUILayout.EndHorizontal();
+            GUILayout.EndArea();
         GUILayout.EndVertical();
     }
 }

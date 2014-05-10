@@ -87,6 +87,7 @@ GameObject:
   - 124: {fileID: 1015882089}
   - 81: {fileID: 1015882088}
   - 114: {fileID: 1015882093}
+  - 114: {fileID: 1015882094}
   m_Layer: 0
   m_Name: LevelSelectCam
   m_TagString: MainCamera
@@ -169,3 +170,16 @@ MonoBehaviour:
   LevelsToShow: 10
   style: {fileID: 11400000, guid: f59c664d96934d14bbfafc67e96e3788, type: 2}
   buttonDisabledColorHexString: '#d35400'
+--- !u!114 &1015882094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1015882087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8200875e660d34a43b17b73c44d309b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _wantedAspectRatio: 1.77777803
+  landscapeModeOnly: 1
