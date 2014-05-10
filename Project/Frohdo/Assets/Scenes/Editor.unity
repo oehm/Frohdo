@@ -193,7 +193,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camera_: {fileID: 871366285}
-  parallaxFactor_: {x: .5, y: 0}
+  parallaxFactor_: {x: 0, y: 0}
   hasColliders_: 0
 --- !u!1 &100312252
 GameObject:
@@ -629,7 +629,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   level: {fileID: 397076327}
-  gridPref: {fileID: 100000, guid: 1a0d287094acebc40a3d6e0263288920, type: 2}
+  gridPref: {fileID: 100000, guid: 7b8db41fb9d368142b920715256327ed, type: 2}
   commandManager: {fileID: 1406282889}
 --- !u!1 &543055656
 GameObject:
@@ -1978,7 +1978,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camera_: {fileID: 871366285}
-  parallaxFactor_: {x: -.5, y: -.00999999978}
+  parallaxFactor_: {x: 0, y: 0}
   hasColliders_: 0
 --- !u!1 &1846667055
 GameObject:

@@ -106,7 +106,7 @@ public class Gui_Main : MonoBehaviour
             if (visibleLayer[i]) cullingMask += 1 << i + 8; //layer[i]_mask
             if (i == activeLayer)
             {
-                if (visibleLayer[i]) cullingMask += 1 << i + 14; //for viewing grid
+                cullingMask += 1 << i + 14; //for viewing grid
             }
         }
         Camera.main.cullingMask = cullingMask;
@@ -137,6 +137,7 @@ public class Gui_Main : MonoBehaviour
         //Active LAyer
         int oldActive = activeLayer;
         activeLayer = GUILayout.Toolbar(activeLayer, activeLayerStings);
+        visibleLayer[activeLayer] = true;
         if(oldActive != activeLayer)
         {
             objPlacement.setActiveLayer(activeLayer);
@@ -175,7 +176,7 @@ public class Gui_Main : MonoBehaviour
             objPlacement.updateXMLLevelObjects(level);
             level.saveLevel();
         }
-        GUILayout.Button("PLAY",guiSkin.button);
+        GUILayout.Button("PREVIEW",guiSkin.button);
         GUILayout.EndHorizontal();
 
         GUILayout.EndArea();

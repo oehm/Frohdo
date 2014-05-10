@@ -14,3 +14,4 @@ MonoBehaviour:
   levelObjectPrefabs_:
   - {fileID: 100004, guid: 970d72e3859d3cd4ca45e304a331f5ca, type: 2}
   - {fileID: 100000, guid: d3efbcc6ae95b7a4c9c5a73c6c4a25ed, type: 2}
+  - {fileID: 100000, guid: 4b0d11ba96d2c1a4eb44ee375c43bf86, type: 2}

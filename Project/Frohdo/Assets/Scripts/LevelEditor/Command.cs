@@ -51,3 +51,38 @@ public class InsertObject : Command
         obj.transform.parent = layer.transform;
     }
 }
+
+
+public class ChangeColor : Command
+{
+    private GameObject obj;
+    private Color color;
+    private Color previousColor;
+
+    public void freeResources()
+    {
+    }
+
+    public void setUpCommand(GameObject o, string c)
+    {
+        obj = o;
+        color = LevelObjectController.Instance.GetColor(c);
+        previousColor = obj.GetComponent<Renderer>().material.color;
+    }
+
+    public void exectute()
+    {
+        obj.GetComponent<Renderer>().material.color = color;
+    }
+
+    public void undo()
+    {
+        obj.GetComponent<Renderer>().material.color = previousColor;
+    }
+
+    public void redo()
+    {
+        exectute();
+    }
+}
+

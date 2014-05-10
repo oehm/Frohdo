@@ -48,25 +48,11 @@ public class EditorObjectPlacement : MonoBehaviour
         grids = new GameObject[planeSizes.Length][][];
         for (int i = 0; i < level.GetComponentsInChildren<Layer>().Length; i++)
         {
-            GameObject upperBorder = Instantiate(gridPref, new Vector3(0, planeSizes[i].y / 2 + 0.5f, depth[i]), Quaternion.identity) as GameObject;
-            upperBorder.transform.localScale = new Vector3(planeSizes[i].x + 2, 0.3f, 1);
-            upperBorder.transform.parent = level.GetComponentsInChildren<Layer>()[i].transform;
-            upperBorder.layer = 14+i;
+            GameObject bg = Instantiate(gridPref, new Vector3(0, 0, depth[i]), Quaternion.identity) as GameObject;
+            bg.transform.localScale = planeSizes[i];
+            bg.transform.parent = level.GetComponentsInChildren<Layer>()[i].transform;
+            bg.layer = 14 + i;
 
-            GameObject lowerBorder = Instantiate(gridPref, new Vector3(0, -planeSizes[i].y / 2 - 0.5f, depth[i]), Quaternion.identity) as GameObject;
-            lowerBorder.transform.localScale = new Vector3(planeSizes[i].x + 2, 0.3f, 1);
-            lowerBorder.transform.parent = level.GetComponentsInChildren<Layer>()[i].transform;
-            lowerBorder.layer = 14+i;
-
-            GameObject leftBorder = Instantiate(gridPref, new Vector3(-planeSizes[i].x / 2 - 0.5f, 0, depth[i]), Quaternion.identity) as GameObject;
-            leftBorder.transform.localScale = new Vector3(0.3f, planeSizes[i].y, 1);
-            leftBorder.transform.parent = level.GetComponentsInChildren<Layer>()[i].transform;
-            leftBorder.layer = 14 + i;
-
-            GameObject rightBorder = Instantiate(gridPref, new Vector3(planeSizes[i].x / 2 + 0.5f, 0, depth[i]), Quaternion.identity) as GameObject;
-            rightBorder.transform.localScale = new Vector3(0.3f, planeSizes[i].y, 1);
-            rightBorder.transform.parent = level.GetComponentsInChildren<Layer>()[i].transform;
-            rightBorder.layer = 14 + i;
 
             grids[i] = new GameObject[(int)planeSizes[i].x][];
             for (int x = 0; x < (int)planeSizes[i].x; x++)
@@ -84,13 +70,14 @@ public class EditorObjectPlacement : MonoBehaviour
     {
         if (Gui_Main.isMouseOnGui(mousePos)) return;
 
-        if (curSelected != null)
+        if (curSelected != null && isOnPlane(curSelected.transform.position))
         {
             ObjHelper htemp = curSelected.GetComponent<ObjHelper>();
             Vector2 p = new Vector2(curSelected.transform.position.x,curSelected.transform.position.y);
             Vector2 para = new Vector2(level.GetComponentsInChildren<Layer>()[activeLayer].gameObject.transform.position.x,level.GetComponentsInChildren<Layer>()[activeLayer].gameObject.transform.position.y);
-            p+= para;
+            p-= para;
             htemp.pos = p;
+            curSelected.layer = 8 + activeLayer;
             
             InsertObject command = new InsertObject();
             command.setUpCommand(curSelected, level.GetComponentsInChildren<Layer>()[activeLayer].gameObject);
@@ -137,8 +124,9 @@ public class EditorObjectPlacement : MonoBehaviour
     private Vector3 getObjPosition()
     {
         Vector3 pos = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, depth[activeLayer] - Camera.main.transform.position.z));
-        //TODO SNAP ON PARRALAX LAYERS!!
+        //If LAyers are paralax -> SNAP ON PARRALAX LAYERS!!
         pos.x = Mathf.Floor(pos.x) + curSelected.transform.localScale.x / 2;
+
         pos.y = Mathf.Floor(pos.y) + curSelected.transform.localScale.y / 2;
 
         return pos;
@@ -165,7 +153,7 @@ public class EditorObjectPlacement : MonoBehaviour
             {
                 LevelObject lobj =new LevelObject();
                 lobj.color = h.color;
-                lobj.name = h.name;
+                lobj.name = h.Objname;
                 lobj.pos = new SerializableVector2(h.pos);
                 l.addLevelObject(i, lobj);
             }
