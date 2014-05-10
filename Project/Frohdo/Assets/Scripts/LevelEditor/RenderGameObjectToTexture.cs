@@ -18,11 +18,12 @@ public class RenderGameObjectToTexture : MonoBehaviour
 
     }
 
-    public Texture renderGameObjectToTexture(GameObject obj, int width, int height)
+    public Texture renderGameObjectToTexture(GameObject obj, int width, int height, string color)
     {
 
         GameObject toRender = (GameObject)Instantiate(obj, targetPos, Quaternion.identity);
         toRender.transform.Rotate(Vector3.up, 180.0f);
+        toRender.GetComponent<Renderer>().material.color = LevelObjectController.Instance.GetColor(color);
 
         RenderTexture renderTex = new RenderTexture(width, height, 16);
         Texture2D tex2D = new Texture2D(width, height);

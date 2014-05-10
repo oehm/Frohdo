@@ -5,6 +5,7 @@ public class EditorObjectPlacement : MonoBehaviour
 {
     public GameObject level;
     public GameObject gridPref;
+    public EditCommandManager commandManager;
 
     private bool ready = false;
     private Vector2[] planeSizes;
@@ -13,6 +14,7 @@ public class EditorObjectPlacement : MonoBehaviour
     private GameObject curSelected = null;
     private Vector2 mousePos = new Vector2(0, 0);
     private int activeLayer = 2;
+
 
     private GameObject [][][] grids;
 
@@ -80,7 +82,25 @@ public class EditorObjectPlacement : MonoBehaviour
 
     public void mouseDown()
     {
+        if (Gui_Main.isMouseOnGui(mousePos)) return;
 
+        if (curSelected != null)
+        {
+            ObjHelper htemp = curSelected.GetComponent<ObjHelper>();
+            Vector2 p = new Vector2(curSelected.transform.position.x,curSelected.transform.position.y);
+            Vector2 para = new Vector2(level.GetComponentsInChildren<Layer>()[activeLayer].gameObject.transform.position.x,level.GetComponentsInChildren<Layer>()[activeLayer].gameObject.transform.position.y);
+            p+= para;
+            htemp.pos = p;
+            
+            InsertObject command = new InsertObject();
+            command.setUpCommand(curSelected, level.GetComponentsInChildren<Layer>()[activeLayer].gameObject);
+            commandManager.executeCommand(command);
+        }
+        //try to select a obj
+        else
+        {
+
+        }
     }
     public void mouseUp()
     {
@@ -92,13 +112,20 @@ public class EditorObjectPlacement : MonoBehaviour
         mousePos = mousePos_;
     }
 
-    public void selectObject(GameObject gameObj)
+    public void selectObject(LevelObject levelObj)
     {
         if (curSelected != null)
         {
             DestroyImmediate(curSelected);
         }
-        curSelected = Instantiate(gameObj) as GameObject;
+        curSelected = Instantiate(LevelObjectController.Instance.GetPrefabByName(levelObj.name)) as GameObject;
+        curSelected.AddComponent<ObjHelper>();
+        ObjHelper htemp = curSelected.GetComponent<ObjHelper>();
+        htemp.Objname = levelObj.name;
+        htemp.color = levelObj.color;
+
+        Color c = LevelObjectController.Instance.GetColor(levelObj.color);
+        curSelected.GetComponentInChildren<Renderer>().material.color = c;
         curSelected.transform.position = getObjPosition();
     }
 
@@ -110,8 +137,9 @@ public class EditorObjectPlacement : MonoBehaviour
     private Vector3 getObjPosition()
     {
         Vector3 pos = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, depth[activeLayer] - Camera.main.transform.position.z));
+        //TODO SNAP ON PARRALAX LAYERS!!
         pos.x = Mathf.Floor(pos.x) + curSelected.transform.localScale.x / 2;
-        pos.y = Mathf.Floor(pos.y) + curSelected.transform.localScale.y / 2; ;
+        pos.y = Mathf.Floor(pos.y) + curSelected.transform.localScale.y / 2;
 
         return pos;
     }
@@ -123,5 +151,24 @@ public class EditorObjectPlacement : MonoBehaviour
         Vector3 layercenter = level.GetComponentsInChildren<Layer>()[activeLayer].gameObject.transform.position;
 
         return (xp > layercenter.x - planeSizes[activeLayer].x / 2 && xp < layercenter.x + planeSizes[activeLayer].x / 2 && yp > layercenter.y - planeSizes[activeLayer].y / 2 && yp < layercenter.y + planeSizes[activeLayer].y / 2);
+    }
+
+    public void updateXMLLevelObjects(LevelEditorParser l)
+    {
+        l.clear();
+        Layer[] layer = level.GetComponentsInChildren<Layer>();
+        for(int i=0; i<layer.Length; i++)
+        {
+            GameObject obj = layer[i].gameObject;
+            ObjHelper[] hs = obj.GetComponentsInChildren<ObjHelper>();
+            foreach(ObjHelper h in hs)
+            {
+                LevelObject lobj =new LevelObject();
+                lobj.color = h.color;
+                lobj.name = h.name;
+                lobj.pos = new SerializableVector2(h.pos);
+                l.addLevelObject(i, lobj);
+            }
+        }
     }
 }

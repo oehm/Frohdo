@@ -4,13 +4,12 @@ using System.Collections;
 public class LevelEditorParser : MonoBehaviour {
 
     public string savePath;
-
     private string levelName;
     private Level level;
     
 	void Start () {
         level = new Level();
-        foreach(Layer l in GetComponentsInChildren<Layer>()  )
+        for(int i = 0; i< GlobalVars.Instance.LayerCount; i++)
         {
             level.layers.Add(new LayerXML());
         }
@@ -46,5 +45,12 @@ public class LevelEditorParser : MonoBehaviour {
         if(layerIndex >= level.layers.Count || layerIndex<= 0) return;
         level.layers[layerIndex].levelObjects.Add(obj);
     }
-	
+
+    public void clear()
+    {
+        for(int i=0; i< level.layers.Count; i++)
+        {
+            level.layers[i].levelObjects.Clear();
+        }
+    }
 }
