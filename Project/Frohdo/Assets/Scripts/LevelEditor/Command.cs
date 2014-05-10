@@ -6,6 +6,7 @@ public interface Command
     void exectute();
     void undo();
     void redo();
+    void freeResources();
 }
 
 
@@ -15,6 +16,12 @@ public class InsertObject : Command
     private GameObject obj;
     private GameObject layer;
     private Vector3 pos;
+    
+    public void freeResources()
+    {
+        GameObject.Destroy(pre);
+        Debug.Log(pre);
+    }
     
     public void setUpCommand(GameObject o, GameObject l)
     {
