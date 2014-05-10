@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 12001, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: LevelSelectItems
   m_EditorClassIdentifier: 
-  m_Font: {fileID: 12800000, guid: c11d0f89d78c5a14e9ed427573d532e0, type: 3}
+  m_Font: {fileID: 12800000, guid: 74457e3e514be8c42a5211f3699613fd, type: 3}
   m_box:
     m_Name: box
     m_Normal:
@@ -74,7 +74,7 @@ MonoBehaviour:
   m_button:
     m_Name: button
     m_Normal:
-      m_Background: {fileID: 2800000, guid: 63fe16ea91039422ebabc98522d7ee51, type: 3}
+      m_Background: {fileID: 2800000, guid: 75b0ee33acf6c7144a56273339ba7ff2, type: 3}
       m_TextColor: {r: .213235319, g: .213235319, b: .213235319, a: 1}
     m_Hover:
       m_Background: {fileID: 2800000, guid: 75b0ee33acf6c7144a56273339ba7ff2, type: 3}
@@ -118,7 +118,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Font: {fileID: 0}
-    m_FontSize: 65
+    m_FontSize: 35
     m_FontStyle: 0
     m_Alignment: 3
     m_WordWrap: 0
@@ -126,8 +126,8 @@ MonoBehaviour:
     m_TextClipping: 1
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 960
-    m_FixedHeight: 72.7200012
+    m_FixedWidth: 502
+    m_FixedHeight: 71.4400024
     m_StretchWidth: 1
     m_StretchHeight: 0
   m_toggle:
@@ -236,7 +236,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Font: {fileID: 0}
-    m_FontSize: 65
+    m_FontSize: 35
     m_FontStyle: 0
     m_Alignment: 0
     m_WordWrap: 1
@@ -1247,8 +1247,8 @@ MonoBehaviour:
     m_TextClipping: 0
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 960
-    m_FixedHeight: 818.099976
+    m_FixedWidth: 502
+    m_FixedHeight: 803.699951
     m_StretchWidth: 1
     m_StretchHeight: 0
   - m_Name: topbar
@@ -1305,8 +1305,8 @@ MonoBehaviour:
     m_TextClipping: 0
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 1920
-    m_FixedHeight: 90.9000015
+    m_FixedWidth: 1005
+    m_FixedHeight: 89.3000031
     m_StretchWidth: 1
     m_StretchHeight: 0
   - m_Name: topbarbutton
@@ -1355,7 +1355,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Font: {fileID: 0}
-    m_FontSize: 81
+    m_FontSize: 44
     m_FontStyle: 0
     m_Alignment: 4
     m_WordWrap: 0
@@ -1363,8 +1363,8 @@ MonoBehaviour:
     m_TextClipping: 0
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 200
-    m_FixedHeight: 90.9000015
+    m_FixedWidth: 167
+    m_FixedHeight: 89.3000031
     m_StretchWidth: 1
     m_StretchHeight: 0
   - m_Name: levelselectbox
@@ -1421,8 +1421,8 @@ MonoBehaviour:
     m_TextClipping: 0
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 960
-    m_FixedHeight: 727.200012
+    m_FixedWidth: 502
+    m_FixedHeight: 714.400024
     m_StretchWidth: 1
     m_StretchHeight: 0
   - m_Name: bottombar
@@ -1479,8 +1479,8 @@ MonoBehaviour:
     m_TextClipping: 0
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 960
-    m_FixedHeight: 90.9000015
+    m_FixedWidth: 502
+    m_FixedHeight: 89.3000031
     m_StretchWidth: 1
     m_StretchHeight: 0
   - m_Name: forwardbackwardbutton
@@ -1529,7 +1529,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Font: {fileID: 0}
-    m_FontSize: 81
+    m_FontSize: 44
     m_FontStyle: 0
     m_Alignment: 4
     m_WordWrap: 0
@@ -1537,8 +1537,8 @@ MonoBehaviour:
     m_TextClipping: 0
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 320
-    m_FixedHeight: 90.9000015
+    m_FixedWidth: 167
+    m_FixedHeight: 89.3000031
     m_StretchWidth: 1
     m_StretchHeight: 0
   - m_Name: bottombarCurLevelLabel
@@ -1587,7 +1587,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Font: {fileID: 0}
-    m_FontSize: 81
+    m_FontSize: 44
     m_FontStyle: 0
     m_Alignment: 4
     m_WordWrap: 0
@@ -1595,8 +1595,8 @@ MonoBehaviour:
     m_TextClipping: 0
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 192
-    m_FixedHeight: 90.9000015
+    m_FixedWidth: 100
+    m_FixedHeight: 89.3000031
     m_StretchWidth: 1
     m_StretchHeight: 0
   m_Settings:
