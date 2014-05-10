@@ -13,10 +13,10 @@ public class EditorObjectPlacement : MonoBehaviour
 
     private GameObject curSelected = null;
     private Vector2 mousePos = new Vector2(0, 0);
-    private int activeLayer = 2;
+    public int activeLayer = 2;
 
 
-    private GameObject [][][] grids;
+    public GameObject[][][] grids;
 
     public void init(Vector2 size)
     {
@@ -36,23 +36,19 @@ public class EditorObjectPlacement : MonoBehaviour
     {
         if (!ready) return;
         if (curSelected == null) return;
-        if (isOnPlane(getObjPosition()))
-        {
-            curSelected.transform.position = getObjPosition();
-        }
+        curSelected.transform.position = getObjPosition();
 
     }
     private void makeGrid()
     {
 
         grids = new GameObject[planeSizes.Length][][];
-        for (int i = 0; i < level.GetComponentsInChildren<Layer>().Length; i++)
+        for (int i = 0; i < GlobalVars.Instance.LayerCount; i++)
         {
             GameObject bg = Instantiate(gridPref, new Vector3(0, 0, depth[i]), Quaternion.identity) as GameObject;
             bg.transform.localScale = planeSizes[i];
             bg.transform.parent = level.GetComponentsInChildren<Layer>()[i].transform;
             bg.layer = 14 + i;
-
 
             grids[i] = new GameObject[(int)planeSizes[i].x][];
             for (int x = 0; x < (int)planeSizes[i].x; x++)
@@ -70,17 +66,17 @@ public class EditorObjectPlacement : MonoBehaviour
     {
         if (Gui_Main.isMouseOnGui(mousePos)) return;
 
-        if (curSelected != null && isOnPlane(curSelected.transform.position))
+        if (curSelected != null && isOnPlane(curSelected))
         {
             ObjHelper htemp = curSelected.GetComponent<ObjHelper>();
-            Vector2 p = new Vector2(curSelected.transform.position.x,curSelected.transform.position.y);
-            Vector2 para = new Vector2(level.GetComponentsInChildren<Layer>()[activeLayer].gameObject.transform.position.x,level.GetComponentsInChildren<Layer>()[activeLayer].gameObject.transform.position.y);
-            p-= para;
+            Vector2 p = new Vector2(curSelected.transform.position.x, curSelected.transform.position.y);
+            Vector2 para = new Vector2(level.GetComponentsInChildren<Layer>()[activeLayer].gameObject.transform.position.x, level.GetComponentsInChildren<Layer>()[activeLayer].gameObject.transform.position.y);
+            p -= para;
             htemp.pos = p;
             curSelected.layer = 8 + activeLayer;
-            
+
             InsertObject command = new InsertObject();
-            command.setUpCommand(curSelected, level.GetComponentsInChildren<Layer>()[activeLayer].gameObject);
+            command.setUpCommand(curSelected, level.GetComponentsInChildren<Layer>()[activeLayer].gameObject,this);
             commandManager.executeCommand(command);
         }
         //try to select a obj
@@ -99,14 +95,13 @@ public class EditorObjectPlacement : MonoBehaviour
         mousePos = mousePos_;
     }
 
-    public void selectObject(LevelObject levelObj)
+    public void updateObject(LevelObject levelObj)
     {
         if (curSelected != null)
         {
             DestroyImmediate(curSelected);
         }
         curSelected = Instantiate(LevelObjectController.Instance.GetPrefabByName(levelObj.name)) as GameObject;
-        curSelected.AddComponent<ObjHelper>();
         ObjHelper htemp = curSelected.GetComponent<ObjHelper>();
         htemp.Objname = levelObj.name;
         htemp.color = levelObj.color;
@@ -132,26 +127,31 @@ public class EditorObjectPlacement : MonoBehaviour
         return pos;
     }
 
-    private bool isOnPlane(Vector3 pos)
+    private bool isOnPlane(GameObject obj)
     {
-        float xp = pos.x;
-        float yp = pos.y;
+        Vector3 pos = obj.transform.position;
+        Vector3 scale = obj.transform.localScale;
+
         Vector3 layercenter = level.GetComponentsInChildren<Layer>()[activeLayer].gameObject.transform.position;
 
-        return (xp > layercenter.x - planeSizes[activeLayer].x / 2 && xp < layercenter.x + planeSizes[activeLayer].x / 2 && yp > layercenter.y - planeSizes[activeLayer].y / 2 && yp < layercenter.y + planeSizes[activeLayer].y / 2);
+        Rect layerRec = new Rect(layercenter.x - planeSizes[activeLayer].x / 2, layercenter.y - planeSizes[activeLayer].y / 2, planeSizes[activeLayer].x, planeSizes[activeLayer].y);
+        Rect objRec = new Rect(pos.x - scale.x / 2, pos.y - scale.y / 2, scale.x, scale.y);
+
+        return (layerRec.xMin <= objRec.xMin && layerRec.xMax >= objRec.xMax && layerRec.yMin <= objRec.yMin && layerRec.yMax >= objRec.yMax);
     }
+
 
     public void updateXMLLevelObjects(LevelEditorParser l)
     {
         l.clear();
         Layer[] layer = level.GetComponentsInChildren<Layer>();
-        for(int i=0; i<layer.Length; i++)
+        for (int i = 0; i < layer.Length; i++)
         {
             GameObject obj = layer[i].gameObject;
             ObjHelper[] hs = obj.GetComponentsInChildren<ObjHelper>();
-            foreach(ObjHelper h in hs)
+            foreach (ObjHelper h in hs)
             {
-                LevelObject lobj =new LevelObject();
+                LevelObject lobj = new LevelObject();
                 lobj.color = h.color;
                 lobj.name = h.Objname;
                 lobj.pos = new SerializableVector2(h.pos);

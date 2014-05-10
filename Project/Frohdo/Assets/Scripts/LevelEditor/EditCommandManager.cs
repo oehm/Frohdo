@@ -16,6 +16,7 @@ public class EditCommandManager : MonoBehaviour
 
     public void executeCommand(Command c)
     {
+        if(!c.exectute()) return;
         if (histIndex < history.Count - 1)
         {
             for (int i = histIndex+1; i < history.Count; i++)
@@ -25,7 +26,6 @@ public class EditCommandManager : MonoBehaviour
             //Debug.Log("Remove Elements :" + (histIndex+1).ToString()+ " to "+);
             history.RemoveRange(histIndex+1, history.Count - histIndex-1);
         }
-        c.exectute();
         histIndex++;
         history.Add(c);
         

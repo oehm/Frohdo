@@ -34,59 +34,44 @@ public class CalculatePlaneInFrustum : MonoBehaviour
         return cam;
     }
 
-    public  static Vector2[] getPlaneSizes(Vector2 levelSize, Camera camera)
+    public static Vector2[] getPlaneSizes(Vector2 levelSize, Camera camera)
     {
-        Camera cam = camera;
-        cam.transform.position = new Vector3(0, 0, GlobalVars.Instance.mainCamerZ);
+        camera.transform.position = new Vector3(0, 0, GlobalVars.Instance.mainCamerZ);
 
         Vector2 levelLeftDownCorner = new Vector2(-levelSize.x / 2, -levelSize.y / 2);
 
-        Vector2 plane1 = new Vector2();
-        Vector2 plane2 = new Vector2();
-        Vector2 plane4 = new Vector2();
-        Vector2 plane5 = new Vector2();
-
         //calulate the field of vision of the camera
-        Vector3[] visonPlane = getPlane(Mathf.Abs(GlobalVars.Instance.layerZPos[3] - cam.transform.position.z), cam);
+        Vector3[] visonPlane = getPlane(Mathf.Abs(GlobalVars.Instance.layerZPos[3] - camera.transform.position.z), camera);
         //move the camera to downloeftCorner so it exectly sees the level corner of the main layer
         float diffx = visonPlane[0].x - levelLeftDownCorner.x;
         float diffy = visonPlane[0].y - levelLeftDownCorner.y;
-        cam.transform.position -= new Vector3(diffx, diffy, 0);
+        camera.transform.position -= new Vector3(diffx, diffy, 0);
         //now calc the visonplane for the different layers
-        //make this automated
-        visonPlane = getPlane(Mathf.Abs(GlobalVars.Instance.layerZPos[0] - cam.transform.position.z), cam);
-        plane1.x = Mathf.Abs(visonPlane[0].x) * 2;
-        plane1.x += diffx * GlobalVars.Instance.layerParallax[0].x * 2;
-        plane1.y = Mathf.Abs(visonPlane[0].y) * 2;
-        plane1.y += diffy * GlobalVars.Instance.layerParallax[0].y * 2;
+        Vector2[] sizes = new Vector2[GlobalVars.Instance.LayerCount];
 
+        for (int i = 0; i < GlobalVars.Instance.LayerCount; i++)
+        {
+            if (i == GlobalVars.Instance.playLayer)
+            {
+                levelSize.x = Mathf.Floor(levelSize.x / 2) * 2;
+                levelSize.y = Mathf.Floor(levelSize.y / 2) * 2;
+                sizes[i] = levelSize;
+                continue;
+            }
 
-        visonPlane = getPlane(Mathf.Abs(GlobalVars.Instance.layerZPos[1] - cam.transform.position.z), cam);
-        plane2.x = Mathf.Abs(visonPlane[0].x) * 2;
-        plane2.x += diffx * GlobalVars.Instance.layerParallax[1].x * 2;
-        plane2.y = Mathf.Abs(visonPlane[0].y) * 2;
-        plane2.y += diffy * GlobalVars.Instance.layerParallax[1].y * 2;
+            Vector2 plane = new Vector2();
+            visonPlane = getPlane(Mathf.Abs(GlobalVars.Instance.layerZPos[i] - camera.transform.position.z), camera);
+            plane.x = Mathf.Abs(visonPlane[0].x) * 2;
+            plane.x += diffx * GlobalVars.Instance.layerParallax[i].x * 2;
+            plane.y = Mathf.Abs(visonPlane[0].y) * 2;
+            plane.y += diffy * GlobalVars.Instance.layerParallax[i].y * 2;
 
-        visonPlane = getPlane(Mathf.Abs(GlobalVars.Instance.layerZPos[3] - cam.transform.position.z), cam);
-        plane4.x = Mathf.Abs(visonPlane[0].x) * 2;
-        plane4.x += diffx * GlobalVars.Instance.layerParallax[3].x * 2;
-        plane4.y = Mathf.Abs(visonPlane[0].y) * 2;
-        plane4.y += diffy * GlobalVars.Instance.layerParallax[3].y * 2;
+            plane.x = Mathf.Floor(plane.x/2)*2;
+            plane.y = Mathf.Floor(plane.y/2)*2;
 
-        visonPlane = getPlane(Mathf.Abs(GlobalVars.Instance.layerZPos[4] - cam.transform.position.z), cam);
-        plane5.x = Mathf.Abs(visonPlane[0].x) * 2;
-        plane5.x += diffx * GlobalVars.Instance.layerParallax[4].x * 2;
-        plane5.y = Mathf.Abs(visonPlane[0].y) * 2;
-        plane5.y += diffy * GlobalVars.Instance.layerParallax[4].y * 2;
-
-        Vector2[] sizes = new Vector2[5];
-        sizes[0] = plane1;
-        sizes[1] = plane2;
-        sizes[2] = levelSize;
-        sizes[3] = plane4;
-        sizes[4] = plane5;
-
-        camera.transform.position = new Vector3(0,0,GlobalVars.Instance.mainCamerZ);
+            sizes[i] = plane;
+        }
+        camera.transform.position = new Vector3(0, 0, GlobalVars.Instance.mainCamerZ);
         return sizes;
     }
 }

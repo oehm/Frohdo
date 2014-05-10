@@ -42,7 +42,7 @@ public class LevelEditorParser : MonoBehaviour {
 
     public void addLevelObject(int layerIndex, LevelObject obj)
     {
-        if(layerIndex >= level.layers.Count || layerIndex<= 0) return;
+        //if(layerIndex >= level.layers.Count || layerIndex<= 0) return;
         level.layers[layerIndex].levelObjects.Add(obj);
     }
 

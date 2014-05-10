@@ -20,7 +20,7 @@ public class Gui_Main : MonoBehaviour
     private string levelName = "Enter level name";
     public Vector2 levelSize = new Vector2(100, 100);
 
-    private int activeLayer = 1;
+    private int activeLayer = 2;
     private string[] activeLayerStings;
     
     private bool[] visibleLayer;
@@ -40,7 +40,12 @@ public class Gui_Main : MonoBehaviour
     {
         level.setSize(levelSize);
         level.setLevelBackground("blue");
-        menuFunction = setup;
+        //menuFunction = setup;
+        menuFunction = edit;
+
+        objPlacement.setActiveLayer(activeLayer);
+        objPlacement.init(levelSize);
+        level.setLevelName(levelName);
 
         colors = LevelObjectController.Instance.getColors();
         colorButtons = new GUIContent[colors.Length];
@@ -158,25 +163,30 @@ public class Gui_Main : MonoBehaviour
         //LevelObjects
         //GUILayout.Label("LEVELOBJECT");
         scrollPos = GUILayout.BeginScrollView(scrollPos, guiSkin.scrollView);
+        GUILayout.BeginHorizontal("");
         for (int i = 0; i < levelObjects_content[selectedColor].Length; i++ )
         {
+            
             if(GUILayout.Button(levelObjects_content[selectedColor][i], guiSkin.customStyles[0]))
             {
                 LevelObject obj = new LevelObject();
                 obj.name = levelObjects_content[selectedColor][i].tooltip;
                 obj.color = colors[selectedColor];
-                objPlacement.selectObject(obj);
+                objPlacement.updateObject(obj);
             }
         }
+        GUILayout.EndHorizontal();
 
         GUILayout.EndScrollView();
         GUILayout.BeginHorizontal("box");
         if (GUILayout.Button("Save",guiSkin.button))
         {
-            objPlacement.updateXMLLevelObjects(level);
-            level.saveLevel();
+            menuFunction = save;
         }
-        GUILayout.Button("PREVIEW",guiSkin.button);
+        if(GUILayout.Button("PREVIEW",guiSkin.button))
+        {
+            //TEST THE LEVEL
+        }
         GUILayout.EndHorizontal();
 
         GUILayout.EndArea();
@@ -196,6 +206,29 @@ public class Gui_Main : MonoBehaviour
 
 
         GUI.Label(new Rect(leftAreaWidth + 30, Screen.height - Input.mousePosition.y, 100, 20), GUI.tooltip, guiSkin.label);
+    }
+
+    void save()
+    {
+        GUILayout.BeginArea(new Rect(ForceAspectRatio.xOffset, ForceAspectRatio.yOffset, leftAreaWidth, ForceAspectRatio.screenHeight), guiSkin.customStyles[3]);
+
+        levelName = GUILayout.TextField(levelName, guiSkin.textField);
+        
+        GUILayout.TextArea("CARE! If another level of you already made has the same, the old level will be overwritten!");
+        
+        GUILayout.BeginHorizontal("box");
+        if (GUILayout.Button("OKAY", guiSkin.button))
+        {
+            objPlacement.updateXMLLevelObjects(level);
+            level.saveLevel();
+            menuFunction = edit;
+        }
+        if(GUILayout.Button("CANCEL", guiSkin.button))
+        {
+            menuFunction = edit;
+        }
+        GUILayout.EndHorizontal();
+        GUILayout.EndArea();
     }
 
     public static bool isMouseOnGui(Vector2 pos)
