@@ -15,6 +15,7 @@ public class InsertObject : Command
     private GameObject pre;
     private GameObject obj;
     private GameObject layer;
+    private int matLAyer;
     private Vector3 pos;
     private EditorObjectPlacement editor;
 
@@ -29,6 +30,7 @@ public class InsertObject : Command
         pre.SetActive(false);
         layer = l;
         editor = e;
+        matLAyer = e.activeLayer;
     }
 
     public bool exectute()
@@ -58,7 +60,7 @@ public class InsertObject : Command
         {
             for (int y = (int)pos.y + planeH / 2 - htemp.height / 2, ym = 0; y <= planeH / 2 + (int)pos.y; y++, ym++)
             {
-                if (htemp.hitMat[htemp.width * ym + xm] && editor.grids[editor.activeLayer][x][y] != null)
+                if (htemp.hitMat[htemp.width * ym + xm] && editor.grids[matLAyer][x][y] != null)
                 {
                     return false;
                 }
@@ -71,7 +73,7 @@ public class InsertObject : Command
             {
                 if (htemp.hitMat[htemp.width * ym + xm])
                 {
-                    editor.grids[editor.activeLayer][x][y] = obj;
+                    editor.grids[matLAyer][x][y] = obj;
                 }
             }
         }
@@ -93,7 +95,7 @@ public class InsertObject : Command
             {
                 if (htemp.hitMat[htemp.width * ym + xm])
                 {
-                    editor.grids[editor.activeLayer][x][y] = null;
+                    editor.grids[matLAyer][x][y] = null;
                 }
             }
         }
