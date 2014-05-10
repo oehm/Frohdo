@@ -50,7 +50,7 @@ public class LevelSelect : MonoBehaviour {
     {
         levels = new List<Levelobj>();
 
-        DirectoryInfo dinfo = new DirectoryInfo(Application.dataPath + @"\Levels\Custom\");
+        DirectoryInfo dinfo = new DirectoryInfo(Application.dataPath + @"\Levels\downloaded\");
 
         List<string> levelpaths = new List<string>();
 
@@ -105,6 +105,37 @@ public class LevelSelect : MonoBehaviour {
     void loadCustomLevels()
     {
         levels = new List<Levelobj>();
+
+        DirectoryInfo dinfo = new DirectoryInfo(Application.dataPath + @"\Levels\custom\");
+
+        List<string> levelpaths = new List<string>();
+
+        if (dinfo.Exists)
+        {
+            int id = 0;
+            Debug.Log(dinfo.GetDirectories().Length);
+            foreach (DirectoryInfo d in dinfo.GetDirectories())
+            {
+                Levelobj obj;
+                try
+                {
+                    obj = new CustomLevelObj(id, d);
+                    id++;
+                    levels.Add(obj);
+                }
+                catch (Exception e)
+                {
+                    GC.Collect();
+                    Debug.Log(e);
+                    continue;
+                }
+                Debug.Log(d.FullName + " added!");
+            }
+        }
+        else
+        {
+            Debug.Log("FAIL!");
+        }
     }
 
     void loadStoryLevels()
@@ -299,6 +330,14 @@ public class LevelSelect : MonoBehaviour {
                     GUILayout.BeginVertical("", "infoBox");
                 
                     if(selectedLevelid != -1){
+                        if (levels[selectedLevelid].GetType() == typeof(CustomLevelObj))
+                            GUILayout.Label("EIN CUSTOM LEVEL! - LAUFZEIT TYP-PRÜFUNG!");
+                        if (levels[selectedLevelid].GetType() == typeof(OnlineLevelObj))
+                            GUILayout.Label("EIN ONLINE LEVEL! - LAUFZEIT TYP-PRÜFUNG!");
+                        if (levels[selectedLevelid].GetType() == typeof(StoryLevelObj))
+                            GUILayout.Label("EIN STORY LEVEL! - LAUFZEIT TYP-PRÜFUNG!");
+                        if (levels[selectedLevelid].GetType() == typeof(LocalLevelObj))
+                            GUILayout.Label("EIN LOKAL GESPEICHERTES LEVEL! - LAUFZEIT TYP-PRÜFUNG!");
                         GUILayout.Label("ID: " + levels[selectedLevelid].id);
                     }
 
@@ -324,46 +363,19 @@ abstract class Levelobj
     public Texture2D thumbnail;
 
     public abstract void loadHighScores();
-}
+    public abstract void loadThumbnail();
 
-class CustomLevelObj : Levelobj
-{
     public Level level;
 
-    public CustomLevelObj(int id, string path)
+    protected void loadLocalLevel(DirectoryInfo levelpath)
     {
-        this.id = id;
-        try
-        {
-            level = XML_Loader.Load(path);
-        }
-        catch (Exception)
-        {
-            throw new Exception("Level not Found on Disk");
-        }
-    }
-
-    public override void loadHighScores()
-    {
-
-    }
-}
-
-class LocalLevelObj : Levelobj //already on disk
-{
-    public List<highscore> highscores; //werden abgerufen vom Server oder lokal aus ner txt.
-    public Level level;
-
-    public LocalLevelObj(int id, DirectoryInfo levelpath)
-    {
-        this.id = id;
-        this.name = levelpath.Name;
         FileInfo XMLFile = null;
 
         foreach (FileInfo f in levelpath.GetFiles())
         {
-            if (f.Extension.Equals(".xml")){
-                if(XMLFile != null) throw new Exception("More than one XML-File found in Level-Directory!");
+            if (f.Extension.Equals(".xml"))
+            {
+                if (XMLFile != null) throw new Exception("More than one XML-File found in Level-Directory!");
                 else XMLFile = f;
             }
         }
@@ -382,12 +394,67 @@ class LocalLevelObj : Levelobj //already on disk
         else
         {
             throw new Exception("Level XML not found in Level Directory");
-        }     
+        }
+    }
+}
+
+class StoryLevelObj : Levelobj
+{
+    public StoryLevelObj(int id, DirectoryInfo levelpath)
+    {
+        this.id = id;
+        this.name = levelpath.Name;
+        loadLocalLevel(levelpath);
+    }
+    public override void loadHighScores()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void loadThumbnail()
+    {
+        throw new NotImplementedException();
+    }
+}
+class CustomLevelObj : Levelobj
+{
+    public CustomLevelObj(int id, DirectoryInfo levelpath)
+    {
+        this.id = id;
+        this.name = levelpath.Name;
+        loadLocalLevel(levelpath);
+    }
+
+    public override void loadThumbnail()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void loadHighScores()
+    {
+        throw new NotImplementedException();
+    }
+}
+
+class LocalLevelObj : Levelobj //already on disk
+{
+    public List<highscore> highscores; //werden abgerufen vom Server oder lokal aus ner txt.
+
+    public LocalLevelObj(int id, DirectoryInfo levelpath)
+    {
+        this.id = id;
+        this.name = levelpath.Name;
+        loadLocalLevel(levelpath);
     }
 
     public override void loadHighScores()
     {
         highscores = new List<highscore>();
+    }
+
+    public override void loadThumbnail()
+    {
+        throw new NotImplementedException();
     }
 }
 
@@ -401,14 +468,14 @@ class OnlineLevelObj : Levelobj //online - not downloaded
         this.name = "Online-Level " + id;
     }
 
-    void LoadThumbnail()
+    public override void loadThumbnail()
     {
-
+        throw new NotImplementedException();
     }
 
     public override void loadHighScores()
     {
-        highscores = new List<highscore>();
+        throw new NotImplementedException();
     }
 }
 
