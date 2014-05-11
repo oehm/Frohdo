@@ -9,7 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400000}
   - 114: {fileID: 11400000}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Movement
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26,7 +26,8 @@ GameObject:
   - 4: {fileID: 400002}
   - 33: {fileID: 3300000}
   - 23: {fileID: 2300000}
-  m_Layer: 0
+  - 95: {fileID: 9500000}
+  m_Layer: 9
   m_Name: Quad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +43,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400004}
   - 50: {fileID: 5000000}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Character
   m_TagString: Character
   m_Icon: {fileID: 0}
@@ -58,7 +59,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400006}
   - 60: {fileID: 6000002}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Feet
   m_TagString: Character
   m_Icon: {fileID: 0}
@@ -74,7 +75,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400008}
   - 60: {fileID: 6000000}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -214,6 +215,20 @@ PolygonCollider2D:
     - - {x: .200000003, y: -.899999976}
       - {x: 0, y: -1}
       - {x: -.200000003, y: -.899999976}
+--- !u!95 &9500000
+Animator:
+  serializedVersion: 2
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100002}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 22566101abe17be4dad9b7e3e2057b36, type: 2}
+  m_CullingMode: 0
+  m_ApplyRootMotion: 1
+  m_AnimatePhysics: 0
+  m_HasTransformHierarchy: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 1
