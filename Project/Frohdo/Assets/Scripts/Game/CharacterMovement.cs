@@ -9,12 +9,23 @@ public class CharacterMovement : MonoBehaviour {
     public float runForce_;
     public float jumpMaxSpeed_;
     public float jumpForce_;
-    public float pukeForce_;
+    public float pukeForceSide_;
+    public float pukeForceUp_;
+    public float pukeForceDown_;
 
     public GameObject pukePrefab_;
 
+    public Vector2 pukeOffSide_;
+    public Vector2 pukeOffUp_;
+    public Vector2 pukeOffDown_;
+
+
     //private
     private GameObject character_;
+
+    private bool lookLeft_;
+    private bool lookUp_;
+    private bool lookDown_;
 
     private Vector2 runInput_;
     private bool jumpInput_;
@@ -28,12 +39,15 @@ public class CharacterMovement : MonoBehaviour {
 	void Start () {
         character_ = transform.parent.gameObject;
 
+        lookLeft_ = false;
+
         runInput_ = new Vector2(0.0f, 0.0f);
         jumpInput_ = false;
         pukeInput_ = false;
 
         jumpDisabled_ = false;
         pukeDisabled_ = false;
+        
 	}
 
 
@@ -42,11 +56,23 @@ public class CharacterMovement : MonoBehaviour {
         runInput_ = run;
         jumpInput_ = jump;
         pukeInput_ = puke;
+
+        if (run.x < 0)
+        {
+            lookLeft_ = true;
+        }
+        if (run.x > 0)
+        {
+            lookLeft_ = false;
+        }
+        lookUp_ = run.y > 0;
+        lookDown_ = run.y < 0;
     }
 
     // FixedUpdate is called once per physic frame
     void FixedUpdate()
     {
+        //puke
         if (pukeInput_ && !pukeDisabled_)
         {
             GameObject pukeObject = (GameObject)Instantiate(pukePrefab_);
@@ -55,11 +81,37 @@ public class CharacterMovement : MonoBehaviour {
             pukeObject.GetComponentInChildren<Renderer>().material.color = LevelObjectController.Instance.GetColor("M");
 
             Vector2 pukePos = character_.transform.position;
-            pukePos += new Vector2(-1.5f, 0.5f);
+
+            if (lookUp_) {
+                pukePos += pukeOffUp_;
+                pukeObject.rigidbody2D.AddForce(new Vector2(0.0f, pukeForceUp_));
+            }
+            else if (lookDown_)
+            {
+                pukePos += pukeOffDown_;
+                pukeObject.rigidbody2D.AddForce(new Vector2(0.0f, -pukeForceDown_));
+            }
+            else
+            {
+                if (lookLeft_)
+                {
+                    pukePos.x -= pukeOffSide_.x;
+                    pukePos.y += pukeOffSide_.y;
+                    pukeObject.rigidbody2D.AddForce(new Vector2(-pukeForceSide_, 0.0f));
+                }
+                else
+                {
+                    pukePos += pukeOffSide_;
+                    pukeObject.rigidbody2D.AddForce(new Vector2(pukeForceSide_, 0.0f));
+                }
+            }
+
+
             pukeObject.transform.position = pukePos;
             pukeObject.transform.parent = character_.transform.parent;
 
-            pukeObject.rigidbody2D.AddForce(new Vector2(-pukeForce_, 0.0f));
+            pukeObject.GetComponent<Rigidbody2D>().velocity = character_.GetComponent<Rigidbody2D>().velocity;
+
 
             pukeDisabled_ = true;
         }
