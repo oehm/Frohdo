@@ -33,7 +33,7 @@ public class PauseMenu : MonoBehaviour
         GUILayout.BeginArea(new Rect(Screen.width / 2 - 300, Screen.height / 2 - 200, 600, 400));
         if (GUILayout.Button("Back to Main Menu"))
         {
-            SceneController.Instance.loadScene(destroyer, 2);
+            SceneManager.Instance.loadScene(destroyer, 2);
         }
 
         if (GUILayout.Button("Quit"))

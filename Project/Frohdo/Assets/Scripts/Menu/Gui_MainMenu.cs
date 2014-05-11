@@ -46,11 +46,11 @@ public class Gui_MainMenu : MonoBehaviour
         GUILayout.BeginArea(new Rect((ForceAspectRatio.screenWidth+ForceAspectRatio.xOffset) / 2 - 300, (ForceAspectRatio.screenHeight+ForceAspectRatio.yOffset) / 2 - 200, 600, 400));
         if (GUILayout.Button("GameScene", mainStyle.button))
         {
-            SceneController.Instance.loadScene(destoryer, 3);
+            SceneManager.Instance.loadScene(destoryer, 3);
         }
         if (GUILayout.Button("LevelEditorScene", mainStyle.button))
         {
-            SceneController.Instance.loadScene(destoryer, 4);
+            SceneManager.Instance.loadScene(destoryer, 4);
         }
         if (GUILayout.Button("Options", mainStyle.button))
         {

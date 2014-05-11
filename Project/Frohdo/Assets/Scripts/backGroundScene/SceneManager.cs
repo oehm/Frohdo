@@ -1,20 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SceneController : MonoBehaviour
+public class SceneManager : MonoBehaviour
 {
 
-    private static SceneController instance = null;
-    public static SceneController Instance
+    private static SceneManager instance = null;
+    public static SceneManager Instance
     {
         get
         {
-            if (instance == null)
-            {
-                instance = (SceneController)Resources.Load("ScriptableObjectInstances/SceneMager");
-                DontDestroyOnLoad(instance);
-            }
-
             return instance;
         }
     }
@@ -26,6 +20,12 @@ public class SceneController : MonoBehaviour
 
     void Start()
     {
+        if (instance != null)
+        {
+            Destroy(this);
+        }
+        instance = this;
+
         Application.LoadLevelAdditive(1);
     }
 
@@ -34,7 +34,7 @@ public class SceneController : MonoBehaviour
     {
         if(loading)
         {
-            Debug.Log(async.progress);
+            Debug.Log(async.progress * 100.0f);
             if(async.isDone)
             {
                 loading = false;
@@ -45,12 +45,12 @@ public class SceneController : MonoBehaviour
     public void loadScene(SceneDestroyer destroyer, int nextScene)
     {
         destroyer.suicide();        
-        AsyncOperation async = Application.LoadLevelAdditiveAsync(nextScene);
+        async = Application.LoadLevelAdditiveAsync(nextScene);
         loading = true;
     }
 
-    public void changeBackgoundColor(string color)
+    public GameObject getBackground()
     {
-        background.GetComponent<Renderer>().material.color = LevelObjectController.Instance.GetColor(color);
+        return background;
     }
 }

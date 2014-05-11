@@ -22,6 +22,17 @@ public class LevelObjectController : ScriptableObject
         }
     }
 
+    void OnEnable()
+    {
+        if (instance != null)
+        {
+            Destroy(this);
+
+            Debug.Log("There is a instance of LevelObjectController already. Cant create Another one.");
+            throw new System.Exception("There is a instance of LevelObjectController already. Cant create Another one.");
+        }
+    }
+
     //public
     public List<GameObject> levelObjectPrefabs_;
 
@@ -76,14 +87,4 @@ public class LevelObjectController : ScriptableObject
     public readonly static Color C = new Color(0.0f, 1.0f, 1.0f);
     public readonly static Color M = new Color(1.0f, 0.0f, 1.0f);
 
-    void OnEnable()
-    {
-        if (instance != null)
-        {
-            Destroy(this);
-
-            Debug.Log("There is a instance of LevelObjectController already. Cant create Another one.");
-            throw new System.Exception("There is a instance of LevelObjectController already. Cant create Another one.");
-        }
-    }
 }

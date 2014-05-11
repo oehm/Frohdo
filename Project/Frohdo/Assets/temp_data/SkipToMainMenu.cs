@@ -6,7 +6,7 @@ public class SkipToMainMenu : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        SceneController.Instance.loadScene(destroyer, 2);
+        SceneManager.Instance.loadScene(destroyer, 2);
 
 	}
 	
