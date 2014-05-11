@@ -14,9 +14,9 @@ public class EditCommandManager : MonoBehaviour
         histIndex = -1;
     }
 
-    public void executeCommand(Command c)
+    public bool executeCommand(Command c)
     {
-        if(!c.exectute()) return;
+        if(!c.exectute()) return false;
         if (histIndex < history.Count - 1)
         {
             for (int i = histIndex+1; i < history.Count; i++)
@@ -28,7 +28,7 @@ public class EditCommandManager : MonoBehaviour
         }
         histIndex++;
         history.Add(c);
-        
+        return true;
     }
 
     public void undo()
@@ -46,7 +46,7 @@ public class EditCommandManager : MonoBehaviour
 
     public void redo()
     {
-        if (histIndex < history.Count && histIndex >= -1)
+        if (histIndex < history.Count-1 && histIndex >= -1)
         {
             histIndex++;
             history[histIndex].redo();

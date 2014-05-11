@@ -36,6 +36,7 @@ public class CalculatePlaneInFrustum : MonoBehaviour
 
     public static Vector2[] getPlaneSizes(Vector2 levelSize, Camera camera)
     {
+        Vector3 oldCamPos = camera.transform.position;
         camera.transform.position = new Vector3(0, 0, GlobalVars.Instance.mainCamerZ);
 
         Vector2 levelLeftDownCorner = new Vector2(-levelSize.x / 2, -levelSize.y / 2);
@@ -71,7 +72,7 @@ public class CalculatePlaneInFrustum : MonoBehaviour
 
             sizes[i] = plane;
         }
-        camera.transform.position = new Vector3(0, 0, GlobalVars.Instance.mainCamerZ);
+        camera.transform.position = oldCamPos;
         return sizes;
     }
 }

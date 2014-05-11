@@ -12,7 +12,6 @@ public interface Command
 
 public class InsertObject : Command
 {
-    private GameObject pre;
     private GameObject obj;
     private GameObject layer;
     private int matLAyer;
@@ -21,13 +20,13 @@ public class InsertObject : Command
 
     public void freeResources()
     {
-        GameObject.Destroy(pre);
+        GameObject.Destroy(obj);
     }
 
-    public void setUpCommand(GameObject o, GameObject l,EditorObjectPlacement e)
+    public void setUpCommand(GameObject o, GameObject l, EditorObjectPlacement e)
     {
-        pre = GameObject.Instantiate(o) as GameObject;
-        pre.SetActive(false);
+        obj = GameObject.Instantiate(o) as GameObject;
+        obj.SetActive(false);
         layer = l;
         editor = e;
         matLAyer = e.activeLayer;
@@ -35,7 +34,6 @@ public class InsertObject : Command
 
     public bool exectute()
     {
-        obj = GameObject.Instantiate(pre) as GameObject;
         obj.SetActive(true);
         pos = obj.transform.position;
         obj.transform.parent = layer.transform;
@@ -54,8 +52,8 @@ public class InsertObject : Command
         ObjHelper htemp = obj.GetComponent<ObjHelper>();
         Vector3 pos = obj.transform.position;
         //test if theres is an object
-        int planeW = editor.grids[editor.activeLayer].Length;
-        int planeH = editor.grids[editor.activeLayer][0].Length;
+        int planeW = editor.grids[matLAyer].Length;
+        int planeH = editor.grids[matLAyer][0].Length;
         for (int x = (int)pos.x + planeW / 2 - htemp.width / 2, xm = 0; x <= planeW / 2 + (int)pos.x; x++, xm++)
         {
             for (int y = (int)pos.y + planeH / 2 - htemp.height / 2, ym = 0; y <= planeH / 2 + (int)pos.y; y++, ym++)
@@ -84,11 +82,12 @@ public class InsertObject : Command
 
     public void undo()
     {
+        obj.SetActive(false);
 
         ObjHelper htemp = obj.GetComponent<ObjHelper>();
         Vector3 pos = obj.transform.position;
-        int planeW = editor.grids[editor.activeLayer].Length;
-        int planeH = editor.grids[editor.activeLayer][0].Length;
+        int planeW = editor.grids[matLAyer].Length;
+        int planeH = editor.grids[matLAyer][0].Length;
         for (int x = (int)pos.x + planeW / 2 - htemp.width / 2, xm = 0; x <= planeW / 2 + (int)pos.x; x++, xm++)
         {
             for (int y = (int)pos.y + planeH / 2 - htemp.height / 2, ym = 0; y <= planeH / 2 + (int)pos.y; y++, ym++)
@@ -99,18 +98,85 @@ public class InsertObject : Command
                 }
             }
         }
-        GameObject.Destroy(obj);
     }
 
     public void redo()
     {
-        obj = GameObject.Instantiate(pre) as GameObject;
         obj.SetActive(true);
-        obj.transform.position = pos;
-        obj.transform.parent = layer.transform;
+        placeObject();
     }
 }
 
+public class DeleteObj : Command
+{
+    private GameObject obj;
+    private int matLAyer;
+    private Vector3 pos;
+    private EditorObjectPlacement editor;
+
+    public void freeResources()
+    {
+        GameObject.Destroy(obj);
+    }
+
+    public void setUpCommand(GameObject o, EditorObjectPlacement e)
+    {
+        obj = o;
+        editor = e;
+        matLAyer = e.activeLayer;
+    }
+
+    public bool exectute()
+    {
+        obj.SetActive(false);
+
+        ObjHelper htemp = obj.GetComponent<ObjHelper>();
+        Vector3 pos = obj.transform.position;
+        int planeW = editor.grids[matLAyer].Length;
+        int planeH = editor.grids[matLAyer][0].Length;
+        for (int x = (int)pos.x + planeW / 2 - htemp.width / 2, xm = 0; x <= planeW / 2 + (int)pos.x; x++, xm++)
+        {
+            for (int y = (int)pos.y + planeH / 2 - htemp.height / 2, ym = 0; y <= planeH / 2 + (int)pos.y; y++, ym++)
+            {
+                if (htemp.hitMat[htemp.width * ym + xm])
+                {
+                    editor.grids[matLAyer][x][y] = null;
+                }
+            }
+        }
+        return true;
+    }
+
+    private void placeObject()
+    {
+        ObjHelper htemp = obj.GetComponent<ObjHelper>();
+        Vector3 pos = obj.transform.position;
+        //test if theres is an object
+        int planeW = editor.grids[matLAyer].Length;
+        int planeH = editor.grids[matLAyer][0].Length;
+        for (int x = (int)pos.x + planeW / 2 - htemp.width / 2, xm = 0; x <= planeW / 2 + (int)pos.x; x++, xm++)
+        {
+            for (int y = (int)pos.y + planeH / 2 - htemp.height / 2, ym = 0; y <= planeH / 2 + (int)pos.y; y++, ym++)
+            {
+                if (htemp.hitMat[htemp.width * ym + xm])
+                {
+                    editor.grids[matLAyer][x][y] = obj;
+                }
+            }
+        }
+    }
+
+    public void undo()
+    {
+        obj.SetActive(true);
+        placeObject();
+    }
+
+    public void redo()
+    {
+        exectute();
+    }
+}
 
 public class ChangeColor : Command
 {
