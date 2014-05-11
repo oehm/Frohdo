@@ -15,8 +15,8 @@ MonoBehaviour:
   m_box:
     m_Name: box
     m_Normal:
-      m_Background: {fileID: 11001, guid: 0000000000000000e000000000000000, type: 0}
-      m_TextColor: {r: .799999952, g: .799999952, b: .799999952, a: 1}
+      m_Background: {fileID: 2800000, guid: 95f1a2ec9b4f242e182abe667a100a4e, type: 3}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Hover:
       m_Background: {fileID: 0}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
@@ -67,9 +67,9 @@ MonoBehaviour:
     m_TextClipping: 1
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 0
-    m_FixedHeight: 0
-    m_StretchWidth: 1
+    m_FixedWidth: 90
+    m_FixedHeight: 90
+    m_StretchWidth: 0
     m_StretchHeight: 0
   m_button:
     m_Name: button
@@ -118,8 +118,8 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Font: {fileID: 0}
-    m_FontSize: 0
-    m_FontStyle: 0
+    m_FontSize: 16
+    m_FontStyle: 1
     m_Alignment: 4
     m_WordWrap: 0
     m_RichText: 1
@@ -236,7 +236,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Font: {fileID: 0}
-    m_FontSize: 0
+    m_FontSize: 18
     m_FontStyle: 0
     m_Alignment: 0
     m_WordWrap: 1
@@ -369,7 +369,7 @@ MonoBehaviour:
   m_window:
     m_Name: window
     m_Normal:
-      m_Background: {fileID: 11023, guid: 0000000000000000e000000000000000, type: 0}
+      m_Background: {fileID: 2800000, guid: f174d0b21eea2f9499b8cd358a49c80d, type: 3}
       m_TextColor: {r: 1, g: 1, b: 1, a: 1}
     m_Hover:
       m_Background: {fileID: 0}
@@ -403,9 +403,9 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Padding:
-      m_Left: 10
+      m_Left: 5
       m_Right: 10
-      m_Top: 20
+      m_Top: 0
       m_Bottom: 10
     m_Overflow:
       m_Left: 0
@@ -415,16 +415,16 @@ MonoBehaviour:
     m_Font: {fileID: 0}
     m_FontSize: 0
     m_FontStyle: 0
-    m_Alignment: 1
+    m_Alignment: 4
     m_WordWrap: 0
     m_RichText: 1
     m_TextClipping: 1
-    m_ImagePosition: 0
-    m_ContentOffset: {x: 0, y: -18}
-    m_FixedWidth: 0
-    m_FixedHeight: 0
+    m_ImagePosition: 1
+    m_ContentOffset: {x: 0, y: 0}
+    m_FixedWidth: 200
+    m_FixedHeight: 149.669998
     m_StretchWidth: 1
-    m_StretchHeight: 0
+    m_StretchHeight: 1
   m_horizontalSlider:
     m_Name: horizontalslider
     m_Normal:
@@ -1369,7 +1369,7 @@ MonoBehaviour:
     m_StretchHeight: 1
   - m_Name: leftArea
     m_Normal:
-      m_Background: {fileID: 2800000, guid: bf72b930be6ed5646b33f682f7975d89, type: 3}
+      m_Background: {fileID: 2800000, guid: f174d0b21eea2f9499b8cd358a49c80d, type: 3}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Hover:
       m_Background: {fileID: 0}

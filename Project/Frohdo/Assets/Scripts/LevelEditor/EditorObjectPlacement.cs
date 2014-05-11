@@ -6,12 +6,14 @@ public class EditorObjectPlacement : MonoBehaviour
     public GameObject level;
     public GameObject gridPref;
     public EditCommandManager commandManager;
+    public Gui_Main gui;
 
     private bool ready = false;
     private Vector2[] planeSizes;
     private float[] depth;
 
     private GameObject curSelected = null;
+    private LevelObject curLevelObject = null;
     private Vector2 mousePos = new Vector2(0, 0);
     public int activeLayer = 2;
 
@@ -32,12 +34,27 @@ public class EditorObjectPlacement : MonoBehaviour
         ready = true;
     }
 
-    public void Update()
-    {
-        if (!ready) return;
-        if (curSelected == null) return;
-        curSelected.transform.position = getObjPosition();
+    private bool mouseDown_ = false;
+    private GameObject objMakred = null;
 
+    void Update()
+    {
+        if (!ready || curLevelObject == null || objMakred != null) return;
+        if (mouseDown_)
+        {
+            if (curSelected == null)
+            {
+                curSelected = Instantiate(LevelObjectController.Instance.GetPrefabByName(curLevelObject.name)) as GameObject;
+                ObjHelper htemp = curSelected.GetComponent<ObjHelper>();
+                htemp.Objname = curLevelObject.name;
+                htemp.color = curLevelObject.color;
+
+                Color c = LevelObjectController.Instance.GetColor(curLevelObject.color);
+                curSelected.GetComponentInChildren<Renderer>().material.color = c;
+                curSelected.transform.position = getObjPosition();
+            }
+            curSelected.transform.position = getObjPosition();
+        }
     }
     private void makeGrid()
     {
@@ -45,7 +62,7 @@ public class EditorObjectPlacement : MonoBehaviour
         grids = new GameObject[planeSizes.Length][][];
         for (int i = 0; i < GlobalVars.Instance.LayerCount; i++)
         {
-            GameObject bg = Instantiate(gridPref, new Vector3(0, 0, depth[i]), Quaternion.identity) as GameObject;
+            GameObject bg = Instantiate(gridPref, new Vector3(0, 0, depth[i] + 0.02f), Quaternion.identity) as GameObject;
             bg.transform.localScale = planeSizes[i];
             bg.transform.parent = level.GetComponentsInChildren<Layer>()[i].transform;
             bg.layer = 14 + i;
@@ -64,7 +81,42 @@ public class EditorObjectPlacement : MonoBehaviour
 
     public void mouseDown()
     {
-        if (Gui_Main.isMouseOnGui(mousePos)) return;
+        ////check if user clicks on an object
+        if (gui.isMouseOnGui(mousePos)) return;
+        if (isOnPlane(mousePos))
+        {
+            Vector3 pos = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, depth[activeLayer] - Camera.main.transform.position.z));
+            if (grids[activeLayer][(int)pos.x + (int)planeSizes[activeLayer].x / 2][(int)pos.y + (int)planeSizes[activeLayer].y / 2] != null)
+            {
+                objMakred = grids[activeLayer][(int)pos.x + (int)planeSizes[activeLayer].x / 2][(int)pos.y + (int)planeSizes[activeLayer].y / 2];
+                Debug.Log(objMakred);
+                curSelected = null;
+                curLevelObject = null;
+                gui.deselectObj();
+                gui.showEditMEnu(true);
+            }
+            else
+            {
+                objMakred = null;
+                gui.showEditMEnu(false);
+            }
+        }
+
+        mouseDown_ = true;
+    }
+    public void mouseUp()
+    {
+        mouseDown_ = false;
+
+        if (gui.isMouseOnGui(mousePos))
+        {
+            if (curSelected != null)
+            {
+                DestroyImmediate(curSelected);
+                curSelected = null;
+            }
+            return;
+        }
 
         if (curSelected != null && isOnPlane(curSelected))
         {
@@ -76,18 +128,15 @@ public class EditorObjectPlacement : MonoBehaviour
             curSelected.layer = 8 + activeLayer;
 
             InsertObject command = new InsertObject();
-            command.setUpCommand(curSelected, level.GetComponentsInChildren<Layer>()[activeLayer].gameObject,this);
+            command.setUpCommand(curSelected, level.GetComponentsInChildren<Layer>()[activeLayer].gameObject, this);
             commandManager.executeCommand(command);
         }
-        //try to select a obj
-        else
+
+        if (curSelected != null)
         {
-
+            DestroyImmediate(curSelected);
+            curSelected = null;
         }
-    }
-    public void mouseUp()
-    {
-
     }
 
     public void mouseMove(Vector2 mousePos_)
@@ -97,18 +146,30 @@ public class EditorObjectPlacement : MonoBehaviour
 
     public void updateObject(LevelObject levelObj)
     {
-        if (curSelected != null)
-        {
-            DestroyImmediate(curSelected);
-        }
-        curSelected = Instantiate(LevelObjectController.Instance.GetPrefabByName(levelObj.name)) as GameObject;
-        ObjHelper htemp = curSelected.GetComponent<ObjHelper>();
-        htemp.Objname = levelObj.name;
-        htemp.color = levelObj.color;
+        curLevelObject = levelObj;
+    }
 
-        Color c = LevelObjectController.Instance.GetColor(levelObj.color);
-        curSelected.GetComponentInChildren<Renderer>().material.color = c;
-        curSelected.transform.position = getObjPosition();
+    public void updateColor(string color)
+    {
+        if (curLevelObject != null)
+        {
+            curLevelObject.color = color;
+        }
+    }
+
+    public void changeColor(string color)
+    {
+        ChangeColor command = new ChangeColor();
+        command.setUpCommand(objMakred, color);
+        commandManager.executeCommand(command);
+    }
+    public void deleteObj()
+    {
+        DeleteObj command = new DeleteObj();
+        command.setUpCommand(objMakred, this);
+        commandManager.executeCommand(command);
+        objMakred = null;
+        gui.showEditMEnu(false);
     }
 
     public void setActiveLayer(int layer)
@@ -119,9 +180,7 @@ public class EditorObjectPlacement : MonoBehaviour
     private Vector3 getObjPosition()
     {
         Vector3 pos = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, depth[activeLayer] - Camera.main.transform.position.z));
-        //If LAyers are paralax -> SNAP ON PARRALAX LAYERS!!
         pos.x = Mathf.Floor(pos.x) + curSelected.transform.localScale.x / 2;
-
         pos.y = Mathf.Floor(pos.y) + curSelected.transform.localScale.y / 2;
 
         return pos;
@@ -131,13 +190,23 @@ public class EditorObjectPlacement : MonoBehaviour
     {
         Vector3 pos = obj.transform.position;
         Vector3 scale = obj.transform.localScale;
-
         Vector3 layercenter = level.GetComponentsInChildren<Layer>()[activeLayer].gameObject.transform.position;
 
         Rect layerRec = new Rect(layercenter.x - planeSizes[activeLayer].x / 2, layercenter.y - planeSizes[activeLayer].y / 2, planeSizes[activeLayer].x, planeSizes[activeLayer].y);
         Rect objRec = new Rect(pos.x - scale.x / 2, pos.y - scale.y / 2, scale.x, scale.y);
 
         return (layerRec.xMin <= objRec.xMin && layerRec.xMax >= objRec.xMax && layerRec.yMin <= objRec.yMin && layerRec.yMax >= objRec.yMax);
+    }
+
+    private bool isOnPlane(Vector3 mPos)
+    {
+        Vector3 pos = Camera.main.ScreenToWorldPoint(new Vector3(mPos.x, mPos.y, depth[activeLayer] - Camera.main.transform.position.z));
+        Vector2 p = new Vector2(pos.x, pos.y);
+        Vector3 layercenter = level.GetComponentsInChildren<Layer>()[activeLayer].gameObject.transform.position;
+
+        Rect layerRec = new Rect(layercenter.x - planeSizes[activeLayer].x / 2, layercenter.y - planeSizes[activeLayer].y / 2, planeSizes[activeLayer].x, planeSizes[activeLayer].y);
+
+        return layerRec.Contains(p);
     }
 
 
