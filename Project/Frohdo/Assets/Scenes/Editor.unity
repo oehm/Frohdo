@@ -609,6 +609,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: {fileID: 397076327}
   gridPref: {fileID: 100000, guid: 7b8db41fb9d368142b920715256327ed, type: 2}
+  marker: {fileID: 100000, guid: a5199ba10236f4d448592de42e2d21b6, type: 2}
   commandManager: {fileID: 1406282889}
   gui: {fileID: 1884209937}
   activeLayer: 2
@@ -1016,7 +1017,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 897562638}
   m_Layer: 0
-  m_Name: Controller
+  m_Name: SceneController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

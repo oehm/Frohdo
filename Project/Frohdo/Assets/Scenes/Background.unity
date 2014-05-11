@@ -154,7 +154,7 @@ GameObject:
   - 4: {fileID: 892357208}
   - 114: {fileID: 892357209}
   m_Layer: 0
-  m_Name: SceneController
+  m_Name: SceneManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -285,6 +285,10 @@ Prefab:
       propertyPath: background
       value: 
       objectReference: {fileID: 76254898}
+    - target: {fileID: 100000, guid: 30c2f57308e4b894baf4523e5ca71b8c, type: 2}
+      propertyPath: m_Name
+      value: SceneManager
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 30c2f57308e4b894baf4523e5ca71b8c, type: 2}
   m_RootGameObject: {fileID: 892357207}

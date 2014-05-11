@@ -5,6 +5,7 @@ public class EditorObjectPlacement : MonoBehaviour
 {
     public GameObject level;
     public GameObject gridPref;
+    public GameObject marker;
     public EditCommandManager commandManager;
     public Gui_Main gui;
 
@@ -36,6 +37,12 @@ public class EditorObjectPlacement : MonoBehaviour
 
     private bool mouseDown_ = false;
     private GameObject objMakred = null;
+
+    void Start()
+    {
+        marker = Instantiate(marker) as GameObject;
+        marker.SetActive(false);
+    }
 
     void Update()
     {
@@ -82,23 +89,34 @@ public class EditorObjectPlacement : MonoBehaviour
     public void mouseDown()
     {
         ////check if user clicks on an object
-        if (gui.isMouseOnGui(mousePos)) return;
+        if (gui.isMouseOnGui(mousePos))
+        {
+            objMakred = null;
+            marker.SetActive(false);
+            curSelected = null;
+            gui.showEditMEnu(false);
+            return;
+        }   
         if (isOnPlane(mousePos))
         {
             Vector3 pos = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, depth[activeLayer] - Camera.main.transform.position.z));
             if (grids[activeLayer][(int)pos.x + (int)planeSizes[activeLayer].x / 2][(int)pos.y + (int)planeSizes[activeLayer].y / 2] != null)
             {
                 objMakred = grids[activeLayer][(int)pos.x + (int)planeSizes[activeLayer].x / 2][(int)pos.y + (int)planeSizes[activeLayer].y / 2];
-                Debug.Log(objMakred);
                 curSelected = null;
                 curLevelObject = null;
                 gui.deselectObj();
                 gui.showEditMEnu(true);
+                marker.transform.position = objMakred.transform.position + new Vector3(0, 0, 0.01f);
+                marker.transform.localScale = objMakred.transform.localScale + new Vector3(0.4f, 0.4f, 0);
+                Debug.Log(marker.transform.localScale);
+                marker.SetActive(true);
             }
             else
             {
                 objMakred = null;
                 gui.showEditMEnu(false);
+                marker.SetActive(false);
             }
         }
 
