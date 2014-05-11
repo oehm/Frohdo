@@ -59,7 +59,7 @@ public class Layer : MonoBehaviour {
         levelObject.transform.parent = transform;
         levelObject.transform.localPosition = position;
         levelObject.GetComponentInChildren<Renderer>().material.color = color;
-        Collider2D[] colliders = levelObject.GetComponents<Collider2D>();
+        Collider2D[] colliders = levelObject.GetComponentsInChildren<Collider2D>();
         foreach (Collider2D collider in colliders)
         {
             collider.enabled = hasColliders_;

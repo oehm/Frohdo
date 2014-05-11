@@ -61,6 +61,11 @@ public class LevelObjectController : ScriptableObject
             }
         }
 
+        if (name.Equals("Character"))
+        {
+            return character_;
+        }
+
         Debug.Log("LevelObject prefab not found: " + name);
         throw new System.Exception("LevelObject prefab not found: " + name);
     }

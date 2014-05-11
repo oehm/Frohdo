@@ -20,8 +20,8 @@ public class Character : MonoBehaviour {
     private bool lookUp_;
     private bool lookDown_;
 
-	// Use this for initialization
-    void Start()
+
+    void Awake()
     {
         gameObject_ = transform.parent.gameObject;
         movement_ = gameObject_.GetComponentInChildren<CharacterMovement>();
