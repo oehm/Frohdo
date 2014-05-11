@@ -3,7 +3,7 @@ using System.Collections;
 
 public class CameraMovementGame : MonoBehaviour {
 
-    public GameObject player_;
+    public GameObject character_;
 
     public float cameraMaxSpeed_;
 
@@ -15,7 +15,7 @@ public class CameraMovementGame : MonoBehaviour {
     // FixedUpdate is called once per physic frame
     void FixedUpdate()
     {
-        Vector3 desiredPos = new Vector3(player_.transform.position.x, player_.transform.position.y, transform.position.z);
+        Vector3 desiredPos = new Vector3(character_.transform.position.x, character_.transform.position.y, transform.position.z);
 
         Vector3 desiredMove = desiredPos - transform.position;
 

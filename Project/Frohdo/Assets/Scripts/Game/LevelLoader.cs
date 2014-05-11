@@ -61,9 +61,9 @@ public class LevelLoader : MonoBehaviour {
                 //this is ugly but i dont know better atm
                 if (levelObjectXML.name.Equals("Character"))
                 {
-                    inputController_.character_ = levelObjectObject.GetComponentInChildren<CharacterMovement>();
+                    inputController_.character_ = levelObjectObject.GetComponentInChildren<Character>();
 
-                    camera_.GetComponent<CameraMovementGame>().player_ = levelObjectObject;
+                    camera_.GetComponent<CameraMovementGame>().character_ = levelObjectObject;
                 }
             }
 
