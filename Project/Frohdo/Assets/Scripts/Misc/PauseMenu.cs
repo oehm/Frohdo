@@ -7,6 +7,8 @@ public class PauseMenu : MonoBehaviour
     private MenuDelegate menuFunction;
 
     private bool isPause = false;
+
+    public SceneDestroyer destroyer;
     // Use this for initialization
     void Start()
     {
@@ -31,7 +33,7 @@ public class PauseMenu : MonoBehaviour
         GUILayout.BeginArea(new Rect(Screen.width / 2 - 300, Screen.height / 2 - 200, 600, 400));
         if (GUILayout.Button("Back to Main Menu"))
         {
-            Application.LoadLevel(1);
+            SceneController.Instance.loadScene(destroyer, 2);
         }
 
         if (GUILayout.Button("Quit"))

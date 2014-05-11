@@ -4,6 +4,8 @@ using System.Collections;
 public class LevelLoader : MonoBehaviour {
 
 
+    public GameObject SceneObjects;
+    
     public GameObject layerPrefab_;
 
     public Camera camera_;
@@ -35,6 +37,7 @@ public class LevelLoader : MonoBehaviour {
         for (int i = 0; i < levelXML.layers.Count; i++)
         {
             GameObject layerObject = (GameObject)Instantiate(layerPrefab_);
+            layerObject.transform.parent = SceneObjects.transform;
             Layer layerScript = layerObject.GetComponent<Layer>();
             LayerXML layerXML = levelXML.layers[i];
 

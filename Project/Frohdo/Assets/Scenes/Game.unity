@@ -225,9 +225,55 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 967c808f1203d74408f7be193f55df96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SceneObjects: {fileID: 883982010}
   layerPrefab_: {fileID: 100000, guid: 2218c2a3e53b793438920f9023cf31b3, type: 2}
   camera_: {fileID: 38375943}
   inputController_: {fileID: 679768323}
+--- !u!1 &567109477
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 567109479}
+  - 114: {fileID: 567109478}
+  m_Layer: 0
+  m_Name: SceneDestroyer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &567109478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 567109477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9eec69bf7cf7c04cbf0d989934e0df7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneObjs:
+  - {fileID: 38375938}
+  - {fileID: 922470004}
+  - {fileID: 679768322}
+  - {fileID: 379441720}
+  - {fileID: 1339845254}
+  - {fileID: 883982010}
+--- !u!4 &567109479
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 567109477}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
 --- !u!1 &679768322
 GameObject:
   m_ObjectHideFlags: 0
@@ -265,6 +311,32 @@ Transform:
   m_GameObject: {fileID: 679768322}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+--- !u!1 &883982010
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 883982011}
+  m_Layer: 0
+  m_Name: SceneObjects
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &883982011
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 883982010}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -365,6 +437,10 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2000000, guid: 43bd0df0891bd3a46a25d52410add3c7, type: 2}
+      propertyPath: m_CullingMask.m_Bits
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 43bd0df0891bd3a46a25d52410add3c7, type: 2}
   m_RootGameObject: {fileID: 38375938}
@@ -437,6 +513,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e01373aa31b19334d95bba2d1ee89694, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroyer: {fileID: 567109478}
 --- !u!4 &1339845256
 Transform:
   m_ObjectHideFlags: 0

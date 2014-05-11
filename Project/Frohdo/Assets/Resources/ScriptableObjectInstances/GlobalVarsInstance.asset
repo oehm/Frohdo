@@ -13,15 +13,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCamerZ: -10
   layerZPos:
-  - 5
-  - 2.5
-  - 0
-  - -2.5
   - -5
+  - -2.5
+  - 0
+  - 2.5
+  - 5
   layerParallax:
-  - {x: -.5, y: -.00999999978}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0}
   - {x: .5, y: .00999999978}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: -.5, y: -.00999999978}
   playLayer: 2
