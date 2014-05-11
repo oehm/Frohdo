@@ -34,7 +34,7 @@ public class SceneManager : MonoBehaviour
     {
         if(loading)
         {
-            Debug.Log(async.progress * 100.0f);
+            //Debug.Log(async.progress * 100.0f);
             if(async.isDone)
             {
                 loading = false;

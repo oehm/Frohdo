@@ -32,6 +32,7 @@ public class Gui_Main : MonoBehaviour
     private Vector2 scrollPos = new Vector2(0, 0);
 
     private GUIContent[][] levelObjects_content;
+    private GUIContent character;
     private string[] colors;
     private int seletedObj = -1;
     private bool showEditScreen = false;
@@ -41,7 +42,6 @@ public class Gui_Main : MonoBehaviour
     {
         level.setSize(levelSize);
         level.setLevelBackground("blue");
-        //menuFunction = setup;
         menuFunction = edit;
 
         objPlacement.setActiveLayer(activeLayer);
@@ -69,10 +69,7 @@ public class Gui_Main : MonoBehaviour
             visibleLayer[i] = true;
         }
 
-
-
         List<GUIContent> tempCont = new List<GUIContent>();
-
         List<GameObject> tempObjs = new List<GameObject>();
 
         levelObjects_content = new GUIContent[colors.Length][];
@@ -80,10 +77,8 @@ public class Gui_Main : MonoBehaviour
         for (int i = 0; i < LevelObjectController.Instance.levelObjectPrefabs_.Count; i++)
         {
             GameObject obj = LevelObjectController.Instance.levelObjectPrefabs_[i];
-            if (obj.name == "Character") continue;
             tempObjs.Add(LevelObjectController.Instance.levelObjectPrefabs_[i]);
         }
-        //levelObjects = tempObjs.ToArray();
 
         for (int i = 0; i < colors.Length; i++)
         {
@@ -94,9 +89,8 @@ public class Gui_Main : MonoBehaviour
             levelObjects_content[i] = tempCont.ToArray();
             tempCont.Clear();
         }
-
-
-
+        GameObject charObj = LevelObjectController.Instance.getCharacter();
+        character = new GUIContent(objRenderer.renderGameObjectToTexture(charObj, 256, 256, "W"));
     }
     // Update is called once per frame
     void Update()
@@ -121,18 +115,6 @@ public class Gui_Main : MonoBehaviour
     void OnGUI()
     {
         menuFunction();
-    }
-    void setup()
-    {
-        GUILayout.BeginArea(new Rect(ForceAspectRatio.xOffset, ForceAspectRatio.yOffset, leftAreaWidth, ForceAspectRatio.screenHeight), guiSkin.customStyles[3]);
-        levelName = GUILayout.TextField(levelName, guiSkin.textField);
-        if (GUILayout.Button("Next", guiSkin.button))
-        {
-            objPlacement.init(levelSize);
-            level.setLevelName(levelName);
-            menuFunction = edit;
-        }
-        GUILayout.EndArea();
     }
 
     void edit()
@@ -168,9 +150,12 @@ public class Gui_Main : MonoBehaviour
         //LevelObjects
         scrollPos = GUILayout.BeginScrollView(scrollPos, guiSkin.scrollView);
         GUILayout.BeginHorizontal("");
+        if (activeLayer == GlobalVars.Instance.playLayer)
+        {
+            GUILayout.Button(character, guiSkin.customStyles[0]);
+        }
         for (int i = 0; i < levelObjects_content[selectedColor].Length; i++)
         {
-
             if (GUILayout.Button(levelObjects_content[selectedColor][i], guiSkin.customStyles[0]))
             {
                 LevelObject obj = new LevelObject();
@@ -240,7 +225,7 @@ public class Gui_Main : MonoBehaviour
 
     void save()
     {
-        GUILayout.BeginArea(new Rect(ForceAspectRatio.xOffset, ForceAspectRatio.yOffset, leftAreaWidth, ForceAspectRatio.screenHeight), guiSkin.customStyles[3]);
+        GUILayout.BeginArea(new Rect(ForceAspectRatio.xOffset, ForceAspectRatio.yOffset, leftAreaWidth, ForceAspectRatio.screenHeight));//, guiSkin.customStyles[3]);
 
         levelName = GUILayout.TextField(levelName, guiSkin.textField);
 

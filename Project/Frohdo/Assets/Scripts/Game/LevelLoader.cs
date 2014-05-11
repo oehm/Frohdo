@@ -55,16 +55,21 @@ public class LevelLoader : MonoBehaviour {
             for (int j = 0; j < layerXML.levelObjects.Count; j++)
             {
                 LevelObject levelObjectXML = layerXML.levelObjects[j];
+                if (levelObjectXML.name.Equals("Character"))
+                {
+                    //ToDO add ToString layer
+                    
+                    GameObject character = Instantiate(LevelObjectController.Instance.getCharacter(),new Vector3(levelObjectXML.pos.Vector2.x,levelObjectXML.pos.Vector2.y,GlobalVars.Instance.layerZPos[i]),Quaternion.identity) as GameObject;
+                    inputController_.character_ = character.GetComponentInChildren<Character>();
+
+                    camera_.GetComponent<CameraMovementGame>().character_ = character;
+                    continue;
+                }
 
                 GameObject levelObjectObject =  layerScript.AddLevelObjectByName(levelObjectXML.name, levelObjectXML.color, levelObjectXML.pos.Vector2);
 
                 //this is ugly but i dont know better atm
-                if (levelObjectXML.name.Equals("Character"))
-                {
-                    inputController_.character_ = levelObjectObject.GetComponentInChildren<Character>();
-
-                    camera_.GetComponent<CameraMovementGame>().character_ = levelObjectObject;
-                }
+               
             }
 
         }

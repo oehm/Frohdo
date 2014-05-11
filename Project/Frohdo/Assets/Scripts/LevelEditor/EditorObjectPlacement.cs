@@ -53,6 +53,7 @@ public class EditorObjectPlacement : MonoBehaviour
             if (curSelected == null)
             {
                 curSelected = Instantiate(LevelObjectController.Instance.GetPrefabByName(curLevelObject.name)) as GameObject;
+                curSelected.transform.parent = level.transform;
                 ObjHelper htemp = curSelected.GetComponent<ObjHelper>();
                 htemp.Objname = curLevelObject.name;
                 htemp.color = curLevelObject.color;
@@ -110,7 +111,6 @@ public class EditorObjectPlacement : MonoBehaviour
                 gui.showEditMEnu(true);
                 marker.transform.position = objMakred.transform.position + new Vector3(0, 0, 0.01f);
                 marker.transform.localScale = objMakred.transform.localScale + new Vector3(0.4f, 0.4f, 0);
-                Debug.Log(marker.transform.localScale);
                 marker.SetActive(true);
             }
             else

@@ -35,6 +35,7 @@ public class LevelObjectController : ScriptableObject
 
     //public
     public List<GameObject> levelObjectPrefabs_;
+    public GameObject character_;
 
     public string[] getColors()
     {
@@ -62,6 +63,10 @@ public class LevelObjectController : ScriptableObject
 
         Debug.Log("LevelObject prefab not found: " + name);
         throw new System.Exception("LevelObject prefab not found: " + name);
+    }
+    public GameObject getCharacter()
+    {
+        return character_;
     }
 
     public Color GetColor(string color)
