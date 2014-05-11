@@ -41,6 +41,7 @@ public class EditorObjectPlacement : MonoBehaviour
     void Start()
     {
         marker = Instantiate(marker) as GameObject;
+        marker.transform.parent = level.transform;
         marker.SetActive(false);
     }
 
