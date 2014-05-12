@@ -147,14 +147,23 @@ public class Gui_Main : MonoBehaviour
         }
 
         //LevelObjects
-        scrollPos = GUILayout.BeginScrollView(scrollPos, guiSkin.scrollView);
+        scrollPos = GUILayout.BeginScrollView(scrollPos,guiSkin.scrollView);
+        int xCount = 0;
         GUILayout.BeginHorizontal("");
         if (activeLayer == GlobalVars.Instance.playLayer)
         {
             GUILayout.Button(character, guiSkin.customStyles[0]);
+            xCount++;
         }
         for (int i = 0; i < levelObjects_content[selectedColor].Length; i++)
         {
+            xCount++;
+            if(xCount >= 3)
+            {
+                xCount = 0;
+                GUILayout.EndHorizontal();
+                GUILayout.BeginHorizontal();
+            }
             if (GUILayout.Button(levelObjects_content[selectedColor][i], guiSkin.customStyles[0]))
             {
                 LevelObjectXML obj = new LevelObjectXML();
@@ -252,9 +261,14 @@ public class Gui_Main : MonoBehaviour
         {
             return true;
         }
+        return false;
+    }
+
+    public bool isMouseOnEditScreen(Vector2 pos)
+    {
         if (showEditScreen)
-        {
-            hist = new Rect(new Rect(ForceAspectRatio.screenWidth - 400, 80, 400, 80));
+        {   
+            Rect hist = new Rect(new Rect(ForceAspectRatio.screenWidth - 400, 40, 400, 40));
             return hist.Contains(pos);
         }
         return false;

@@ -58,11 +58,11 @@ public class InsertObject : Command
         Vector2 objPos = new Vector2((int)(pos.x + (pW+1) / 2), (int)(pos.y + (pH+1) / 2));
         int w = (htemp.width + 1) / 2;
         int h = (htemp.height + 1) / 2;
-        int w2 = (htemp.width + 1) / 2;
-        int h2 = (htemp.height + 1) / 2;
-        for (int x = (int)objPos.x - w, xm = 0; x < (int)objPos.x + w2; x++, xm++)
+        int w2 = htemp.width / 2;
+        int h2 = htemp.height / 2;
+        for (int x = (int)objPos.x - w2, xm = 0; x < (int)objPos.x + w; x++, xm++)
         {
-            for (int y = (int)objPos.y - h, ym = 0; y < (int)objPos.y + w2; y++, ym++)
+            for (int y = (int)objPos.y - h2, ym = 0; y < (int)objPos.y + h; y++, ym++)
             {
                 if (htemp.hitMat[xm][ym] && editor.grids[matLAyer][x][y] != null)
                 {
@@ -71,17 +71,11 @@ public class InsertObject : Command
             }
         }
 
-        //        int w = (htemp.width + 1) / 2;
-        //int h = (htemp.height + 1) / 2;
-        //int w2 = (htemp.width + 1) / 2;
-        //int h2 = (htemp.height + 1) / 2;
-        //for (int x = (int)objPos.x - w, xm = 0; x < (int)objPos.x + w2; x++, xm++)
-        //{
-        //    for (int y = (int)objPos.y - h, ym = 0; y < (int)objPos.y + w2; y++, ym++)
+
         //if not 
-        for (int x = (int)objPos.x - w, xm = 0; x < (int)objPos.x + w2; x++, xm++)
+        for (int x = (int)objPos.x - w2, xm = 0; x < (int)objPos.x + w; x++, xm++)
         {
-            for (int y = (int)objPos.y - h, ym = 0; y < (int)objPos.y + w2; y++, ym++)
+            for (int y = (int)objPos.y - h2, ym = 0; y < (int)objPos.y + h; y++, ym++)
             {
                 if (htemp.hitMat[xm][ym])
                 {
@@ -102,11 +96,13 @@ public class InsertObject : Command
         int pW = editor.grids[matLAyer].Length;
         int pH = editor.grids[matLAyer][0].Length;
         Vector2 objPos = new Vector2((int)(pos.x + (pW + 1) / 2), (int)(pos.y + (pH + 1) / 2));
-        int w2 = (htemp.width + 1) / 2;
-        int h2 = (htemp.height + 1) / 2;
-        for (int x = (int)objPos.x - w2, xm = 0; x < (int)objPos.x + w2; x++, xm++)
+        int w = (htemp.width + 1) / 2;
+        int h = (htemp.height + 1) / 2;
+        int w2 = htemp.width / 2;
+        int h2 = htemp.height / 2;
+        for (int x = (int)objPos.x - w2, xm = 0; x < (int)objPos.x + w; x++, xm++)
         {
-            for (int y = (int)objPos.y - h2, ym = 0; y < (int)objPos.y + w2; y++, ym++)
+            for (int y = (int)objPos.y - h2, ym = 0; y < (int)objPos.y + h; y++, ym++)
             {
                 if (htemp.hitMat[xm][ym])
                 {
@@ -151,11 +147,13 @@ public class DeleteObj : Command
         int pW = editor.grids[matLAyer].Length;
         int pH = editor.grids[matLAyer][0].Length;
         Vector2 objPos = new Vector2((int)(pos.x + (pW + 1) / 2), (int)(pos.y + (pH + 1) / 2));
-        int w2 = (htemp.width + 1) / 2;
-        int h2 = (htemp.height + 1) / 2;
-        for (int x = (int)objPos.x - w2, xm = 0; x < (int)objPos.x + w2; x++, xm++)
+        int w = (htemp.width + 1) / 2;
+        int h = (htemp.height + 1) / 2;
+        int w2 = htemp.width / 2;
+        int h2 = htemp.height / 2;
+        for (int x = (int)objPos.x - w2, xm = 0; x < (int)objPos.x + w; x++, xm++)
         {
-            for (int y = (int)objPos.y - h2, ym = 0; y < (int)objPos.y + w2; y++, ym++)
+            for (int y = (int)objPos.y - h2, ym = 0; y < (int)objPos.y + h; y++, ym++)
             {
                 if (htemp.hitMat[xm][ym])
                 {
@@ -173,12 +171,14 @@ public class DeleteObj : Command
         //test if theres is an object
         int pW = editor.grids[matLAyer].Length;
         int pH = editor.grids[matLAyer][0].Length;
-        Vector2 objPos = new Vector2((int)(pos.x + pW  / 2), (int)(pos.y + pH  / 2));
-        int w2 = (htemp.width + 1) / 2;
-        int h2 = (htemp.height + 1) / 2;
-        for (int x = (int)objPos.x - w2, xm = 0; x < (int)objPos.x + w2; x++, xm++)
+        Vector2 objPos = new Vector2((int)(pos.x + (pW + 1) / 2), (int)(pos.y + (pH + 1) / 2));
+        int w = (htemp.width + 1) / 2;
+        int h = (htemp.height + 1) / 2;
+        int w2 = htemp.width / 2;
+        int h2 = htemp.height / 2;
+        for (int x = (int)objPos.x - w2, xm = 0; x < (int)objPos.x + w; x++, xm++)
         {
-            for (int y = (int)objPos.y - h2, ym = 0; y < (int)objPos.y + w2; y++, ym++)
+            for (int y = (int)objPos.y - h2, ym = 0; y < (int)objPos.y + h; y++, ym++)
             {
                 if (htemp.hitMat[xm][ym])
                 {
