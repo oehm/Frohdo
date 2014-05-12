@@ -80,12 +80,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c1db793888da1f419dc8e9fe57e3593, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Objname: BiggerTile
-  color: W
-  pos: {x: 0, y: 0}
-  height: 0
-  width: 0
-  hitMat: 01010101
+  height: 2
+  width: 2
+  hitMat:
+  - arr: 0101
+  - arr: 0101
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

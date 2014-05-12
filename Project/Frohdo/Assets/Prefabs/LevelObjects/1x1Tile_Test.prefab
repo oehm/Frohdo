@@ -80,10 +80,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c1db793888da1f419dc8e9fe57e3593, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Objname: 1x1Tile_Test
-  color: W
-  pos: {x: 0, y: 0}
-  hitMat: 01
+  height: 1
+  width: 1
+  hitMat:
+  - arr: 01
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

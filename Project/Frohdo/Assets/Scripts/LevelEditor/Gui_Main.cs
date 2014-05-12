@@ -76,7 +76,6 @@ public class Gui_Main : MonoBehaviour
 
         for (int i = 0; i < LevelObjectController.Instance.levelObjectPrefabs_.Count; i++)
         {
-            GameObject obj = LevelObjectController.Instance.levelObjectPrefabs_[i];
             tempObjs.Add(LevelObjectController.Instance.levelObjectPrefabs_[i]);
         }
 

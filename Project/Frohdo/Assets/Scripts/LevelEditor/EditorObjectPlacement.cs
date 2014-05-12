@@ -42,6 +42,7 @@ public class EditorObjectPlacement : MonoBehaviour
     {
         marker = Instantiate(marker) as GameObject;
         marker.transform.parent = level.transform;
+        marker.name = "MARKER";
         marker.SetActive(false);
     }
 
@@ -54,10 +55,8 @@ public class EditorObjectPlacement : MonoBehaviour
             {
                 curSelected = Instantiate(LevelObjectController.Instance.GetPrefabByName(curLevelObject.name)) as GameObject;
                 curSelected.transform.parent = level.transform;
-                ObjHelper htemp = curSelected.GetComponent<ObjHelper>();
-                htemp.Objname = curLevelObject.name;
-                htemp.color = curLevelObject.color;
-
+                curSelected.name = curLevelObject.name;
+                Gridable htemp = curSelected.GetComponent<Gridable>();
                 Color c = LevelObjectController.Instance.GetColor(curLevelObject.color);
                 curSelected.GetComponentInChildren<Renderer>().material.color = c;
                 curSelected.transform.position = getObjPosition();
@@ -109,7 +108,7 @@ public class EditorObjectPlacement : MonoBehaviour
                 curLevelObject = null;
                 gui.deselectObj();
                 gui.showEditMEnu(true);
-                marker.transform.position = objMakred.transform.position + new Vector3(0, 0, 0.01f);
+                marker.transform.position = objMakred.transform.position + new Vector3(0, 0, -0.01f);
                 marker.transform.localScale = objMakred.transform.localScale + new Vector3(0.4f, 0.4f, 0);
                 marker.SetActive(true);
             }
@@ -139,11 +138,10 @@ public class EditorObjectPlacement : MonoBehaviour
 
         if (curSelected != null && isOnPlane(curSelected))
         {
-            ObjHelper htemp = curSelected.GetComponent<ObjHelper>();
+            Gridable htemp = curSelected.GetComponent<Gridable>();
             Vector2 p = new Vector2(curSelected.transform.position.x, curSelected.transform.position.y);
             Vector2 para = new Vector2(level.GetComponentsInChildren<Layer>()[activeLayer].gameObject.transform.position.x, level.GetComponentsInChildren<Layer>()[activeLayer].gameObject.transform.position.y);
             p -= para;
-            htemp.pos = p;
             curSelected.layer = 8 + activeLayer;
 
             InsertObject command = new InsertObject();
@@ -188,6 +186,7 @@ public class EditorObjectPlacement : MonoBehaviour
         command.setUpCommand(objMakred, this);
         commandManager.executeCommand(command);
         objMakred = null;
+        marker.SetActive(false);
         gui.showEditMEnu(false);
     }
 
@@ -236,13 +235,13 @@ public class EditorObjectPlacement : MonoBehaviour
         for (int i = 0; i < layer.Length; i++)
         {
             GameObject obj = layer[i].gameObject;
-            ObjHelper[] hs = obj.GetComponentsInChildren<ObjHelper>();
-            foreach (ObjHelper h in hs)
+            Gridable[] hs = obj.GetComponentsInChildren<Gridable>();
+            foreach (Gridable h in hs)
             {
                 LevelObject lobj = new LevelObject();
-                lobj.color = h.color;
-                lobj.name = h.Objname;
-                lobj.pos = new SerializableVector2(h.pos);
+                //lobj.color = h.color;
+                //lobj.name = h.Objname;
+                //lobj.pos = new SerializableVector2(h.pos);
                 l.addLevelObject(i, lobj);
             }
         }
