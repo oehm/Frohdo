@@ -89,6 +89,15 @@ public class EditorObjectPlacement : MonoBehaviour
 
     public void mouseDown()
     {
+        //chekc if gui clicks on EditScreen
+        if(gui.isMouseOnEditScreen(mousePos))
+        {
+            mouseDown_ = true;
+            Debug.Log("On Screen!!");
+            return;
+        }
+        
+        
         ////check if user clicks on an object
         if (gui.isMouseOnGui(mousePos))
         {
@@ -121,7 +130,6 @@ public class EditorObjectPlacement : MonoBehaviour
                 marker.SetActive(false);
             }
         }
-
         mouseDown_ = true;
     }
     public void mouseUp()

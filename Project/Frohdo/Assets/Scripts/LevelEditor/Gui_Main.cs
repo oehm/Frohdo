@@ -261,9 +261,14 @@ public class Gui_Main : MonoBehaviour
         {
             return true;
         }
+        return false;
+    }
+
+    public bool isMouseOnEditScreen(Vector2 pos)
+    {
         if (showEditScreen)
-        {
-            hist = new Rect(new Rect(ForceAspectRatio.screenWidth - 400, 80, 400, 80));
+        {   
+            Rect hist = new Rect(new Rect(ForceAspectRatio.screenWidth - 400, 40, 400, 40));
             return hist.Contains(pos);
         }
         return false;
