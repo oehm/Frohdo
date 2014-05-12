@@ -25,7 +25,7 @@ public class LevelLoader : MonoBehaviour {
 
     void LoadLevel(string path)
     {
-        Level levelXML = XML_Loader.Load(path);
+        LevelXML levelXML = XML_Loader.Load(path);
 
         if (levelXML.layers.Count != GlobalVars.Instance.LayerCount)
         {
@@ -33,6 +33,8 @@ public class LevelLoader : MonoBehaviour {
             Debug.Log(error);
             throw new System.Exception(error);
         }
+
+        SceneManager.Instance.background.GetComponent<Colorable>().colorIn(levelXML.backgroundColor);
 
         for (int i = 0; i < levelXML.layers.Count; i++)
         {
@@ -54,7 +56,7 @@ public class LevelLoader : MonoBehaviour {
 
             for (int j = 0; j < layerXML.levelObjects.Count; j++)
             {
-                LevelObject levelObjectXML = layerXML.levelObjects[j];
+                LevelObjectXML levelObjectXML = layerXML.levelObjects[j];
                 
 
                 GameObject levelObjectObject =  layerScript.AddLevelObjectByName(levelObjectXML.name, levelObjectXML.color, levelObjectXML.pos.Vector2);

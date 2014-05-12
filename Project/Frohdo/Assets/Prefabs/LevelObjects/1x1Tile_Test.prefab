@@ -12,6 +12,9 @@ GameObject:
   - 23: {fileID: 2300000}
   - 61: {fileID: 6100000}
   - 114: {fileID: 11400000}
+  - 114: {fileID: 11400002}
+  - 114: {fileID: 11400004}
+  - 114: {fileID: 11400006}
   m_Layer: 8
   m_Name: 1x1Tile_Test
   m_TagString: LevelObject
@@ -84,6 +87,41 @@ MonoBehaviour:
   width: 1
   hitMat:
   - arr: 01
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ff123b438e05db47bd180417cd73e7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  behaviour_: 0
+--- !u!114 &11400004
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47490dd6634386749a13ed314fcb988a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color_: W
+--- !u!114 &11400006
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f0c6664f2647f459a84c9692596646, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+>>>>>>> 03cc0b59e24fcd19dbd771a42665d51f89eeabe6
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

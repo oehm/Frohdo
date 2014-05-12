@@ -48,9 +48,4 @@ public class SceneManager : MonoBehaviour
         async = Application.LoadLevelAdditiveAsync(nextScene);
         loading = true;
     }
-
-    public GameObject getBackground()
-    {
-        return background;
-    }
 }

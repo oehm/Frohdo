@@ -42,11 +42,9 @@ public class Layer : MonoBehaviour {
     public GameObject AddLevelObjectByName(string prefabName, string colorName, Vector2 position)
     {
         GameObject prefab;
-        Color color;
         try
         {
             prefab = LevelObjectController.Instance.GetPrefabByName(prefabName);
-            color = LevelObjectController.Instance.GetColor(colorName);
         }
         catch
         {
@@ -58,7 +56,15 @@ public class Layer : MonoBehaviour {
         levelObject.name = prefabName;
         levelObject.transform.parent = transform;
         levelObject.transform.localPosition = position;
-        levelObject.GetComponentInChildren<Renderer>().material.color = color;
+
+        Colorable colorable = levelObject.GetComponentInChildren<Colorable>();
+        if(colorable != null)
+            colorable.colorIn(colorName);
+
+        BackgroundSensitive backgroundSensitive = levelObject.GetComponentInChildren<BackgroundSensitive>();
+        if(backgroundSensitive != null) 
+            backgroundSensitive.AffectCollider = hasColliders_;
+
         Collider2D[] colliders = levelObject.GetComponentsInChildren<Collider2D>();
         foreach (Collider2D collider in colliders)
         {
