@@ -60,6 +60,7 @@ public class EditorObjectPlacement : MonoBehaviour
                 Color c = LevelObjectController.Instance.GetColor(curLevelObject.color);
                 curSelected.GetComponentInChildren<Renderer>().material.color = c;
                 curSelected.transform.position = getObjPosition();
+                curSelected.layer = 8 + activeLayer;
             }
             curSelected.transform.position = getObjPosition();
         }
@@ -90,14 +91,11 @@ public class EditorObjectPlacement : MonoBehaviour
     public void mouseDown()
     {
         //chekc if gui clicks on EditScreen
-        if(gui.isMouseOnEditScreen(mousePos))
+        if (gui.isMouseOnEditScreen(mousePos))
         {
-            mouseDown_ = true;
-            Debug.Log("On Screen!!");
             return;
         }
-        
-        
+
         ////check if user clicks on an object
         if (gui.isMouseOnGui(mousePos))
         {
@@ -105,13 +103,14 @@ public class EditorObjectPlacement : MonoBehaviour
             marker.SetActive(false);
             curSelected = null;
             gui.showEditMEnu(false);
+            //gui.deselectObj();
             return;
-        }   
+        }
         if (isOnPlane(mousePos))
         {
             Vector3 pos = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, depth[activeLayer] - Camera.main.transform.position.z));
-            int indexX = (int) (pos.x + planeSizes[activeLayer].x / 2);
-            int indexY = (int) (pos.y + planeSizes[activeLayer].y / 2);
+            int indexX = (int)(pos.x + planeSizes[activeLayer].x / 2);
+            int indexY = (int)(pos.y + planeSizes[activeLayer].y / 2);
             if (grids[activeLayer][indexX][indexY] != null)
             {
                 objMakred = grids[activeLayer][indexX][indexY];
@@ -203,6 +202,9 @@ public class EditorObjectPlacement : MonoBehaviour
     public void setActiveLayer(int layer)
     {
         activeLayer = layer;
+        curSelected = null;
+        curLevelObject = null;
+        gui.deselectObj();
     }
 
     private Vector3 getObjPosition()
