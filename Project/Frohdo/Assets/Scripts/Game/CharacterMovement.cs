@@ -56,7 +56,7 @@ public class CharacterMovement : MonoBehaviour {
 
     bool canJump()
     {
-        int layerMask = 1 << LayerMask.NameToLayer("Environment");
+        int layerMask = 1 << LayerMask.NameToLayer("Solids");
 
         Vector2 startPoint = character_.gameObject.transform.position;
         startPoint += new Vector2(-0.5f, -2.1f);

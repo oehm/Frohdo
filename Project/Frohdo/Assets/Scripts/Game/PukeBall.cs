@@ -9,9 +9,7 @@ public class PukeBall : MonoBehaviour {
     {
         if(coll.gameObject.tag.Equals("LevelObject"))
         {
-            coll.gameObject.GetComponentInChildren<Renderer>().material.color = LevelObjectController.Instance.GetColor(color_);
-
-            Destroy(gameObject);
+            coll.gameObject.GetComponentInChildren<PukedBehaviour>().recievePuke(color_, gameObject);
         }
     }
 }

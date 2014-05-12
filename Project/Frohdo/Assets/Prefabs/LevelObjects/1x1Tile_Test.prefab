@@ -12,6 +12,8 @@ GameObject:
   - 23: {fileID: 2300000}
   - 61: {fileID: 6100000}
   - 114: {fileID: 11400000}
+  - 114: {fileID: 11400002}
+  - 114: {fileID: 11400004}
   m_Layer: 8
   m_Name: 1x1Tile_Test
   m_TagString: LevelObject
@@ -83,7 +85,33 @@ MonoBehaviour:
   Objname: 1x1Tile_Test
   color: W
   pos: {x: 0, y: 0}
+  height: 0
+  width: 0
   hitMat: 01
+--- !u!114 &11400002
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ff123b438e05db47bd180417cd73e7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  behaviour_: 0
+--- !u!114 &11400004
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47490dd6634386749a13ed314fcb988a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color_: W
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

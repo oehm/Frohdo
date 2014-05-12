@@ -3313,6 +3313,14 @@
           </pos>
         </LevelObject>
         <LevelObject>
+          <name>Funnel</name>
+          <color>C</color>
+          <pos>
+            <X>5</X>
+            <Y>-15</Y>
+          </pos>
+        </LevelObject>
+        <LevelObject>
           <name>Character</name>
           <color>C</color>
           <pos>
