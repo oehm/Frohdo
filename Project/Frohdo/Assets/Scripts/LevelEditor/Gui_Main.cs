@@ -158,7 +158,7 @@ public class Gui_Main : MonoBehaviour
         {
             if (GUILayout.Button(levelObjects_content[selectedColor][i], guiSkin.customStyles[0]))
             {
-                LevelObject obj = new LevelObject();
+                LevelObjectXML obj = new LevelObjectXML();
                 obj.name = levelObjects_content[selectedColor][i].tooltip;
                 obj.color = colors[selectedColor];
                 objPlacement.updateObject(obj);

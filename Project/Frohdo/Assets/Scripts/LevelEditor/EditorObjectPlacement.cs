@@ -14,7 +14,7 @@ public class EditorObjectPlacement : MonoBehaviour
     private float[] depth;
 
     private GameObject curSelected = null;
-    private LevelObject curLevelObject = null;
+    private LevelObjectXML curLevelObject = null;
     private Vector2 mousePos = new Vector2(0, 0);
     public int activeLayer = 2;
 
@@ -163,7 +163,7 @@ public class EditorObjectPlacement : MonoBehaviour
         mousePos = mousePos_;
     }
 
-    public void updateObject(LevelObject levelObj)
+    public void updateObject(LevelObjectXML levelObj)
     {
         curLevelObject = levelObj;
     }
@@ -239,7 +239,7 @@ public class EditorObjectPlacement : MonoBehaviour
             ObjHelper[] hs = obj.GetComponentsInChildren<ObjHelper>();
             foreach (ObjHelper h in hs)
             {
-                LevelObject lobj = new LevelObject();
+                LevelObjectXML lobj = new LevelObjectXML();
                 lobj.color = h.color;
                 lobj.name = h.Objname;
                 lobj.pos = new SerializableVector2(h.pos);

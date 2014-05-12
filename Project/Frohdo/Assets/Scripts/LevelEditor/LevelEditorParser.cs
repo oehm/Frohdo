@@ -5,10 +5,10 @@ public class LevelEditorParser : MonoBehaviour {
 
     public string savePath;
     private string levelName;
-    private Level level;
+    private LevelXML level;
     
 	void Start () {
-        level = new Level();
+        level = new LevelXML();
         for(int i = 0; i< GlobalVars.Instance.LayerCount; i++)
         {
             level.layers.Add(new LayerXML());
@@ -40,7 +40,7 @@ public class LevelEditorParser : MonoBehaviour {
         XML_Loader.Save(Application.dataPath+savePath+levelName, level);
     }
 
-    public void addLevelObject(int layerIndex, LevelObject obj)
+    public void addLevelObject(int layerIndex, LevelObjectXML obj)
     {
         //if(layerIndex >= level.layers.Count || layerIndex<= 0) return;
         level.layers[layerIndex].levelObjects.Add(obj);

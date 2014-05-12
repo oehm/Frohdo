@@ -365,7 +365,7 @@ abstract class Levelobj
     public abstract void loadHighScores();
     public abstract void loadThumbnail();
 
-    public Level level;
+    public LevelXML level;
 
     protected void loadLocalLevel(DirectoryInfo levelpath)
     {

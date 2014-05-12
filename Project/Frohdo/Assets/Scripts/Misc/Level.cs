@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Xml.Serialization;
 
 [XmlRoot("Level")]
-public class Level
+public class LevelXML
 {
     [XmlElement("Size")]
     public SerializableVector2 size;
@@ -18,5 +18,12 @@ public class LayerXML
     [XmlAttribute("LayerID")]
     public int layerId;
     [XmlArray("LevelObjects"), XmlArrayItem("LevelObject")]
-    public List<LevelObject> levelObjects = new List<LevelObject>();
+    public List<LevelObjectXML> levelObjects = new List<LevelObjectXML>();
+}
+
+public class LevelObjectXML
+{
+    public string name;
+    public string color;
+    public SerializableVector2 pos;
 }
