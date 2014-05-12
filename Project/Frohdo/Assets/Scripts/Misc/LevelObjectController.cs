@@ -88,6 +88,32 @@ public class LevelObjectController : ScriptableObject
         throw new System.Exception("Color not found: " + color);
     }
 
+    public string GetMixColor(string color1, string color2)
+    {
+        string all = "RMBCGY";
+
+        int idx1 = all.IndexOf(color1);
+        int idx2 = all.IndexOf(color2);
+
+        if (color1.Equals("W") || color2.Equals("W") || color1.Equals(color2) ||
+            idx2 == capIdx(idx1 + 1) || idx2 == capIdx(idx1 - 1) )
+            return color2;
+
+        if (idx2 == capIdx(idx1 + 2))
+            return all[capIdx(idx1 + 1)].ToString();
+
+        if (idx2 == capIdx(idx1 - 2))
+            return all[capIdx(idx1 - 1)].ToString();
+        
+        return "W";
+
+    }
+
+    int capIdx(int idx)
+    {
+        return (6 + (idx % 6)) % 6;
+    }
+
     //color definitions
     public readonly static Color W = new Color(1.0f, 1.0f, 1.0f);
     public readonly static Color R = new Color(1.0f, 0.0f, 0.0f);

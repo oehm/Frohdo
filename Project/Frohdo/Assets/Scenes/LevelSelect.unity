@@ -115,6 +115,48 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!1 &455355783
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 455355784}
+  - 114: {fileID: 455355785}
+  m_Layer: 0
+  m_Name: GUI_LevelSelect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &455355784
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 455355783}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 20.5757828, y: 3.97008109, z: 8.83849812}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 574485113}
+--- !u!114 &455355785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 455355783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5367c4d663965584ea96c833617473e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LevelsToShow: 10
+  style: {fileID: 11400000, guid: f59c664d96934d14bbfafc67e96e3788, type: 2}
+  buttonDisabledColorHexString: '#d35400'
+  destroyer: {fileID: 22665415}
 --- !u!1 &574485112
 GameObject:
   m_ObjectHideFlags: 0
@@ -140,7 +182,7 @@ Transform:
   m_LocalPosition: {x: -5.06067467, y: .229294077, z: -3.62501621}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1015882092}
+  - {fileID: 455355784}
   m_Father: {fileID: 0}
 --- !u!1 &1015882087
 GameObject:
@@ -154,7 +196,6 @@ GameObject:
   - 92: {fileID: 1015882090}
   - 124: {fileID: 1015882089}
   - 81: {fileID: 1015882088}
-  - 114: {fileID: 1015882093}
   - 114: {fileID: 1015882094}
   m_Layer: 0
   m_Name: LevelSelectCam
@@ -193,7 +234,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: .735294104, g: .735294104, b: .735294104, a: .0196078438}
+  m_BackGroundColor: {r: .729411781, g: .729411781, b: .729411781, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -223,21 +264,7 @@ Transform:
   m_LocalPosition: {x: 5.06067467, y: .770705938, z: -6.37498379}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 574485113}
---- !u!114 &1015882093
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1015882087}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5367c4d663965584ea96c833617473e8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  LevelsToShow: 10
-  style: {fileID: 11400000, guid: f59c664d96934d14bbfafc67e96e3788, type: 2}
-  buttonDisabledColorHexString: '#d35400'
+  m_Father: {fileID: 1077803521}
 --- !u!114 &1015882094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -275,5 +302,6 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -5.06067467, y: .229294077, z: -3.62501621}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1015882092}
   m_Father: {fileID: 0}

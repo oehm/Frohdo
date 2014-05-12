@@ -21,9 +21,16 @@ public class CharacterPuke : MonoBehaviour
 
     private bool pukeInput_;
 
+
+    private int ratios_;
+    private string color_;
+
 	// Use this for initialization
     void Start()
     {
+        ratios_ = 0;
+        color_ = "";
+
         character_ = gameObject.GetComponent<Character>();
 	}
 
@@ -33,14 +40,22 @@ public class CharacterPuke : MonoBehaviour
         pukeInput_ = puke;
     }
 
+    //test
+    int count = 0;
+
     // FixedUpdate is called once per physic frame
     void FixedUpdate()
     {
         if (pukeInput_)
         {
+            ratios_--;
+
             GameObject pukeObject = (GameObject)Instantiate(pukePrefab_);
 
-            pukeObject.GetComponent<Colorable>().colorIn("M");
+            //test
+            count = (count + 1) % LevelObjectController.Instance.getColors().Length;
+
+            pukeObject.GetComponent<Colorable>().colorIn(LevelObjectController.Instance.getColors()[count]);
 
             Vector2 pukePos = character_.transform.position;
 

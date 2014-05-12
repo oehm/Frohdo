@@ -28,7 +28,12 @@ public class PukedBehaviour : MonoBehaviour {
                 break;
 
             case Behaviour.funnel:
-                SceneManager.Instance.background.GetComponentInChildren<Colorable>().colorIn(color);
+                string colorBackground = SceneManager.Instance.background.GetComponentInChildren<Colorable>().colorString;
+                string colorPuke = puke.GetComponentInChildren<Colorable>().colorString;
+
+                string colorMix = LevelObjectController.Instance.GetMixColor(colorBackground, colorPuke);
+
+                SceneManager.Instance.background.GetComponentInChildren<Colorable>().colorIn(colorMix);
                 Destroy(puke);
                 break;
 

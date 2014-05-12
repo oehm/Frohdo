@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class LevelLoader : MonoBehaviour {
 
@@ -15,7 +16,9 @@ public class LevelLoader : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	    LoadLevel(Application.dataPath+"/Levels/Custom/test.xml");
+	    //LoadLevel(Application.dataPath+"/Levels/Custom/test.xml");
+        string path = Environment.GetEnvironmentVariable("SelectedLevel", EnvironmentVariableTarget.Process);
+        LoadLevel(path); 
 	}
 	
 	// Update is called once per frame
