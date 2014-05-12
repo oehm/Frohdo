@@ -12,9 +12,9 @@ GameObject:
   - 23: {fileID: 2300000}
   - 61: {fileID: 6100000}
   - 114: {fileID: 11400000}
-  - 114: {fileID: 11400002}
   - 114: {fileID: 11400004}
   - 114: {fileID: 11400006}
+  - 114: {fileID: 11400002}
   m_Layer: 8
   m_Name: 1x1Tile_Test
   m_TagString: LevelObject
@@ -87,6 +87,7 @@ MonoBehaviour:
   width: 1
   hitMat:
   - arr: 01
+--- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -109,7 +110,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47490dd6634386749a13ed314fcb988a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  color_: W
 --- !u!114 &11400006
 MonoBehaviour:
   m_ObjectHideFlags: 1
