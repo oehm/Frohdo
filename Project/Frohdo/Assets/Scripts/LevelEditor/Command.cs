@@ -51,13 +51,18 @@ public class InsertObject : Command
     private bool placeObject()
     {
         Gridable htemp = obj.GetComponent<Gridable>();
-        Vector3 pos = obj.transform.position;
+        Vector3 pos = obj.transform.localPosition;
         //test if theres is an object
-        int planeW = editor.grids[matLAyer].Length;
-        int planeH = editor.grids[matLAyer][0].Length;
-        for (int x = (int)pos.x + planeW / 2, xm = 0; x <= planeW / 2 + (int)pos.x + htemp.width / 2; x++, xm++)
+        int pW = editor.grids[matLAyer].Length;
+        int pH = editor.grids[matLAyer][0].Length;
+        Vector2 objPos = new Vector2((int)(pos.x + (pW+1) / 2), (int)(pos.y + (pH+1) / 2));
+        int w = (htemp.width + 1) / 2;
+        int h = (htemp.height + 1) / 2;
+        int w2 = (htemp.width + 1) / 2;
+        int h2 = (htemp.height + 1) / 2;
+        for (int x = (int)objPos.x - w, xm = 0; x < (int)objPos.x + w2; x++, xm++)
         {
-            for (int y = (int)pos.y + planeH / 2 , ym = 0; y <= planeH / 2 + (int)pos.y + htemp.height/2; y++, ym++)
+            for (int y = (int)objPos.y - h, ym = 0; y < (int)objPos.y + w2; y++, ym++)
             {
                 if (htemp.hitMat[xm][ym] && editor.grids[matLAyer][x][y] != null)
                 {
@@ -65,10 +70,18 @@ public class InsertObject : Command
                 }
             }
         }
+
+        //        int w = (htemp.width + 1) / 2;
+        //int h = (htemp.height + 1) / 2;
+        //int w2 = (htemp.width + 1) / 2;
+        //int h2 = (htemp.height + 1) / 2;
+        //for (int x = (int)objPos.x - w, xm = 0; x < (int)objPos.x + w2; x++, xm++)
+        //{
+        //    for (int y = (int)objPos.y - h, ym = 0; y < (int)objPos.y + w2; y++, ym++)
         //if not 
-        for (int x = (int)pos.x + planeW / 2, xm = 0; x <= planeW / 2 + (int)pos.x + htemp.width / 2; x++, xm++)
+        for (int x = (int)objPos.x - w, xm = 0; x < (int)objPos.x + w2; x++, xm++)
         {
-            for (int y = (int)pos.y + planeH / 2, ym = 0; y <= planeH / 2 + (int)pos.y + htemp.height / 2; y++, ym++)
+            for (int y = (int)objPos.y - h, ym = 0; y < (int)objPos.y + w2; y++, ym++)
             {
                 if (htemp.hitMat[xm][ym])
                 {
@@ -86,12 +99,14 @@ public class InsertObject : Command
         obj.SetActive(false);
 
         Gridable htemp = obj.GetComponent<Gridable>();
-        Vector3 pos = obj.transform.position;
-        int planeW = editor.grids[matLAyer].Length;
-        int planeH = editor.grids[matLAyer][0].Length;
-        for (int x = (int)pos.x + planeW / 2, xm = 0; x <= planeW / 2 + (int)pos.x + htemp.width / 2; x++, xm++)
+        int pW = editor.grids[matLAyer].Length;
+        int pH = editor.grids[matLAyer][0].Length;
+        Vector2 objPos = new Vector2((int)(pos.x + (pW + 1) / 2), (int)(pos.y + (pH + 1) / 2));
+        int w2 = (htemp.width + 1) / 2;
+        int h2 = (htemp.height + 1) / 2;
+        for (int x = (int)objPos.x - w2, xm = 0; x < (int)objPos.x + w2; x++, xm++)
         {
-            for (int y = (int)pos.y + planeH / 2, ym = 0; y <= planeH / 2 + (int)pos.y + htemp.height / 2; y++, ym++)
+            for (int y = (int)objPos.y - h2, ym = 0; y < (int)objPos.y + w2; y++, ym++)
             {
                 if (htemp.hitMat[xm][ym])
                 {
@@ -132,12 +147,15 @@ public class DeleteObj : Command
         obj.SetActive(false);
 
         Gridable htemp = obj.GetComponent<Gridable>();
-        Vector3 pos = obj.transform.position;
-        int planeW = editor.grids[matLAyer].Length;
-        int planeH = editor.grids[matLAyer][0].Length;
-        for (int x = (int)pos.x + planeW / 2, xm = 0; x <= planeW / 2 + (int)pos.x + htemp.width / 2; x++, xm++)
+        Vector3 pos = obj.transform.localPosition;
+        int pW = editor.grids[matLAyer].Length;
+        int pH = editor.grids[matLAyer][0].Length;
+        Vector2 objPos = new Vector2((int)(pos.x + (pW + 1) / 2), (int)(pos.y + (pH + 1) / 2));
+        int w2 = (htemp.width + 1) / 2;
+        int h2 = (htemp.height + 1) / 2;
+        for (int x = (int)objPos.x - w2, xm = 0; x < (int)objPos.x + w2; x++, xm++)
         {
-            for (int y = (int)pos.y + planeH / 2, ym = 0; y <= planeH / 2 + (int)pos.y + htemp.height / 2; y++, ym++)
+            for (int y = (int)objPos.y - h2, ym = 0; y < (int)objPos.y + w2; y++, ym++)
             {
                 if (htemp.hitMat[xm][ym])
                 {
@@ -153,11 +171,14 @@ public class DeleteObj : Command
         Gridable htemp = obj.GetComponent<Gridable>();
         Vector3 pos = obj.transform.position;
         //test if theres is an object
-        int planeW = editor.grids[matLAyer].Length;
-        int planeH = editor.grids[matLAyer][0].Length;
-        for (int x = (int)pos.x + planeW / 2 - htemp.width / 2, xm = 0; x <= planeW / 2 + (int)pos.x + htemp.width / 2; x++, xm++)
+        int pW = editor.grids[matLAyer].Length;
+        int pH = editor.grids[matLAyer][0].Length;
+        Vector2 objPos = new Vector2((int)(pos.x + pW  / 2), (int)(pos.y + pH  / 2));
+        int w2 = (htemp.width + 1) / 2;
+        int h2 = (htemp.height + 1) / 2;
+        for (int x = (int)objPos.x - w2, xm = 0; x < (int)objPos.x + w2; x++, xm++)
         {
-            for (int y = (int)pos.y + planeH / 2 - htemp.height / 2, ym = 0; y <= planeH / 2 + (int)pos.y + htemp.height / 2; y++, ym++)
+            for (int y = (int)objPos.y - h2, ym = 0; y < (int)objPos.y + w2; y++, ym++)
             {
                 if (htemp.hitMat[xm][ym])
                 {
