@@ -12,6 +12,8 @@ public class LevelSelect : MonoBehaviour {
     public GUISkin style;
     public string buttonDisabledColorHexString = "#d35400";
 
+    public SceneDestroyer destroyer;
+
     List<Levelobj> levels;
 
     int LevelMaxPages;
@@ -278,6 +280,7 @@ public class LevelSelect : MonoBehaviour {
                                     if (GUILayout.Button(levels[i].name, "button"))
                                     {
                                         selectedLevelid = levels[i].id;
+                                        Environment.SetEnvironmentVariable("SelectedLevel", levels[i].XMLPath.FullName, EnvironmentVariableTarget.Process);
                                     }
                                 }
                                 if (i == LevelsToShow * LevelsCurPage + LevelsToShow - 1) break;
@@ -332,6 +335,10 @@ public class LevelSelect : MonoBehaviour {
                     if(selectedLevelid != -1){
                         if (levels[selectedLevelid].GetType() == typeof(CustomLevelObj))
                             GUILayout.Label("EIN CUSTOM LEVEL! - LAUFZEIT TYP-PRÜFUNG!");
+                        if (GUILayout.Button("Spielen"))
+                        {
+                            SceneManager.Instance.loadScene(destroyer, 3);
+                        }
                         if (levels[selectedLevelid].GetType() == typeof(OnlineLevelObj))
                             GUILayout.Label("EIN ONLINE LEVEL! - LAUFZEIT TYP-PRÜFUNG!");
                         if (levels[selectedLevelid].GetType() == typeof(StoryLevelObj))
@@ -353,45 +360,25 @@ abstract class Levelobj
 {
     public int id;
     public string name;
-
-    public int onlineID;
-    //if there is no online ID in the XML.. We wont show this level in Playlist! (because the level never got uploaded or id got modified and we cant match with database!)
-    //gehört noch in die Level class und ins xml.
-    //Beim upload holen wir erst ne neue id vom server (wir schicken alle relevanten daten mit, Name und so -- kein hasth.. das macht server!).. vergeben und speichern diese id in der XML .. und machen dann den upload..
-    //danach wird der Level geuppt und am server der Hash erzeugt und in die DB abgelegt.. und auch der Pfad zur neuen Datei!
     
     public Texture2D thumbnail;
 
     public abstract void loadHighScores();
     public abstract void loadThumbnail();
 
-    public LevelXML level;
+    public FileInfo XMLPath = null;
 
-    protected void loadLocalLevel(DirectoryInfo levelpath)
+    protected void searchLocalLevel(DirectoryInfo levelpath)
     {
-        FileInfo XMLFile = null;
-
         foreach (FileInfo f in levelpath.GetFiles())
         {
             if (f.Extension.Equals(".xml"))
             {
-                if (XMLFile != null) throw new Exception("More than one XML-File found in Level-Directory!");
-                else XMLFile = f;
+                if (XMLPath != null) throw new Exception("More than one XML-File found in Level-Directory!");
+                else XMLPath = f;
             }
         }
-        if (XMLFile != null)
-        {
-            try
-            {
-                Debug.Log("Tryin to Load: " + XMLFile.FullName);
-                level = XML_Loader.Load(XMLFile.FullName);
-            }
-            catch (Exception)
-            {
-                throw new Exception("Level XML found but failed to Load Level");
-            }
-        }
-        else
+        if (XMLPath == null)
         {
             throw new Exception("Level XML not found in Level Directory");
         }
@@ -404,7 +391,7 @@ class StoryLevelObj : Levelobj
     {
         this.id = id;
         this.name = levelpath.Name;
-        loadLocalLevel(levelpath);
+        searchLocalLevel(levelpath);
     }
     public override void loadHighScores()
     {
@@ -422,7 +409,7 @@ class CustomLevelObj : Levelobj
     {
         this.id = id;
         this.name = levelpath.Name;
-        loadLocalLevel(levelpath);
+        searchLocalLevel(levelpath);
     }
 
     public override void loadThumbnail()
@@ -444,7 +431,7 @@ class LocalLevelObj : Levelobj //already on disk
     {
         this.id = id;
         this.name = levelpath.Name;
-        loadLocalLevel(levelpath);
+        searchLocalLevel(levelpath);
     }
 
     public override void loadHighScores()

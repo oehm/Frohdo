@@ -44,7 +44,7 @@ public class SceneManager : MonoBehaviour
 
     public void loadScene(SceneDestroyer destroyer, int nextScene)
     {
-        destroyer.suicide();        
+        destroyer.suicide();
         async = Application.LoadLevelAdditiveAsync(nextScene);
         loading = true;
     }
