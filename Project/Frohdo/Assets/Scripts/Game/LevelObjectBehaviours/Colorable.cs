@@ -6,7 +6,16 @@ public class Colorable : MonoBehaviour {
 
     public void colorIn(string color)
     {
-        gameObject.GetComponent<Renderer>().material.color = LevelObjectController.Instance.GetColor(color);
+        Color colorO;
+        try{
+             colorO = LevelObjectController.Instance.GetColor(color);
+        }
+        catch
+        {
+            Debug.Log("LevelObject can not be coloured in: " + color);
+            return;
+        }
+        gameObject.GetComponent<Renderer>().material.color = colorO;
         color_ = color;
     }
 }

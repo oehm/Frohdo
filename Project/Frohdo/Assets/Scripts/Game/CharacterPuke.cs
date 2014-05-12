@@ -40,8 +40,7 @@ public class CharacterPuke : MonoBehaviour
         {
             GameObject pukeObject = (GameObject)Instantiate(pukePrefab_);
 
-            pukeObject.GetComponent<PukeBall>().color_ = "M";
-            pukeObject.GetComponentInChildren<Renderer>().material.color = LevelObjectController.Instance.GetColor("M");
+            pukeObject.GetComponent<Colorable>().colorIn("M");
 
             Vector2 pukePos = character_.transform.position;
 

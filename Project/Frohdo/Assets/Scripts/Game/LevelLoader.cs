@@ -34,6 +34,8 @@ public class LevelLoader : MonoBehaviour {
             throw new System.Exception(error);
         }
 
+        SceneManager.Instance.background.GetComponent<Colorable>().colorIn(levelXML.backgroundColor);
+
         for (int i = 0; i < levelXML.layers.Count; i++)
         {
             GameObject layerObject = (GameObject)Instantiate(layerPrefab_);
