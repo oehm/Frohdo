@@ -238,7 +238,7 @@ public class EditorObjectPlacement : MonoBehaviour
             Gridable[] hs = obj.GetComponentsInChildren<Gridable>();
             foreach (Gridable h in hs)
             {
-                LevelObject lobj = new LevelObject();
+                LevelObjectXML lobj = new LevelObjectXML();
                 //lobj.color = h.color;
                 //lobj.name = h.Objname;
                 //lobj.pos = new SerializableVector2(h.pos);

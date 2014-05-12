@@ -82,12 +82,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c1db793888da1f419dc8e9fe57e3593, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Objname: Funnel
-  color: W
-  pos: {x: 0, y: 0}
-  height: 0
-  width: 0
-  hitMat: 01
+  height: 1
+  width: 1
+  hitMat:
+  - arr: 01
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -111,7 +109,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47490dd6634386749a13ed314fcb988a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  color_: W
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
