@@ -22,7 +22,7 @@ public class BackgroundSensitive : MonoBehaviour {
         {
             foreach (Collider2D collider in colliders_)
             {
-                collider.enabled = !colorable_.color_.Equals(SceneManager.Instance.background.GetComponent<Colorable>().color_);
+                collider.enabled = !colorable_.colorString.Equals(SceneManager.Instance.background.GetComponent<Colorable>().colorString);
             }
         }
 	}

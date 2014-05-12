@@ -14,7 +14,7 @@ public class PukeBall : MonoBehaviour {
     {
         if(coll.gameObject.tag.Equals("LevelObject"))
         {
-            coll.gameObject.GetComponentInChildren<PukedBehaviour>().recievePuke(colorable_.color_, gameObject);
+            coll.gameObject.GetComponentInChildren<PukedBehaviour>().recievePuke(colorable_.colorString, gameObject);
         }
     }
 }

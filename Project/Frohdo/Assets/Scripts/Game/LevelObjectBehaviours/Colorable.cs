@@ -2,7 +2,10 @@
 using System.Collections;
 
 public class Colorable : MonoBehaviour {
-    public string color_;
+
+    public string colorString{ get{ return color_;}}
+
+    private string color_;
 
     public void colorIn(string color)
     {
