@@ -101,9 +101,11 @@ public class EditorObjectPlacement : MonoBehaviour
         if (isOnPlane(mousePos))
         {
             Vector3 pos = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, depth[activeLayer] - Camera.main.transform.position.z));
-            if (grids[activeLayer][(int)pos.x + (int)planeSizes[activeLayer].x / 2][(int)pos.y + (int)planeSizes[activeLayer].y / 2] != null)
+            int indexX = (int) (pos.x + planeSizes[activeLayer].x / 2);
+            int indexY = (int) (pos.y + planeSizes[activeLayer].y / 2);
+            if (grids[activeLayer][indexX][indexY] != null)
             {
-                objMakred = grids[activeLayer][(int)pos.x + (int)planeSizes[activeLayer].x / 2][(int)pos.y + (int)planeSizes[activeLayer].y / 2];
+                objMakred = grids[activeLayer][indexX][indexY];
                 curSelected = null;
                 curLevelObject = null;
                 gui.deselectObj();
