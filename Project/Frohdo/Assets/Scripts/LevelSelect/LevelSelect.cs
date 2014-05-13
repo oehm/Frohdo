@@ -158,12 +158,13 @@ public class LevelSelect : MonoBehaviour {
         // 5: forwardbackwardbutton -- button
         // 6: bottombarCurLevelLabel -- label
         // 7: mainbox -- elem
+        // 8: imagebox -- elem
 
         float screenHeight = ForceAspectRatio.screenHeight;
         float screenWidth = ForceAspectRatio.screenWidth;
 
         style.customStyles[0].fixedWidth = screenWidth / 2;
-        style.customStyles[0].fixedHeight = screenHeight * 0.9f;
+        style.customStyles[0].fixedHeight = screenHeight * 0.8f;
 
         style.customStyles[1].fixedWidth = screenWidth;
         style.customStyles[1].fixedHeight = screenHeight * 0.1f;
@@ -188,6 +189,9 @@ public class LevelSelect : MonoBehaviour {
 
         style.customStyles[7].fixedWidth = screenWidth;
         style.customStyles[7].fixedHeight = screenHeight;
+
+        style.customStyles[8].fixedWidth = screenWidth / 2.5f;
+        style.customStyles[8].fixedHeight = screenHeight / 2.5f;
 
         style.button.fixedWidth = screenWidth / 2;
         style.button.fixedHeight = screenHeight * 0.8f / LevelsToShow;
@@ -331,32 +335,36 @@ public class LevelSelect : MonoBehaviour {
                         GUILayout.EndHorizontal();
 
                     GUILayout.EndVertical();
-            
-                    GUILayout.BeginVertical("", "infoBox");
+
+                    GUILayout.BeginVertical("box");
+                        GUILayout.BeginVertical("", "infoBox");
                 
-                    if(selectedLevelid != -1){
+                        if(selectedLevelid != -1){
 
-                        levels[selectedLevelid].LevelInfoGui();
+                            levels[selectedLevelid].LevelInfoGui();
 
-                        //if (levels[selectedLevelid].GetType() == typeof(CustomLevelObj))
-                        //{
-                        //    GUILayout.Label("EIN CUSTOM LEVEL! - LAUFZEIT TYP-PRÜFUNG!");
-                        //    if (GUILayout.Button("Spielen"))
-                        //    {
-                        //        SceneManager.Instance.loadScene(destroyer, 3);
-                        //    }
-                        //}
-                        //if (levels[selectedLevelid].GetType() == typeof(OnlineLevelObj))
-                        //    GUILayout.Label("EIN ONLINE LEVEL! - LAUFZEIT TYP-PRÜFUNG!");
-                        //if (levels[selectedLevelid].GetType() == typeof(StoryLevelObj))
-                        //    GUILayout.Label("EIN STORY LEVEL! - LAUFZEIT TYP-PRÜFUNG!");
-                        //if (levels[selectedLevelid].GetType() == typeof(LocalLevelObj))
-                        //    GUILayout.Label("EIN LOKAL GESPEICHERTES LEVEL! - LAUFZEIT TYP-PRÜFUNG!");
-                        //GUILayout.Label("ID: " + levels[selectedLevelid].id);
-                    }
+                            //if (levels[selectedLevelid].GetType() == typeof(CustomLevelObj))
+                            //{
+                            //    GUILayout.Label("EIN CUSTOM LEVEL! - LAUFZEIT TYP-PRÜFUNG!");
+                            //    if (GUILayout.Button("Spielen"))
+                            //    {
+                            //        SceneManager.Instance.loadScene(destroyer, 3);
+                            //    }
+                            //}
+                            //if (levels[selectedLevelid].GetType() == typeof(OnlineLevelObj))
+                            //    GUILayout.Label("EIN ONLINE LEVEL! - LAUFZEIT TYP-PRÜFUNG!");
+                            //if (levels[selectedLevelid].GetType() == typeof(StoryLevelObj))
+                            //    GUILayout.Label("EIN STORY LEVEL! - LAUFZEIT TYP-PRÜFUNG!");
+                            //if (levels[selectedLevelid].GetType() == typeof(LocalLevelObj))
+                            //    GUILayout.Label("EIN LOKAL GESPEICHERTES LEVEL! - LAUFZEIT TYP-PRÜFUNG!");
+                            //GUILayout.Label("ID: " + levels[selectedLevelid].id);
+                        }
+                        else
+                        {
+                            GUILayout.EndVertical();
+                        }
 
                     GUILayout.EndVertical();
-
                 GUILayout.EndHorizontal();
             GUILayout.EndArea();
         GUILayout.EndVertical();
@@ -432,6 +440,24 @@ abstract class Levelobj : MonoBehaviour
         Debug.Log("FINISHED!");
     }
 
+    protected void showThumbnail()
+    {
+        GUILayout.BeginHorizontal();
+
+        if (thumbnail != null)
+        {
+            GUILayout.FlexibleSpace();
+            GUILayout.Box(thumbnail, "imagebox");
+            GUILayout.FlexibleSpace();
+        }
+        else
+        {
+            if (ThumbCurrentlyLoading) GUILayout.Label("Vorschaubild wird geladen");
+            else GUILayout.Label("Vorschaubild konnte nicht gefunden werden!");
+        }
+        GUILayout.EndHorizontal();
+    }
+
     public abstract void LevelInfoGui();
 }
 
@@ -451,15 +477,7 @@ class StoryLevelObj : Levelobj
     public override void LevelInfoGui()
     {
         if (StartLoadingThumb) loadThumbnail("file://" + XMLPath.FullName.Substring(0, XMLPath.FullName.Length - 4) + "_thumb.png");
-        if (thumbnail != null)
-        {
-            GUILayout.Box(thumbnail);
-        }
-        else
-        {
-            if (ThumbCurrentlyLoading) GUILayout.Label("Vorschaubild wird geladen");
-            else GUILayout.Label("Vorschaubild konnte nicht gefunden werden!");
-        }
+        showThumbnail();
     }
 }
 class CustomLevelObj : Levelobj
@@ -479,15 +497,21 @@ class CustomLevelObj : Levelobj
     public override void LevelInfoGui()
     {
         if (StartLoadingThumb) loadThumbnail("file://" + XMLPath.FullName.Substring(0, XMLPath.FullName.Length - 4) + "_thumb.png");
-        if (thumbnail != null)
+        showThumbnail();
+        GUILayout.EndVertical();
+        GUILayout.BeginHorizontal("bottombar");
+        GUILayout.FlexibleSpace();
+        if (GUILayout.Button("Level starten", "forwardbackwardbutton"))
         {
-            GUILayout.Box(thumbnail);
+            SceneManager.Instance.loadScene(GameObject.Find("GUI_LevelSelect").GetComponent<LevelSelect>().destroyer, 3);
         }
-        else
+        if (GUILayout.Button("Level bearbeiten", "forwardbackwardbutton"))
         {
-            if (ThumbCurrentlyLoading) GUILayout.Label("Vorschaubild wird geladen ...");
-            else GUILayout.Label("Vorschaubild konnte nicht gefunden werden!");
+            Environment.SetEnvironmentVariable("SelectedLevel", null, EnvironmentVariableTarget.Process);
+            SceneManager.Instance.loadScene(GameObject.Find("GUI_LevelSelect").GetComponent<LevelSelect>().destroyer, 4);
         }
+        GUILayout.FlexibleSpace();
+        GUILayout.EndHorizontal();
     }
 }
 
@@ -510,15 +534,7 @@ class LocalLevelObj : Levelobj //already on disk
     public override void LevelInfoGui()
     {
         if (StartLoadingThumb) loadThumbnail("file://" + XMLPath.FullName.Substring(0, XMLPath.FullName.Length - 4) + "_thumb.png");
-        if (thumbnail != null)
-        {
-            GUILayout.Box(thumbnail);
-        }
-        else
-        {
-            if (ThumbCurrentlyLoading) GUILayout.Label("Vorschaubild wird geladen ...");
-            else GUILayout.Label("Vorschaubild konnte nicht gefunden werden!");
-        }
+        showThumbnail();
     }
 }
 
@@ -546,16 +562,8 @@ class OnlineLevelObj : Levelobj //online - not downloaded
 
     public override void LevelInfoGui()
     {
-        if (StartLoadingThumb) loadThumbnail(XMLPath.FullName.Substring(0, XMLPath.FullName.Length - 4) + "_thumb.png");
-        if (thumbnail != null)
-        {
-            GUILayout.Box(thumbnail);
-        }
-        else
-        {
-            if (ThumbCurrentlyLoading) GUILayout.Label("Vorschaubild wird geladen ...");
-            else GUILayout.Label("Vorschaubild konnte nicht gefunden werden!");
-        }
+        if (StartLoadingThumb && XMLPath != null) loadThumbnail(XMLPath.FullName.Substring(0, XMLPath.FullName.Length - 4) + "_thumb.png");
+        showThumbnail();
     }
 }
 
