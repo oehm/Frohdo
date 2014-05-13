@@ -251,9 +251,9 @@ public class EditorObjectPlacement : MonoBehaviour
             foreach (Gridable h in hs)
             {
                 LevelObjectXML lobj = new LevelObjectXML();
-                //lobj.color = h.color;
-                //lobj.name = h.Objname;
-                //lobj.pos = new SerializableVector2(h.pos);
+                lobj.color = h.gameObject.GetComponentInChildren<Colorable>().colorString;
+                lobj.name = h.gameObject.name;
+                lobj.pos = new SerializableVector2(h.gameObject.transform.localPosition);
                 l.addLevelObject(i, lobj);
             }
         }
