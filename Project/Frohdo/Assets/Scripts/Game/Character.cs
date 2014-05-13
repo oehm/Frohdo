@@ -15,6 +15,7 @@ public class Character : MonoBehaviour {
     private GameObject gameObject_;
     private CharacterMovement movement_;
     private CharacterPuke puke_;
+    private CharacterPickup pickup_;
 
     private bool lookLeft_;
     private bool lookUp_;
@@ -26,11 +27,13 @@ public class Character : MonoBehaviour {
         gameObject_ = transform.parent.gameObject;
         movement_ = gameObject_.GetComponentInChildren<CharacterMovement>();
         puke_ = gameObject_.GetComponentInChildren<CharacterPuke>();
+        pickup_ = gameObject_.GetComponentInChildren<CharacterPickup>();
 
         lookLeft_ = false;
         lookUp_ = false;
         lookDown_ = false;
 	}
+
 
     public void InputMovement(Vector2 run, bool jump, bool puke)
     {
@@ -45,8 +48,21 @@ public class Character : MonoBehaviour {
         lookUp_ = run.y > 0;
         lookDown_ = run.y < 0;
 
+        pickup_.Enabled = lookDown_;
+
         movement_.InputMovement(run, jump);
         puke_.InputMovement(puke);
+    }
+
+    public void pickUp(GameObject pickUp)
+    {
+        Debug.Log("picked up: " + pickUp.name);
+        if (pickUp.name.Equals("ColorRatio"))
+        {
+            string color = pickUp.GetComponent<Colorable>().colorString;
+            puke_.AddRatio(color);
+            Destroy(pickUp);
+        }
     }
 
     // FixedUpdate is called once per physic frame

@@ -26,10 +26,10 @@ public class CharacterPuke : MonoBehaviour
     private string color_;
 
 	// Use this for initialization
-    void Start()
+    void Awake()
     {
         ratios_ = 0;
-        color_ = "";
+        color_ = "W";
 
         character_ = gameObject.GetComponent<Character>();
 	}
@@ -46,7 +46,7 @@ public class CharacterPuke : MonoBehaviour
     // FixedUpdate is called once per physic frame
     void FixedUpdate()
     {
-        if (pukeInput_)
+        if (pukeInput_ && ratios_ > 0)
         {
             ratios_--;
 
@@ -90,5 +90,11 @@ public class CharacterPuke : MonoBehaviour
 
             pukeObject.GetComponent<Rigidbody2D>().velocity = character_.gameObject.GetComponent<Rigidbody2D>().velocity;
         }
+    }
+
+    public void AddRatio(string color)
+    {
+        color_ = LevelObjectController.Instance.GetMixColor(color_, color);
+        ratios_++;
     }
 }

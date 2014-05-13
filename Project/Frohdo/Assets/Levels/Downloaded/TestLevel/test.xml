@@ -3304,12 +3304,31 @@
             <Y>14</Y>
           </pos>
         </LevelObject>
+
+
         <LevelObject>
-          <name>1x1Tile_Test</name>
+          <name>ColorRatio</name>
+          <color>R</color>
+          <pos>
+            <X>8</X>
+            <Y>-15</Y>
+          </pos>
+        </LevelObject>
+        
+        <LevelObject>
+          <name>BiggerTile</name>
           <color>G</color>
           <pos>
-            <X>15</X>
-            <Y>15</Y>
+            <X>-8</X>
+            <Y>-3</Y>
+          </pos>
+        </LevelObject>
+        <LevelObject>
+          <name>Funnel</name>
+          <color>C</color>
+          <pos>
+            <X>5</X>
+            <Y>-15</Y>
           </pos>
         </LevelObject>
         <LevelObject>
@@ -3320,6 +3339,7 @@
             <Y>0</Y>
           </pos>
         </LevelObject>
+        
       </LevelObjects>
     </Layer>
     <Layer LayerID="3">
