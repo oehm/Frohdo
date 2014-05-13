@@ -4,7 +4,7 @@
     <X>64</X>
     <Y>64</Y>
   </Size>
-  <BackgroundColor>B</BackgroundColor>
+  <BackgroundColor>Y</BackgroundColor>
   <Layers>
     <Layer LayerID="0">
       <LevelObjects>
@@ -3304,12 +3304,23 @@
             <Y>14</Y>
           </pos>
         </LevelObject>
+
+
         <LevelObject>
-          <name>1x1Tile_Test</name>
+          <name>ColorRatio</name>
+          <color>M</color>
+          <pos>
+            <X>8</X>
+            <Y>-15</Y>
+          </pos>
+        </LevelObject>
+
+        <LevelObject>
+          <name>BiggerTile</name>
           <color>G</color>
           <pos>
-            <X>15</X>
-            <Y>15</Y>
+            <X>-6</X>
+            <Y>-2</Y>
           </pos>
         </LevelObject>
         <LevelObject>
@@ -3328,6 +3339,7 @@
             <Y>0</Y>
           </pos>
         </LevelObject>
+
       </LevelObjects>
     </Layer>
     <Layer LayerID="3">
