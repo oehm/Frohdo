@@ -253,6 +253,7 @@ public class Gui_Main : MonoBehaviour
         if (GUILayout.Button("OKAY", guiSkin.button))
         {
             objPlacement.updateXMLLevelObjects(level);
+            level.setLevelName(levelName);
             level.saveLevel();
             menuFunction = edit;
         }
