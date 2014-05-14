@@ -7,6 +7,7 @@ public class CameraMovement : MonoBehaviour {
 	private bool leftDown = false;
 
     public float scrollSpeed = 2.0f;
+    public Gui_Main gui;
 
 	// Use this for initialization
 	void Start () {
@@ -22,9 +23,9 @@ public class CameraMovement : MonoBehaviour {
 		}
 		lastmousePos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
 		//CameraZoom
-        if (Input.GetAxis("Mouse ScrollWheel") < 0 && Input.mousePosition.x > 250) // back
+        if (Input.GetAxis("Mouse ScrollWheel") < 0 && !gui.isMouseOnGui(Input.mousePosition)) // back
             transform.position = transform.position - new Vector3(0, 0, scrollSpeed);
-        if (Input.GetAxis("Mouse ScrollWheel") > 0 && Input.mousePosition.x > 250) // forward
+        if (Input.GetAxis("Mouse ScrollWheel") > 0 && !gui.isMouseOnGui(Input.mousePosition)) // forward
             transform.position = transform.position + new Vector3(0, 0, scrollSpeed);
 
 	}

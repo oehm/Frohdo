@@ -37,13 +37,14 @@ public class Gui_Main : MonoBehaviour
     private int seletedObj = -1;
     private bool showEditScreen = false;
 
+    public bool characterSet = false;
 
     private GameObject charObj;
     // Use this for initialization
     void Start()
     {
         level.setSize(levelSize);
-        level.setLevelBackground("blue");
+        level.setLevelBackground("W");
         menuFunction = edit;
 
         objPlacement.setActiveLayer(activeLayer);
@@ -152,7 +153,7 @@ public class Gui_Main : MonoBehaviour
         scrollPos = GUILayout.BeginScrollView(scrollPos, guiSkin.scrollView);
         int xCount = 0;
         GUILayout.BeginHorizontal("");
-        if (activeLayer == GlobalVars.Instance.playLayer)
+        if (activeLayer == GlobalVars.Instance.playLayer && !characterSet)
         {
             xCount++;
             if (GUILayout.Button(character, guiSkin.customStyles[0]))
@@ -186,22 +187,25 @@ public class Gui_Main : MonoBehaviour
         GUILayout.EndHorizontal();
 
         GUILayout.EndScrollView();
-        GUILayout.BeginHorizontal("box");
-        if (GUILayout.Button("Save", guiSkin.button))
+        if (characterSet)
         {
-            menuFunction = save;
-        }
-        if (GUILayout.Button("PREVIEW", guiSkin.button))
-        {
-            //TEST THE LEVEL
-        }
-        GUILayout.EndHorizontal();
+            GUILayout.BeginHorizontal("box");
 
+            if (GUILayout.Button("Save", guiSkin.button))
+            {
+                menuFunction = save;
+            }
+            if (GUILayout.Button("PREVIEW", guiSkin.button))
+            {
+                //TEST THE LEVEL
+            }
+            GUILayout.EndHorizontal();
+        }
         GUILayout.EndArea();
 
 
         //Undo Redo Selected
-        GUILayout.BeginArea(new Rect(ForceAspectRatio.screenWidth - 100, ForceAspectRatio.yOffset, 100, 150));//, guiSkin.window);
+        GUILayout.BeginArea(new Rect(ForceAspectRatio.screenWidth + ForceAspectRatio.xOffset - 100, ForceAspectRatio.yOffset, 100, 150));//, guiSkin.window);
         if (GUILayout.Button("Undo", guiSkin.button))
         {
             commandManger.undo();
@@ -220,7 +224,7 @@ public class Gui_Main : MonoBehaviour
 
         if (showEditScreen)
         {
-            GUILayout.BeginArea(new Rect(ForceAspectRatio.screenWidth - 400, ForceAspectRatio.screenHeight - 80, 400, 80));//, guiSkin.window);
+            GUILayout.BeginArea(new Rect(ForceAspectRatio.screenWidth - 400 + ForceAspectRatio.xOffset, ForceAspectRatio.screenHeight - 50 + ForceAspectRatio.yOffset, 400, 50));//, guiSkin.window);
             GUILayout.BeginHorizontal("");
             if (GUILayout.Button("Delete", guiSkin.button))
             {
@@ -238,7 +242,7 @@ public class Gui_Main : MonoBehaviour
             GUILayout.EndArea();
         }
 
-        GUI.Label(new Rect(leftAreaWidth + 30, Screen.height - Input.mousePosition.y, 150, 50), GUI.tooltip, guiSkin.label);
+        //GUI.Label(new Rect(leftAreaWidth + 30, Screen.height - Input.mousePosition.y, 150, 50), GUI.tooltip, guiSkin.label);
     }
 
     void save()
@@ -246,6 +250,7 @@ public class Gui_Main : MonoBehaviour
         GUILayout.BeginArea(new Rect(ForceAspectRatio.xOffset, ForceAspectRatio.yOffset, leftAreaWidth, ForceAspectRatio.screenHeight));//, guiSkin.customStyles[3]);
 
         levelName = GUILayout.TextField(levelName, guiSkin.textField);
+
 
         GUILayout.TextArea("CARE! If another level of you already made has the same, the old level will be overwritten!");
 
@@ -267,8 +272,8 @@ public class Gui_Main : MonoBehaviour
 
     public bool isMouseOnGui(Vector2 pos)
     {
-        Rect hist = new Rect(ForceAspectRatio.screenWidth - 100, ForceAspectRatio.screenHeight - ForceAspectRatio.yOffset - 100, 100, 150);
-        if (pos.x < leftAreaWidth || hist.Contains(pos))
+        Rect hist = new Rect(ForceAspectRatio.screenWidth - 100 + ForceAspectRatio.xOffset, ForceAspectRatio.screenHeight - ForceAspectRatio.yOffset - 100, 100, 150);
+        if (pos.x < leftAreaWidth + ForceAspectRatio.xOffset || hist.Contains(pos))
         {
             return true;
         }
@@ -279,7 +284,7 @@ public class Gui_Main : MonoBehaviour
     {
         if (showEditScreen)
         {
-            Rect hist = new Rect(new Rect(ForceAspectRatio.screenWidth - 400, 40, 400, 40));
+            Rect hist = new Rect(new Rect(ForceAspectRatio.screenWidth - 400 + ForceAspectRatio.xOffset, ForceAspectRatio.yOffset, 400, 40));
             return hist.Contains(pos);
         }
         return false;

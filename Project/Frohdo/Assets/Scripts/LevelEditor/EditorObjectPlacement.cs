@@ -49,6 +49,14 @@ public class EditorObjectPlacement : MonoBehaviour
     void Update()
     {
         if (!ready || curLevelObject == null || objMakred != null) return;
+        
+        if(curLevelObject.name == "CharacterEditor" && gui.characterSet)
+        {
+            curSelected = null;
+            curLevelObject = null;
+            gui.deselectObj();
+        }
+        
         if (mouseDown_)
         {
             if (curSelected == null)
@@ -66,6 +74,16 @@ public class EditorObjectPlacement : MonoBehaviour
             }
             curSelected.transform.position = getObjPosition();
         }
+
+        Transform c =level.GetComponentsInChildren<Layer>()[GlobalVars.Instance.playLayer].transform.FindChild("CharacterEditor");
+        if(c == null)
+        {
+            gui.characterSet = false;
+        }
+        else{
+            gui.characterSet = c.gameObject.activeSelf;
+        }
+        
     }
     private void makeGrid()
     {
@@ -98,7 +116,7 @@ public class EditorObjectPlacement : MonoBehaviour
             return;
         }
 
-        ////check if user clicks on an object
+        
         if (gui.isMouseOnGui(mousePos))
         {
             objMakred = null;
@@ -108,6 +126,7 @@ public class EditorObjectPlacement : MonoBehaviour
             //gui.deselectObj();
             return;
         }
+        ////check if user clicks on an object
         if (isOnPlane(mousePos))
         {
             Vector3 pos = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, depth[activeLayer] - Camera.main.transform.position.z));

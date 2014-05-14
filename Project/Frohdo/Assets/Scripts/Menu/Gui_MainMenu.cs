@@ -29,7 +29,7 @@ public class Gui_MainMenu : MonoBehaviour
 
     void mainMenu()
     {
-        GUILayout.BeginArea(new Rect((ForceAspectRatio.screenWidth+ForceAspectRatio.xOffset) / 2 - 300, (ForceAspectRatio.screenHeight+ForceAspectRatio.yOffset) / 2 - 200, 600, 400));
+        GUILayout.BeginArea(new Rect((ForceAspectRatio.screenWidth) / 2 - 300 + ForceAspectRatio.xOffset, (ForceAspectRatio.screenHeight) / 2 - 200 + ForceAspectRatio.yOffset, 600, 400));
         if (GUILayout.Button("GameScene", mainStyle.button))
         {
             SceneManager.Instance.loadScene(destoryer, 5);
