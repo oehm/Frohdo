@@ -47,6 +47,11 @@ public class LevelEditorParser : MonoBehaviour {
         level.layers[layerIndex].levelObjects.Add(obj);
     }
 
+    public void addCharacter(int layerIndex, CharacterObjectXML character)
+    {
+        level.layers[layerIndex].character = character;
+    }
+
     public void clear()
     {
         for(int i=0; i< level.layers.Count; i++)

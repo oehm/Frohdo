@@ -19,11 +19,17 @@ public class LayerXML
     public int layerId;
     [XmlArray("LevelObjects"), XmlArrayItem("LevelObject")]
     public List<LevelObjectXML> levelObjects = new List<LevelObjectXML>();
+    public CharacterObjectXML Character;
 }
 
 public class LevelObjectXML
 {
     public string name;
     public string color;
+    public SerializableVector2 pos;
+}
+
+public class CharacterObjectXML
+{
     public SerializableVector2 pos;
 }

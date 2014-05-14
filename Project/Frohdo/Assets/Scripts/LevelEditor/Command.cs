@@ -27,8 +27,11 @@ public class InsertObject : Command
     {
         obj = GameObject.Instantiate(o) as GameObject;
         obj.name = o.name;
-        obj.GetComponentInChildren<Colorable>().colorIn(o.GetComponentInChildren<Colorable>().colorString);
-
+        Colorable colorable = obj.GetComponentInChildren<Colorable>();
+        if (colorable != null)
+        {
+            obj.GetComponentInChildren<Colorable>().colorIn(o.GetComponentInChildren<Colorable>().colorString);
+        }
         obj.SetActive(false);
         layer = l;
         editor = e;

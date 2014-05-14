@@ -90,7 +90,7 @@ public class Gui_Main : MonoBehaviour
             levelObjects_content[i] = tempCont.ToArray();
             tempCont.Clear();
         }
-        charObj = LevelObjectController.Instance.getCharacter();
+        charObj = LevelObjectController.Instance.getCharacter(true);
         character = new GUIContent(objRenderer.renderGameObjectToTexture(charObj, 256, 256, null));
     }
     // Update is called once per frame

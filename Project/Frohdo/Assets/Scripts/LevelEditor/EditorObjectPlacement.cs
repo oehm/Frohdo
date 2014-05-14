@@ -56,7 +56,11 @@ public class EditorObjectPlacement : MonoBehaviour
                 curSelected = Instantiate(LevelObjectController.Instance.GetPrefabByName(curLevelObject.name)) as GameObject;
                 curSelected.transform.parent = level.transform;
                 curSelected.name = curLevelObject.name;
-                curSelected.GetComponentInChildren<Colorable>().colorIn(curLevelObject.color);
+                Colorable colorable = curSelected.GetComponentInChildren<Colorable>();
+                if (colorable != null)
+                {
+                    colorable.colorIn(curLevelObject.color);
+                }
                 curSelected.transform.position = getObjPosition();
                 curSelected.layer = 8 + activeLayer;
             }
@@ -145,8 +149,6 @@ public class EditorObjectPlacement : MonoBehaviour
 
         if (curSelected != null && isOnPlane(curSelected))
         {
-            Debug.Log(curSelected.GetComponentInChildren<Colorable>().colorString);
-
             Vector2 p = new Vector2(curSelected.transform.position.x, curSelected.transform.position.y);
             Vector2 para = new Vector2(level.GetComponentsInChildren<Layer>()[activeLayer].gameObject.transform.position.x, level.GetComponentsInChildren<Layer>()[activeLayer].gameObject.transform.position.y);
             p -= para;
@@ -249,6 +251,13 @@ public class EditorObjectPlacement : MonoBehaviour
             Gridable[] hs = obj.GetComponentsInChildren<Gridable>();
             foreach (Gridable h in hs)
             {
+                if(h.gameObject.name == "CharacterEditor")
+                {
+                    CharacterObjectXML character =new CharacterObjectXML();
+                    character.pos = new SerializableVector2(h.gameObject.transform.localPosition);
+                    l.addCharacter(i, character);
+                    continue;
+                }
                 LevelObjectXML lobj = new LevelObjectXML();
                 lobj.color = h.gameObject.GetComponentInChildren<Colorable>().colorString;
                 lobj.name = h.gameObject.name;
