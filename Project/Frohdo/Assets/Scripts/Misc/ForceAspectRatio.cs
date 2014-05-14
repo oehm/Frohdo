@@ -40,6 +40,8 @@ public class ForceAspectRatio : MonoBehaviour
         }
         wantedAspectRatio = _wantedAspectRatio;
         SetCamera();
+
+        cam.transparencySortMode = TransparencySortMode.Orthographic;
 	}
 
 	void Update()
