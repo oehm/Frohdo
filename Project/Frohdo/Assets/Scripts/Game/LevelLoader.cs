@@ -17,7 +17,8 @@ public class LevelLoader : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 	    //LoadLevel(Application.dataPath+"/Levels/Custom/test.xml");
-        string path = Environment.GetEnvironmentVariable("SelectedLevel", EnvironmentVariableTarget.Process);
+        //string path = Environment.GetEnvironmentVariable("SelectedLevel", EnvironmentVariableTarget.Process);
+        string path = SceneManager.Instance.levelToLoad;
         LoadLevel(path); 
 	}
 	
