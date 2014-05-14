@@ -38,7 +38,7 @@ public class LevelEditorParser : MonoBehaviour {
     public void saveLevel()
     {
         System.IO.Directory.CreateDirectory(Application.dataPath + savePath + levelName);
-        XML_Loader.Save(Application.dataPath+savePath+levelName+"\\"+levelName, level);
+        XML_Loader.Save(Application.dataPath+savePath+levelName+"\\"+levelName+".xml", level);
     }
 
     public void addLevelObject(int layerIndex, LevelObjectXML obj)
