@@ -40,8 +40,6 @@ public class CharacterPuke : MonoBehaviour
         pukeInput_ = puke;
     }
 
-    //test
-    int count = 0;
 
     // FixedUpdate is called once per physic frame
     void FixedUpdate()
@@ -52,10 +50,7 @@ public class CharacterPuke : MonoBehaviour
 
             GameObject pukeObject = (GameObject)Instantiate(pukePrefab_);
 
-            //test
-            count = (count + 1) % LevelObjectController.Instance.getColors().Length;
-
-            pukeObject.GetComponent<Colorable>().colorIn(LevelObjectController.Instance.getColors()[count]);
+            pukeObject.GetComponent<Colorable>().colorIn(color_);
 
             Vector2 pukePos = character_.transform.position;
 

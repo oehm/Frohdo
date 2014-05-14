@@ -74,4 +74,34 @@ public class Layer : MonoBehaviour {
         return levelObject;
         //levelObjects_.Add(levelObject);
     }
+
+    public GameObject AddCharacter(Vector2 position)
+    {
+        GameObject prefab;
+        try
+        {
+            prefab = LevelObjectController.Instance.getCharacter(false);
+        }
+        catch
+        {
+            Debug.Log("Character not added to Layer: ");
+            return null;
+        }
+
+        GameObject levelObject = (GameObject)Instantiate(prefab);
+        levelObject.name = "Character";
+        levelObject.transform.parent = transform;
+        levelObject.transform.localPosition = position;
+
+        Collider2D[] colliders = levelObject.GetComponentsInChildren<Collider2D>();
+        foreach (Collider2D collider in colliders)
+        {
+            collider.enabled = hasColliders_;
+        }
+
+        return levelObject;
+        //levelObjects_.Add(levelObject);
+    }
+
+    
 }

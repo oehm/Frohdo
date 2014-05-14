@@ -56,7 +56,7 @@ public class Character : MonoBehaviour {
 
     public void pickUp(GameObject pickUp)
     {
-        Debug.Log("picked up: " + pickUp.name);
+        //Debug.Log("picked up: " + pickUp.name);
         if (pickUp.name.Equals("ColorRatio"))
         {
             string color = pickUp.GetComponent<Colorable>().colorString;
