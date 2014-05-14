@@ -13,25 +13,11 @@ public class Gui_MainMenu : MonoBehaviour
     private GUIContent mainScreen;
 
     //options
-    int quallity = 5;
+    int quallity = 4;
     public GUIContent[] quallityOptions;
 
-    int resolutionopt = 2;
-    int numberOfResolution;
-    private GUIContent[] resolutions;
-    // Use this for initialization
     void Start()
     {
-        numberOfResolution = Screen.resolutions.Length;
-        resolutions = new GUIContent[numberOfResolution];
-        for (int i = 0; i < numberOfResolution; i++)
-        {
-            if (Screen.resolutions[i].width == Screen.width || Screen.resolutions[i].height == Screen.height)
-            {
-                resolutionopt = i;
-            }
-            resolutions[i] = new GUIContent(Screen.resolutions[i].width.ToString() + "x" + Screen.resolutions[i].height.ToString());
-        }
 
         menuFunction = mainMenu;
     }
@@ -68,19 +54,10 @@ public class Gui_MainMenu : MonoBehaviour
         GUILayout.BeginArea(new Rect((ForceAspectRatio.screenWidth + ForceAspectRatio.xOffset) / 2 - 300, (ForceAspectRatio.screenHeight + ForceAspectRatio.yOffset) / 2 - 200, 600, 400));
 
         GUILayout.Label("QuallityLevel", mainStyle.label);
-        quallity = GUILayout.Toolbar(quallity, quallityOptions);
+        quallity = GUILayout.Toolbar(quallity, quallityOptions,mainStyle.customStyles[0]);
         QualitySettings.SetQualityLevel(quallity);
 
-        GUILayout.Label("Resolution", mainStyle.label);
-        int resolutionoptnew = GUILayout.SelectionGrid(resolutionopt, resolutions, 4);
-        if (resolutionopt != resolutionoptnew)
-        {
-            resolutionopt = resolutionoptnew;
-            Screen.SetResolution(Screen.resolutions[resolutionopt].width, Screen.resolutions[resolutionopt].height, Screen.fullScreen);
-        }
-
-
-        if (GUILayout.Button("Fullscreen/Windowed", mainStyle.button))
+        if (GUILayout.Button("Fullscreen ON/OFF", mainStyle.button))
         {
             Screen.fullScreen = !Screen.fullScreen;
         }

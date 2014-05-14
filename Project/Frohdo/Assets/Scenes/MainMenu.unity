@@ -225,19 +225,19 @@ MonoBehaviour:
   destoryer: {fileID: 2094358765}
   mainStyle: {fileID: 11400000, guid: 79d5e9a2b7a540c4ea45f588b18d0c11, type: 2}
   quallityOptions:
-  - m_Text: FuckLOW!
+  - m_Text: Low
     m_Image: {fileID: 0}
     m_Tooltip: 
-  - m_Text: MediumLOW!
+  - m_Text: Medium
     m_Image: {fileID: 0}
     m_Tooltip: 
-  - m_Text: OKAYish..
+  - m_Text: Good
     m_Image: {fileID: 0}
     m_Tooltip: 
-  - m_Text: Pretty nice!
+  - m_Text: Mega
     m_Image: {fileID: 0}
     m_Tooltip: 
-  - m_Text: So MUCH GRAPHICS!!
+  - m_Text: Ultra
     m_Image: {fileID: 0}
     m_Tooltip: 
 --- !u!4 &1556133849
