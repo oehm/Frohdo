@@ -91,7 +91,7 @@ public class Gui_Main : MonoBehaviour
             tempCont.Clear();
         }
         charObj = LevelObjectController.Instance.getCharacter();
-        character = new GUIContent(objRenderer.renderGameObjectToTexture(charObj, 256, 256, "W"));
+        character = new GUIContent(objRenderer.renderGameObjectToTexture(charObj, 256, 256, null));
     }
     // Update is called once per frame
     void Update()
@@ -149,13 +149,13 @@ public class Gui_Main : MonoBehaviour
         }
 
         //LevelObjects
-        scrollPos = GUILayout.BeginScrollView(scrollPos,guiSkin.scrollView);
+        scrollPos = GUILayout.BeginScrollView(scrollPos, guiSkin.scrollView);
         int xCount = 0;
         GUILayout.BeginHorizontal("");
         if (activeLayer == GlobalVars.Instance.playLayer)
         {
             xCount++;
-            if(GUILayout.Button(character, guiSkin.customStyles[0]))
+            if (GUILayout.Button(character, guiSkin.customStyles[0]))
             {
                 LevelObjectXML obj = new LevelObjectXML();
                 obj.name = charObj.name;
@@ -163,17 +163,17 @@ public class Gui_Main : MonoBehaviour
                 objPlacement.updateObject(obj);
                 seletedObj = 0;
             }
-            
+
         }
         for (int i = 0; i < levelObjects_content[selectedColor].Length; i++)
         {
-            xCount++;
-            if(xCount > 3)
+            if (xCount >= 2)
             {
                 xCount = 0;
                 GUILayout.EndHorizontal();
                 GUILayout.BeginHorizontal();
             }
+            xCount++;
             if (GUILayout.Button(levelObjects_content[selectedColor][i], guiSkin.customStyles[0]))
             {
                 LevelObjectXML obj = new LevelObjectXML();
@@ -238,7 +238,7 @@ public class Gui_Main : MonoBehaviour
             GUILayout.EndArea();
         }
 
-        //GUI.Label(new Rect(leftAreaWidth + 30, Screen.height - Input.mousePosition.y, 150, 50), GUI.tooltip, guiSkin.label);
+        GUI.Label(new Rect(leftAreaWidth + 30, Screen.height - Input.mousePosition.y, 150, 50), GUI.tooltip, guiSkin.label);
     }
 
     void save()
@@ -277,7 +277,7 @@ public class Gui_Main : MonoBehaviour
     public bool isMouseOnEditScreen(Vector2 pos)
     {
         if (showEditScreen)
-        {   
+        {
             Rect hist = new Rect(new Rect(ForceAspectRatio.screenWidth - 400, 40, 400, 40));
             return hist.Contains(pos);
         }
