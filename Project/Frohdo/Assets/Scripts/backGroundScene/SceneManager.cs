@@ -18,6 +18,8 @@ public class SceneManager : MonoBehaviour
     private bool loading = false;
     private AsyncOperation async;
 
+    public string levelToLoad;
+
     void Start()
     {
         if (instance != null)
