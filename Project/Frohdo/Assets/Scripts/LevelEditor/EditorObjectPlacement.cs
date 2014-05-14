@@ -56,9 +56,7 @@ public class EditorObjectPlacement : MonoBehaviour
                 curSelected = Instantiate(LevelObjectController.Instance.GetPrefabByName(curLevelObject.name)) as GameObject;
                 curSelected.transform.parent = level.transform;
                 curSelected.name = curLevelObject.name;
-                Gridable htemp = curSelected.GetComponent<Gridable>();
-                Color c = LevelObjectController.Instance.GetColor(curLevelObject.color);
-                curSelected.GetComponentInChildren<Renderer>().material.color = c;
+                curSelected.GetComponentInChildren<Colorable>().colorIn(curLevelObject.color);
                 curSelected.transform.position = getObjPosition();
                 curSelected.layer = 8 + activeLayer;
             }
@@ -147,7 +145,8 @@ public class EditorObjectPlacement : MonoBehaviour
 
         if (curSelected != null && isOnPlane(curSelected))
         {
-            Gridable htemp = curSelected.GetComponent<Gridable>();
+            Debug.Log(curSelected.GetComponentInChildren<Colorable>().colorString);
+
             Vector2 p = new Vector2(curSelected.transform.position.x, curSelected.transform.position.y);
             Vector2 para = new Vector2(level.GetComponentsInChildren<Layer>()[activeLayer].gameObject.transform.position.x, level.GetComponentsInChildren<Layer>()[activeLayer].gameObject.transform.position.y);
             p -= para;

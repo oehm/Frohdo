@@ -37,6 +37,8 @@ public class Gui_Main : MonoBehaviour
     private int seletedObj = -1;
     private bool showEditScreen = false;
 
+
+    private GameObject charObj;
     // Use this for initialization
     void Start()
     {
@@ -88,7 +90,7 @@ public class Gui_Main : MonoBehaviour
             levelObjects_content[i] = tempCont.ToArray();
             tempCont.Clear();
         }
-        GameObject charObj = LevelObjectController.Instance.getCharacter();
+        charObj = LevelObjectController.Instance.getCharacter();
         character = new GUIContent(objRenderer.renderGameObjectToTexture(charObj, 256, 256, "W"));
     }
     // Update is called once per frame
@@ -152,13 +154,21 @@ public class Gui_Main : MonoBehaviour
         GUILayout.BeginHorizontal("");
         if (activeLayer == GlobalVars.Instance.playLayer)
         {
-            GUILayout.Button(character, guiSkin.customStyles[0]);
             xCount++;
+            if(GUILayout.Button(character, guiSkin.customStyles[0]))
+            {
+                LevelObjectXML obj = new LevelObjectXML();
+                obj.name = charObj.name;
+                obj.color = colors[selectedColor];
+                objPlacement.updateObject(obj);
+                seletedObj = 0;
+            }
+            
         }
         for (int i = 0; i < levelObjects_content[selectedColor].Length; i++)
         {
             xCount++;
-            if(xCount >= 3)
+            if(xCount > 3)
             {
                 xCount = 0;
                 GUILayout.EndHorizontal();

@@ -27,6 +27,8 @@ public class InsertObject : Command
     {
         obj = GameObject.Instantiate(o) as GameObject;
         obj.name = o.name;
+        obj.GetComponentInChildren<Colorable>().colorIn(o.GetComponentInChildren<Colorable>().colorString);
+
         obj.SetActive(false);
         layer = l;
         editor = e;
@@ -55,7 +57,7 @@ public class InsertObject : Command
         //test if theres is an object
         int pW = editor.grids[matLAyer].Length;
         int pH = editor.grids[matLAyer][0].Length;
-        Vector2 objPos = new Vector2((int)(pos.x + (pW+1) / 2), (int)(pos.y + (pH+1) / 2));
+        Vector2 objPos = new Vector2((int)(pos.x + (pW + 1) / 2), (int)(pos.y + (pH + 1) / 2));
         int w = (htemp.width + 1) / 2;
         int h = (htemp.height + 1) / 2;
         int w2 = htemp.width / 2;
@@ -203,8 +205,8 @@ public class DeleteObj : Command
 public class ChangeColor : Command
 {
     private GameObject obj;
-    private Color color;
-    private Color previousColor;
+    private string color;
+    private string previousColor;
 
     public void freeResources()
     {
@@ -213,20 +215,20 @@ public class ChangeColor : Command
     public void setUpCommand(GameObject o, string c)
     {
         obj = o;
-        color = LevelObjectController.Instance.GetColor(c);
-        previousColor = obj.GetComponent<Renderer>().material.color;
+        previousColor = obj.GetComponentInChildren<Colorable>().colorString;
+        color = c;
     }
 
     public bool exectute()
     {
-        obj.GetComponent<Renderer>().material.color = color;
+        obj.GetComponent<Colorable>().colorIn(color);
 
         return true;
     }
 
     public void undo()
     {
-        obj.GetComponent<Renderer>().material.color = previousColor;
+        obj.GetComponentInChildren<Colorable>().colorIn(previousColor);
     }
 
     public void redo()
