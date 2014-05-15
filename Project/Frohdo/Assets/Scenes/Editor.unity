@@ -324,7 +324,6 @@ MonoBehaviour:
   marker: {fileID: 100000, guid: a5199ba10236f4d448592de42e2d21b6, type: 2}
   commandManager: {fileID: 1406282889}
   gui: {fileID: 1884209937}
-  activeLayer: 2
 --- !u!1 &543055656
 GameObject:
   m_ObjectHideFlags: 0
@@ -1147,8 +1146,6 @@ MonoBehaviour:
   commandManger: {fileID: 1406282889}
   objRenderer: {fileID: 647271154}
   guiSkin: {fileID: 11400000, guid: 483c0d88aa3c78d4e9eb96e1294c9aa7, type: 2}
-  levelName: 
-  activeLayer: 0
   characterSet: 0
 --- !u!1001 &1966684826
 Prefab:
@@ -1183,6 +1180,10 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 43bd0df0891bd3a46a25d52410add3c7, type: 2}
       propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2000000, guid: 43bd0df0891bd3a46a25d52410add3c7, type: 2}
+      propertyPath: m_ClearFlags
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
