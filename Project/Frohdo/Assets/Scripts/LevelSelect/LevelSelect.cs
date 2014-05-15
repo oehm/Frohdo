@@ -557,13 +557,12 @@ class CustomLevelObj : Levelobj
         GUILayout.FlexibleSpace();
         if (GUILayout.Button("Level starten", "forwardbackwardbutton"))
         {
-            SceneManager.Instance.loadScene(GameObject.Find("GUI_LevelSelect").GetComponent<LevelSelect>().destroyer, SceneManager.Scene.Game);
+            SceneManager.Instance.loadScene(SceneManager.Scene.Game);
         }
         if (GUILayout.Button("Level bearbeiten", "forwardbackwardbutton"))
         {
-            //Environment.SetEnvironmentVariable("SelectedLevel", null, EnvironmentVariableTarget.Process);
             SceneManager.Instance.loadLevelToEdit = true;
-            SceneManager.Instance.loadScene(GameObject.Find("GUI_LevelSelect").GetComponent<LevelSelect>().destroyer, SceneManager.Scene.Editor);
+            SceneManager.Instance.loadScene(SceneManager.Scene.Editor);
         }
         GUILayout.FlexibleSpace();
         GUILayout.EndHorizontal();
@@ -594,7 +593,7 @@ class LocalLevelObj : Levelobj //already on disk
         GUILayout.FlexibleSpace();
         if (GUILayout.Button("Level starten", "forwardbackwardbutton"))
         {
-            SceneManager.Instance.loadScene(GameObject.Find("GUI_LevelSelect").GetComponent<LevelSelect>().destroyer, SceneManager.Scene.Game);
+            SceneManager.Instance.loadScene(SceneManager.Scene.Game);
         }
         GUILayout.FlexibleSpace();
         GUILayout.EndHorizontal();

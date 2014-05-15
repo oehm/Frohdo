@@ -47,8 +47,10 @@ public class SceneManager : MonoBehaviour
         }
     }
 
-    public void loadScene(SceneDestroyer destroyer, Scene nextScene)
+    public void loadScene(Scene nextScene)
     {
+        SceneDestroyer destroyer = GameObject.Find("SceneDestroyer").GetComponent<SceneDestroyer>();
+
         async = Application.LoadLevelAdditiveAsync((int)nextScene);        
         destroyer.suicide();
         loading = true;
