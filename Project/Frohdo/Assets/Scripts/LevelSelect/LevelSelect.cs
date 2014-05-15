@@ -290,8 +290,7 @@ public class LevelSelect : MonoBehaviour {
                                     {
                                         selectedLevelid = levels[i].id;
                                         //Environment.SetEnvironmentVariable("SelectedLevel", levels[i].XMLPath.FullName, EnvironmentVariableTarget.Process);
-                                        SceneManager.Instance.levelToLoad = levels[i].XMLPath.FullName;
-                                        SceneManager.Instance.levelToEdit = levels[i].XMLPath.FullName;
+
                                     }
                                 }
                                 if (i == LevelsToShow * LevelsCurPage + LevelsToShow - 1) break;
@@ -557,10 +556,12 @@ class CustomLevelObj : Levelobj
         GUILayout.FlexibleSpace();
         if (GUILayout.Button("Level starten", "forwardbackwardbutton"))
         {
+            SceneManager.Instance.levelToLoad = XMLPath.FullName;
             SceneManager.Instance.loadScene(SceneManager.Scene.Game);
         }
         if (GUILayout.Button("Level bearbeiten", "forwardbackwardbutton"))
         {
+            SceneManager.Instance.levelToEdit = XMLPath.FullName;
             SceneManager.Instance.loadLevelToEdit = true;
             SceneManager.Instance.loadScene(SceneManager.Scene.Editor);
         }
@@ -593,6 +594,7 @@ class LocalLevelObj : Levelobj //already on disk
         GUILayout.FlexibleSpace();
         if (GUILayout.Button("Level starten", "forwardbackwardbutton"))
         {
+            SceneManager.Instance.levelToLoad = XMLPath.FullName;
             SceneManager.Instance.loadScene(SceneManager.Scene.Game);
         }
         GUILayout.FlexibleSpace();
