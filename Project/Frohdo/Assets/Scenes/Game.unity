@@ -235,7 +235,8 @@ Prefab:
       propertyPath: m_Depth
       value: -1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8100000, guid: 43bd0df0891bd3a46a25d52410add3c7, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 43bd0df0891bd3a46a25d52410add3c7, type: 2}
   m_RootGameObject: {fileID: 1247638172}
   m_IsPrefabParent: 0
@@ -518,7 +519,6 @@ GameObject:
   - 20: {fileID: 1247638179}
   - 92: {fileID: 1247638178}
   - 124: {fileID: 1247638177}
-  - 81: {fileID: 1247638176}
   - 114: {fileID: 1247638175}
   m_Layer: 0
   m_Name: Camera
@@ -552,14 +552,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _wantedAspectRatio: 1.77777803
   landscapeModeOnly: 1
---- !u!81 &1247638176
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 8100000, guid: 43bd0df0891bd3a46a25d52410add3c7,
-    type: 2}
-  m_PrefabInternal: {fileID: 320176184}
-  m_GameObject: {fileID: 1247638172}
-  m_Enabled: 1
 --- !u!124 &1247638177
 Behaviour:
   m_ObjectHideFlags: 0
