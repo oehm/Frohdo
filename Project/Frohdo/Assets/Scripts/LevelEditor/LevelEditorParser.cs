@@ -56,15 +56,13 @@ public class LevelEditorParser : MonoBehaviour
                 commandManger.executeCommand(command);
             }
 
-            //CharacterObjectXML characterXML = layerXML.Character;
-            //if (characterXML != null)
-            //{
-                
-            //    InsertObject command = new InsertObject();
-            //    command.setUpCommand(LevelObjectController.Instance.getCharacter(true),layerObject,editObjPlament,i);
-            //    commandManger.executeCommand(command);
-            //}
-
+            CharacterObjectXML characterXML = layerXML.Character;
+            if (characterXML != null)
+            {               
+                InsertObject command = new InsertObject();
+                command.setUpCommand(LevelObjectController.Instance.getCharacter(true),layerObject,editObjPlament,i);
+                commandManger.executeCommand(command);
+            }
         }
     }
 

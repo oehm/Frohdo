@@ -23,9 +23,10 @@ public class SetUpManager : MonoBehaviour
     {
         objectPlacement.activeLayer = GlobalVars.Instance.playLayer;
         
-        if (SceneManager.Instance.levelToEdit != null)
+        if (SceneManager.Instance.loadLevelToEdit)
         {
             levelParser.loadLevel(SceneManager.Instance.levelToEdit);
+            SceneManager.Instance.levelToEdit = null;
             commandManager.resetHistory();
             levelName = levelParser.levelName;
         }
@@ -38,6 +39,8 @@ public class SetUpManager : MonoBehaviour
 
             objectPlacement.init(levelSize);
         }
+
+        SceneManager.Instance.loadLevelToEdit = false;
 
         gui.levelName = levelName;
         gui.activeLayer = GlobalVars.Instance.playLayer;

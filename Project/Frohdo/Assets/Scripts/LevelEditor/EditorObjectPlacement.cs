@@ -81,6 +81,7 @@ public class EditorObjectPlacement : MonoBehaviour
         {
             if (curSelected == null)
             {
+                
                 curSelected = Instantiate(LevelObjectController.Instance.GetPrefabByName(curLevelObject.name)) as GameObject;
                 curSelected.transform.parent = level.transform;
                 curSelected.name = curLevelObject.name;
@@ -181,7 +182,6 @@ public class EditorObjectPlacement : MonoBehaviour
             Vector2 p = new Vector2(curSelected.transform.position.x, curSelected.transform.position.y);
             Vector2 para = new Vector2(level.GetComponentsInChildren<Layer>()[activeLayer].gameObject.transform.position.x, level.GetComponentsInChildren<Layer>()[activeLayer].gameObject.transform.position.y);
             p -= para;
-            curSelected.layer = 8 + activeLayer;
 
             InsertObject command = new InsertObject();
             command.setUpCommand(curSelected, level.GetComponentsInChildren<Layer>()[activeLayer].gameObject, this,activeLayer);

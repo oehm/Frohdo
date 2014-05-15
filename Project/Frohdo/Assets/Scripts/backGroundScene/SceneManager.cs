@@ -21,6 +21,8 @@ public class SceneManager : MonoBehaviour
     public string levelToLoad;
     public string levelToEdit = null;
 
+    public bool loadLevelToEdit { get; set; } 
+
     void Start()
     {
         if (instance != null)
@@ -28,7 +30,7 @@ public class SceneManager : MonoBehaviour
             Destroy(this);
         }
         instance = this;
-
+        loadLevelToEdit = false;
         Application.LoadLevelAdditive(1);
     }
 

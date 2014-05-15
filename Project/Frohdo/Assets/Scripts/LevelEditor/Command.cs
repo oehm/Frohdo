@@ -42,6 +42,7 @@ public class InsertObject : Command
     public void setUpCommand(LevelObjectXML o, Layer l, EditorObjectPlacement e, int layerIndex)
     {
         obj = l.GetComponent<Layer>().AddLevelObjectByName(o.name, o.color, o.pos.Vector2);
+        obj.layer = 8 + layerIndex;
         obj.SetActive(false);
         layer = l.gameObject;
         editor = e;
