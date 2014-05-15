@@ -34,6 +34,8 @@ public class Pukable : MonoBehaviour {
 
                 break;
         }
+
+        behaviour_ = behaviour;
     }
 
     public void recievePuke(string color, GameObject puke)
