@@ -3,13 +3,8 @@ using System.Collections;
 
 public class Collectable : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public enum Behaviour { ColorRatio };
+
+
+    public Behaviour behaviour_;
 }

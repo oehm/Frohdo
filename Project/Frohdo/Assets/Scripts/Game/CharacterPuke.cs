@@ -46,8 +46,6 @@ public class CharacterPuke : MonoBehaviour
     {
         if (pukeInput_ && ratios_ > 0)
         {
-            ratios_--;
-
             GameObject pukeObject = (GameObject)Instantiate(pukePrefab_);
 
             pukeObject.GetComponent<Colorable>().colorIn(color_);
@@ -84,6 +82,13 @@ public class CharacterPuke : MonoBehaviour
             pukeObject.transform.parent = character_.gameObject.transform.parent;
 
             pukeObject.GetComponent<Rigidbody2D>().velocity = character_.gameObject.GetComponent<Rigidbody2D>().velocity;
+
+            ratios_--;
+            
+            if (ratios_ == 0)
+            {
+                color_ = "W";
+            }
         }
     }
 

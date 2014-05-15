@@ -56,19 +56,27 @@ public class Character : MonoBehaviour {
     public void pickUp(GameObject pickUp)
     {
         //Debug.Log("picked up: " + pickUp.name);
-        
-        //this needs to be reworked if we need other collectables than ColorRatios
-        string color = pickUp.GetComponent<Colorable>().colorString;
-        puke_.AddRatio(color);
-        Destroy(pickUp);
+
+        if (pickUp.GetComponent<Collectable>().behaviour_ == Collectable.Behaviour.ColorRatio)
+        {
+            string color = pickUp.GetComponent<Colorable>().colorString;
+            puke_.AddRatio(color);
+            Destroy(pickUp);
+        }
     }
 
-    public void use(GameObject pickUp)
+    public void use(GameObject thing)
     {
-        //Debug.Log("used up: " + pickUp.name);
+        //Debug.Log("used: " + thing.name);
 
-        //this needs to be reworked if we need other Usables than Doors
-        SceneManager.Instance.loadScene(SceneManager.Scene.LevelSelect);
+        if (thing.GetComponent<Usable>().behaviour_ == Usable.Behaviour.Door)
+        {
+            SceneManager.Instance.loadScene(SceneManager.Scene.LevelSelect);
+        }
+        if (thing.GetComponent<Usable>().behaviour_ == Usable.Behaviour.ColorRatio)
+        {
+            //show tooltip here
+        }
         
     }
 

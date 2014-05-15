@@ -3,13 +3,8 @@ using System.Collections;
 
 public class Usable : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public enum Behaviour {Door, ColorRatio};
+
+
+    public Behaviour behaviour_;
 }

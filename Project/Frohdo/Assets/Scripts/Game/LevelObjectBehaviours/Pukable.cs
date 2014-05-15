@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PukedBehaviour : MonoBehaviour {
+public class Pukable : MonoBehaviour {
 
     public enum Behaviour { normal, lacquered, funnel };
 
@@ -12,6 +12,28 @@ public class PukedBehaviour : MonoBehaviour {
     void Start()
     {
 
+    }
+
+    public void setBehaviour(Behaviour behaviour)
+    {
+        switch (behaviour_)
+        {
+            case Behaviour.normal:
+                gameObject.GetComponentInChildren<Renderer>().material = gameObject.GetComponentInChildren<Renderer>().materials[0];
+                break;
+
+            case Behaviour.lacquered:
+                gameObject.GetComponentInChildren<Renderer>().material = gameObject.GetComponentInChildren<Renderer>().materials[1];
+                break;
+
+            case Behaviour.funnel:
+                gameObject.GetComponentInChildren<Renderer>().material = gameObject.GetComponentInChildren<Renderer>().materials[0];
+                break;
+
+            default:
+
+                break;
+        }
     }
 
     public void recievePuke(string color, GameObject puke)
