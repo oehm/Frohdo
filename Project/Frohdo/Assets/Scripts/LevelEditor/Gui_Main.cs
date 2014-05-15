@@ -188,7 +188,7 @@ public class Gui_Main : MonoBehaviour
             }
             if (GUILayout.Button("PREVIEW", guiSkin.button))
             {
-                //TEST THE LEVEL
+                menuFunction = preview;
             }
             GUILayout.EndHorizontal();
         }
@@ -252,6 +252,32 @@ public class Gui_Main : MonoBehaviour
             level.levelName = levelName;
             level.saveLevel();
             menuFunction = edit;
+        }
+        if (GUILayout.Button("CANCEL", guiSkin.button))
+        {
+            menuFunction = edit;
+        }
+        GUILayout.EndHorizontal();
+        GUILayout.EndArea();
+    }
+
+    void preview()
+    {
+        GUILayout.BeginArea(new Rect(ForceAspectRatio.xOffset, ForceAspectRatio.yOffset, leftAreaWidth, ForceAspectRatio.screenHeight));//, guiSkin.customStyles[3]);
+
+        levelName = GUILayout.TextField(levelName, guiSkin.textField);
+
+
+        GUILayout.TextArea("CARE! Level will be saved! The old level will be overwritten!");
+
+        GUILayout.BeginHorizontal("box");
+        if (GUILayout.Button("OKAY", guiSkin.button))
+        {
+            objPlacement.updateXMLLevelObjects(level);
+            level.levelName = levelName;
+            level.saveLevel();
+
+            SceneManager.Instance.loadScene(SceneManager.Scene.Game);
         }
         if (GUILayout.Button("CANCEL", guiSkin.button))
         {

@@ -79,6 +79,8 @@ public class LevelEditorParser : MonoBehaviour
     public void saveLevel()
     {
         System.IO.Directory.CreateDirectory(Application.dataPath + savePath + levelName);
+        SceneManager.Instance.levelToLoad = Application.dataPath + savePath + levelName + "\\" + levelName + ".xml";
+        SceneManager.Instance.levelToEdit = Application.dataPath + savePath + levelName + "\\" + levelName + ".xml";
         XML_Loader.Save(Application.dataPath + savePath + levelName + "\\" + levelName + ".xml", level);
     }
 
