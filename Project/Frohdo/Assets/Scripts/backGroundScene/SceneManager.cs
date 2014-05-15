@@ -45,10 +45,21 @@ public class SceneManager : MonoBehaviour
         }
     }
 
-    public void loadScene(SceneDestroyer destroyer, int nextScene)
+    public void loadScene(SceneDestroyer destroyer, Scene nextScene)
     {
-        async = Application.LoadLevelAdditiveAsync(nextScene);        
+        async = Application.LoadLevelAdditiveAsync((int)nextScene);        
         destroyer.suicide();
         loading = true;
+    }
+
+    public enum Scene
+    {
+        Background,
+        Patcher,
+        MainMenu,
+        Game,
+        Editor,
+        LevelSelect
+
     }
 }
