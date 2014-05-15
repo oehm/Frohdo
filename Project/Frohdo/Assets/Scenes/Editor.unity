@@ -279,6 +279,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   savePath: \\Levels\\custom\\
+  commandManger: {fileID: 1406282889}
+  editObjPlament: {fileID: 461279947}
 --- !u!1 &461279945
 GameObject:
   m_ObjectHideFlags: 0
@@ -565,6 +567,7 @@ Transform:
   - {fileID: 461279946}
   - {fileID: 1513275730}
   - {fileID: 1846667057}
+  - {fileID: 1565792230}
   - {fileID: 246932786}
   m_Father: {fileID: 0}
 --- !u!1 &964511413
@@ -883,6 +886,48 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destroyer: {fileID: 132876610}
+--- !u!1 &1565792229
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1565792230}
+  - 114: {fileID: 1565792231}
+  m_Layer: 0
+  m_Name: SetUpManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1565792230
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1565792229}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 11.7957106, y: 5.27227879, z: 17.3361492}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 897562638}
+--- !u!114 &1565792231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1565792229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e50d3b1eaa93b4b41b024ad9ed571075, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gui: {fileID: 1884209937}
+  levelParser: {fileID: 397076329}
+  objectPlacement: {fileID: 461279947}
+  commandManager: {fileID: 1406282889}
 --- !u!1 &1621907231
 GameObject:
   m_ObjectHideFlags: 0
@@ -1102,7 +1147,9 @@ MonoBehaviour:
   commandManger: {fileID: 1406282889}
   objRenderer: {fileID: 647271154}
   guiSkin: {fileID: 11400000, guid: 483c0d88aa3c78d4e9eb96e1294c9aa7, type: 2}
-  levelSize: {x: 33, y: 20}
+  levelName: 
+  activeLayer: 0
+  characterSet: 0
 --- !u!1001 &1966684826
 Prefab:
   m_ObjectHideFlags: 0

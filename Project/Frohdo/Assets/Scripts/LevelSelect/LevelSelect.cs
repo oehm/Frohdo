@@ -291,6 +291,7 @@ public class LevelSelect : MonoBehaviour {
                                         selectedLevelid = levels[i].id;
                                         //Environment.SetEnvironmentVariable("SelectedLevel", levels[i].XMLPath.FullName, EnvironmentVariableTarget.Process);
                                         SceneManager.Instance.levelToLoad = levels[i].XMLPath.FullName;
+                                        SceneManager.Instance.levelToEdit = levels[i].XMLPath.FullName;
                                     }
                                 }
                                 if (i == LevelsToShow * LevelsCurPage + LevelsToShow - 1) break;

@@ -23,19 +23,29 @@ public class InsertObject : Command
         GameObject.Destroy(obj);
     }
 
-    public void setUpCommand(GameObject o, GameObject l, EditorObjectPlacement e)
+    public void setUpCommand(GameObject o, GameObject l, EditorObjectPlacement e, int layerIndex)
     {
-        obj = GameObject.Instantiate(o) as GameObject;
-        obj.name = o.name;
-        Colorable colorable = obj.GetComponentInChildren<Colorable>();
-        if (colorable != null)
+        string color = "";
+        Colorable colorable = o.GetComponent<Colorable>();
+        if(colorable != null)
         {
-            obj.GetComponentInChildren<Colorable>().colorIn(o.GetComponentInChildren<Colorable>().colorString);
+            color = colorable.colorString;
         }
+        obj = l.GetComponent<Layer>().AddLevelObjectByName(o.name, color, o.transform.localPosition);
+        obj.layer = 8 + layerIndex;
         obj.SetActive(false);
         layer = l;
         editor = e;
-        matLAyer = e.activeLayer;
+        matLAyer = layerIndex;
+    }
+
+    public void setUpCommand(LevelObjectXML o, Layer l, EditorObjectPlacement e, int layerIndex)
+    {
+        obj = l.GetComponent<Layer>().AddLevelObjectByName(o.name, o.color, o.pos.Vector2);
+        obj.SetActive(false);
+        layer = l.gameObject;
+        editor = e;
+        matLAyer = layerIndex;
     }
 
     public bool exectute()
@@ -57,6 +67,7 @@ public class InsertObject : Command
     {
         Gridable htemp = obj.GetComponent<Gridable>();
         Vector3 pos = obj.transform.localPosition;
+
         //test if theres is an object
         int pW = editor.grids[matLAyer].Length;
         int pH = editor.grids[matLAyer][0].Length;
@@ -75,7 +86,6 @@ public class InsertObject : Command
                 }
             }
         }
-
 
         //if not 
         for (int x = (int)objPos.x - w2, xm = 0; x < (int)objPos.x + w; x++, xm++)
@@ -218,14 +228,25 @@ public class ChangeColor : Command
     public void setUpCommand(GameObject o, string c)
     {
         obj = o;
-        previousColor = obj.GetComponentInChildren<Colorable>().colorString;
+        Colorable colorable = obj.GetComponentInChildren<Colorable>();
+        if(colorable != null)
+        {
+            previousColor = colorable.colorString;
+        }
         color = c;
     }
 
     public bool exectute()
     {
-        obj.GetComponent<Colorable>().colorIn(color);
-
+        Colorable colorable = obj.GetComponent<Colorable>();
+        if(colorable != null)
+        {
+            colorable.colorIn(color);
+        }
+        else
+        {
+            return false;
+        }
         return true;
     }
 

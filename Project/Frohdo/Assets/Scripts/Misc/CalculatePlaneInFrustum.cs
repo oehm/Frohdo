@@ -20,20 +20,6 @@ public class CalculatePlaneInFrustum : MonoBehaviour
         return corners;
     }
 
-    public static Camera getLevelCam(Vector2 levelSize, Camera playCam)
-    {
-        Camera cam = new Camera();
-        cam.CopyFrom(playCam);
-
-        float dist = levelSize.y / 2.0f * Mathf.Tan(playCam.fieldOfView * 0.5f * Mathf.Deg2Rad);
-
-        cam.aspect = levelSize.y / levelSize.x;
-        cam.transform.position -= new Vector3(0, 0, dist);
-
-
-        return cam;
-    }
-
     public static Vector2[] getPlaneSizes(Vector2 levelSize, Camera camera)
     {
         Vector3 oldCamPos = camera.transform.position;
@@ -42,11 +28,14 @@ public class CalculatePlaneInFrustum : MonoBehaviour
         Vector2 levelLeftDownCorner = new Vector2(-levelSize.x / 2, -levelSize.y / 2);
 
         //calulate the field of vision of the camera
-        Vector3[] visonPlane = getPlane(Mathf.Abs(GlobalVars.Instance.layerZPos[3] - camera.transform.position.z), camera);
+        Vector3[] visonPlane = getPlane(Mathf.Abs(GlobalVars.Instance.layerZPos[GlobalVars.Instance.playLayer] - camera.transform.position.z), camera);
         //move the camera to downloeftCorner so it exectly sees the level corner of the main layer
-        float diffx = visonPlane[0].x - levelLeftDownCorner.x;
-        float diffy = visonPlane[0].y - levelLeftDownCorner.y;
-        camera.transform.position -= new Vector3(diffx, diffy, 0);
+        //float diffx = Mathf.Abs(levelLeftDownCorner.x) - Mathf.Abs(visonPlane[0].x);
+        //float diffy = Mathf.Abs(levelLeftDownCorner.y) - Mathf.Abs(visonPlane[0].y);
+
+        float diffx = levelLeftDownCorner.x;
+        float diffy = levelLeftDownCorner.y;
+        camera.transform.position += new Vector3(diffx, diffy, 0);
         //now calc the visonplane for the different layers
         Vector2[] sizes = new Vector2[GlobalVars.Instance.LayerCount];
 
@@ -54,8 +43,8 @@ public class CalculatePlaneInFrustum : MonoBehaviour
         {
             if (i == GlobalVars.Instance.playLayer)
             {
-                levelSize.x = Mathf.Floor(levelSize.x / 2) * 2;
-                levelSize.y = Mathf.Floor(levelSize.y / 2) * 2;
+                levelSize.x = (int)(levelSize.x / 2) * 2;
+                levelSize.y = (int)(levelSize.y / 2) * 2;
                 sizes[i] = levelSize;
                 continue;
             }
@@ -67,8 +56,8 @@ public class CalculatePlaneInFrustum : MonoBehaviour
             plane.y = Mathf.Abs(visonPlane[0].y) * 2;
             plane.y += diffy * GlobalVars.Instance.layerParallax[i].y * 2;
 
-            plane.x = Mathf.Floor(plane.x/2)*2;
-            plane.y = Mathf.Floor(plane.y/2)*2;
+            plane.x = (int)(plane.x/2)*2;
+            plane.y = (int)(plane.y/2)*2;
 
             sizes[i] = plane;
         }

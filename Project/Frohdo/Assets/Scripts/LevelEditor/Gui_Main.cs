@@ -10,19 +10,16 @@ public class Gui_Main : MonoBehaviour
     public LevelEditorParser level;
     public EditorObjectPlacement objPlacement;
     public EditCommandManager commandManger;
-
     public RenderGameObjectToTexture objRenderer;
-
+    
     public static int leftAreaWidth = 300;
-
     public GUISkin guiSkin;
 
-    private string levelName = "Enter level name";
-    public Vector2 levelSize = new Vector2(100, 100);
+    public string levelName {get;set;}
+    public int activeLayer { get; set; }
 
-    private int activeLayer = 2;
+    
     private string[] activeLayerStings;
-
     private bool[] visibleLayer;
     private GUIContent eye;
 
@@ -35,21 +32,15 @@ public class Gui_Main : MonoBehaviour
     private GUIContent character;
     private string[] colors;
     private int seletedObj = -1;
+    
     private bool showEditScreen = false;
-
     public bool characterSet = false;
 
     private GameObject charObj;
     // Use this for initialization
     void Start()
     {
-        level.setSize(levelSize);
-        level.setLevelBackground("W");
         menuFunction = edit;
-
-        objPlacement.setActiveLayer(activeLayer);
-        objPlacement.init(levelSize);
-        level.setLevelName(levelName);
 
         colors = LevelObjectController.Instance.getColors();
         colorButtons = new GUIContent[colors.Length];
@@ -258,7 +249,7 @@ public class Gui_Main : MonoBehaviour
         if (GUILayout.Button("OKAY", guiSkin.button))
         {
             objPlacement.updateXMLLevelObjects(level);
-            level.setLevelName(levelName);
+            level.levelName = levelName;
             level.saveLevel();
             menuFunction = edit;
         }

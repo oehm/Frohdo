@@ -19,6 +19,7 @@ public class SceneManager : MonoBehaviour
     private AsyncOperation async;
 
     public string levelToLoad;
+    public string levelToEdit = null;
 
     void Start()
     {
@@ -46,8 +47,8 @@ public class SceneManager : MonoBehaviour
 
     public void loadScene(SceneDestroyer destroyer, int nextScene)
     {
+        async = Application.LoadLevelAdditiveAsync(nextScene);        
         destroyer.suicide();
-        async = Application.LoadLevelAdditiveAsync(nextScene);
         loading = true;
     }
 }

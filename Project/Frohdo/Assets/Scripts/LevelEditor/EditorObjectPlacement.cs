@@ -16,10 +16,10 @@ public class EditorObjectPlacement : MonoBehaviour
     private GameObject curSelected = null;
     private LevelObjectXML curLevelObject = null;
     private Vector2 mousePos = new Vector2(0, 0);
-    public int activeLayer = 2;
+    public int activeLayer { get; set; }
 
 
-    public GameObject[][][] grids;
+    public GameObject[][][] grids { get; set; }
 
     public void init(Vector2 size)
     {
@@ -38,25 +38,45 @@ public class EditorObjectPlacement : MonoBehaviour
     private bool mouseDown_ = false;
     private GameObject objMakred = null;
 
-    void Start()
+    void Awake()
     {
         marker = Instantiate(marker) as GameObject;
         marker.transform.parent = level.transform;
         marker.name = "MARKER";
         marker.SetActive(false);
     }
+    
+    void Start()
+    {
+
+    }
 
     void Update()
     {
+        Transform activeLayerTransform = level.GetComponentsInChildren<Layer>()[GlobalVars.Instance.playLayer].transform;
+        bool isCharacterSet = false;
+        for (int i = 0; i < activeLayerTransform.childCount; i++)
+        {
+            if (activeLayerTransform.GetChild(i).name == "CharacterEditor")
+            {
+                if (activeLayerTransform.GetChild(i).gameObject.activeSelf)
+                {
+                    isCharacterSet = true;
+                    break;
+                }
+            }
+        }
+        gui.characterSet = isCharacterSet;
+
         if (!ready || curLevelObject == null || objMakred != null) return;
-        
-        if(curLevelObject.name == "CharacterEditor" && gui.characterSet)
+
+        if (curLevelObject.name == "CharacterEditor" && gui.characterSet)
         {
             curSelected = null;
             curLevelObject = null;
             gui.deselectObj();
         }
-        
+
         if (mouseDown_)
         {
             if (curSelected == null)
@@ -70,20 +90,10 @@ public class EditorObjectPlacement : MonoBehaviour
                     colorable.colorIn(curLevelObject.color);
                 }
                 curSelected.transform.position = getObjPosition();
-                curSelected.layer = 8 + activeLayer;
             }
             curSelected.transform.position = getObjPosition();
         }
 
-        Transform c =level.GetComponentsInChildren<Layer>()[GlobalVars.Instance.playLayer].transform.FindChild("CharacterEditor");
-        if(c == null)
-        {
-            gui.characterSet = false;
-        }
-        else{
-            gui.characterSet = c.gameObject.activeSelf;
-        }
-        
     }
     private void makeGrid()
     {
@@ -116,7 +126,7 @@ public class EditorObjectPlacement : MonoBehaviour
             return;
         }
 
-        
+
         if (gui.isMouseOnGui(mousePos))
         {
             objMakred = null;
@@ -174,7 +184,7 @@ public class EditorObjectPlacement : MonoBehaviour
             curSelected.layer = 8 + activeLayer;
 
             InsertObject command = new InsertObject();
-            command.setUpCommand(curSelected, level.GetComponentsInChildren<Layer>()[activeLayer].gameObject, this);
+            command.setUpCommand(curSelected, level.GetComponentsInChildren<Layer>()[activeLayer].gameObject, this,activeLayer);
             commandManager.executeCommand(command);
         }
 
@@ -270,9 +280,9 @@ public class EditorObjectPlacement : MonoBehaviour
             Gridable[] hs = obj.GetComponentsInChildren<Gridable>();
             foreach (Gridable h in hs)
             {
-                if(h.gameObject.name == "CharacterEditor")
+                if (h.gameObject.name == "CharacterEditor")
                 {
-                    CharacterObjectXML character =new CharacterObjectXML();
+                    CharacterObjectXML character = new CharacterObjectXML();
                     character.pos = new SerializableVector2(h.gameObject.transform.localPosition);
                     l.addCharacter(i, character);
                     continue;

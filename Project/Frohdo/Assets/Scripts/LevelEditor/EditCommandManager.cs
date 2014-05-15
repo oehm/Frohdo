@@ -7,11 +7,15 @@ public class EditCommandManager : MonoBehaviour
     private List<Command> history;
 
     private int histIndex;
-    // Use this for initialization
-    void Start()
+    
+    void Awake()
     {
         history = new List<Command>();
         histIndex = -1;
+    }
+    void Start()
+    {
+
     }
 
     public bool executeCommand(Command c)
@@ -55,5 +59,11 @@ public class EditCommandManager : MonoBehaviour
         {
             Debug.Log("Can't Redo");
         }
+    }
+
+    public void resetHistory()
+    {
+        history.RemoveRange(0, history.Count);        
+        histIndex = -1;
     }
 }

@@ -75,12 +75,12 @@ public class Layer : MonoBehaviour {
         //levelObjects_.Add(levelObject);
     }
 
-    public GameObject AddCharacter(Vector2 position)
+    public GameObject AddCharacter(Vector2 position, bool editor = false)
     {
         GameObject prefab;
         try
         {
-            prefab = LevelObjectController.Instance.getCharacter(false);
+            prefab = LevelObjectController.Instance.getCharacter(editor);
         }
         catch
         {
