@@ -5,7 +5,9 @@ public class CharacterPickup : MonoBehaviour {
 
     private Character character_;
 
-    public bool Enabled { get; set; }
+    public bool EnabledUp { get; set; }
+    public bool EnabledDown { get; set; }
+
 
 	// Use this for initialization
 	void Start () {
@@ -14,7 +16,12 @@ public class CharacterPickup : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D coll)
     {
-        if (Enabled)
+        if (EnabledUp && coll.gameObject.GetComponentInChildren<Usable>() != null)
+        {
+            character_.use(coll.gameObject);
+        }
+
+        if (EnabledDown && coll.gameObject.GetComponentInChildren<Collectable>() != null)
         {
             character_.pickUp(coll.gameObject);
         }

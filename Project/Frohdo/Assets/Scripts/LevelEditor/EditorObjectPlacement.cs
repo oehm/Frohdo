@@ -288,7 +288,11 @@ public class EditorObjectPlacement : MonoBehaviour
                     continue;
                 }
                 LevelObjectXML lobj = new LevelObjectXML();
-                lobj.color = h.gameObject.GetComponentInChildren<Colorable>().colorString;
+                Colorable colorable = h.gameObject.GetComponentInChildren<Colorable>();
+                if(colorable != null)
+                {
+                    lobj.color = colorable.colorString;
+                }
                 lobj.name = h.gameObject.name;
                 lobj.pos = new SerializableVector2(h.gameObject.transform.localPosition);
                 l.addLevelObject(i, lobj);

@@ -25,7 +25,11 @@ public class RenderGameObjectToTexture : MonoBehaviour
         toRender.transform.Rotate(Vector3.up, 180.0f);
         if (color != null)
         {
-            toRender.GetComponentInChildren<Colorable>().colorIn(color);
+            Colorable colorable = toRender.GetComponentInChildren<Colorable>();
+            if (colorable != null)
+            {
+                toRender.GetComponentInChildren<Colorable>().colorIn(color);
+            }
         }
 
         RenderTexture renderTex = new RenderTexture(width, height, 16);
