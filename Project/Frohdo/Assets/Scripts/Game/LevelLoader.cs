@@ -38,7 +38,7 @@ public class LevelLoader : MonoBehaviour {
             throw new System.Exception(error);
         }
 
-        SceneManager.Instance.background.GetComponent<Colorable>().colorIn(levelXML.backgroundColor);
+        SceneManager.Instance.background.GetComponent<Colorable>().colorString = levelXML.backgroundColor;
 
         for (int i = 0; i < levelXML.layers.Count; i++)
         {
@@ -64,15 +64,6 @@ public class LevelLoader : MonoBehaviour {
                 
 
                 GameObject levelObjectObject =  layerScript.AddLevelObjectByName(levelObjectXML.name, levelObjectXML.color, levelObjectXML.pos.Vector2);
-
-                //this is ugly but i dont know better atm
-                //if (levelObjectXML.name.Equals("Character"))
-                //{
-                //    inputController_.character_ = levelObjectObject.GetComponentInChildren<Character>();
-
-                //    camera_.GetComponent<CameraMovementGame>().character_ = levelObjectObject;
-                //    continue;
-                //}
                
             }
 
@@ -91,75 +82,4 @@ public class LevelLoader : MonoBehaviour {
         }
     }
 
-    //void createTestXML()
-    //{
-    //    Level levelXML = new Level();
-    //    levelXML.backgroundColor = "B";
-    //    levelXML.size = new SerializableVector2(new Vector2(64, 64));
-    //    for (int l = 0; l < GlobalVars.Instance.LayerCount; l++)
-    //    {
-    //        LayerXML layerXML = new LayerXML();
-    //        layerXML.layerId = l;
-    //        for (int x = -16; x < 16; x++)
-    //        {
-    //            for (int y = -16; y < 16; y++)
-    //            {
-
-    //                if (x + y < -15 || y == -16 || x == -16 || x == 15)//x + y < -15 || 
-    //                {
-    //                    if (l == GlobalVars.Instance.playLayer)
-    //                    {
-    //                        if ((x * y) % 2 == 0)
-    //                        {
-    //                            LevelObject levelObjectXML = new LevelObject();
-    //                            levelObjectXML.name = "1x1Tile_Test";
-    //                            levelObjectXML.color = "R";
-    //                            levelObjectXML.pos = new SerializableVector2(new Vector2(x, y));
-    //                            layerXML.levelObjects.Add(levelObjectXML);
-    //                        }
-    //                        else
-    //                        {
-    //                            LevelObject levelObjectXML = new LevelObject();
-    //                            levelObjectXML.name = "1x1Tile_Test";
-    //                            levelObjectXML.color = "G";
-    //                            levelObjectXML.pos = new SerializableVector2(new Vector2(x, y));
-    //                            layerXML.levelObjects.Add(levelObjectXML);
-    //                        }
-    //                    }
-    //                    else
-    //                    {
-    //                        if ((x * y) % 5 == 0)
-    //                            if ((x * y) % 2 == 0)
-    //                            {
-    //                                LevelObject levelObjectXML = new LevelObject();
-    //                                levelObjectXML.name = "1x1Tile_Test";
-    //                                levelObjectXML.color = "B";
-    //                                levelObjectXML.pos = new SerializableVector2(new Vector2(x, y));
-    //                                layerXML.levelObjects.Add(levelObjectXML);
-    //                            }
-    //                            else
-    //                            {
-    //                                LevelObject levelObjectXML = new LevelObject();
-    //                                levelObjectXML.name = "1x1Tile_Test";
-    //                                levelObjectXML.color = "Y";
-    //                                levelObjectXML.pos = new SerializableVector2(new Vector2(x, y));
-    //                                layerXML.levelObjects.Add(levelObjectXML);
-    //                            }
-    //                    }
-    //                }
-    //            }
-    //        }
-    //        if (l == GlobalVars.Instance.playLayer)
-    //        {
-    //            LevelObject levelObjectXML = new LevelObject();
-    //            levelObjectXML.name = "Character";
-    //            levelObjectXML.color = "C";
-    //            levelObjectXML.pos = new SerializableVector2(new Vector2(0, 0));
-    //            layerXML.levelObjects.Add(levelObjectXML);
-    //        }
-    //        levelXML.layers.Add(layerXML);
-    //    }
-
-    //    XML_Loader.Save(Application.dataPath + "/Levels/Custom/test.xml", levelXML);
-    //}
 }

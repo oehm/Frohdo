@@ -11,6 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e582b7cbe46ab0240867c967f4aad1f9, type: 3}
   m_Name: GlobalVarsInstance
   m_EditorClassIdentifier: 
+  animationTime: 1
   mainCamerZ: -10
   layerZPos:
   - -5
