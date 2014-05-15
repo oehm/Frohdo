@@ -561,7 +561,7 @@ class CustomLevelObj : Levelobj
         }
         if (GUILayout.Button("Level bearbeiten", "forwardbackwardbutton"))
         {
-            Environment.SetEnvironmentVariable("SelectedLevel", null, EnvironmentVariableTarget.Process);
+            SceneManager.Instance.loadLevelToEdit = true;
             SceneManager.Instance.loadScene(SceneManager.Scene.Editor);
         }
         GUILayout.FlexibleSpace();

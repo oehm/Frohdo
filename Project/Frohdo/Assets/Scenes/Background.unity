@@ -103,6 +103,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   background: {fileID: 1920058905}
+  levelToLoad: 
+  levelToEdit: 
 --- !u!4 &415781947
 Transform:
   m_ObjectHideFlags: 0
