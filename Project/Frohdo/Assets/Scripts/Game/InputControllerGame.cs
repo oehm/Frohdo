@@ -30,6 +30,8 @@ public class InputControllerGame : MonoBehaviour {
         bool puke = Input.GetButton("Puke") && !pukeDisable_;
         pukeDisable_ = Input.GetButton("Puke");
 
-        character_.InputMovement(input, jump, puke);
+        bool kill = Input.GetButton("Kill");
+
+        character_.InputMovement(input, jump, puke, kill);
 	}
 }
