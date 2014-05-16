@@ -19,6 +19,7 @@ public class Character : MonoBehaviour {
     private bool lookUp_;
     private bool lookDown_;
 
+    private bool isKilling_;
 
     void Awake()
     {
@@ -30,27 +31,45 @@ public class Character : MonoBehaviour {
         lookLeft_ = false;
         lookUp_ = false;
         lookDown_ = false;
+
+        isKilling_ = false;
 	}
 
 
-    public void InputMovement(Vector2 run, bool jump, bool puke)
+    public void InputMovement(Vector2 run, bool jump, bool puke, bool kill)
     {
-        if (run.x < 0)
+        if (!kill)
         {
-            lookLeft_ = true;
-        }
-        if (run.x > 0)
-        {
-            lookLeft_ = false;
-        }
-        lookUp_ = run.y > 0;
-        lookDown_ = run.y < 0;
+            if (kill)
+            {
+                isKilling_ = kill;
+                //start killing yourself
+                SceneManager.Instance.loadScene(SceneManager.Scene.Game);
 
-        pickup_.EnabledDown = lookDown_;
-        pickup_.EnabledUp = lookUp_;
+                movement_.InputMovement(Vector2.zero, false);
+            }
+            else
+            {
+                if (run.x < 0)
+                {
+                    lookLeft_ = true;
+                }
+                if (run.x > 0)
+                {
+                    lookLeft_ = false;
+                }
+                lookUp_ = run.y > 0;
+                lookDown_ = run.y < 0;
 
-        movement_.InputMovement(run, jump);
-        puke_.InputMovement(puke);
+                pickup_.EnabledDown = lookDown_;
+                pickup_.EnabledUp = lookUp_;
+
+                movement_.InputMovement(run, jump);
+                puke_.InputMovement(puke);
+
+            }
+
+        }
     }
 
     public void pickUp(GameObject pickUp)
@@ -80,8 +99,4 @@ public class Character : MonoBehaviour {
         
     }
 
-    // FixedUpdate is called once per physic frame
-    void FixedUpdate()
-    {
-	}
 }
