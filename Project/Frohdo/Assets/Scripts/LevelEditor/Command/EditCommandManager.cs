@@ -9,6 +9,11 @@ public class EditCommandManager
     {
         get
         {
+            if(instance == null)
+            {
+                instance = new EditCommandManager();
+                instance.Awake();
+            }
             return instance;
         }
     }
@@ -20,10 +25,6 @@ public class EditCommandManager
     {
         history = new List<Command>();
         histIndex = -1;
-    }
-    void Start()
-    {
-
     }
 
     public bool executeCommand(Command c)

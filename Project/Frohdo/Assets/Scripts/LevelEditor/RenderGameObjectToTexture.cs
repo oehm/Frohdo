@@ -6,11 +6,6 @@ public class RenderGameObjectToTexture : MonoBehaviour
     public Camera renderCam;
 
     private Vector3 targetPos;
-    // Use this for initialization
-    void Start()
-    {
-        targetPos = renderCam.transform.position + new Vector3(0, 0, -4);
-    }
 
     // Update is called once per frame
     void Update()
@@ -20,9 +15,8 @@ public class RenderGameObjectToTexture : MonoBehaviour
 
     public Texture renderGameObjectToTexture(GameObject obj, int width, int height, string color)
     {
-
+        targetPos = renderCam.transform.position + new Vector3(0, 0, 5);
         GameObject toRender = Instantiate(obj, targetPos, Quaternion.identity) as GameObject;
-        toRender.transform.Rotate(Vector3.up, 180.0f);
         if (color != null)
         {
             Colorable colorable = toRender.GetComponentInChildren<Colorable>();

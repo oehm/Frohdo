@@ -42,6 +42,10 @@ public class LevelLoader : MonoBehaviour {
 
         SceneManager.Instance.background.GetComponent<Colorable>().colorString = levelXML.backgroundColor;
 
+        if (editor)
+        {
+            Editor_Grid.Instance.initGrid(levelXML.size.Vector2);
+        }
         for (int i = 0; i < levelXML.layers.Count; i++)
         {
             GameObject layerObject = (GameObject)Instantiate(layerPrefab_);
@@ -59,6 +63,13 @@ public class LevelLoader : MonoBehaviour {
             layerScript.parallaxFactor_ = parallax;
             layerScript.hasColliders_ = isPlayLayer;
             layerScript.camera_ = camera_;
+            if(editor)
+            {
+                GameObject bg = GameObject.Instantiate(Editor_Grid.Instance.layerBg_pref, new Vector3(0, 0, GlobalVars.Instance.layerZPos[i] + 0.02f), Quaternion.identity) as GameObject;
+                bg.transform.localScale = Editor_Grid.Instance.planeSizes[i];
+                bg.transform.parent = GameObject.Find("SceneObjects").GetComponentsInChildren<Layer>()[i].transform;
+                bg.layer = 14 + i;
+            }
 
             for (int j = 0; j < layerXML.levelObjects.Count; j++)
             {

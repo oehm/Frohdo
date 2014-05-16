@@ -27,7 +27,7 @@ public List<GUI_ContentColor> content { get; set; }
 
     private void windowFunc(int winId)
     {
-        GUI.DragWindow(new Rect(0, 0, 10000, 10000));
+        //GUI.DragWindow(new Rect(0, 0, 10000, 10000));
         GUILayout.BeginHorizontal("");
         foreach(GUI_ContentColor g in content)
         {

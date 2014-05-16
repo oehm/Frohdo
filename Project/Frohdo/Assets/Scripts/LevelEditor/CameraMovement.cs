@@ -9,10 +9,6 @@ public class CameraMovement : MonoBehaviour {
     public float scrollSpeed = 2.0f;
     public GUI_Controller_Editor gui;
 
-	// Use this for initialization
-	void Start () {
-	    
-	}
 	
 	// Update is called once per frame
 	void FixedUpdate(){

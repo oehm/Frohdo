@@ -3,15 +3,14 @@ using System.Collections;
 
 public class GUI_Selected : GUI_Element {
 
-    private EditCommandManager manager;
+
     public GUI_ContentObject content;
     
-    public GUI_Selected(Vector2 pos, Vector2 s, GUISkin sk, EditCommandManager m)
+    public GUI_Selected(Vector2 pos, Vector2 s, GUISkin sk)
     {
         position = pos;
         size = s;
         skin = sk;
-        manager = m;
         content = null;
 
         active = true;
@@ -35,7 +34,7 @@ public class GUI_Selected : GUI_Element {
         {
             DeleteObj command = new DeleteObj();
             command.setUpCommand(content.prefab,0);
-            manager.executeCommand(command);
+            EditCommandManager.Instance.executeCommand(command);
         }
     }
 }

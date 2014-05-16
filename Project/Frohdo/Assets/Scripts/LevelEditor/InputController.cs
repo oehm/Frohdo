@@ -3,7 +3,7 @@ using System.Collections;
 
 public class InputController : MonoBehaviour {
 
-    public EditorObjectPlacement obj_placement;
+    public StateManager stateManager;
     
     private bool leftMouseDown = false;
     private Vector2 mousePos = new Vector2(0,0);
@@ -23,7 +23,6 @@ public class InputController : MonoBehaviour {
         mousePos = Input.mousePosition;
         if (mousePos != oldMousePos) mouseMove();
 
-
 	}
 
     private void leftButtonChaged(bool oldButton, bool newButton)
@@ -31,18 +30,18 @@ public class InputController : MonoBehaviour {
         //Left mouse buttonwas pressed
         if(oldButton == false)
         {
-            obj_placement.mouseDown();
+            stateManager.leftMouseDown();
         }
         //left mouse button was released
         else
         {
-            obj_placement.mouseUp();
+            stateManager.leftMouseUp();
         }
     }
 
     private void mouseMove()
     {
-        obj_placement.mouseMove(mousePos);
+        stateManager.mouseMove(mousePos);
     }
 
 }

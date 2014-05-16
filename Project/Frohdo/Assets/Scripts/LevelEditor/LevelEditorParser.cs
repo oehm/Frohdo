@@ -17,7 +17,6 @@ public class LevelEditorParser : MonoBehaviour
 
     }
 
-
     public void initEmpty()
     {
         level = new LevelXML();

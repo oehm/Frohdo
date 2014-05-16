@@ -3,13 +3,11 @@ using System.Collections;
 
 public class GUI_Commands : GUI_Element {
 
-    private EditCommandManager manager;
     
-    public GUI_Commands(Vector2 pos, Vector2 s, GUISkin sk, EditCommandManager m)
+    public GUI_Commands(Vector2 pos, Vector2 s, GUISkin sk)
     {
         position = pos;
         size = s;
-        manager = m;
         skin = sk;
 
         active = true;
@@ -26,11 +24,11 @@ public class GUI_Commands : GUI_Element {
         GUI.DragWindow(new Rect(0, 0, 10000, 10000));
         if (GUILayout.Button("UNDO", skin.button))
         {
-            manager.undo();
+            EditCommandManager.Instance.undo();
         }
         if (GUILayout.Button("REDO", skin.button))
         {
-            manager.redo();
+            EditCommandManager.Instance.redo();
         }
     }
 }
