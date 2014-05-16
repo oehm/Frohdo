@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<activityRootModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/dsltools/SimpleShapesModel" dslVersion="1.0.0.0" Id="8f9aaf81-7a46-4327-8808-cc25c11781f9" name="sceneTransitions" linkedPackageId="555bf357-d9de-4d5f-8984-eef4c3a50556" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ActivityDesigner">
+  <ownedCommentsInternal>
+    <comment Id="221eb285-449d-4abc-9732-43b51efebf6e">
+      <elementDefinition Id="643d0939-0ba0-49ea-9e6b-1128a4c3c801" />
+      <body>Game</body>
+    </comment>
+  </ownedCommentsInternal>
+  <profileInstances>
+    <packageHasProfileInstances Id="6705297e-55fa-47b8-8098-f83b1ce301b4">
+      <profileInstance Id="baa2784e-0858-4fd5-880b-0beb571acd7d" name="StandardProfileL2">
+        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+      </profileInstance>
+      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances Id="833f5700-cabb-44e7-86fe-202ef0291892">
+      <profileInstance Id="62131c35-4673-4fbf-be0a-2ddc14ed4091" name="StandardProfileL3">
+        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+      </profileInstance>
+      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <activityRootModelHasActivity>
+      <activity Id="8f5f7f87-136b-4cf1-8a44-abb82720d8c5" name="sceneTransitions" isAbstract="false" isLeaf="false" isActiveClass="false" isReentrant="false" isReadOnly="false" isSingleExecution="false">
+        <elementDefinition Id="ac60d29d-2e62-4808-b71f-027217d60b93" />
+        <nodes>
+          <initialNode Id="77e872f2-76bb-4447-a799-023f6fff8d7b" name="Initial1" isLeaf="false">
+            <elementDefinition Id="98ca5287-51ed-4727-bca0-addbe48fdfc4" />
+            <flowNodeTargets>
+              <controlFlow Id="3c160959-0439-4f3f-8818-dd81d075ae6e" isLeaf="false">
+                <opaqueActionMoniker Id="78fee586-8697-47d0-8281-9dc009e4e3f5" LastKnownName="Patcher" />
+                <elementDefinition Id="06906f7c-2863-4175-9751-d42a6badf8e2" />
+              </controlFlow>
+            </flowNodeTargets>
+          </initialNode>
+          <opaqueAction Id="78fee586-8697-47d0-8281-9dc009e4e3f5" name="Patcher" isLeaf="false">
+            <elementDefinition Id="44a0c039-8e45-4aa2-a82b-b6bfef6c3d08" />
+            <flowNodeTargets>
+              <controlFlow Id="53264790-013f-4b06-8dc7-bdff4fb446bf" isLeaf="false">
+                <opaqueActionMoniker Id="1bb853e2-fa1a-43cb-923e-825f89fdeb0d" LastKnownName="MainMenu" />
+                <elementDefinition Id="d43083e0-bc90-42d6-a1d7-bffa593e04ab" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction Id="1bb853e2-fa1a-43cb-923e-825f89fdeb0d" name="MainMenu" isLeaf="false">
+            <elementDefinition Id="d3b82b65-2ff7-436e-bab7-7d6cca2a90f4" />
+            <flowNodeTargets>
+              <controlFlow Id="ea6164e2-4c09-41e1-8155-2ce85d814020" isLeaf="false">
+                <opaqueActionMoniker Id="89a39a3e-a0e5-4ef9-ad6d-bb3f68818a16" LastKnownName="Options" />
+                <elementDefinition Id="be6e7e3c-229e-452b-9815-8d1b332a6724" />
+              </controlFlow>
+              <controlFlow Id="1defc703-58b3-40ab-b5c4-be9dcef1b440" isLeaf="false">
+                <opaqueActionMoniker Id="d7bef5f4-f99e-427d-82b6-48d9f88dda9e" LastKnownName="LevelSelect" />
+                <elementDefinition Id="52ddc2a8-f573-4913-b11c-ee721673e952" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction Id="d7bef5f4-f99e-427d-82b6-48d9f88dda9e" name="LevelSelect" isLeaf="false">
+            <elementDefinition Id="4eef204e-18e3-4d97-9143-84facea11752" />
+            <flowNodeTargets>
+              <controlFlow Id="7919c13e-2523-472b-a7e3-a014d5b2fbbb" isLeaf="false">
+                <opaqueActionMoniker Id="f29cf2a2-f3db-46d7-8cc5-ade30ef69c33" LastKnownName="Game playing" />
+                <elementDefinition Id="0d0d6ea4-da30-4fe8-a33e-a39153bdcd93" />
+              </controlFlow>
+              <controlFlow Id="02259948-f4df-4cca-97be-e59a1eb2b529" isLeaf="false">
+                <opaqueActionMoniker Id="43391954-6f6d-4192-875e-48823d0666ae" LastKnownName="Editor" />
+                <elementDefinition Id="d40a5a47-d0d0-47cd-9418-97ba258b9c55" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction Id="89a39a3e-a0e5-4ef9-ad6d-bb3f68818a16" name="Options" isLeaf="false">
+            <elementDefinition Id="a2d1610d-391a-4e66-84d3-ac5c73b28bae" />
+          </opaqueAction>
+          <opaqueAction Id="f29cf2a2-f3db-46d7-8cc5-ade30ef69c33" name="Game playing" isLeaf="false">
+            <elementDefinition Id="1bf39f87-a589-4259-b570-8ad64d9eeaf0" />
+            <flowNodeTargets>
+              <controlFlow Id="4579360d-7da3-42ea-afde-8e8502329d6e" isLeaf="false">
+                <opaqueActionMoniker Id="071b3f28-6d16-4451-8ff9-231e4bfab99a" LastKnownName="Rate" />
+                <elementDefinition Id="7b1529cc-e2e8-4793-a264-f2ed487a8c28" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction Id="d9289d74-840d-4003-8f52-a7c6d928820b" name="Game preview" isLeaf="false">
+            <elementDefinition Id="111084d4-8227-435b-8ef8-bdc3421fb64b" />
+            <flowNodeTargets>
+              <controlFlow Id="edd7eefe-0541-43d5-bfa6-7579252bfa00" isLeaf="false">
+                <opaqueActionMoniker Id="43391954-6f6d-4192-875e-48823d0666ae" LastKnownName="Editor" />
+                <elementDefinition Id="6150cb9d-0969-451a-9342-ca46ddd18525" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction Id="4133ebaa-e560-4dc7-b23b-c20fef6e9245" name="Game verify" isLeaf="false">
+            <elementDefinition Id="b3322538-8b3f-434d-aa89-61b9e591da5a" />
+            <flowNodeTargets>
+              <controlFlow Id="056d254d-1dc6-468c-91a0-1d4ee0d97079" isLeaf="false">
+                <opaqueActionMoniker Id="63baf1c4-0afe-447d-8067-6daba72a4190" LastKnownName="Upldoad" />
+                <elementDefinition Id="88729c45-c5bb-4e92-93f7-91188d03c419" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction Id="071b3f28-6d16-4451-8ff9-231e4bfab99a" name="Rate" isLeaf="false">
+            <elementDefinition Id="c4e39206-62a0-48b3-a0f8-032605698ea7" />
+            <flowNodeTargets>
+              <controlFlow Id="b15bc947-322b-4b04-a60b-b2dd7d4fc59d" isLeaf="false">
+                <opaqueActionMoniker Id="d7bef5f4-f99e-427d-82b6-48d9f88dda9e" LastKnownName="LevelSelect" />
+                <elementDefinition Id="cd06f478-c67a-4ee5-af0c-605170f59874" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction Id="43391954-6f6d-4192-875e-48823d0666ae" name="Editor" isLeaf="false">
+            <elementDefinition Id="0aecab3d-e66b-48e0-b40f-3c79cea2efe6" />
+            <flowNodeTargets>
+              <controlFlow Id="bcb0cbd0-dddc-453e-bb9c-0ffc2a0a2c7d" isLeaf="false">
+                <opaqueActionMoniker Id="d9289d74-840d-4003-8f52-a7c6d928820b" LastKnownName="Game preview" />
+                <elementDefinition Id="0c7382fd-6ef5-43a8-8c21-65afb01ae54e" />
+              </controlFlow>
+              <controlFlow Id="535a6b7a-31aa-407f-bb26-fbd477911198" isLeaf="false">
+                <opaqueActionMoniker Id="4133ebaa-e560-4dc7-b23b-c20fef6e9245" LastKnownName="Game verify" />
+                <elementDefinition Id="5d1a3fb8-a628-4e74-9d9b-092c6b2b539b" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction Id="63baf1c4-0afe-447d-8067-6daba72a4190" name="Upldoad" isLeaf="false">
+            <elementDefinition Id="18fb4d23-de4f-4db9-9ac8-701fc877fc62" />
+            <flowNodeTargets>
+              <controlFlow Id="18401078-0392-4f88-bd03-19f755d1192f" isLeaf="false">
+                <opaqueActionMoniker Id="d7bef5f4-f99e-427d-82b6-48d9f88dda9e" LastKnownName="LevelSelect" />
+                <elementDefinition Id="376d2199-50fe-4112-ba1c-527fba3bea10" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+        </nodes>
+      </activity>
+    </activityRootModelHasActivity>
+  </packagedElements>
+  <package Id="555bf357-d9de-4d5f-8984-eef4c3a50556" name="Diagramms">
+    <elementDefinition Id="5badc319-2d47-4f7f-bc1a-8d0b071d2838" />
+  </package>
+</activityRootModel>
