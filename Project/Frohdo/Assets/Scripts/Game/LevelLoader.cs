@@ -19,7 +19,9 @@ public class LevelLoader : MonoBehaviour {
 	    //LoadLevel(Application.dataPath+"/Levels/Custom/test.xml");
         //string path = Environment.GetEnvironmentVariable("SelectedLevel", EnvironmentVariableTarget.Process);
         string path = SceneManager.Instance.levelToLoad;
-        LoadLevel(path); 
+        bool editor = SceneManager.Instance.loadLevelToEdit;
+        LoadLevel(path, editor);
+        SceneManager.Instance.loadLevelToEdit = false;
 	}
 	
 	// Update is called once per frame
@@ -27,7 +29,7 @@ public class LevelLoader : MonoBehaviour {
 	
 	}
 
-    void LoadLevel(string path)
+    void LoadLevel(string path, bool editor)
     {
         LevelXML levelXML = XML_Loader.Load(path);
 
@@ -64,7 +66,12 @@ public class LevelLoader : MonoBehaviour {
                 
 
                 GameObject levelObjectObject =  layerScript.AddLevelObjectByName(levelObjectXML.name, levelObjectXML.color, levelObjectXML.pos.Vector2);
-
+                if(editor)
+                {
+                    InsertObject command = new InsertObject();
+                    command.setUpCommand(levelObjectXML, layerObject.GetComponentInChildren<Layer>(), i);
+                    EditCommandManager.Instance.executeCommand(command);
+                }
                 //this is ugly but i dont know better atm
                 //if (levelObjectXML.name.Equals("Character"))
                 //{
@@ -80,12 +87,14 @@ public class LevelLoader : MonoBehaviour {
 
             if (characterXML != null)
             {
-                GameObject characterObject = layerScript.AddCharacter(characterXML.pos.Vector2);
+                GameObject characterObject = layerScript.AddCharacter(characterXML.pos.Vector2,editor);
+                if (!editor)
+                {
+                    inputController_.character_ = characterObject.GetComponentInChildren<Character>();
 
-                inputController_.character_ = characterObject.GetComponentInChildren<Character>();
-
-                camera_.GetComponent<CameraMovementGame>().character_ = characterObject;
-                continue;
+                    camera_.GetComponent<CameraMovementGame>().character_ = characterObject;
+                    continue;
+                }
             }
 
         }
