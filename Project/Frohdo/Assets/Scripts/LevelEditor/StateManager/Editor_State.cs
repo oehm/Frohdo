@@ -8,4 +8,6 @@ public interface Editor_State
     void leftMouseDown();
     void leftMouseUp();
     void mouseMove(Vector2 pos);
+    void updateColor(string color);
+    void updateObject(GameObject obj);
 }

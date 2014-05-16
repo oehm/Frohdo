@@ -21,7 +21,6 @@ public class GUI_Commands : GUI_Element {
 
     private void windowFunc(int winId)
     {
-        GUI.DragWindow(new Rect(0, 0, 10000, 10000));
         if (GUILayout.Button("UNDO", skin.button))
         {
             EditCommandManager.Instance.undo();
@@ -30,5 +29,6 @@ public class GUI_Commands : GUI_Element {
         {
             EditCommandManager.Instance.redo();
         }
+        GUI.DragWindow(new Rect(0, 0, 10000, 10000));
     }
 }

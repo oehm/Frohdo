@@ -95,6 +95,7 @@ public class SetUpManager : MonoBehaviour
 
         GUI_ObjectToPlace gui_objectToPlace = new GUI_ObjectToPlace(new Vector2(800, 0), new Vector2(200, 100), skin);
         gui_objectToPlace.active = false;
+        gui_objectToPlace.guiController = guiController;
         guiController.addGui(gui_objectToPlace);
         stateManager.objToPlace = gui_objectToPlace;
 
@@ -148,6 +149,7 @@ public class SetUpManager : MonoBehaviour
         }
         GUI_ObjectSelection gui_objectSelect = new GUI_ObjectSelection(new Vector2(ForceAspectRatio.xOffset, ForceAspectRatio.yOffset), new Vector2(280, ForceAspectRatio.screenHeight), skin);
         gui_objectSelect.guiController = guiController;
+        gui_objectSelect.objects = guiController.gui_LevelObjects[0];
         guiController.addGui(gui_objectSelect);
         stateManager.objectSelection = gui_objectSelect;
     }
@@ -159,6 +161,9 @@ public class SetUpManager : MonoBehaviour
         {
             GameObject layerObject = (GameObject)Instantiate(layerPrefab_);
             layerObject.transform.parent = sceneObjects.transform;
+
+            stateManager.layers[i] = layerObject;
+
             Layer layerScript = layerObject.GetComponent<Layer>();
 
             Vector3 position = Camera.main.transform.position;

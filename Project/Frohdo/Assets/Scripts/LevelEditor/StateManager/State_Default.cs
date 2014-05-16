@@ -23,13 +23,15 @@ public class State_Default : Editor_State {
 
     public void leftMouseDown()
     {
-        Vector2 matIndex = EditorHelper.getMatIndex(EditorHelper.localMouseToLocalSnapped(mousePos, GameObject.Find("SceneObjects").GetComponentsInChildren<Layer>()[manager.currentLayer].gameObject),Editor_Grid.Instance.planeSizes[manager.currentLayer]);
+        Vector2 matIndex = EditorHelper.getMatIndex(EditorHelper.localMouseToLocalLayer(mousePos, GameObject.Find("SceneObjects").GetComponentsInChildren<Layer>()[manager.currentLayer].gameObject,true),Editor_Grid.Instance.planeSizes[manager.currentLayer]);
         if(matIndex.x > 0 && matIndex.y >0 && matIndex.x < Editor_Grid.Instance.planeSizes[manager.currentLayer].x &&  matIndex.y < Editor_Grid.Instance.planeSizes[manager.currentLayer].y)
         {
             GameObject select = Editor_Grid.Instance.levelGrid[manager.currentLayer][(int)matIndex.x][(int)matIndex.y];
-            if(select!= null)
+            if (select != null)
             {
-                manager.changeState(new State_SetObject());
+                State_ObjectSelected newState = new State_ObjectSelected();
+                newState.manager = manager;
+                manager.changeState(newState);
             }
         }
     }
@@ -42,5 +44,22 @@ public class State_Default : Editor_State {
     public void mouseMove(Vector2 pos)
     {
         mousePos = pos;
+    }
+
+
+    public void updateColor(string color)
+    {
+        manager.currentColor = color;
+        manager.objectSelection.changeColor(color);
+    }
+
+    public void updateObject(GameObject obj)
+    {
+        manager.currentGameObject = obj;
+
+        State_SetObject newState = new State_SetObject();
+        newState.manager = manager;
+        manager.changeState(newState);
+
     }
 }

@@ -22,7 +22,7 @@ public class RenderGameObjectToTexture : MonoBehaviour
             Colorable colorable = toRender.GetComponentInChildren<Colorable>();
             if (colorable != null)
             {
-                toRender.GetComponentInChildren<Colorable>().colorIn(color);
+                toRender.GetComponentInChildren<Colorable>().colorString = color ;
             }
         }
 

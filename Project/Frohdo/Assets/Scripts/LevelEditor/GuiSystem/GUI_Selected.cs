@@ -24,7 +24,6 @@ public class GUI_Selected : GUI_Element {
 
     private void windowFunc(int winId)
     {
-        GUI.DragWindow(new Rect(0, 0, 10000, 10000));
         GUILayout.Label("SELECTED",skin.label);
         if (content != null)
         {
@@ -36,5 +35,6 @@ public class GUI_Selected : GUI_Element {
             command.setUpCommand(content.prefab,0);
             EditCommandManager.Instance.executeCommand(command);
         }
+        GUI.DragWindow(new Rect(0, 0, 10000, 10000));
     }
 }
