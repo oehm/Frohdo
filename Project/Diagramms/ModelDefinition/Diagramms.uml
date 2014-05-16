@@ -1,0 +1,240 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<modelStoreModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/SimpleShapesModel" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ActivityDesigner"
+  dslVersion="1.0.0.0"
+  Id="5badc319-2d47-4f7f-bc1a-8d0b071d2838"
+  name="Diagramms" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <ownedCommentsInternal>
+    <comment
+      Id="643d0939-0ba0-49ea-9e6b-1128a4c3c801">
+      <body>Game</body>
+    </comment>
+  </ownedCommentsInternal>
+  <profileInstances>
+    <packageHasProfileInstances
+      Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b">
+      <profileInstance
+        Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791"
+        name="StandardProfileL2" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances
+      Id="29349502-908c-4fda-9054-c48619c59ed0">
+      <profileInstance
+        Id="532ea607-fb19-44b8-8502-3351b05452be"
+        name="StandardProfileL3" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <packageHasNamedElement>
+      <activity
+        Id="ac60d29d-2e62-4808-b71f-027217d60b93"
+        name="sceneTransitions"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false"
+        isReentrant="false"
+        isReadOnly="false"
+        isSingleExecution="false">
+        <nodes>
+          <initialNode
+            Id="98ca5287-51ed-4727-bca0-addbe48fdfc4"
+            name="Initial1"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="06906f7c-2863-4175-9751-d42a6badf8e2"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="44a0c039-8e45-4aa2-a82b-b6bfef6c3d08"
+                  LastKnownName="Patcher"
+                  LastKnownLocation="Diagramms.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </initialNode>
+          <opaqueAction
+            Id="44a0c039-8e45-4aa2-a82b-b6bfef6c3d08"
+            name="Patcher"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="d43083e0-bc90-42d6-a1d7-bffa593e04ab"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="d3b82b65-2ff7-436e-bab7-7d6cca2a90f4"
+                  LastKnownName="MainMenu"
+                  LastKnownLocation="Diagramms.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction
+            Id="d3b82b65-2ff7-436e-bab7-7d6cca2a90f4"
+            name="MainMenu"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="be6e7e3c-229e-452b-9815-8d1b332a6724"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="a2d1610d-391a-4e66-84d3-ac5c73b28bae"
+                  LastKnownName="Options"
+                  LastKnownLocation="Diagramms.uml" />
+              </controlFlow>
+              <controlFlow
+                Id="52ddc2a8-f573-4913-b11c-ee721673e952"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="4eef204e-18e3-4d97-9143-84facea11752"
+                  LastKnownName="LevelSelect"
+                  LastKnownLocation="Diagramms.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction
+            Id="4eef204e-18e3-4d97-9143-84facea11752"
+            name="LevelSelect"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="0d0d6ea4-da30-4fe8-a33e-a39153bdcd93"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="1bf39f87-a589-4259-b570-8ad64d9eeaf0"
+                  LastKnownName="Game playing"
+                  LastKnownLocation="Diagramms.uml" />
+              </controlFlow>
+              <controlFlow
+                Id="d40a5a47-d0d0-47cd-9418-97ba258b9c55"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="0aecab3d-e66b-48e0-b40f-3c79cea2efe6"
+                  LastKnownName="Editor"
+                  LastKnownLocation="Diagramms.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction
+            Id="a2d1610d-391a-4e66-84d3-ac5c73b28bae"
+            name="Options"
+            isLeaf="false" />
+          <opaqueAction
+            Id="1bf39f87-a589-4259-b570-8ad64d9eeaf0"
+            name="Game playing"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="7b1529cc-e2e8-4793-a264-f2ed487a8c28"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="c4e39206-62a0-48b3-a0f8-032605698ea7"
+                  LastKnownName="Rate"
+                  LastKnownLocation="Diagramms.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction
+            Id="111084d4-8227-435b-8ef8-bdc3421fb64b"
+            name="Game preview"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="6150cb9d-0969-451a-9342-ca46ddd18525"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="0aecab3d-e66b-48e0-b40f-3c79cea2efe6"
+                  LastKnownName="Editor"
+                  LastKnownLocation="Diagramms.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction
+            Id="b3322538-8b3f-434d-aa89-61b9e591da5a"
+            name="Game verify"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="88729c45-c5bb-4e92-93f7-91188d03c419"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="18fb4d23-de4f-4db9-9ac8-701fc877fc62"
+                  LastKnownName="Upldoad"
+                  LastKnownLocation="Diagramms.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction
+            Id="c4e39206-62a0-48b3-a0f8-032605698ea7"
+            name="Rate"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="cd06f478-c67a-4ee5-af0c-605170f59874"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="4eef204e-18e3-4d97-9143-84facea11752"
+                  LastKnownName="LevelSelect"
+                  LastKnownLocation="Diagramms.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction
+            Id="0aecab3d-e66b-48e0-b40f-3c79cea2efe6"
+            name="Editor"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="0c7382fd-6ef5-43a8-8c21-65afb01ae54e"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="111084d4-8227-435b-8ef8-bdc3421fb64b"
+                  LastKnownName="Game preview"
+                  LastKnownLocation="Diagramms.uml" />
+              </controlFlow>
+              <controlFlow
+                Id="5d1a3fb8-a628-4e74-9d9b-092c6b2b539b"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="b3322538-8b3f-434d-aa89-61b9e591da5a"
+                  LastKnownName="Game verify"
+                  LastKnownLocation="Diagramms.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction
+            Id="18fb4d23-de4f-4db9-9ac8-701fc877fc62"
+            name="Upldoad"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="376d2199-50fe-4112-ba1c-527fba3bea10"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="4eef204e-18e3-4d97-9143-84facea11752"
+                  LastKnownName="LevelSelect"
+                  LastKnownLocation="Diagramms.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+        </nodes>
+      </activity>
+    </packageHasNamedElement>
+  </packagedElements>
+  <primitiveType
+    Id="220a3521-e091-4221-bae9-3ef9018e845c"
+    name="Integer"
+    isAbstract="false"
+    isLeaf="false" />
+  <primitiveType
+    Id="8943dc84-709e-4f62-b15a-a3273aa6f165"
+    name="Boolean"
+    isAbstract="false"
+    isLeaf="false" />
+  <primitiveType
+    Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+    name="String"
+    isAbstract="false"
+    isLeaf="false" />
+  <primitiveType
+    Id="3ab42e7d-4969-445a-b209-471f5cb8209c"
+    name="UnlimitedNatural"
+    isAbstract="false"
+    isLeaf="false" />
+</modelStoreModel>
