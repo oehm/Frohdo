@@ -18,8 +18,8 @@ public class SceneManager : MonoBehaviour
     private bool loading = false;
     private AsyncOperation async;
 
-    public string levelToLoad;
-    public string levelToEdit = null;
+    public string levelToLoad { get; set; }
+    public string levelToEdit { get; set; }
 
     public bool loadLevelToEdit { get; set; } 
 
@@ -30,8 +30,12 @@ public class SceneManager : MonoBehaviour
             Destroy(this);
         }
         instance = this;
+
+        levelToLoad = null;
+        levelToEdit = null;
         loadLevelToEdit = false;
-        Application.LoadLevelAdditive(1);
+
+        Application.LoadLevelAdditive((int)Scene.Patcher);
     }
 
     // Update is called once per frame
