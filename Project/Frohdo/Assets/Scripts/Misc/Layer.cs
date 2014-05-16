@@ -59,9 +59,9 @@ public class Layer : MonoBehaviour {
 
         Colorable colorable = levelObject.GetComponentInChildren<Colorable>();
         if(colorable != null)
-            colorable.colorIn(colorName);
+            colorable.colorString = colorName;
 
-        BackgroundSensitive backgroundSensitive = levelObject.GetComponentInChildren<BackgroundSensitive>();
+        Vanishable backgroundSensitive = levelObject.GetComponentInChildren<Vanishable>();
         if(backgroundSensitive != null) 
             backgroundSensitive.AffectCollider = hasColliders_;
 
