@@ -31,6 +31,7 @@ public class State_Default : Editor_State {
             {
                 State_ObjectSelected newState = new State_ObjectSelected();
                 newState.manager = manager;
+                newState.selected = select;
                 manager.changeState(newState);
             }
         }

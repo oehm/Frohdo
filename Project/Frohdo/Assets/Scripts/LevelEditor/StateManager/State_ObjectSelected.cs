@@ -4,9 +4,11 @@ using System.Collections;
 public class State_ObjectSelected : Editor_State
 {
     public StateManager manager;
+
+    public GameObject selected;
     public void init()
     {
-        manager.colorSelection.active = true;
+        manager.colorSelection.active = true ;
         manager.selected.active = true;
         manager.commands.active = true;
         Debug.Log("State: ObjectSelected");
@@ -19,26 +21,34 @@ public class State_ObjectSelected : Editor_State
 
     public void updateColor(string color)
     {
-        //throw new System.NotImplementedException();
+        manager.currentColor = color;
+        ChangeColor command = new ChangeColor();
+        command.setUpCommand(selected, color);
+
+        EditCommandManager.Instance.executeCommand(command);
     }
 
     public void updateObject(GameObject obj)
     {
-        //throw new System.NotImplementedException();
+        manager.currentGameObject = obj;
+
+        State_SetObject newState = new State_SetObject();
+        newState.manager = manager;
+        manager.changeState(newState);
     }
 
     public void leftMouseDown()
     {
-   
+
     }
 
     public void leftMouseUp()
     {
-    
+
     }
 
     public void mouseMove(Vector2 pos)
     {
-    
+
     }
 }
