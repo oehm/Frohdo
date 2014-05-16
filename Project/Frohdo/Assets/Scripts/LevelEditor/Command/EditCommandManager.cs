@@ -2,10 +2,18 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class EditCommandManager : MonoBehaviour
+public class EditCommandManager
 {
+    private static EditCommandManager instance = null;
+    public static EditCommandManager Instance
+    {
+        get
+        {
+            return instance;
+        }
+    }
+    
     private List<Command> history;
-
     private int histIndex;
     
     void Awake()

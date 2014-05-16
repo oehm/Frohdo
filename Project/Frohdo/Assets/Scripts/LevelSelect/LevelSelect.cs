@@ -561,7 +561,7 @@ class CustomLevelObj : Levelobj
         }
         if (GUILayout.Button("Level bearbeiten", "forwardbackwardbutton"))
         {
-            SceneManager.Instance.levelToEdit = XMLPath.FullName;
+            SceneManager.Instance.levelToLoad = XMLPath.FullName;
             SceneManager.Instance.loadLevelToEdit = true;
             SceneManager.Instance.loadScene(SceneManager.Scene.Editor);
         }

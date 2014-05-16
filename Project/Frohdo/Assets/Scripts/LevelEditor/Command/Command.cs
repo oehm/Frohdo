@@ -16,7 +16,6 @@ public class InsertObject : Command
     private GameObject layer;
     private int matLAyer;
     private Vector3 pos;
-    private EditorObjectPlacement editor;
 
     public void freeResources()
     {
@@ -35,17 +34,15 @@ public class InsertObject : Command
         obj.layer = 8 + layerIndex;
         obj.SetActive(false);
         layer = l;
-        editor = e;
         matLAyer = layerIndex;
     }
 
-    public void setUpCommand(LevelObjectXML o, Layer l, EditorObjectPlacement e, int layerIndex)
+    public void setUpCommand(LevelObjectXML o, Layer l, int layerIndex)
     {
         obj = l.GetComponent<Layer>().AddLevelObjectByName(o.name, o.color, o.pos.Vector2);
         obj.layer = 8 + layerIndex;
         obj.SetActive(false);
         layer = l.gameObject;
-        editor = e;
         matLAyer = layerIndex;
     }
 
@@ -70,8 +67,8 @@ public class InsertObject : Command
         Vector3 pos = obj.transform.localPosition;
 
         //test if theres is an object
-        int pW = editor.grids[matLAyer].Length;
-        int pH = editor.grids[matLAyer][0].Length;
+        int pW = Editor_Grid.Instance.levelGrid[matLAyer].Length;
+        int pH = Editor_Grid.Instance.levelGrid[matLAyer][0].Length;
         Vector2 objPos = new Vector2((int)(pos.x + (pW + 1) / 2), (int)(pos.y + (pH + 1) / 2));
         int w = (htemp.width + 1) / 2;
         int h = (htemp.height + 1) / 2;
@@ -81,7 +78,7 @@ public class InsertObject : Command
         {
             for (int y = (int)objPos.y - h2, ym = 0; y < (int)objPos.y + h; y++, ym++)
             {
-                if (htemp.hitMat[xm][ym] && editor.grids[matLAyer][x][y] != null)
+                if (htemp.hitMat[xm][ym] && Editor_Grid.Instance.levelGrid[matLAyer][x][y] != null)
                 {
                     return false;
                 }
@@ -95,7 +92,7 @@ public class InsertObject : Command
             {
                 if (htemp.hitMat[xm][ym])
                 {
-                    editor.grids[matLAyer][x][y] = obj;
+                    Editor_Grid.Instance.levelGrid[matLAyer][x][y] = obj;
                 }
             }
         }
@@ -109,8 +106,8 @@ public class InsertObject : Command
         obj.SetActive(false);
 
         Gridable htemp = obj.GetComponent<Gridable>();
-        int pW = editor.grids[matLAyer].Length;
-        int pH = editor.grids[matLAyer][0].Length;
+        int pW = Editor_Grid.Instance.levelGrid[matLAyer].Length;
+        int pH = Editor_Grid.Instance.levelGrid[matLAyer][0].Length;
         Vector2 objPos = new Vector2((int)(pos.x + (pW + 1) / 2), (int)(pos.y + (pH + 1) / 2));
         int w = (htemp.width + 1) / 2;
         int h = (htemp.height + 1) / 2;
@@ -122,7 +119,7 @@ public class InsertObject : Command
             {
                 if (htemp.hitMat[xm][ym])
                 {
-                    editor.grids[matLAyer][x][y] = null;
+                    Editor_Grid.Instance.levelGrid[matLAyer][x][y] = null;
                 }
             }
         }
@@ -140,18 +137,16 @@ public class DeleteObj : Command
     private GameObject obj;
     private int matLAyer;
     private Vector3 pos;
-    private EditorObjectPlacement editor;
 
     public void freeResources()
     {
         GameObject.Destroy(obj);
     }
 
-    public void setUpCommand(GameObject o, EditorObjectPlacement e)
+    public void setUpCommand(GameObject o, int layerIndex)
     {
         obj = o;
-        editor = e;
-        matLAyer = e.activeLayer;
+        matLAyer = layerIndex;
     }
 
     public bool exectute()
@@ -160,8 +155,8 @@ public class DeleteObj : Command
 
         Gridable htemp = obj.GetComponent<Gridable>();
         Vector3 pos = obj.transform.localPosition;
-        int pW = editor.grids[matLAyer].Length;
-        int pH = editor.grids[matLAyer][0].Length;
+        int pW = Editor_Grid.Instance.levelGrid[matLAyer].Length;
+        int pH = Editor_Grid.Instance.levelGrid[matLAyer][0].Length;
         Vector2 objPos = new Vector2((int)(pos.x + (pW + 1) / 2), (int)(pos.y + (pH + 1) / 2));
         int w = (htemp.width + 1) / 2;
         int h = (htemp.height + 1) / 2;
@@ -173,7 +168,7 @@ public class DeleteObj : Command
             {
                 if (htemp.hitMat[xm][ym])
                 {
-                    editor.grids[matLAyer][x][y] = null;
+                    Editor_Grid.Instance.levelGrid[matLAyer][x][y] = null;
                 }
             }
         }
@@ -185,8 +180,8 @@ public class DeleteObj : Command
         Gridable htemp = obj.GetComponent<Gridable>();
         Vector3 pos = obj.transform.position;
         //test if theres is an object
-        int pW = editor.grids[matLAyer].Length;
-        int pH = editor.grids[matLAyer][0].Length;
+        int pW = Editor_Grid.Instance.levelGrid[matLAyer].Length;
+        int pH = Editor_Grid.Instance.levelGrid[matLAyer][0].Length;
         Vector2 objPos = new Vector2((int)(pos.x + (pW + 1) / 2), (int)(pos.y + (pH + 1) / 2));
         int w = (htemp.width + 1) / 2;
         int h = (htemp.height + 1) / 2;
@@ -198,7 +193,7 @@ public class DeleteObj : Command
             {
                 if (htemp.hitMat[xm][ym])
                 {
-                    editor.grids[matLAyer][x][y] = obj;
+                    Editor_Grid.Instance.levelGrid[matLAyer][x][y] = obj;
                 }
             }
         }
