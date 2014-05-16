@@ -171,6 +171,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guiController: {fileID: 0}
+  currentColor: 
+  currentGameObject: {fileID: 0}
+  currentLayer: 0
+  layers: []
 --- !u!4 &574217519
 Transform:
   m_ObjectHideFlags: 0
@@ -347,6 +351,7 @@ Transform:
   m_LocalPosition: {x: -.876845658, y: 2.28157902, z: -11.6189899}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 1529976355}
   - {fileID: 1513275730}
   - {fileID: 1565792230}
   - {fileID: 574217519}
@@ -446,6 +451,45 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destroyer: {fileID: 132876610}
+--- !u!1 &1529976354
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1529976355}
+  - 114: {fileID: 1529976356}
+  m_Layer: 0
+  m_Name: InputManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1529976355
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1529976354}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -.0736970305, y: 2.52721882, z: 13.9504976}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 897562638}
+--- !u!114 &1529976356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1529976354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbad9d4148ce3f34e9712530cf9e1772, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateManager: {fileID: 574217518}
 --- !u!1 &1565792229
 GameObject:
   m_ObjectHideFlags: 0

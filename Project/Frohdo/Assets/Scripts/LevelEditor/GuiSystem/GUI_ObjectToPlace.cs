@@ -4,6 +4,7 @@ using System.Collections;
 public class GUI_ObjectToPlace : GUI_Element
 {
     public GUIContent content { get; set; }
+    public GUI_Controller_Editor guiController;
 
     private Vector2 scrollPos;
 
@@ -22,5 +23,10 @@ public class GUI_ObjectToPlace : GUI_Element
         GUILayout.BeginArea(_rect);
         GUILayout.Box(content,skin.box);
         GUILayout.EndArea();
+    }
+
+    public void selectObj(GameObject obj, string color)
+    {
+        content = guiController.getContent(obj, color);
     }
 }

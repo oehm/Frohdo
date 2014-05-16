@@ -49,4 +49,28 @@ public class GUI_Controller_Editor : MonoBehaviour {
         }
         return mOnGui;
     }
+
+    public GUIContent getContent (GameObject obj, string color)
+    {
+        string[] colors = LevelObjectController.Instance.getColors();
+        int colorIndex = 0;
+        for(int i=0; i< colors.Length; i++)
+        {
+            if (colors[i] == color)
+            {
+                colorIndex = i;
+                break;
+            }
+        }
+        
+        GUIContent cont = new GUIContent();
+        foreach (GUI_ContentObject g in gui_LevelObjects[colorIndex])
+        {
+            if(g.prefab.name == obj.name)
+            {
+                return g.content;
+            }
+        }
+        return cont;
+    }
 }

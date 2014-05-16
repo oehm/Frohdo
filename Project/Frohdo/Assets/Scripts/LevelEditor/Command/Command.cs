@@ -22,7 +22,7 @@ public class InsertObject : Command
         GameObject.Destroy(obj);
     }
 
-    public void setUpCommand(GameObject o, GameObject l, EditorObjectPlacement e, int layerIndex)
+    public void setUpCommand(GameObject o, GameObject l, int layerIndex)
     {
         string color = "";
         Colorable colorable = o.GetComponent<Colorable>();

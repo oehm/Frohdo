@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class GUI_ObjectSelection : GUI_Element {
 
     public GUI_Controller_Editor guiController;
+    public List<GUI_ContentObject> objects;
 
     private Vector2 scrollPos;
 
@@ -26,7 +27,7 @@ public class GUI_ObjectSelection : GUI_Element {
         {
             int xCount = 0;
             GUILayout.BeginHorizontal("");
-            foreach(GUI_ContentObject g in guiController.gui_LevelObjects[1])
+            foreach(GUI_ContentObject g in objects)
             {
                 if (xCount >= 2)
                 {
@@ -44,6 +45,22 @@ public class GUI_ObjectSelection : GUI_Element {
         }
         GUILayout.EndScrollView();
         GUILayout.EndArea();
+    }
+
+    public void changeColor(string color)
+    {
+        string[] colors = LevelObjectController.Instance.getColors();
+        int colorIndex = 0;
+        for (int i = 0; i < colors.Length; i++)
+        {
+            if (colors[i] == color)
+            {
+                colorIndex = i;
+                break;
+            }
+        }
+
+        objects = guiController.gui_LevelObjects[colorIndex];
     }
 
 }

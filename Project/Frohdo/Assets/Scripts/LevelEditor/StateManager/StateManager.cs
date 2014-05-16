@@ -15,6 +15,8 @@ public class StateManager : MonoBehaviour
     public GameObject currentGameObject;
     public int currentLayer;
 
+    public GameObject[] layers;
+
     private Editor_State curState { get; set; }
 
     void Awake()
@@ -27,7 +29,7 @@ public class StateManager : MonoBehaviour
         currentGameObject = null;
         currentLayer = 2;
 
-
+        layers = new GameObject[GlobalVars.Instance.LayerCount];
     }
 
     void Start()
@@ -50,15 +52,14 @@ public class StateManager : MonoBehaviour
     {
         string color = parameter[0] as string;
         Debug.Log("Selected Color: " + color);
-        currentColor = color;
+        curState.updateColor(color);
     }
 
     public void updateObject(params object[] paramter)
     {
         GameObject obj = paramter[0] as GameObject;
         Debug.Log("Selected Obj: " + obj);
-        currentGameObject = obj;
-        changeState(new State_SetObject());
+        curState.updateObject(obj);
     }
 
     public void leftMouseDown()

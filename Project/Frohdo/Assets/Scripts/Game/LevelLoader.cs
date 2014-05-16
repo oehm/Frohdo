@@ -77,6 +77,8 @@ public class LevelLoader : MonoBehaviour {
                 GameObject levelObjectObject =  layerScript.AddLevelObjectByName(levelObjectXML.name, levelObjectXML.color, levelObjectXML.pos.Vector2);
                 if(editor)
                 {
+                    StateManager manager = GameObject.Find("StateManager").GetComponent<StateManager>() as StateManager;
+                    manager.layers[i] = layerObject;
                     InsertObject command = new InsertObject();
                     command.setUpCommand(levelObjectXML, layerObject.GetComponentInChildren<Layer>(), i);
                     EditCommandManager.Instance.executeCommand(command);
