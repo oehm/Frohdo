@@ -19,13 +19,16 @@ public class GUI_SaveAndPreview : GUI_Element
 
     private void windowFunc(int winId)
     {
-        GUI.DragWindow(new Rect(0, 0, 10000, 10000));
         if (GUILayout.Button("SAVE", skin.button))
         {
+            LevelEditorParser.Instance.levelName = "TEST";            
+            LevelEditorParser.Instance.saveLevel();
         }
         if (GUILayout.Button("PREVIEW", skin.button))
         {
-               
+            LevelEditorParser.Instance.levelName = "TEST";
+            SceneManager.Instance.loadScene(SceneManager.Scene.Game);
         }
+        GUI.DragWindow(new Rect(0, 0, 10000, 10000));
     }
 }

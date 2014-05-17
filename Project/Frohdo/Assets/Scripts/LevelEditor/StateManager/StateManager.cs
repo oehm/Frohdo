@@ -55,7 +55,7 @@ public class StateManager : MonoBehaviour
         {
             c.checkCondition();
         }
-        
+        saveAndPreview.active = conditionCharacterSet.isFullfilled;
         curState.update();
     }
 
@@ -75,6 +75,16 @@ public class StateManager : MonoBehaviour
     {
         GameObject obj = paramter[0] as GameObject;
         curState.updateObject(obj);
+    }
+
+    public void deleteObject(GameObject obj, int layerIndex)
+    {
+        DeleteObj command = new DeleteObj();
+        command.setUpCommand(obj, layerIndex);
+        EditCommandManager.Instance.executeCommand(command);
+        State_Default newState = new State_Default();
+        newState.manager = this;
+        changeState(newState);
     }
 
     public void updateLayer(params object[] paramter)
