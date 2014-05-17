@@ -131,12 +131,23 @@ public class SetUpManager : MonoBehaviour
 
     private void initGuiObjectSelect()
     {
+        GUI_ObjectSelection gui_objectSelect = new GUI_ObjectSelection(new Vector2(ForceAspectRatio.xOffset, ForceAspectRatio.yOffset), new Vector2(280, ForceAspectRatio.screenHeight), skin);        
+        
         string[] colors = LevelObjectController.Instance.getColors();
         guiController.gui_LevelObjects = new List<GUI_ContentObject>[colors.Length];
+
+        GUIContent characterGuiCont = new GUIContent(renderToTexture.renderGameObjectToTexture(LevelObjectController.Instance.getCharacter(true), 256, 256, ""), LevelObjectController.Instance.getCharacter(true).name);
+        GUI_ContentObject charactercont = new GUI_ContentObject();
+        charactercont.content = characterGuiCont;
+        charactercont.func = stateManager.updateObject;
+        charactercont.prefab = LevelObjectController.Instance.getCharacter(true);
+        gui_objectSelect.character = charactercont;
+        guiController.character = charactercont;
         
         for (int i = 0; i < colors.Length; i++)
         {
             guiController.gui_LevelObjects[i] = new List<GUI_ContentObject>();
+            
             for (int o = 0; o < LevelObjectController.Instance.levelObjectPrefabs_.Count; o++)
             {
                 GUIContent curCont = new GUIContent(renderToTexture.renderGameObjectToTexture(LevelObjectController.Instance.levelObjectPrefabs_[o], 256, 256, colors[i]), LevelObjectController.Instance.levelObjectPrefabs_[o].name);
@@ -147,7 +158,6 @@ public class SetUpManager : MonoBehaviour
                 guiController.gui_LevelObjects[i].Add(contObj);
             }
         }
-        GUI_ObjectSelection gui_objectSelect = new GUI_ObjectSelection(new Vector2(ForceAspectRatio.xOffset, ForceAspectRatio.yOffset), new Vector2(280, ForceAspectRatio.screenHeight), skin);
         gui_objectSelect.guiController = guiController;
         gui_objectSelect.objects = guiController.gui_LevelObjects[0];
         guiController.addGui(gui_objectSelect);

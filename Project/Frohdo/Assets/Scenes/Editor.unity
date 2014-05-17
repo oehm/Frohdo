@@ -8,19 +8,19 @@ SceneSettings:
   m_PVSPortalsArray: []
   m_OcclusionBakeSettings:
     smallestOccluder: 5
-    smallestHole: .25
+    smallestHole: .111111112
     backfaceThreshold: 100
 --- !u!104 &2
 RenderSettings:
   m_Fog: 0
-  m_FogColor: {r: .5, g: .5, b: .5, a: 1}
+  m_FogColor: {r: .111111112, g: .111111112, b: .111111112, a: 1}
   m_FogMode: 3
-  m_FogDensity: .00999999978
+  m_FogDensity: .00011111112
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientLight: {r: .200000003, g: .200000003, b: .200000003, a: 1}
+  m_AmbientLight: {r: .111111112, g: .111111112, b: .111111112, a: 1}
   m_SkyboxMaterial: {fileID: 0}
-  m_HaloStrength: .5
+  m_HaloStrength: .111111112
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
   m_HaloTexture: {fileID: 0}
@@ -44,16 +44,16 @@ LightmapSettings:
     m_TextureHeight: 1024
     m_BounceBoost: 1
     m_BounceIntensity: 1
-    m_SkyLightColor: {r: .860000014, g: .930000007, b: 1, a: 1}
+    m_SkyLightColor: {r: .111111112, g: .111111112, b: 1, a: 1}
     m_SkyLightIntensity: 0
     m_Quality: 0
     m_Bounces: 1
     m_FinalGatherRays: 1000
-    m_FinalGatherContrastThreshold: .0500000007
+    m_FinalGatherContrastThreshold: .0111111112
     m_FinalGatherGradientThreshold: 0
     m_FinalGatherInterpolationPoints: 15
     m_AOAmount: 0
-    m_AOMaxDistance: .100000001
+    m_AOMaxDistance: .111111112
     m_AOContrast: 1
     m_LODSurfaceMappingDistance: 1
     m_Padding: 0
@@ -63,15 +63,15 @@ LightmapSettings:
 NavMeshSettings:
   m_ObjectHideFlags: 0
   m_BuildSettings:
-    agentRadius: .5
+    agentRadius: .111111112
     agentHeight: 2
     agentSlope: 45
-    agentClimb: .400000006
+    agentClimb: .111111112
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
     accuratePlacement: 0
     minRegionArea: 2
-    widthInaccuracy: 16.666666
+    widthInaccuracy: 11.1111112
     heightInaccuracy: 10
   m_NavMesh: {fileID: 0}
 --- !u!1 &132876609
@@ -111,7 +111,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 132876609}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.9188652, y: 7.5538578, z: 5.71715927}
+  m_LocalPosition: {x: 11.1111112, y: 7.5538578, z: 5.71715927}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -182,7 +182,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 574217517}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 23.9530182, y: -10.7230597, z: 10.7579479}
+  m_LocalPosition: {x: 11.1111112, y: -11.1111112, z: 11.1111112}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 897562638}
@@ -200,7 +200,6 @@ GameObject:
   - 81: {fileID: 871366282}
   - 114: {fileID: 871366288}
   - 114: {fileID: 871366287}
-  - 114: {fileID: 871366289}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -242,14 +241,14 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 3
-  m_BackGroundColor: {r: .192156866, g: .301960796, b: .474509805, a: .0196078438}
+  m_BackGroundColor: {r: .111111112, g: .111111112, b: .111111112, a: .00011111112}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
     y: 0
     width: 1
     height: 1
-  near clip plane: .300000012
+  near clip plane: .111111112
   far clip plane: 1000
   field of view: 60
   orthographic: 0
@@ -301,19 +300,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _wantedAspectRatio: 1.77777803
   landscapeModeOnly: 1
---- !u!114 &871366289
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 871366281}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e973d27088bd3fa4fb8520e78af79575, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scrollSpeed: 2
-  gui: {fileID: 0}
 --- !u!1 &875160834
 GameObject:
   m_ObjectHideFlags: 0
@@ -363,7 +349,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 897562637}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.876845658, y: 2.28157902, z: -11.6189899}
+  m_LocalPosition: {x: -.111111112, y: 2.28157902, z: -11.1111112}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1529976355}
@@ -396,7 +382,7 @@ Camera:
   m_Enabled: 0
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0, g: 0, b: 0, a: .0196078438}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: .00011111112}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -407,7 +393,7 @@ Camera:
   far clip plane: 15
   field of view: 60
   orthographic: 0
-  orthographic size: 1.5
+  orthographic size: 1
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -423,7 +409,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1413290641}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .876845658, y: -2.28157902, z: -12.4925518}
+  m_LocalPosition: {x: .111111112, y: -2.28157902, z: -11.1111112}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 543055657}
@@ -450,7 +436,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1513275729}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.1713018, y: -.330460072, z: 18.4757843}
+  m_LocalPosition: {x: 11.1111112, y: -.111111112, z: 11.1111112}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 897562638}
@@ -489,7 +475,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1529976354}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.0736970305, y: 2.52721882, z: 13.9504976}
+  m_LocalPosition: {x: -.0111111112, y: 2.52721882, z: 11.1111112}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 897562638}
@@ -528,7 +514,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1565792229}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.7957106, y: 5.27227879, z: 17.3361492}
+  m_LocalPosition: {x: 11.1111112, y: 5.27227879, z: 11.1111112}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 897562638}
@@ -619,14 +605,14 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 3
-  m_BackGroundColor: {r: .192156866, g: .301960796, b: .474509805, a: .0196078438}
+  m_BackGroundColor: {r: .111111112, g: .111111112, b: .111111112, a: .00011111112}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
     y: 0
     width: 1
     height: 1
-  near clip plane: .300000012
+  near clip plane: .111111112
   far clip plane: 1000
   field of view: 60
   orthographic: 0

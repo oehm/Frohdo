@@ -15,6 +15,7 @@ GameObject:
   - 114: {fileID: 11400004}
   - 114: {fileID: 11400006}
   - 114: {fileID: 11400002}
+  - 114: {fileID: 11400008}
   m_Layer: 8
   m_Name: 1x1Tile_Test
   m_TagString: LevelObject
@@ -121,6 +122,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2f0c6664f2647f459a84c9692596646, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11400008
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2b6e7e778269f346ad63a095c2296b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  varnishedMaterial: {fileID: 2100000, guid: d7b1e0679255aa34884324f2546f82b8, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

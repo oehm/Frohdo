@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class StateManager : MonoBehaviour
 {
@@ -18,6 +19,10 @@ public class StateManager : MonoBehaviour
 
     public GameObject[] layers;
 
+
+    private List<SCondition> conditions;
+    public SCondition_CharacterSet conditionCharacterSet;
+    public SCondition_Varnishable conditionVarnishable;
     private Editor_State curState { get; set; }
 
     void Awake()
@@ -31,16 +36,26 @@ public class StateManager : MonoBehaviour
         currentLayer = 2;
 
         layers = new GameObject[GlobalVars.Instance.LayerCount];
+        //Conditions
+        conditions = new List<SCondition>();
+        conditionCharacterSet = new SCondition_CharacterSet();
+        conditions.Add(conditionCharacterSet);
+        conditionVarnishable = new SCondition_Varnishable();
     }
-
     void Start()
     {
+        conditionCharacterSet.playLayer = layers[GlobalVars.Instance.playLayer];
         curState.init();
         updateLayerMask();
     }
 
     void Update()
     {
+        foreach(SCondition c in conditions)
+        {
+            c.checkCondition();
+        }
+        
         curState.update();
     }
 

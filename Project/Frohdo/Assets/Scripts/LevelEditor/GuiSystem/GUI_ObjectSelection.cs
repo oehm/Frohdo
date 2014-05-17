@@ -6,8 +6,10 @@ public class GUI_ObjectSelection : GUI_Element {
 
     public GUI_Controller_Editor guiController;
     public List<GUI_ContentObject> objects;
+    public GUI_ContentObject character;
 
     private Vector2 scrollPos;
+    private bool showCharacter_;
 
     public GUI_ObjectSelection(Vector2 pos, Vector2 s, GUISkin sk)
     {
@@ -17,6 +19,7 @@ public class GUI_ObjectSelection : GUI_Element {
 
         scrollPos = new Vector2(0, 0);
         active = true;
+        showCharacter_ = true;
     }
 
     public override void Draw()
@@ -27,6 +30,13 @@ public class GUI_ObjectSelection : GUI_Element {
         {
             int xCount = 0;
             GUILayout.BeginHorizontal("");
+            if (showCharacter_)
+            {
+                if (GUILayout.Button(character.content, skin.customStyles[0]))
+                {
+                    character.func(character.prefab);
+                }
+            }
             foreach(GUI_ContentObject g in objects)
             {
                 if (xCount >= 2)
@@ -63,4 +73,8 @@ public class GUI_ObjectSelection : GUI_Element {
         objects = guiController.gui_LevelObjects[colorIndex];
     }
 
+    public void showCharacter(bool show)
+    {
+        showCharacter_ = show;
+    }
 }

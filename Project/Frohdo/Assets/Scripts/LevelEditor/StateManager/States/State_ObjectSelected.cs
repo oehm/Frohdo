@@ -15,12 +15,17 @@ public class State_ObjectSelected : Editor_State
         manager.commands.active = true;
         Debug.Log("State: ObjectSelected");
 
+        manager.selected.obj = selected;
+        manager.conditionVarnishable.selectedObject = selected;
+        manager.conditionVarnishable.checkCondition();
+        manager.selected.varnishable = manager.conditionVarnishable.isFullfilled;
+
         mousePos = new Vector2(0, 0);
     }
 
     public void update()
     {
-        //throw new System.NotImplementedException();
+       
     }
 
     public void updateColor(string color)

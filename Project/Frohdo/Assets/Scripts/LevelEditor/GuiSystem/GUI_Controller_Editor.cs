@@ -8,6 +8,7 @@ public class GUI_Controller_Editor : MonoBehaviour {
 
     public List<GUI_ContentColor> colorButtons;
     public List<GUI_ContentObject>[] gui_LevelObjects;
+    public GUI_ContentObject character;
 
     private List<GUI_Element> guiList;
 
@@ -52,6 +53,11 @@ public class GUI_Controller_Editor : MonoBehaviour {
 
     public GUIContent getContent (GameObject obj, string color)
     {
+        if(obj.name == "CharacterEditor")
+        {
+            return character.content;
+        }
+        
         string[] colors = LevelObjectController.Instance.getColors();
         int colorIndex = 0;
         for(int i=0; i< colors.Length; i++)
