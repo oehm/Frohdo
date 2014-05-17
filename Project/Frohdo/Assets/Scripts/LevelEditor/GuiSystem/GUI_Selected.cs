@@ -5,6 +5,7 @@ public class GUI_Selected : GUI_Element {
 
 
     public GUI_ContentObject content;
+    public StateManager manager;
 
     public GameObject obj { get; set; }
     public int layerIdx { get; set; }
@@ -38,12 +39,7 @@ public class GUI_Selected : GUI_Element {
         }
         if(GUILayout.Button("DELETE",skin.button))
         {
-            DeleteObj command = new DeleteObj();
-            command.setUpCommand(obj,layerIdx);
-            if(EditCommandManager.Instance.executeCommand(command))
-            {
-                active = false;
-            }
+            manager.deleteObject(obj, layerIdx);
         }
         if(varnishable)
         {

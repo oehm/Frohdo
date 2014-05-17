@@ -9,13 +9,14 @@ public class SetUpManager : MonoBehaviour
     public GameObject layerBgPrefab_;
     public Camera renderCam;
 
+    public string savePath;
+
     private GameObject sceneController;
     private GameObject sceneObjects;
     public GUISkin skin;
 
     //Controller to Init
     private GUI_Controller_Editor guiController;
-    private LevelEditorParser levelParser;
     private LevelLoader Levelloader;
     private RenderGameObjectToTexture renderToTexture;
     //Other Controller
@@ -30,13 +31,12 @@ public class SetUpManager : MonoBehaviour
         sceneObjects = GameObject.Find("SceneObjects");
         levelName = "Enter Level Name";
         levelSize = new Vector2(40, 25);
+        LevelEditorParser.Instance.savePath = savePath;
 
         Editor_Grid.Instance.layerBg_pref = layerBgPrefab_;
 
         renderToTexture = createController("GameobjectToTextureRenderer", "RenderGameObjectToTexture") as RenderGameObjectToTexture;
         renderToTexture.renderCam = renderCam;
-
-        levelParser = createController("LevelParser", "LevelEditorParser") as LevelEditorParser;
 
         if (SceneManager.Instance.loadLevelToEdit)
         {
@@ -83,6 +83,7 @@ public class SetUpManager : MonoBehaviour
         GUI_Selected gui_selected = new GUI_Selected(new Vector2(0, 0), new Vector2(200, 200), skin);
         gui_selected.active = false;
         guiController.addGui(gui_selected);
+        gui_selected.manager = stateManager;
         stateManager.selected = gui_selected;
 
         GUI_Commands gui_commands = new GUI_Commands(new Vector2(0, 0), new Vector2(200, 100), skin);
@@ -218,6 +219,6 @@ public class SetUpManager : MonoBehaviour
             bg.transform.parent = GameObject.Find("SceneObjects").GetComponentsInChildren<Layer>()[i].transform;
             bg.layer = 14 + i;
         }
-        levelParser.initEmpty();
+        LevelEditorParser.Instance.initEmpty();
     }
 }

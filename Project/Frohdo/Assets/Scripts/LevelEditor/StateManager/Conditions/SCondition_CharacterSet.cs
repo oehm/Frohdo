@@ -17,7 +17,6 @@ public class SCondition_CharacterSet : SCondition {
                 if(g.gameObject.activeSelf)
                 {
                     isFullfilled = true;
-                    Debug.Log("Charater set!");
                     return;
                 }
             }
