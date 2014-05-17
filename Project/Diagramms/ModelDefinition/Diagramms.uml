@@ -109,12 +109,39 @@
                   LastKnownName="Editor"
                   LastKnownLocation="Diagramms.uml" />
               </controlFlow>
+              <controlFlow
+                Id="01c24a34-744d-401c-8cd9-0aac4cb23752"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="b3322538-8b3f-434d-aa89-61b9e591da5a"
+                  LastKnownName="Game verify"
+                  LastKnownLocation="Diagramms.uml" />
+              </controlFlow>
+              <controlFlow
+                Id="75bf6340-7b3c-4640-87f6-5be1f90c13d7"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="d3b82b65-2ff7-436e-bab7-7d6cca2a90f4"
+                  LastKnownName="MainMenu"
+                  LastKnownLocation="Diagramms.uml" />
+              </controlFlow>
             </flowNodeTargets>
           </opaqueAction>
           <opaqueAction
             Id="a2d1610d-391a-4e66-84d3-ac5c73b28bae"
             name="Options"
-            isLeaf="false" />
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="90682263-7c80-4751-9ef2-2be4c0595dfd"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="d3b82b65-2ff7-436e-bab7-7d6cca2a90f4"
+                  LastKnownName="MainMenu"
+                  LastKnownLocation="Diagramms.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
           <opaqueAction
             Id="1bf39f87-a589-4259-b570-8ad64d9eeaf0"
             name="Game playing"
@@ -126,6 +153,14 @@
                 <opaqueActionMoniker
                   Id="c4e39206-62a0-48b3-a0f8-032605698ea7"
                   LastKnownName="Rate"
+                  LastKnownLocation="Diagramms.uml" />
+              </controlFlow>
+              <controlFlow
+                Id="201eb8dd-8586-4769-8b3c-182e2d02f40a"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="4eef204e-18e3-4d97-9143-84facea11752"
+                  LastKnownName="LevelSelect"
                   LastKnownLocation="Diagramms.uml" />
               </controlFlow>
             </flowNodeTargets>
@@ -186,14 +221,6 @@
                 <opaqueActionMoniker
                   Id="111084d4-8227-435b-8ef8-bdc3421fb64b"
                   LastKnownName="Game preview"
-                  LastKnownLocation="Diagramms.uml" />
-              </controlFlow>
-              <controlFlow
-                Id="5d1a3fb8-a628-4e74-9d9b-092c6b2b539b"
-                isLeaf="false">
-                <opaqueActionMoniker
-                  Id="b3322538-8b3f-434d-aa89-61b9e591da5a"
-                  LastKnownName="Game verify"
                   LastKnownLocation="Diagramms.uml" />
               </controlFlow>
             </flowNodeTargets>
