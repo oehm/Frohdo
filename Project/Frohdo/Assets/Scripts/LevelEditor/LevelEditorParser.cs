@@ -5,7 +5,6 @@ public class LevelEditorParser : MonoBehaviour
 {
 
     public string savePath;
-    public EditorObjectPlacement editObjPlament;
 
     public string levelName { get; set; }
     

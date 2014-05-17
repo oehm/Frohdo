@@ -16,7 +16,6 @@ public class SetUpManager : MonoBehaviour
     //Controller to Init
     private GUI_Controller_Editor guiController;
     private LevelEditorParser levelParser;
-    private EditorObjectPlacement objectPlacement;
     private LevelLoader Levelloader;
     private RenderGameObjectToTexture renderToTexture;
     //Other Controller
@@ -53,9 +52,7 @@ public class SetUpManager : MonoBehaviour
 
         guiController = createController("GUI_Controller", "GUI_Controller_Editor") as GUI_Controller_Editor;
         stateManager.guiController = guiController;
-
-        objectPlacement = createController("ObjectPlament", "EditorObjectPlacement") as EditorObjectPlacement;
-        objectPlacement.marker = marker;
+        Camera.main.GetComponent<CameraMovement>().gui = guiController;
 
         InitGUI();
     }
@@ -99,8 +96,11 @@ public class SetUpManager : MonoBehaviour
         guiController.addGui(gui_objectToPlace);
         stateManager.objToPlace = gui_objectToPlace;
 
+        
+
         initGuiObjectSelect();
         initColorSelect();
+        initGuiLayerSelect();
     }
 
     private void initColorSelect()
@@ -154,6 +154,32 @@ public class SetUpManager : MonoBehaviour
         stateManager.objectSelection = gui_objectSelect;
     }
 
+    private void initGuiLayerSelect()
+    {
+        GUI_LayerSelect gui_layerSelect = new GUI_LayerSelect(new Vector2(0,0),new Vector2(350,50),skin);
+        List<GUI_ContentLayer> gui_content = new List<GUI_ContentLayer>();
+        List<GUI_ContenVisible> gui_content2 = new List<GUI_ContenVisible>();
+
+        for(int i=0; i< GlobalVars.Instance.LayerCount; i++)
+        {
+            GUI_ContentLayer c = new GUI_ContentLayer();
+            GUI_ContenVisible v = new GUI_ContenVisible();
+            c.content = new GUIContent(("Layer" + (i + 1).ToString()));
+            v.content = new GUIContent("");
+            c.layerIndex = i;
+            v.layerIndex = i;
+            c.func = stateManager.updateLayer;
+            v.func = stateManager.updateVisibility;
+            v.visible = true;
+            gui_content.Add(c);
+            gui_content2.Add(v);
+        }
+        gui_layerSelect.content = gui_content;
+        gui_layerSelect.visible = gui_content2;
+        guiController.addGui(gui_layerSelect);
+        stateManager.layerSelect = gui_layerSelect;
+    }
+
     private void setUpEmpyScene()
     {
         Editor_Grid.Instance.initGrid(levelSize);
@@ -176,6 +202,11 @@ public class SetUpManager : MonoBehaviour
             layerScript.parallaxFactor_ = parallax;
             layerScript.hasColliders_ = isPlayLayer;
             layerScript.camera_ = Camera.main;
+
+            GameObject bg = GameObject.Instantiate(Editor_Grid.Instance.layerBg_pref, new Vector3(0, 0, GlobalVars.Instance.layerZPos[i] + 0.02f), Quaternion.identity) as GameObject;
+            bg.transform.localScale = Editor_Grid.Instance.planeSizes[i];
+            bg.transform.parent = GameObject.Find("SceneObjects").GetComponentsInChildren<Layer>()[i].transform;
+            bg.layer = 14 + i;
         }
         levelParser.initEmpty();
     }

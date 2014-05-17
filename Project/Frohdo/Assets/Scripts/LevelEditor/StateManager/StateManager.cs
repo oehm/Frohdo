@@ -10,6 +10,7 @@ public class StateManager : MonoBehaviour
     public GUI_Commands commands;
     public GUI_Selected selected;
     public GUI_ObjectToPlace objToPlace;
+    public GUI_LayerSelect layerSelect;
 
     public string currentColor;
     public GameObject currentGameObject;
@@ -35,6 +36,7 @@ public class StateManager : MonoBehaviour
     void Start()
     {
         curState.init();
+        updateLayerMask();
     }
 
     void Update()
@@ -51,15 +53,29 @@ public class StateManager : MonoBehaviour
     public void updateColor(params object[] parameter)
     {
         string color = parameter[0] as string;
-        Debug.Log("Selected Color: " + color);
         curState.updateColor(color);
     }
 
     public void updateObject(params object[] paramter)
     {
         GameObject obj = paramter[0] as GameObject;
-        Debug.Log("Selected Obj: " + obj);
         curState.updateObject(obj);
+    }
+
+    public void updateLayer(params object[] paramter)
+    {
+        int? layerIndex = paramter[0] as int?;
+        currentLayer = layerIndex.Value;
+        
+        updateLayerMask();
+    }
+
+    public void updateVisibility(params object[] paramter)
+    {
+        bool? newValue = paramter[0] as bool?;
+        int? layerIndex = paramter[1] as int?;
+
+        updateLayerMask();
     }
 
     public void leftMouseDown()
@@ -75,5 +91,25 @@ public class StateManager : MonoBehaviour
     public void mouseMove(Vector2 pos)
     {
         curState.mouseMove(pos);
+    }
+
+    private void updateLayerMask()
+    {
+        //Generate CullingMask for camera:
+        int cullingMask = 0;
+        cullingMask += 1 << 0; //Default;
+        cullingMask += 1 << 1; //transparentFX;
+        cullingMask += 1 << 2; //ignore Raycast;
+
+        //iterate over visible layer
+        for(int i=0; i< GlobalVars.Instance.LayerCount; i++)
+        {
+            if (layerSelect.visible[i].visible) cullingMask += 1 << i + 8; //set layer[i] visible
+            if(i == currentLayer)
+            {
+                cullingMask += 1 << i + 14; //for viewing grig                
+            }
+            Camera.main.cullingMask = cullingMask;
+        }
     }
 }

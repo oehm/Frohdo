@@ -3,9 +3,9 @@ using System.Collections;
 
 public class EditorHelper {
 
-	public static Vector2 localMouseToLocalLayer (Vector2 mousePos,GameObject layer, bool snaped)
+	public static Vector2 localMouseToLocalLayer (Vector2 mousePos,GameObject layer,bool snaped)
     {
-        Vector2 pos = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x,mousePos.y,GlobalVars.Instance.layerZPos[GlobalVars.Instance.playLayer] - Camera.main.transform.position.z));
+        Vector2 pos = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x,mousePos.y,layer.transform.position.z - Camera.main.transform.position.z));
         pos -= new Vector2(layer.transform.position.x, layer.transform.position.y);
         if (snaped)
         {
