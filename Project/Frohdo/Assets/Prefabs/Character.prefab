@@ -45,7 +45,6 @@ GameObject:
   - 4: {fileID: 400002}
   - 212: {fileID: 21200000}
   - 95: {fileID: 9500000}
-  - 33: {fileID: 0}
   m_Layer: 10
   m_Name: Look
   m_TagString: Untagged

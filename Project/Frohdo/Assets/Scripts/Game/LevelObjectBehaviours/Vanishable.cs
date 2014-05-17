@@ -11,6 +11,7 @@ public class Vanishable : MonoBehaviour {
     private bool lastFrameEqualBG_;
 
     private float animationTimeCount_;
+    bool fadingIn_;
 
 	// Use this for initialization
 	void Start () {
@@ -27,10 +28,9 @@ public class Vanishable : MonoBehaviour {
 
         if (equalBG != lastFrameEqualBG_)
         {
-            if (equalBG)
-            {
-                animationTimeCount_ = 0.0f;
-            }
+
+            animationTimeCount_ = 0.0f;
+            fadingIn_ = !equalBG;
 
             if (AffectCollider)
             {
@@ -39,23 +39,39 @@ public class Vanishable : MonoBehaviour {
                     collider.enabled = !equalBG;
                 }
             }
+
         }
 
-        //if (animationTimeCount_ < GlobalVars.Instance.animationTime)
-        //{
-        //    animationTimeCount_ += Time.deltaTime;
+        if (animationTimeCount_ < GlobalVars.Instance.animationTime)
+        {
+            animationTimeCount_ += Time.deltaTime;
 
-        //    Color color = gameObject.GetComponentInChildren<Renderer>().material.color;
-        //    color.a = 1.5f - animationTimeCount_ / GlobalVars.Instance.animationTime / 2;
-        //    gameObject.GetComponentInChildren<Renderer>().material.color = color;
-        //}
-        //else if (animationTimeCount_ > GlobalVars.Instance.animationTime)
-        //{
-        //    animationTimeCount_ = GlobalVars.Instance.animationTime;
-        //    Color color = gameObject.GetComponentInChildren<Renderer>().material.color;
-        //    color.a = 0.5f;
-        //    gameObject.GetComponentInChildren<Renderer>().material.color = color;
-        //}
+            Color color = gameObject.GetComponentInChildren<Renderer>().material.color;
+            if (fadingIn_)
+            {
+
+                color.a = 0.5f + animationTimeCount_ / GlobalVars.Instance.animationTime / 2;
+            }
+            else
+            {
+                color.a = 1.0f - animationTimeCount_ / GlobalVars.Instance.animationTime / 2;
+            }
+            gameObject.GetComponentInChildren<Renderer>().material.color = color;
+        }
+        else if (animationTimeCount_ > GlobalVars.Instance.animationTime)
+        {
+            animationTimeCount_ = GlobalVars.Instance.animationTime;
+            Color color = gameObject.GetComponentInChildren<Renderer>().material.color;
+            if (fadingIn_)
+            {
+                color.a = 1.0f;
+            }
+            else
+            {
+                color.a = 0.5f;
+            }
+            gameObject.GetComponentInChildren<Renderer>().material.color = color;
+        }
 
         lastFrameEqualBG_ = equalBG;
     }

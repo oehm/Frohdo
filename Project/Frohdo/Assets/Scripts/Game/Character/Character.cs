@@ -38,7 +38,7 @@ public class Character : MonoBehaviour {
 
     public void InputMovement(Vector2 run, bool jump, bool puke, bool kill)
     {
-        if (!kill)
+        if (!isKilling_)
         {
             if (kill)
             {
@@ -84,15 +84,15 @@ public class Character : MonoBehaviour {
         }
     }
 
-    public void use(GameObject thing)
+    public void use(GameObject usedThing)
     {
         //Debug.Log("used: " + thing.name);
 
-        if (thing.GetComponent<Usable>().behaviour_ == Usable.Behaviour.Door)
+        if (usedThing.GetComponent<Usable>().behaviour_ == Usable.Behaviour.Door)
         {
             SceneManager.Instance.loadScene(SceneManager.Scene.LevelSelect);
         }
-        if (thing.GetComponent<Usable>().behaviour_ == Usable.Behaviour.ColorRatio)
+        if (usedThing.GetComponent<Usable>().behaviour_ == Usable.Behaviour.ColorRatio)
         {
             //show tooltip here
         }
