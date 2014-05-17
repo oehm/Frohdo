@@ -2,32 +2,34 @@
 using System.Collections;
 using System;
 
-public class LevelLoader : MonoBehaviour {
+public class LevelLoader : MonoBehaviour
+{
 
 
     public GameObject SceneObjects;
-    
+
     public GameObject layerPrefab_;
 
     public Camera camera_;
 
     public InputControllerGame inputController_;
 
-
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         string path = SceneManager.Instance.levelToLoad;
         bool editor = SceneManager.Instance.loadLevelToEdit;
         LoadLevel(path, editor);
         SceneManager.Instance.loadLevelToEdit = false;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    }
 
-    void LoadLevel(string path, bool editor)
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+
+    public void LoadLevel(string path, bool editor)
     {
         LevelXML levelXML = XML_Loader.Load(path);
 
@@ -43,6 +45,7 @@ public class LevelLoader : MonoBehaviour {
         if (editor)
         {
             Editor_Grid.Instance.initGrid(levelXML.size.Vector2);
+            StateManager manager = GameObject.Find("SceneController").GetComponentInChildren<StateManager>() as StateManager;
         }
         for (int i = 0; i < levelXML.layers.Count; i++)
         {
@@ -61,8 +64,10 @@ public class LevelLoader : MonoBehaviour {
             layerScript.parallaxFactor_ = parallax;
             layerScript.hasColliders_ = isPlayLayer;
             layerScript.camera_ = camera_;
-            if(editor)
+            if (editor)
             {
+                StateManager manager = GameObject.Find("SceneController").GetComponentInChildren<StateManager>() as StateManager;
+                manager.layers[i] = layerObject;
                 GameObject bg = GameObject.Instantiate(Editor_Grid.Instance.layerBg_pref, new Vector3(0, 0, GlobalVars.Instance.layerZPos[i] + 0.02f), Quaternion.identity) as GameObject;
                 bg.transform.localScale = Editor_Grid.Instance.planeSizes[i];
                 bg.transform.parent = GameObject.Find("SceneObjects").GetComponentsInChildren<Layer>()[i].transform;
@@ -72,13 +77,11 @@ public class LevelLoader : MonoBehaviour {
             for (int j = 0; j < layerXML.levelObjects.Count; j++)
             {
                 LevelObjectXML levelObjectXML = layerXML.levelObjects[j];
-                
 
-                GameObject levelObjectObject =  layerScript.AddLevelObjectByName(levelObjectXML.name, levelObjectXML.color, levelObjectXML.pos.Vector2);
-                if(editor)
+
+                GameObject levelObjectObject = layerScript.AddLevelObjectByName(levelObjectXML.name, levelObjectXML.color, levelObjectXML.pos.Vector2);
+                if (editor)
                 {
-                    StateManager manager = GameObject.Find("StateManager").GetComponent<StateManager>() as StateManager;
-                    manager.layers[i] = layerObject;
                     InsertObject command = new InsertObject();
                     command.setUpCommand(levelObjectXML, layerObject.GetComponentInChildren<Layer>(), i);
                     EditCommandManager.Instance.executeCommand(command);
@@ -91,20 +94,31 @@ public class LevelLoader : MonoBehaviour {
                 //    camera_.GetComponent<CameraMovementGame>().character_ = levelObjectObject;
                 //    continue;
                 //}
-               
+
             }
 
             CharacterObjectXML characterXML = layerXML.Character;
 
             if (characterXML != null)
             {
-                GameObject characterObject = layerScript.AddCharacter(characterXML.pos.Vector2,editor);
                 if (!editor)
                 {
+                    GameObject characterObject = layerScript.AddCharacter(characterXML.pos.Vector2, editor);
+
                     inputController_.character_ = characterObject.GetComponentInChildren<Character>();
 
                     camera_.GetComponent<CameraMovementGame>().character_ = characterObject;
                     continue;
+                }
+                else
+                {
+                    InsertObject command = new InsertObject();
+                    LevelObjectXML l = new LevelObjectXML();
+                    l.color = "";
+                    l.name = "CharacterEditor";
+                    l.pos = characterXML.pos;
+                    command.setUpCommand(l, layerObject.GetComponentInChildren<Layer>(), i);
+                    EditCommandManager.Instance.executeCommand(command);
                 }
             }
 

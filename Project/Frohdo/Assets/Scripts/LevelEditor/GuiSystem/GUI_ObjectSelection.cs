@@ -32,6 +32,7 @@ public class GUI_ObjectSelection : GUI_Element {
             GUILayout.BeginHorizontal("");
             if (showCharacter_)
             {
+                xCount++;
                 if (GUILayout.Button(character.content, skin.customStyles[0]))
                 {
                     character.func(character.prefab);

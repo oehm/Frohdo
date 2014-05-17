@@ -6,7 +6,6 @@ public class InsertObject : Command
     private GameObject obj;
     private GameObject layer;
     private int matLAyer;
-    private Vector3 pos;
 
     public void freeResources()
     {
@@ -40,12 +39,10 @@ public class InsertObject : Command
     public bool exectute()
     {
         obj.SetActive(true);
-        pos = obj.transform.position;
         obj.transform.parent = layer.transform;
 
         if (!placeObject())
         {
-            GameObject.Destroy(obj);
             freeResources();
             return false;
         }
@@ -57,6 +54,7 @@ public class InsertObject : Command
 
         Gridable htemp = obj.GetComponent<Gridable>();
         Vector3 pos = obj.transform.localPosition;
+        Debug.Log(pos);
         return CommandHelper.setMatrix(ref Editor_Grid.Instance.levelGrid[matLAyer], pos, htemp, obj);
 
     }

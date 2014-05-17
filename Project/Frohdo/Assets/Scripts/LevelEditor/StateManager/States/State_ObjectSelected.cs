@@ -13,6 +13,7 @@ public class State_ObjectSelected : Editor_State
         manager.colorSelection.active = true ;
         manager.selected.active = true;
         manager.commands.active = true;
+        manager.objToPlace.active = false;
         Debug.Log("State: ObjectSelected");
 
         manager.selected.obj = selected;
@@ -50,7 +51,7 @@ public class State_ObjectSelected : Editor_State
     {
         //try to select sth
         Vector2 matIndex = EditorHelper.getMatIndex(EditorHelper.localMouseToLocalLayer(mousePos, GameObject.Find("SceneObjects").GetComponentsInChildren<Layer>()[manager.currentLayer].gameObject, true), Editor_Grid.Instance.planeSizes[manager.currentLayer]);
-        if (matIndex.x > 0 && matIndex.y > 0 && matIndex.x < Editor_Grid.Instance.planeSizes[manager.currentLayer].x && matIndex.y < Editor_Grid.Instance.planeSizes[manager.currentLayer].y)
+        if (matIndex.x >= 0 && matIndex.y >= 0 && matIndex.x < Editor_Grid.Instance.planeSizes[manager.currentLayer].x && matIndex.y < Editor_Grid.Instance.planeSizes[manager.currentLayer].y)
         {
             GameObject select = Editor_Grid.Instance.levelGrid[manager.currentLayer][(int)matIndex.x][(int)matIndex.y];
             if (select != null)
@@ -64,6 +65,12 @@ public class State_ObjectSelected : Editor_State
                 newState.manager = manager;
                 manager.changeState(newState);
             }
+        }
+        else
+        {
+            State_Default newState = new State_Default();
+            newState.manager = manager;
+            manager.changeState(newState);
         }
     }
 

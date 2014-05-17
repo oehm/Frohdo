@@ -44,6 +44,9 @@ public class SetUpManager : MonoBehaviour
             Levelloader.layerPrefab_ = layerPrefab_;
             Levelloader.camera_ = Camera.main;
             Levelloader.SceneObjects = sceneObjects;
+            Levelloader.LoadLevel(SceneManager.Instance.levelToLoad, true);
+            SceneManager.Instance.loadLevelToEdit = false;
+            Levelloader.gameObject.SetActive(false);
         }
         else
         {
