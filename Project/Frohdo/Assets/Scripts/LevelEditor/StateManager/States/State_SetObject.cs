@@ -13,10 +13,8 @@ public class State_SetObject : Editor_State {
         manager.colorSelection.active = true;
         manager.selected.active = false;
         manager.commands.active = true;
-        manager.objToPlace.active = true;
-        manager.objToPlace.selectObj(manager.currentGameObject, manager.currentColor);
         manager.objectSelection.changeColor(manager.currentColor);
-        Debug.Log("State: SetObject");
+        manager.objectSelection.markObject(true);
 
         mousePos = new Vector2(0, 0);
         objToSet = null;
@@ -78,7 +76,6 @@ public class State_SetObject : Editor_State {
     {
         manager.currentColor = color;
         manager.objectSelection.changeColor(color);
-        manager.objToPlace.selectObj(manager.currentGameObject, color);
     }
 
     public void updateObject(GameObject obj)

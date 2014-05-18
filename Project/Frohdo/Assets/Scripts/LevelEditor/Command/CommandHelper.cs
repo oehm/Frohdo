@@ -8,7 +8,6 @@ public class CommandHelper
         int pW = mat.Length + 1;
         int pH = mat[0].Length + 1;
         Vector2 objPos = new Vector2(pos.x + pW / 2.0f - (float)grid.width/ 2.0f, pos.y + pH / 2.0f - (float)grid.height/2.0f);
-        Debug.Log(objPos);
 
         //Test if obejct in in layerBounds
         if (objPos.x  < 0 || objPos.x + grid.width > pW || objPos.y  < 0 || objPos.y + grid.height > pH) return false;

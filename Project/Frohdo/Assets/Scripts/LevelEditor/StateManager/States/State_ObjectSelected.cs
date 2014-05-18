@@ -13,20 +13,26 @@ public class State_ObjectSelected : Editor_State
         manager.colorSelection.active = true;
         manager.selected.active = true;
         manager.commands.active = true;
-        manager.objToPlace.active = false;
-        Debug.Log("State: ObjectSelected");
+        manager.objectSelection.markObject(true);
 
         manager.selected.obj = selected;
         manager.conditionVarnishable.selectedObject = selected;
         manager.conditionVarnishable.checkCondition();
-        manager.selected.varnishable = manager.conditionVarnishable.isFullfilled;
+        //manager.selected.varnishable = manager.conditionVarnishable.isFullfilled;
 
         mousePos = new Vector2(0, 0);
     }
 
     public void update()
     {
+        Vector2 objectScreenPos = Camera.main.WorldToScreenPoint(selected.transform.position);
 
+        objectScreenPos.y = ForceAspectRatio.screenHeight - ForceAspectRatio.yOffset - objectScreenPos.y - selected.GetComponent<Gridable>().height;
+        objectScreenPos.x -= selected.GetComponent<Gridable>().width / 2 + manager.selected.size.x / 2;
+
+        manager.selected.position = objectScreenPos;
+
+        //manager.selected.position = new Vector3(selected.GetComponent<Gridable>().width ,ForceAspectRatio.yOffset  +  selected.GetComponent<Gridable>().height,0) + Camera.main.WorldToScreenPoint(selected.transform.position) ;
     }
 
     public void updateColor(string color)

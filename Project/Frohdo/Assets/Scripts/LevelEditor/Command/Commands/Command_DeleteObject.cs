@@ -4,13 +4,16 @@ using System.Collections;
 
 public class DeleteObj : Command
 {
-    private GameObject obj;
+    public GameObject obj;
     private int matLAyer;
     private Vector3 pos;
 
     public void freeResources()
     {
-        GameObject.Destroy(obj);
+        if (obj.activeSelf == true)
+        {
+            GameObject.Destroy(obj);
+        }
     }
 
     public void setUpCommand(GameObject o, int layerIndex)

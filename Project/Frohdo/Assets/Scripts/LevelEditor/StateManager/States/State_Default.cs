@@ -12,8 +12,6 @@ public class State_Default : Editor_State {
         manager.colorSelection.active = true;
         manager.selected.active = false;
         manager.commands.active = true;
-        manager.objToPlace.active = false; ;
-
         mousePos = new Vector2(0, 0);
     }
 
@@ -58,7 +56,6 @@ public class State_Default : Editor_State {
     public void updateObject(GameObject obj)
     {
         manager.currentGameObject = obj;
-
         State_SetObject newState = new State_SetObject();
         newState.manager = manager;
         manager.changeState(newState);
