@@ -27,6 +27,8 @@ public class StateManager : MonoBehaviour
 
     void Awake()
     {
+        layers = new GameObject[GlobalVars.Instance.LayerCount];      
+
         State_Default state = new State_Default();
         state.manager = this;
         curState = state;
@@ -34,8 +36,6 @@ public class StateManager : MonoBehaviour
         currentColor = "W";
         currentGameObject = null;
         currentLayer = 2;
-
-        layers = new GameObject[GlobalVars.Instance.LayerCount];
         //Conditions
         conditions = new List<SCondition>();
         conditionCharacterSet = new SCondition_CharacterSet();

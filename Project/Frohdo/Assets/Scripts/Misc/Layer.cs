@@ -99,6 +99,11 @@ public class Layer : MonoBehaviour {
             collider.enabled = hasColliders_;
         }
 
+        if(editor)
+        {
+            levelObject.name = "CharacterEditor";
+        }
+
         return levelObject;
         //levelObjects_.Add(levelObject);
     }
