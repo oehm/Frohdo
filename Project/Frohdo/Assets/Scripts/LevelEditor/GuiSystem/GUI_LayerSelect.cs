@@ -22,7 +22,6 @@ public class GUI_LayerSelect : GUI_Element
             }
         }
     }
-    public List<GUI_ContenVisible> visible { get; set; }
 
     private int selected;
 
@@ -54,19 +53,6 @@ public class GUI_LayerSelect : GUI_Element
         {
             content[selected].func(content[selected].layerIndex);
         }
-        GUILayout.EndHorizontal();
-
-        GUILayout.BeginHorizontal("");
-        foreach (GUI_ContenVisible g in visible)
-        {
-            bool oldValue = g.visible;
-            g.visible = GUILayout.Toggle(g.visible, g.content, skin.customStyles[2]);
-            if (oldValue != g.visible)
-            {
-                g.func(g.visible, g.layerIndex);
-            }
-        }
-
         GUILayout.EndHorizontal();
         GUI.DragWindow(new Rect(0, 0, 10000, 10000));
     }

@@ -10,7 +10,6 @@ public class StateManager : MonoBehaviour
     public GUI_SaveAndPreview saveAndPreview;
     public GUI_Commands commands;
     public GUI_Selected selected;
-    public GUI_ObjectToPlace objToPlace;
     public GUI_LayerSelect layerSelect;
 
     public string currentColor;
@@ -76,6 +75,7 @@ public class StateManager : MonoBehaviour
     {
         GameObject obj = paramter[0] as GameObject;
         curState.updateObject(obj);
+        //show mark??
     }
 
     //The selcted object is soted in the state. delete this not the prefab..
@@ -97,18 +97,6 @@ public class StateManager : MonoBehaviour
         currentLayer = layerIndex.Value;
 
         GameObject.Find("grid" + currentLayer.ToString()).GetComponent<Renderer>().enabled = true;
-    }
-
-    public void updateVisibility(params object[] paramter)
-    {
-        bool? newValue = paramter[0] as bool?;
-        int? layerIndex = paramter[1] as int?;
-
-        foreach (Renderer r in layers[layerIndex.Value].GetComponentsInChildren<Renderer>())
-        {
-            r.enabled = newValue.Value;
-        }
-
     }
 
     public void leftMouseDown()

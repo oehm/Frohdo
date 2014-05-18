@@ -9,7 +9,7 @@ public class EditCommandManager
     {
         get
         {
-            if(instance == null)
+            if (instance == null)
             {
                 instance = new EditCommandManager();
                 instance.Awake();
@@ -17,10 +17,10 @@ public class EditCommandManager
             return instance;
         }
     }
-    
+
     private List<Command> history;
     private int histIndex;
-    
+
     void Awake()
     {
         history = new List<Command>();
@@ -29,15 +29,33 @@ public class EditCommandManager
 
     public bool executeCommand(Command c)
     {
-        if(!c.exectute()) return false;
+        //if (history.Count > 0)
+        //{
+        //    DeleteObj test = new DeleteObj();
+        //    if (c.GetType() == history[history.Count - 1].GetType() && c.GetType() == test.GetType())
+        //    {
+        //        Debug.Log("same type");
+        //        DeleteObj del1, del2;
+        //        del1 = (DeleteObj)c;
+        //        del2 = (DeleteObj)history[history.Count - 1];
+
+        //        if (del1.obj == del2.obj)
+        //        {
+        //            redo();
+        //            return true;
+        //        }
+
+        //    }
+        //}
+        if (!c.exectute()) return false;
         if (histIndex < history.Count - 1)
         {
-            for (int i = histIndex+1; i < history.Count; i++)
+            for (int i = histIndex + 1; i < history.Count; i++)
             {
                 history[i].freeResources();
             }
             //Debug.Log("Remove Elements :" + (histIndex+1).ToString()+ " to "+);
-            history.RemoveRange(histIndex+1, history.Count - histIndex-1);
+            history.RemoveRange(histIndex + 1, history.Count - histIndex - 1);
         }
         histIndex++;
         history.Add(c);
@@ -59,7 +77,7 @@ public class EditCommandManager
 
     public void redo()
     {
-        if (histIndex < history.Count-1 && histIndex >= -1)
+        if (histIndex < history.Count - 1 && histIndex >= -1)
         {
             histIndex++;
             history[histIndex].redo();
@@ -72,7 +90,7 @@ public class EditCommandManager
 
     public void resetHistory()
     {
-        history.RemoveRange(0, history.Count);        
+        history.RemoveRange(0, history.Count);
         histIndex = -1;
     }
 }

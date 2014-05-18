@@ -1457,12 +1457,12 @@ MonoBehaviour:
       m_Bottom: 6
     m_Margin:
       m_Left: 10
-      m_Right: 20
+      m_Right: 0
       m_Top: 2
       m_Bottom: 2
     m_Padding:
       m_Left: 20
-      m_Right: 23
+      m_Right: 33
       m_Top: 30
       m_Bottom: 0
     m_Overflow:
@@ -1479,8 +1479,8 @@ MonoBehaviour:
     m_TextClipping: 0
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 150
-    m_FixedHeight: 200
+    m_FixedWidth: 348.5
+    m_FixedHeight: 90.6800003
     m_StretchWidth: 0
     m_StretchHeight: 0
   - m_Name: WinToPlace
@@ -1711,8 +1711,8 @@ MonoBehaviour:
     m_TextClipping: 0
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 111.111112
-    m_FixedHeight: 111.111112
+    m_FixedWidth: 111.111115
+    m_FixedHeight: 111.111115
     m_StretchWidth: 0
     m_StretchHeight: 0
   - m_Name: SaveAndPreview

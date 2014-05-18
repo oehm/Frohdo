@@ -2,7 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class GUI_ObjectSelection : GUI_Element {
+public class GUI_ObjectSelection : GUI_Element
+{
 
     public GUI_Controller_Editor guiController;
     public List<GUI_ContentObject> objects;
@@ -10,7 +11,9 @@ public class GUI_ObjectSelection : GUI_Element {
 
     private Vector2 scrollPos;
     private bool showCharacter_;
+    private bool showMarked;
 
+    private GUI_ContentObject toMark;
     public GUI_ObjectSelection(Vector2 pos, Vector2 s, GUISkin sk)
     {
         position = pos;
@@ -20,6 +23,8 @@ public class GUI_ObjectSelection : GUI_Element {
         scrollPos = new Vector2(0, 0);
         active = true;
         showCharacter_ = true;
+        showMarked = false;
+        toMark = null;
     }
 
     public override void Draw()
@@ -34,12 +39,23 @@ public class GUI_ObjectSelection : GUI_Element {
             if (showCharacter_)
             {
                 xCount++;
-                if (GUILayout.Button(character.content, skin.customStyles[0]))
+                if (character == toMark && showMarked)
                 {
-                    character.func(character.prefab);
+                    if (GUILayout.Button(character.content, skin.customStyles[5]))
+                    {
+                        character.func(character.prefab);
+                    }
+                }
+                else
+                {
+                    if (GUILayout.Button(character.content, skin.customStyles[0]))
+                    {
+                        character.func(character.prefab);
+                        toMark = character;
+                    }
                 }
             }
-            foreach(GUI_ContentObject g in objects)
+            foreach (GUI_ContentObject g in objects)
             {
                 if (xCount >= 2)
                 {
@@ -48,9 +64,20 @@ public class GUI_ObjectSelection : GUI_Element {
                     GUILayout.BeginHorizontal();
                 }
                 xCount++;
-                if(GUILayout.Button(g.content,skin.customStyles[0]))
+                if (showMarked && g == toMark)
                 {
-                    g.func(g.prefab);
+                    if (GUILayout.Button(g.content, skin.customStyles[5]))
+                    {
+                        g.func(g.prefab);
+                    }
+                }
+                else
+                {
+                    if (GUILayout.Button(g.content, skin.customStyles[0]))
+                    {
+                        g.func(g.prefab);
+                        toMark = g;
+                    }
                 }
             }
             GUILayout.EndHorizontal();
@@ -84,5 +111,10 @@ public class GUI_ObjectSelection : GUI_Element {
     {
         base.resize(screenRect);
         _rect.x = ForceAspectRatio.xOffset;
+    }
+
+    public void markObject(bool show)
+    {
+        showMarked = show;
     }
 }

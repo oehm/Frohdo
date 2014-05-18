@@ -82,7 +82,7 @@ public class SetUpManager : MonoBehaviour
         guiController.addGui(gui_save);
         stateManager.saveAndPreview = gui_save;
 
-        GUI_Selected gui_selected = new GUI_Selected(new Vector2(ForceAspectRatio.screenWidth , 0), new Vector2(200, 200), skin);
+        GUI_Selected gui_selected = new GUI_Selected(new Vector2(ForceAspectRatio.screenWidth , 0), new Vector2(100, 100), skin);
         gui_selected.active = false;
         guiController.addGui(gui_selected);
         gui_selected.manager = stateManager;
@@ -91,15 +91,7 @@ public class SetUpManager : MonoBehaviour
         GUI_Commands gui_commands = new GUI_Commands(new Vector2(975, 0), new Vector2(200, 65), skin);
         gui_commands.active = false;
         guiController.addGui(gui_commands);
-        stateManager.commands = gui_commands;
-
-        GUI_ObjectToPlace gui_objectToPlace = new GUI_ObjectToPlace(new Vector2(850, 0), new Vector2(200, 200), skin);
-        gui_objectToPlace.active = false;
-        gui_objectToPlace.guiController = guiController;
-        guiController.addGui(gui_objectToPlace);
-        stateManager.objToPlace = gui_objectToPlace;
-
-        
+        stateManager.commands = gui_commands;      
 
         initGuiObjectSelect();
         initColorSelect();
@@ -171,24 +163,16 @@ public class SetUpManager : MonoBehaviour
     {
         GUI_LayerSelect gui_layerSelect = new GUI_LayerSelect(new Vector2(ForceAspectRatio.xOffset + 300, ForceAspectRatio.yOffset + 75), new Vector2(350, 50), skin);
         List<GUI_ContentLayer> gui_content = new List<GUI_ContentLayer>();
-        List<GUI_ContenVisible> gui_content2 = new List<GUI_ContenVisible>();
 
         for(int i=0; i< GlobalVars.Instance.LayerCount; i++)
         {
             GUI_ContentLayer c = new GUI_ContentLayer();
-            GUI_ContenVisible v = new GUI_ContenVisible();
             c.content = new GUIContent(("Layer" + (i + 1).ToString()));
-            v.content = new GUIContent("");
             c.layerIndex = i;
-            v.layerIndex = i;
             c.func = stateManager.updateLayer;
-            v.func = stateManager.updateVisibility;
-            v.visible = true;
             gui_content.Add(c);
-            gui_content2.Add(v);
         }
         gui_layerSelect.content = gui_content;
-        gui_layerSelect.visible = gui_content2;
         guiController.addGui(gui_layerSelect);
         stateManager.layerSelect = gui_layerSelect;
     }
