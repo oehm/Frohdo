@@ -25,6 +25,7 @@ public class GUI_ObjectSelection : GUI_Element {
     public override void Draw()
     {
         if (!active) return;
+        _rect.height = ForceAspectRatio.screenHeight;
         GUILayout.BeginArea(_rect);
         scrollPos = GUILayout.BeginScrollView(scrollPos, skin.scrollView);
         {
@@ -77,5 +78,11 @@ public class GUI_ObjectSelection : GUI_Element {
     public void showCharacter(bool show)
     {
         showCharacter_ = show;
+    }
+
+    public override void resize(Rect screenRect)
+    {
+        base.resize(screenRect);
+        _rect.x = ForceAspectRatio.xOffset;
     }
 }

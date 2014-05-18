@@ -8,13 +8,10 @@ public class InputController : MonoBehaviour {
     private bool leftMouseDown = false;
     private Vector2 mousePos = new Vector2(0,0);
     
-    // Use this for initialization
-	void Start () {
-	
-	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update () 
+    {
         bool oldLeftDown = leftMouseDown;
         leftMouseDown = Input.GetMouseButton(0);
         if (oldLeftDown != leftMouseDown) leftButtonChaged(oldLeftDown, leftMouseDown);

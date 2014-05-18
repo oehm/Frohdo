@@ -22,7 +22,7 @@ public List<GUI_ContentColor> content { get; set; }
     public override void Draw()
     {
         if (!active) return;
-        _rect = GUILayout.Window(1, _rect, windowFunc, "",skin.window);
+        _rect = GUILayout.Window(1, _rect, windowFunc, "",skin.customStyles[7]);
     }
 
     private void windowFunc(int winId)
