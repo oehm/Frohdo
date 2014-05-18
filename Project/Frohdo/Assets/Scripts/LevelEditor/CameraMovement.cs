@@ -25,6 +25,7 @@ public class CameraMovement : MonoBehaviour {
             camera.fieldOfView -= scrollSpeed;
 
         gameObject.GetComponentsInChildren<Camera>()[1].fieldOfView = camera.fieldOfView;
+        gameObject.GetComponentsInChildren<Camera>()[2].fieldOfView = camera.fieldOfView;
 	}
 
 	void Update () {

@@ -15,7 +15,7 @@ public class LevelLoader : MonoBehaviour
     public InputControllerGame inputController_;
 
     // Use this for initialization
-    void Start()
+    void Awake()
     {
         string path = SceneManager.Instance.levelToLoad;
         bool editor = SceneManager.Instance.loadLevelToEdit;
@@ -71,7 +71,8 @@ public class LevelLoader : MonoBehaviour
                 GameObject bg = GameObject.Instantiate(Editor_Grid.Instance.layerBg_pref, new Vector3(0, 0, GlobalVars.Instance.layerZPos[i] + 0.02f), Quaternion.identity) as GameObject;
                 bg.transform.localScale = Editor_Grid.Instance.planeSizes[i];
                 bg.transform.parent = GameObject.Find("SceneObjects").GetComponentsInChildren<Layer>()[i].transform;
-                bg.layer = 14 + i;
+                bg.name = "grid"+i.ToString();
+                bg.GetComponent<Renderer>().enabled = false;
             }
 
             for (int j = 0; j < layerXML.levelObjects.Count; j++)

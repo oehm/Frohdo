@@ -46,7 +46,7 @@ public class StateManager : MonoBehaviour
     {
         conditionCharacterSet.playLayer = layers[GlobalVars.Instance.playLayer];
         curState.init();
-        updateLayerMask();
+        updateLayer(currentLayer);
     }
 
     void Update()
@@ -78,6 +78,7 @@ public class StateManager : MonoBehaviour
         curState.updateObject(obj);
     }
 
+    //The selcted object is soted in the state. delete this not the prefab..
     public void deleteObject(GameObject obj, int layerIndex)
     {
         DeleteObj command = new DeleteObj();
@@ -90,10 +91,12 @@ public class StateManager : MonoBehaviour
 
     public void updateLayer(params object[] paramter)
     {
+        GameObject.Find("grid" + currentLayer.ToString()).GetComponent<Renderer>().enabled = false;
+        
         int? layerIndex = paramter[0] as int?;
         currentLayer = layerIndex.Value;
-        
-        updateLayerMask();
+
+        GameObject.Find("grid" + currentLayer.ToString()).GetComponent<Renderer>().enabled = true;
     }
 
     public void updateVisibility(params object[] paramter)
@@ -101,7 +104,11 @@ public class StateManager : MonoBehaviour
         bool? newValue = paramter[0] as bool?;
         int? layerIndex = paramter[1] as int?;
 
-        updateLayerMask();
+        foreach (Renderer r in layers[layerIndex.Value].GetComponentsInChildren<Renderer>())
+        {
+            r.enabled = newValue.Value;
+        }
+
     }
 
     public void leftMouseDown()
@@ -119,23 +126,5 @@ public class StateManager : MonoBehaviour
         curState.mouseMove(pos);
     }
 
-    private void updateLayerMask()
-    {
-        //Generate CullingMask for camera:
-        int cullingMask = 0;
-        cullingMask += 1 << 0; //Default;
-        cullingMask += 1 << 1; //transparentFX;
-        cullingMask += 1 << 2; //ignore Raycast;
 
-        //iterate over visible layer
-        for(int i=0; i< GlobalVars.Instance.LayerCount; i++)
-        {
-            if (layerSelect.visible[i].visible) cullingMask += 1 << i + 8; //set layer[i] visible
-            if(i == currentLayer)
-            {
-                cullingMask += 1 << i + 14; //for viewing grig                
-            }
-            Camera.main.cullingMask = cullingMask;
-        }
-    }
 }

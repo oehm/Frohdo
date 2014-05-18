@@ -21,16 +21,27 @@ public class InsertObject : Command
             color = colorable.colorString;
         }
         obj = l.GetComponent<Layer>().AddLevelObjectByName(o.name, color, o.transform.localPosition);
-        obj.layer = 8 + layerIndex;
+        if (layerIndex == 0)
+        {
+            moveToLayer(obj, LayerMask.NameToLayer("BackgroundDrawings"));
+        }
         obj.SetActive(false);
         layer = l;
         matLAyer = layerIndex;
     }
-
+    private void moveToLayer(GameObject root, int layer)
+    {
+        root.layer = layer;
+        foreach (Transform child in root.transform)
+            moveToLayer(child.gameObject, layer);
+    }
     public void setUpCommand(LevelObjectXML o, Layer l, int layerIndex)
     {
         obj = l.GetComponent<Layer>().AddLevelObjectByName(o.name, o.color, o.pos.Vector2);
-        obj.layer = 8 + layerIndex;
+        if (layerIndex == 0)
+        {
+            moveToLayer(obj, LayerMask.NameToLayer("BackgroundDrawings"));
+        }
         obj.SetActive(false);
         layer = l.gameObject;
         matLAyer = layerIndex;
@@ -54,7 +65,6 @@ public class InsertObject : Command
 
         Gridable htemp = obj.GetComponent<Gridable>();
         Vector3 pos = obj.transform.localPosition;
-        Debug.Log(pos);
         return CommandHelper.setMatrix(ref Editor_Grid.Instance.levelGrid[matLAyer], pos, htemp, obj);
 
     }
