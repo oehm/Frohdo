@@ -9,6 +9,7 @@ public class GUI_Controller_Editor : MonoBehaviour {
     public List<GUI_ContentColor> colorButtons;
     public List<GUI_ContentObject>[] gui_LevelObjects;
     public GUI_ContentObject character;
+    public Rect rect {get;set;}
 
     private List<GUI_Element> guiList;
 
@@ -36,16 +37,18 @@ public class GUI_Controller_Editor : MonoBehaviour {
     {
         foreach (GUI_Element g in guiList)
         {
-            g.resize(ForceAspectRatio.screenRect);
+            //g.resize(ForceAspectRatio.screenRect);
         }
     }
 
     void OnGUI()
     {
+        GUILayout.BeginArea(rect, skin.customStyles[0]);
         foreach(GUI_Element g in guiList)
         {
             g.Draw();
         }
+        GUILayout.EndArea();
     }
 
     public void addGui(GUI_Element gui)

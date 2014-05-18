@@ -107,12 +107,6 @@ public class GUI_ObjectSelection : GUI_Element
         showCharacter_ = show;
     }
 
-    public override void resize(Rect screenRect)
-    {
-        base.resize(screenRect);
-        _rect.x = ForceAspectRatio.xOffset;
-    }
-
     public void markObject(bool show)
     {
         showMarked = show;

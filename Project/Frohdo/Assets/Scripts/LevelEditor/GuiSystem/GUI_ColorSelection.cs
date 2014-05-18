@@ -22,20 +22,17 @@ public List<GUI_ContentColor> content { get; set; }
     public override void Draw()
     {
         if (!active) return;
-        _rect = GUILayout.Window(1, _rect, windowFunc, "",skin.customStyles[7]);
-    }
-
-    private void windowFunc(int winId)
-    {
+        GUILayout.BeginArea(_rect);
         GUILayout.BeginHorizontal("");
-        foreach(GUI_ContentColor g in content)
+        foreach (GUI_ContentColor g in content)
         {
-            if(GUILayout.Button(g.content,skin.button))
+            if (GUILayout.Button(g.content, skin.button))
             {
                 g.func(g.color);
             }
         }
         GUILayout.EndHorizontal();
-        GUI.DragWindow(new Rect(0, 0, 10000, 10000));
+        GUILayout.EndArea();
     }
+
 }

@@ -24,7 +24,7 @@ public class GUI_Selected : GUI_Element {
     public override void Draw()
     {
         if (!active) return;
-        _rect = GUILayout.Window(11, _rect, windowFunc, "",skin.customStyles[4]);
+        _rect = GUILayout.Window(11, _rect, windowFunc, "");
     }
 
     private void windowFunc(int winId)

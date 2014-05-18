@@ -557,6 +557,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e50d3b1eaa93b4b41b024ad9ed571075, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  colorsp: {x: .649999976, y: .200000003}
+  colorsSize: {x: .200000003, y: .600000024}
+  Commands: {x: 0, y: 0}
+  commandsSize: {x: 0, y: 0}
+  layer: {x: 0, y: 0}
+  layerSize: {x: 0, y: 0}
+  bg: {x: 0, y: 0}
   layerPrefab_: {fileID: 100000, guid: 2218c2a3e53b793438920f9023cf31b3, type: 2}
   layerBgPrefab_: {fileID: 100000, guid: 7b8db41fb9d368142b920715256327ed, type: 2}
   renderCam: {fileID: 1413290645}

@@ -4,6 +4,17 @@ using System.Collections.Generic;
 
 public class SetUpManager : MonoBehaviour
 {
+    //GUISizes
+    public Vector2 colorsp;
+    public Vector2 colorsSize;
+    public Vector2 Commands;
+    public Vector2 commandsSize;
+    public Vector2 layer;
+    public Vector2 layerSize;
+    public Vector2 bg;
+
+    private Rect topRect;
+    
     public GameObject layerPrefab_;
     public GameObject layerBgPrefab_;
     public Camera renderCam;
@@ -23,7 +34,6 @@ public class SetUpManager : MonoBehaviour
 
     private Vector2 levelSize;
     private string levelName;
-
     void Awake()
     {
         sceneController = GameObject.Find("SceneController");
@@ -53,6 +63,7 @@ public class SetUpManager : MonoBehaviour
         }
 
         guiController = createController("GUI_Controller", "GUI_Controller_Editor") as GUI_Controller_Editor;
+        guiController.rect = new Rect(ForceAspectRatio.xOffset, ForceAspectRatio.yOffset, ForceAspectRatio.screenWidth, 80);
         stateManager.guiController = guiController;
         Camera.main.GetComponent<CameraMovement>().gui = guiController;
 
@@ -77,7 +88,7 @@ public class SetUpManager : MonoBehaviour
 
     private void InitGUI()
     {
-        GUI_SaveAndPreview gui_save = new GUI_SaveAndPreview(new Vector2(ForceAspectRatio.screenWidth,  500), new Vector2(150, 50), skin);
+        GUI_SaveAndPreview gui_save = new GUI_SaveAndPreview(new Vector2(0,  0), new Vector2(150, 50), skin);
         gui_save.active = false;
         guiController.addGui(gui_save);
         stateManager.saveAndPreview = gui_save;
@@ -88,8 +99,9 @@ public class SetUpManager : MonoBehaviour
         gui_selected.manager = stateManager;
         stateManager.selected = gui_selected;
 
-        GUI_Commands gui_commands = new GUI_Commands(new Vector2(975, 0), new Vector2(200, 65), skin);
+        GUI_Commands gui_commands = new GUI_Commands(Commands,commandsSize, skin);
         gui_commands.active = false;
+        gui_commands.parentRect = topRect;
         guiController.addGui(gui_commands);
         stateManager.commands = gui_commands;      
 
@@ -118,7 +130,8 @@ public class SetUpManager : MonoBehaviour
             colorButtons.Add(cont);
         }
 
-        GUI_ColorSelection gui_color = new GUI_ColorSelection(new Vector2(ForceAspectRatio.xOffset + 300, ForceAspectRatio.yOffset), new Vector2(300, 50), skin);
+        GUI_ColorSelection gui_color = new GUI_ColorSelection(colorsp,colorsSize, skin);
+        gui_color.parentRect = topRect;
         gui_color.content = colorButtons;
         guiController.addGui(gui_color);
         stateManager.colorSelection = gui_color; 
@@ -155,13 +168,15 @@ public class SetUpManager : MonoBehaviour
         }
         gui_objectSelect.guiController = guiController;
         gui_objectSelect.objects = guiController.gui_LevelObjects[0];
-        guiController.addGui(gui_objectSelect);
+        //guiController.addGui(gui_objectSelect);
+        guiController.skin = skin;
         stateManager.objectSelection = gui_objectSelect;
     }
 
     private void initGuiLayerSelect()
     {
-        GUI_LayerSelect gui_layerSelect = new GUI_LayerSelect(new Vector2(ForceAspectRatio.xOffset + 300, ForceAspectRatio.yOffset + 75), new Vector2(350, 50), skin);
+        GUI_LayerSelect gui_layerSelect = new GUI_LayerSelect(layer,layerSize, skin);
+        gui_layerSelect.parentRect = topRect;
         List<GUI_ContentLayer> gui_content = new List<GUI_ContentLayer>();
 
         for(int i=0; i< GlobalVars.Instance.LayerCount; i++)
