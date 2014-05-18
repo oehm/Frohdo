@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 public class SetUpManager : MonoBehaviour
 {
-    public GameObject marker;
     public GameObject layerPrefab_;
     public GameObject layerBgPrefab_;
     public Camera renderCam;

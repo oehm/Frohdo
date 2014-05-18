@@ -35,7 +35,7 @@ public class StateManager : MonoBehaviour
 
         currentColor = "W";
         currentGameObject = null;
-        currentLayer = 2;
+        currentLayer = GlobalVars.Instance.playLayer;
         //Conditions
         conditions = new List<SCondition>();
         conditionCharacterSet = new SCondition_CharacterSet();
@@ -56,6 +56,7 @@ public class StateManager : MonoBehaviour
             c.checkCondition();
         }
         saveAndPreview.active = conditionCharacterSet.isFullfilled;
+        objectSelection.showCharacter((!conditionCharacterSet.isFullfilled && currentLayer == GlobalVars.Instance.playLayer) );
         curState.update();
     }
 
