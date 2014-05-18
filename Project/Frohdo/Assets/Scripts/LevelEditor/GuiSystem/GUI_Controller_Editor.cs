@@ -12,15 +12,33 @@ public class GUI_Controller_Editor : MonoBehaviour {
 
     private List<GUI_Element> guiList;
 
-
+    private Rect screenSize;
     void Awake()
     {
         guiList = new List<GUI_Element>();
+        screenSize = ForceAspectRatio.screenRect;
     }
 
-    void Start () {
-	
-	}
+    void Start()
+    {
+        resize();
+    }
+
+    void Update()
+    {
+        if(screenSize != ForceAspectRatio.screenRect)
+        {
+            resize();
+        }
+    }
+
+    void resize()
+    {
+        foreach (GUI_Element g in guiList)
+        {
+            g.resize(ForceAspectRatio.screenRect);
+        }
+    }
 
     void OnGUI()
     {
@@ -79,4 +97,5 @@ public class GUI_Controller_Editor : MonoBehaviour {
         }
         return cont;
     }
+
 }

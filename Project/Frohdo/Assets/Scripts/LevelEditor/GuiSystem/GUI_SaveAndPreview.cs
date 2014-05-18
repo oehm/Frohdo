@@ -14,7 +14,7 @@ public class GUI_SaveAndPreview : GUI_Element
     public override void Draw()
     {
         if (!active) return;
-        _rect = GUILayout.Window(2, _rect, windowFunc, "",skin.window);
+        _rect = GUILayout.Window(2, _rect, windowFunc, "",skin.customStyles[9]);
     }
 
     private void windowFunc(int winId)

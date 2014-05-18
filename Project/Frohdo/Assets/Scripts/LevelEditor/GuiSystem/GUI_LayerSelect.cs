@@ -42,7 +42,7 @@ public class GUI_LayerSelect : GUI_Element
     public override void Draw()
     {
         if (!active) return;
-        _rect = GUILayout.Window(4, _rect, windowFunc, "", skin.window);
+        _rect = GUILayout.Window(4, _rect, windowFunc, "", skin.customStyles[6]);
     }
 
     private void windowFunc(int winId)

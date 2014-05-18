@@ -10,7 +10,7 @@ public class State_ObjectSelected : Editor_State
     private Vector2 mousePos;
     public void init()
     {
-        manager.colorSelection.active = true ;
+        manager.colorSelection.active = true;
         manager.selected.active = true;
         manager.commands.active = true;
         manager.objToPlace.active = false;
@@ -26,7 +26,7 @@ public class State_ObjectSelected : Editor_State
 
     public void update()
     {
-       
+
     }
 
     public void updateColor(string color)
@@ -58,20 +58,19 @@ public class State_ObjectSelected : Editor_State
             {
                 selected = select;
             }
-            //Wanna switch to default or not?!
-            else if(!manager.guiController.mouseOnGui(mousePos))
+            else if (!manager.guiController.mouseOnGui(mousePos))
             {
                 State_Default newState = new State_Default();
                 newState.manager = manager;
                 manager.changeState(newState);
             }
         }
-        else
-        {
-            State_Default newState = new State_Default();
-            newState.manager = manager;
-            manager.changeState(newState);
-        }
+        //else
+        //{
+        //    State_Default newState = new State_Default();
+        //    newState.manager = manager;
+        //    manager.changeState(newState);
+        //}
     }
 
     public void leftMouseUp()

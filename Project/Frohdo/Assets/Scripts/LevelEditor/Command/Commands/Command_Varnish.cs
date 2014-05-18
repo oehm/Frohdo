@@ -20,13 +20,13 @@ public class VarnishObj : Command {
         v.varnish();
         return true;
     }
-
+    
     public void undo()
     {
         Varnishable v = toVarnish.GetComponent<Varnishable>();
         v.unvarnish();      
     }
-
+    
     public void redo()
     {
         exectute();

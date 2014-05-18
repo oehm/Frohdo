@@ -78,23 +78,23 @@ public class SetUpManager : MonoBehaviour
 
     private void InitGUI()
     {
-        GUI_SaveAndPreview gui_save = new GUI_SaveAndPreview(new Vector2(0, 0), new Vector2(150, 75), skin);
+        GUI_SaveAndPreview gui_save = new GUI_SaveAndPreview(new Vector2(ForceAspectRatio.screenWidth,  500), new Vector2(150, 50), skin);
         gui_save.active = false;
         guiController.addGui(gui_save);
         stateManager.saveAndPreview = gui_save;
 
-        GUI_Selected gui_selected = new GUI_Selected(new Vector2(0, 0), new Vector2(200, 200), skin);
+        GUI_Selected gui_selected = new GUI_Selected(new Vector2(ForceAspectRatio.screenWidth , 0), new Vector2(200, 200), skin);
         gui_selected.active = false;
         guiController.addGui(gui_selected);
         gui_selected.manager = stateManager;
         stateManager.selected = gui_selected;
 
-        GUI_Commands gui_commands = new GUI_Commands(new Vector2(0, 0), new Vector2(200, 100), skin);
+        GUI_Commands gui_commands = new GUI_Commands(new Vector2(975, 0), new Vector2(200, 65), skin);
         gui_commands.active = false;
         guiController.addGui(gui_commands);
         stateManager.commands = gui_commands;
 
-        GUI_ObjectToPlace gui_objectToPlace = new GUI_ObjectToPlace(new Vector2(800, 0), new Vector2(200, 100), skin);
+        GUI_ObjectToPlace gui_objectToPlace = new GUI_ObjectToPlace(new Vector2(850, 0), new Vector2(200, 200), skin);
         gui_objectToPlace.active = false;
         gui_objectToPlace.guiController = guiController;
         guiController.addGui(gui_objectToPlace);
@@ -170,7 +170,7 @@ public class SetUpManager : MonoBehaviour
 
     private void initGuiLayerSelect()
     {
-        GUI_LayerSelect gui_layerSelect = new GUI_LayerSelect(new Vector2(0,0),new Vector2(350,50),skin);
+        GUI_LayerSelect gui_layerSelect = new GUI_LayerSelect(new Vector2(ForceAspectRatio.xOffset + 300, ForceAspectRatio.yOffset + 75), new Vector2(350, 50), skin);
         List<GUI_ContentLayer> gui_content = new List<GUI_ContentLayer>();
         List<GUI_ContenVisible> gui_content2 = new List<GUI_ContenVisible>();
 

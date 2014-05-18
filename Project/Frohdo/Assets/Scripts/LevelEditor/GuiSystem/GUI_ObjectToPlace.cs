@@ -19,14 +19,27 @@ public class GUI_ObjectToPlace : GUI_Element
     }
     public override void Draw()
     {
-        if(!active) return;
-        GUILayout.BeginArea(_rect);
-        GUILayout.Box(content,skin.box);
-        GUILayout.EndArea();
+        _rect = GUILayout.Window(47, _rect, windowFunc, "", skin.customStyles[5]);  
     }
 
     public void selectObj(GameObject obj, string color)
     {
         content = guiController.getContent(obj, color);
+    }
+
+
+    void windowFunc(int winID)
+    {
+        GUILayout.Label("OBJECT TO PLACE", skin.label);
+        if (active)
+        {
+            GUILayout.Box(content, skin.box);
+        }
+        GUI.DragWindow(new Rect(0, 0, 10000, 10000));
+    }
+
+    public override bool mouseOnGui(Vector2 pos)
+    {
+        return _rect.Contains(pos);
     }
 }

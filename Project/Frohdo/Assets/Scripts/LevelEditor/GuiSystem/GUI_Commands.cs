@@ -16,7 +16,7 @@ public class GUI_Commands : GUI_Element {
     public override void Draw()
     {
         if (!active) return;
-        _rect = GUILayout.Window(0, _rect, windowFunc, "",skin.window);
+        _rect = GUILayout.Window(0, _rect, windowFunc, "",skin.customStyles[8]);
     }
 
     private void windowFunc(int winId)
