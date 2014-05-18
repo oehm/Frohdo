@@ -20,7 +20,7 @@ public class InsertObject : Command
         {
             color = colorable.colorString;
         }
-        obj = l.GetComponent<Layer>().AddLevelObjectByName(o.name, color, o.transform.localPosition);
+        obj = l.GetComponent<Layer>().AddLevelObjectByName(o.name, color, o.transform.localPosition, layerIndex, true);
         if (layerIndex == 0)
         {
             moveToLayer(obj, LayerMask.NameToLayer("BackgroundDrawings"));
@@ -37,7 +37,7 @@ public class InsertObject : Command
     }
     public void setUpCommand(LevelObjectXML o, Layer l, int layerIndex)
     {
-        obj = l.GetComponent<Layer>().AddLevelObjectByName(o.name, o.color, o.pos.Vector2);
+        obj = l.GetComponent<Layer>().AddLevelObjectByName(o.name, o.color, o.pos.Vector2, layerIndex, true);
         if (layerIndex == 0)
         {
             moveToLayer(obj, LayerMask.NameToLayer("BackgroundDrawings"));

@@ -48,7 +48,7 @@ public class State_SetObject : Editor_State {
         if (manager.guiController.mouseOnGui(mousePos) ) return;
         Gridable grid = manager.currentGameObject.GetComponent<Gridable>();
         Layer layer = manager.layers[manager.currentLayer].GetComponent<Layer>();
-        objToSet = layer.AddLevelObjectByName(manager.currentGameObject.name,manager.currentColor,EditorHelper.getLocalObjectPosition(mousePos,layer.gameObject,grid));
+        objToSet = layer.AddLevelObjectByName(manager.currentGameObject.name, manager.currentColor, EditorHelper.getLocalObjectPosition(mousePos, layer.gameObject, grid), manager.currentLayer, true);
     }
 
     public void leftMouseUp()

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 //use as a Singleton! always use the static instance and dont try to create one
-public class LevelObjectController : ScriptableObject 
+public class LevelObjectController : MonoBehaviour 
 {
 
     private static LevelObjectController instance = null;
@@ -12,31 +12,21 @@ public class LevelObjectController : ScriptableObject
     {
         get
         {
-            if (instance == null)
-            {
-                instance = (LevelObjectController)Resources.Load("ScriptableObjectInstances/LevelObjectControllerInstance");
-                DontDestroyOnLoad(instance); 
-            }
-
             return instance;
         }
     }
 
-    void OnEnable()
+    void Start()
     {
         if (instance != null)
         {
             Destroy(this);
-
-            Debug.Log("There is a instance of LevelObjectController already. Cant create Another one.");
-            throw new System.Exception("There is a instance of LevelObjectController already. Cant create Another one.");
         }
+        instance = this;
     }
 
     //public
     public List<GameObject> levelObjectPrefabs_;
-    public GameObject character_;
-    public GameObject characterEditor_;
 
     public string[] getColors()
     {
@@ -52,40 +42,54 @@ public class LevelObjectController : ScriptableObject
         return colors;
     }
 
-    public GameObject GetPrefabByName(string name)
+    public List<GameObject> GetPrefabsByAvailability(int layer, bool editor)
+    {
+        List<GameObject> list = new List<GameObject>();
+
+        foreach (GameObject levelObjectPrefab in levelObjectPrefabs_)
+        {
+            Gridable[] gridables = levelObjectPrefab.GetComponentsInChildren<Gridable>(true);
+            //i assume here that every level object has only 1 gridable attached
+            Gridable gridable = gridables[0];
+
+            if (gridable.availableInLayer[layer])
+            {
+                if (editor && gridable.editorVersion != null)
+                {
+                    list.Add(gridable.editorVersion);
+                }
+                else
+                {
+                    list.Add(levelObjectPrefab);
+                }
+            }
+        }
+        return list;
+    }
+
+    public GameObject GetPrefabByName(string name, int layer, bool editor)
     {
         foreach (GameObject levelObjectPrefab in levelObjectPrefabs_)
         {
-            if (levelObjectPrefab.name.Equals(name))
+            Gridable[] gridables = levelObjectPrefab.GetComponentsInChildren<Gridable>(true);
+            //i assume here that every level object has only 1 gridable attached
+            Gridable gridable = gridables[0];
+            
+            if (levelObjectPrefab.name.Equals(name) && gridable.availableInLayer[layer])
             {
+                if (editor && gridable.editorVersion != null)
+                {
+                    return gridable.editorVersion;
+                }
+
                 return levelObjectPrefab;
             }
-        }
-
-        if (name.Equals("Character"))
-        {
-            return character_;
-        }
-
-        if(name.Equals("CharacterEditor"))
-        {
-            return characterEditor_;
         }
 
         Debug.Log("LevelObject prefab not found: " + name);
         throw new System.Exception("LevelObject prefab not found: " + name);
     }
-    public GameObject getCharacter(bool editor = false)
-    {
-        if(editor)
-        {
-            return characterEditor_;
-        }
-        else
-        {
-            return character_;
-        }
-    }
+
 
     public Color GetColor(string color)
     {

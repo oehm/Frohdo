@@ -20,4 +20,6 @@ public class Gridable : MonoBehaviour
     public int width;
     public mArray[] hitMat;
 
+    public GameObject editorVersion = null;
+    public bool[] availableInLayer;
 }

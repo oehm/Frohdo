@@ -139,11 +139,13 @@ public class SetUpManager : MonoBehaviour
         string[] colors = LevelObjectController.Instance.getColors();
         guiController.gui_LevelObjects = new List<GUI_ContentObject>[colors.Length];
 
-        GUIContent characterGuiCont = new GUIContent(renderToTexture.renderGameObjectToTexture(LevelObjectController.Instance.getCharacter(true), 256, 256, ""), LevelObjectController.Instance.getCharacter(true).name);
+        GameObject characterPrefab = LevelObjectController.Instance.GetPrefabByName("Character", GlobalVars.Instance.playLayer, true);
+
+        GUIContent characterGuiCont = new GUIContent(renderToTexture.renderGameObjectToTexture(characterPrefab, 256, 256, ""), characterPrefab.name);
         GUI_ContentObject charactercont = new GUI_ContentObject();
         charactercont.content = characterGuiCont;
         charactercont.func = stateManager.updateObject;
-        charactercont.prefab = LevelObjectController.Instance.getCharacter(true);
+        charactercont.prefab = LevelObjectController.Instance.GetPrefabByName("Character", GlobalVars.Instance.playLayer, true);
         gui_objectSelect.character = charactercont;
         guiController.character = charactercont;
         

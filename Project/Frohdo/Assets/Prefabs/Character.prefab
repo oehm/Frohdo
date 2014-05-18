@@ -63,6 +63,7 @@ GameObject:
   - 4: {fileID: 400006}
   - 60: {fileID: 6000002}
   - 60: {fileID: 6000000}
+  - 114: {fileID: 11400010}
   m_Layer: 10
   m_Name: Collider
   m_TagString: Character
@@ -282,6 +283,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47490dd6634386749a13ed314fcb988a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11400010
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c1db793888da1f419dc8e9fe57e3593, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  height: 3
+  width: 2
+  hitMat:
+  - arr: 010101
+  - arr: 010101
+  editorVersion: {fileID: 100000, guid: 735d41a4e26cdef4abfaefa20b0544c0, type: 2}
+  availableInLayer: 00010000
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

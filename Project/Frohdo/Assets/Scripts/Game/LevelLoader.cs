@@ -80,7 +80,7 @@ public class LevelLoader : MonoBehaviour
                 LevelObjectXML levelObjectXML = layerXML.levelObjects[j];
 
 
-                GameObject levelObjectObject = layerScript.AddLevelObjectByName(levelObjectXML.name, levelObjectXML.color, levelObjectXML.pos.Vector2);
+                GameObject levelObjectObject = layerScript.AddLevelObjectByName(levelObjectXML.name, levelObjectXML.color, levelObjectXML.pos.Vector2, i, editor);
                 if (editor)
                 {
                     InsertObject command = new InsertObject();
@@ -95,7 +95,8 @@ public class LevelLoader : MonoBehaviour
             {
                 if (!editor)
                 {
-                    GameObject characterObject = layerScript.AddCharacter(characterXML.pos.Vector2, editor);
+                    GameObject characterObject = layerScript.AddCharacter(characterXML.pos.Vector2, i, editor);
+
 
                     inputController_.character_ = characterObject.GetComponentInChildren<Character>();
 

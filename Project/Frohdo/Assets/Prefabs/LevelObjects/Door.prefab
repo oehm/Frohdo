@@ -113,6 +113,8 @@ MonoBehaviour:
   hitMat:
   - arr: 010101
   - arr: 010101
+  editorVersion: {fileID: 0}
+  availableInLayer: 00010000
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1

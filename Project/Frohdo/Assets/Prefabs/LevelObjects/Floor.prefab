@@ -97,6 +97,8 @@ MonoBehaviour:
   - arr: 01
   - arr: 01
   - arr: 01
+  editorVersion: {fileID: 0}
+  availableInLayer: 00010101
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1

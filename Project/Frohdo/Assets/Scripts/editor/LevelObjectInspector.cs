@@ -8,22 +8,28 @@ public class LevelObjectInspector : Editor
     SerializedProperty array;
     SerializedProperty width;
     SerializedProperty height;
+    SerializedProperty editorVersion;
+    SerializedProperty availableInLayer;
 
     void OnEnable()
     {
         array = serializedObject.FindProperty("hitMat");
         width = serializedObject.FindProperty("width");
         height = serializedObject.FindProperty("height");
+
+        editorVersion = serializedObject.FindProperty("editorVersion");
+        availableInLayer = serializedObject.FindProperty("availableInLayer");
     }
 
     public override void OnInspectorGUI()
     {
+        //base.OnInspectorGUI();
+
         serializedObject.Update();
         
         EditorGUILayout.PropertyField(width);
         EditorGUILayout.PropertyField(height);
 
-        array.arraySize = width.intValue;
 
         //EditorGUILayout.PropertyField(array,true);
         
@@ -43,6 +49,21 @@ public class LevelObjectInspector : Editor
             }
             GUILayout.EndHorizontal();
         }
+
+
+
+        array.arraySize = width.intValue;
+
+        availableInLayer.arraySize = GlobalVars.Instance.LayerCount;
+
+        EditorGUILayout.PropertyField(editorVersion);
+        
+        GUILayout.BeginHorizontal("");
+        for (int x = 0; x < availableInLayer.arraySize; x++)
+        {
+            availableInLayer.GetArrayElementAtIndex(x).boolValue = GUILayout.Toggle(availableInLayer.GetArrayElementAtIndex(x).boolValue, "Layer " + x.ToString());
+        }
+        GUILayout.EndHorizontal();
 
         serializedObject.ApplyModifiedProperties();
     }

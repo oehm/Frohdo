@@ -39,12 +39,12 @@ public class Layer : MonoBehaviour {
 	}
 
 
-    public GameObject AddLevelObjectByName(string prefabName, string colorName, Vector2 position)
+    public GameObject AddLevelObjectByName(string prefabName, string colorName, Vector2 position, int layer, bool editor)
     {
         GameObject prefab;
         try
         {
-            prefab = LevelObjectController.Instance.GetPrefabByName(prefabName);
+            prefab = LevelObjectController.Instance.GetPrefabByName(prefabName, layer, editor);
         }
         catch
         {
@@ -75,12 +75,12 @@ public class Layer : MonoBehaviour {
         //levelObjects_.Add(levelObject);
     }
 
-    public GameObject AddCharacter(Vector2 position, bool editor = false)
+    public GameObject AddCharacter(Vector2 position, int layer, bool editor = false)
     {
         GameObject prefab;
         try
-        {
-            prefab = LevelObjectController.Instance.getCharacter(editor);
+        { 
+            prefab = LevelObjectController.Instance.GetPrefabByName("Character", GlobalVars.Instance.playLayer, editor);
         }
         catch
         {
@@ -89,7 +89,7 @@ public class Layer : MonoBehaviour {
         }
 
         GameObject levelObject = (GameObject)Instantiate(prefab);
-        levelObject.name = "Character";
+        levelObject.name = prefab.name;
         levelObject.transform.parent = transform;
         levelObject.transform.localPosition = position;
 
@@ -97,11 +97,6 @@ public class Layer : MonoBehaviour {
         foreach (Collider2D collider in colliders)
         {
             collider.enabled = hasColliders_;
-        }
-
-        if(editor)
-        {
-            levelObject.name = "CharacterEditor";
         }
 
         return levelObject;
