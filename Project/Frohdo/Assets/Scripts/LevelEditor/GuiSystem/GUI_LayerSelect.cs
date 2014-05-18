@@ -37,7 +37,7 @@ public class GUI_LayerSelect : GUI_Element
         active = true;
         content = new List<GUI_ContentLayer>();
 
-        selected = 0;
+        selected = GlobalVars.Instance.playLayer;
     }
     public override void Draw()
     {

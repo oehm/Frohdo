@@ -24,6 +24,7 @@ public class CameraMovement : MonoBehaviour {
         if (Input.GetAxis("Mouse ScrollWheel") > 0 && !gui.mouseOnGui(Input.mousePosition) && camera.fieldOfView > 10)
             camera.fieldOfView -= scrollSpeed;
 
+        gameObject.GetComponentsInChildren<Camera>()[1].fieldOfView = camera.fieldOfView;
 	}
 
 	void Update () {
