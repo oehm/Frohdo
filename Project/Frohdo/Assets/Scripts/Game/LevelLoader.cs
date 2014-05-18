@@ -38,7 +38,7 @@ public class LevelLoader : MonoBehaviour {
             throw new System.Exception(error);
         }
 
-        SceneManager.Instance.background.GetComponent<Colorable>().colorString = levelXML.backgroundColor;
+        SceneManager.Instance.background.GetComponentInChildren<Colorable>().colorString = levelXML.backgroundColor;
 
         if (editor)
         {
@@ -82,16 +82,7 @@ public class LevelLoader : MonoBehaviour {
                     InsertObject command = new InsertObject();
                     command.setUpCommand(levelObjectXML, layerObject.GetComponentInChildren<Layer>(), i);
                     EditCommandManager.Instance.executeCommand(command);
-                }
-                //this is ugly but i dont know better atm
-                //if (levelObjectXML.name.Equals("Character"))
-                //{
-                //    inputController_.character_ = levelObjectObject.GetComponentInChildren<Character>();
-
-                //    camera_.GetComponent<CameraMovementGame>().character_ = levelObjectObject;
-                //    continue;
-                //}
-               
+                }               
             }
 
             CharacterObjectXML characterXML = layerXML.Character;
@@ -108,7 +99,18 @@ public class LevelLoader : MonoBehaviour {
                 }
             }
 
+            if (i < GlobalVars.Instance.playLayer)
+            {
+                moveToLayer(layerObject, LayerMask.NameToLayer("Background"));
+            }
         }
     }
 
+
+    private void moveToLayer(GameObject root, int layer)
+    {
+        root.layer = layer;
+        foreach (Transform child in root.transform)
+            moveToLayer(child.gameObject, layer);
+    }
 }

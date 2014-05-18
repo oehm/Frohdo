@@ -18,20 +18,22 @@ public class CharacterPuke : MonoBehaviour
 
     //private
     private Character character_;
+    private Colorable colorable_;
+
 
     private bool pukeInput_;
 
 
     private int ratios_;
-    private string color_;
 
 	// Use this for initialization
-    void Awake()
+    void Start()
     {
-        ratios_ = 0;
-        color_ = "W";
+        character_ = gameObject.GetComponentInChildren<Character>();
+        colorable_ = character_.gameObject.GetComponentInChildren<Colorable>();
 
-        character_ = gameObject.GetComponent<Character>();
+        ratios_ = 0;
+        colorable_.colorString = "W";
 	}
 
 
@@ -48,7 +50,7 @@ public class CharacterPuke : MonoBehaviour
         {
             GameObject pukeObject = (GameObject)Instantiate(pukePrefab_);
 
-            pukeObject.GetComponent<Colorable>().colorString = color_;
+            pukeObject.GetComponent<Colorable>().colorString = colorable_.colorString;
 
             Vector2 pukePos = character_.transform.position;
 
@@ -87,14 +89,16 @@ public class CharacterPuke : MonoBehaviour
             
             if (ratios_ == 0)
             {
-                color_ = "W";
+                colorable_.colorIn("W");
             }
         }
     }
 
     public void AddRatio(string color)
     {
-        color_ = LevelObjectController.Instance.GetMixColor(color_, color);
+        string newColor = LevelObjectController.Instance.GetMixColor(colorable_.colorString, color);
+        colorable_.colorIn(newColor);
+
         ratios_++;
     }
 }

@@ -55,12 +55,12 @@ public class Colorable : MonoBehaviour {
         if (animationTimeCount_ < GlobalVars.Instance.animationTime)
         {
             animationTimeCount_ += Time.deltaTime;
-            gameObject.GetComponent<Renderer>().material.color = Color.Lerp(previousColorObject_, colorObject_, animationTimeCount_ / GlobalVars.Instance.animationTime);
+            gameObject.GetComponentInChildren<Renderer>().material.color = Color.Lerp(previousColorObject_, colorObject_, animationTimeCount_ / GlobalVars.Instance.animationTime);
         }
         else if (animationTimeCount_ > GlobalVars.Instance.animationTime)
         {
             animationTimeCount_ = GlobalVars.Instance.animationTime;
-            gameObject.GetComponent<Renderer>().material.color = colorObject_;
+            gameObject.GetComponentInChildren<Renderer>().material.color = colorObject_;
         }
     }
 }

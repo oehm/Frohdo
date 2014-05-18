@@ -11,18 +11,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e582b7cbe46ab0240867c967f4aad1f9, type: 3}
   m_Name: GlobalVarsInstance
   m_EditorClassIdentifier: 
-  animationTime: 1
+  animationTime: .5
   mainCamerZ: -10
   layerZPos:
-  - -5
-  - -2.5
   - 0
-  - 2.5
-  - 5
+  - 0
+  - -1
+  - -5
   layerParallax:
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: .100000001, y: .00999999978}
   - {x: .5, y: .00999999978}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0}
-  - {x: -.5, y: -.00999999978}
-  playLayer: 2
+  playLayer: 1

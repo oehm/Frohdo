@@ -24,7 +24,7 @@ public class Vanishable : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
     {
-        bool equalBG =  colorable_.colorString.Equals(SceneManager.Instance.background.GetComponent<Colorable>().colorString);
+        bool equalBG =  colorable_.colorString.Equals(SceneManager.Instance.background.GetComponentInChildren<Colorable>().colorString);
 
         if (equalBG != lastFrameEqualBG_)
         {
