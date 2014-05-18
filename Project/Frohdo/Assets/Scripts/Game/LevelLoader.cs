@@ -99,7 +99,6 @@ public class LevelLoader : MonoBehaviour
                     inputController_.character_ = characterObject.GetComponentInChildren<Character>();
 
                     camera_.GetComponent<CameraMovementGame>().character_ = characterObject;
-                    continue;
                 }
                 else
                 {
@@ -115,7 +114,7 @@ public class LevelLoader : MonoBehaviour
 
             if (i < GlobalVars.Instance.playLayer)
             {
-                moveToLayer(layerObject, LayerMask.NameToLayer("Background"));
+                moveToLayer(layerObject, LayerMask.NameToLayer("BackgroundDrawings"));
             }
         }
     }
