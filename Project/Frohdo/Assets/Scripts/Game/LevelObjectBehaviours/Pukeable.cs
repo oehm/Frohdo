@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Pukable : MonoBehaviour {
+public class Pukeable : MonoBehaviour {
 
-    public enum Behaviour { normal, lacquered, funnel };
+    public enum Behaviour { normal, coated, funnel };
 
 
     public Behaviour behaviour_;
@@ -22,7 +22,7 @@ public class Pukable : MonoBehaviour {
                 gameObject.GetComponentInChildren<Renderer>().material = gameObject.GetComponentInChildren<Renderer>().materials[0];
                 break;
 
-            case Behaviour.lacquered:
+            case Behaviour.coated:
                 gameObject.GetComponentInChildren<Renderer>().material = gameObject.GetComponentInChildren<Renderer>().materials[1];
                 break;
 
@@ -47,7 +47,7 @@ public class Pukable : MonoBehaviour {
                 Destroy(puke);
                 break;
 
-            case Behaviour.lacquered:
+            case Behaviour.coated:
                 Destroy(puke);
                 break;
 

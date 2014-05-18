@@ -112,8 +112,6 @@ MonoBehaviour:
   - {fileID: 100000, guid: e82f157502a630849badc4a2fcdb4f16, type: 2}
   - {fileID: 100008, guid: 43744a5644b1d84469ab23682bbc0c87, type: 2}
   - {fileID: 100000, guid: 735d41a4e26cdef4abfaefa20b0544c0, type: 2}
-  character_: {fileID: 100008, guid: 43744a5644b1d84469ab23682bbc0c87, type: 2}
-  characterEditor_: {fileID: 100000, guid: 735d41a4e26cdef4abfaefa20b0544c0, type: 2}
 --- !u!4 &342958979
 Transform:
   m_ObjectHideFlags: 0
