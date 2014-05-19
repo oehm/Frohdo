@@ -19,6 +19,7 @@ public class ForceAspectRatio : MonoBehaviour
     public bool landscapeModeOnly = true;
     static public bool _landscapeModeOnly = true;
     static float wantedAspectRatio;
+    public static Camera CameraMain { get { return cam; } }
     static Camera cam;
     static Camera backgroundCam;
 

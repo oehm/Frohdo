@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using System.Collections;
+using System.Collections.Generic;
 using System;
 
 public class LevelObjectCreator : EditorWindow {
@@ -70,6 +71,19 @@ public class LevelObjectCreator : EditorWindow {
         width_ = EditorGUILayout.IntField("width", width_);
         height_ = EditorGUILayout.IntField("height", height_);
 
+        if (height_ < 1)
+        {
+            height_ = 1;
+        }
+
+        if (width_ < 1)
+        {
+            width_ = 1;
+            hitMat_ = new mArray[width_];
+            hitMat_[0] = new mArray();
+            hitMat_[0].arr = new bool[height_];
+        }
+
         hitMat_ = ResizeArray(hitMat_, new int[] { width_, height_ });
         for (int y = 0; y < height_; y++)
         {
@@ -121,7 +135,6 @@ public class LevelObjectCreator : EditorWindow {
         //apply
         if(GUILayout.Button("apply"))
         {
-            Debug.Log("created: " + name_);
             createLevelObjectPrefab();
 
         }
@@ -132,6 +145,7 @@ public class LevelObjectCreator : EditorWindow {
         if (levelObjectController_ == null)
         {
             Debug.LogError("no levelObjectController set! prefab not created");
+            return;
         }
 
 
@@ -158,6 +172,8 @@ public class LevelObjectCreator : EditorWindow {
         //remove mesh collider and add collider2d (better collider tbd)
         DestroyImmediate(levelObject.GetComponent<Collider>());
         levelObject.AddComponent<BoxCollider2D>();
+
+        createCollider();
 
         //add gridable
         Gridable gridable = levelObject.AddComponent<Gridable>();
@@ -216,6 +232,10 @@ public class LevelObjectCreator : EditorWindow {
 
         DestroyImmediate(levelObject);
         AssetDatabase.Refresh();
+
+
+        Debug.Log("created: " + name_);
+
     }
 
 
@@ -236,5 +256,73 @@ public class LevelObjectCreator : EditorWindow {
                 //arr[i].arr.CopyTo(temp[i].arr, 0);
         }
         return temp;
-    } 
+    }
+
+    private PolygonCollider2D createCollider()
+    {
+        //fill a bool array with the vertices to be set
+        bool[][] bArray = new bool[hitMat_.Length + 1][];
+        for (int x = 0; x < bArray.Length; x++)
+        {
+            bArray[x] = new bool[hitMat_[0].arr.Length + 1];
+            for (int y = 0; y < bArray[x].Length; y++)
+            {
+                bool needsVertice = false;
+
+                if (x > 0)
+                {
+                    if (y > 0)
+                    {
+                        if (hitMat_[x - 1].arr[y - 1]) needsVertice = true;
+                    }
+                    if (y < hitMat_[0].arr.Length - 1)
+                    {
+                        if (hitMat_[x - 1].arr[y + 1]) needsVertice = true;
+                    }
+                }
+
+                if (x < hitMat_.Length - 1)
+                {
+                    if (y > 0)
+                    {
+                        if (hitMat_[x + 1].arr[y - 1]) needsVertice = true;
+                    }
+                    if (y < hitMat_[0].arr.Length - 1)
+                    {
+                        if (hitMat_[x + 1].arr[y + 1]) needsVertice = true;
+                    }
+                }
+
+                bArray[x][y] = needsVertice;
+            }
+        }
+
+
+        List<Vector2> vertices = new List<Vector2>();
+
+        Vector2 p = new Vector2(0, 0);
+        Vector2 s = new Vector2(0, 0);
+        Vector2 dir = new Vector2( 1, 0);
+
+        for (int x = 0; x < bArray.Length && vertices.Count == 0; x++)
+        {
+            for (int y = 0; y < bArray[x].Length; y++)
+            {
+                if (bArray[x][y])
+                {
+                    p = s =  new Vector2(x, y);
+                    vertices.Add(p);
+                    break;
+                }
+            }
+        }
+
+        do
+        {
+
+        } while (!p.Equals(s));
+
+        return null;
+    }
+
 }
