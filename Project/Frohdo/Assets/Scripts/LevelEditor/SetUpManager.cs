@@ -85,6 +85,7 @@ public class SetUpManager : MonoBehaviour
 
             GameObject bg = GameObject.Instantiate(Editor_Grid.Instance.layerBg_pref, new Vector3(0, 0, GlobalVars.Instance.layerZPos[i] + 0.02f), Quaternion.identity) as GameObject;
             bg.transform.localScale = Editor_Grid.Instance.planeSizes[i];
+            bg.GetComponent<Renderer>().material.mainTextureScale =Editor_Grid.Instance.planeSizes[i];
             bg.transform.parent = GameObject.Find("SceneObjects").GetComponentsInChildren<Layer>()[i].transform;
             bg.name = "grid"+i.ToString();
             bg.GetComponent<Renderer>().enabled = false;

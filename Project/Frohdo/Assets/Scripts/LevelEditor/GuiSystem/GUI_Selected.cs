@@ -20,7 +20,6 @@ public class GUI_Selected : GUI_Element {
         {
             _pos = value;
             _rect = new Rect(_pos.x, _pos.y, size.x, size.y);
-            Debug.Log(_rect);
         }
     }//force override of base class
     public new Vector2 size { get;set;}//force override of base class
@@ -42,7 +41,7 @@ public class GUI_Selected : GUI_Element {
     {
         if (!active) return;
         GUILayout.BeginArea(_rect);
-        if (GUILayout.Button("DELETE", skin.button))
+        if (GUILayout.Button("", skin.customStyles[6]))
         {
             manager.deleteObject(obj, layerIdx);
         }
@@ -51,10 +50,9 @@ public class GUI_Selected : GUI_Element {
 
     public void setPos(GameObject obj)
     {
-        Vector2 objPos = Camera.main.WorldToScreenPoint(obj.transform.position);
         Gridable g = obj.GetComponentInChildren<Gridable>();
-        objPos.x += 100;
-        objPos.y = ForceAspectRatio.screenHeight - objPos.y - 100;
+        Vector2 objPos = Camera.main.WorldToScreenPoint(obj.transform.position + new Vector3(g.width/2,g.height/2));
+        objPos.y = ForceAspectRatio.screenHeight - objPos.y;
         pos = objPos;
     }
 }

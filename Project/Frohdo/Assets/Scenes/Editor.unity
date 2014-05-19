@@ -764,7 +764,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   layerPrefab_: {fileID: 100000, guid: 2218c2a3e53b793438920f9023cf31b3, type: 2}
-  layerBgPrefab_: {fileID: 100000, guid: 7b8db41fb9d368142b920715256327ed, type: 2}
+  layerBgPrefab_: {fileID: 100000, guid: 2d1442fe22bac6648aafffdb59af8a3d, type: 2}
   savePath: \\Levels\\Custom\\
   skin: {fileID: 11400000, guid: 483c0d88aa3c78d4e9eb96e1294c9aa7, type: 2}
   stateManager: {fileID: 574217518}
@@ -869,11 +869,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1805751082}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8200875e660d34a43b17b73c44d309b8, type: 3}
+  m_Script: {fileID: 11500000, guid: 4fdc1a41fbe07e14aaec50f7dd2cc902, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _wantedAspectRatio: 1.77777803
-  landscapeModeOnly: 1
 --- !u!124 &1805751085
 Behaviour:
   m_ObjectHideFlags: 0
@@ -959,11 +957,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1920213550}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8200875e660d34a43b17b73c44d309b8, type: 3}
+  m_Script: {fileID: 11500000, guid: 4fdc1a41fbe07e14aaec50f7dd2cc902, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _wantedAspectRatio: 1.77777803
-  landscapeModeOnly: 1
 --- !u!124 &1920213553
 Behaviour:
   m_ObjectHideFlags: 0
