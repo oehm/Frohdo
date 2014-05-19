@@ -10,8 +10,9 @@ public class State_Default : Editor_State {
     public void init()
     {
         manager.colorSelection.active = true;
-        manager.selected.active = false;
+        manager.selectedGui.active = false;
         manager.commands.active = true;
+        manager.objectSelection.markObject(false);
         mousePos = new Vector2(0, 0);
     }
 

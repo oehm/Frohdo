@@ -6,17 +6,21 @@ public class InputController : MonoBehaviour {
     public StateManager stateManager;
     
     private bool leftMouseDown = false;
-    private Vector2 mousePos = new Vector2(0,0);
+    private Vector3 mousePos = new Vector3(0,0,0);
     
 	
 	// Update is called once per frame
 	void Update () 
     {
+        
         bool oldLeftDown = leftMouseDown;
         leftMouseDown = Input.GetMouseButton(0);
-        if (oldLeftDown != leftMouseDown) leftButtonChaged(oldLeftDown, leftMouseDown);
+        if (oldLeftDown != leftMouseDown)
+        {
+            leftButtonChaged(oldLeftDown, leftMouseDown);
+        }
 
-        Vector2 oldMousePos = mousePos;
+        Vector3 oldMousePos = mousePos;
         mousePos = Input.mousePosition;
         if (mousePos != oldMousePos) mouseMove();
 
