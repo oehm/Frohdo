@@ -63,6 +63,7 @@ public class StateManager : MonoBehaviour
             changeState(state);
         }
         curState.update();
+        objectSelection.layerIndex = currentLayer;
     }
 
     public void changeState(Editor_State newState)
@@ -101,6 +102,8 @@ public class StateManager : MonoBehaviour
         
         int? layerIndex = paramter[0] as int?;
         currentLayer = layerIndex.Value;
+
+        objectSelection.layerIndex = layerIndex.Value;
 
         GameObject.Find("grid" + currentLayer.ToString()).GetComponent<Renderer>().enabled = true;
     }
