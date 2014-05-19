@@ -9,7 +9,7 @@ public class StateManager : MonoBehaviour
     public GUI_ObjectSelection objectSelection;
     public GUI_SaveAndPreview saveAndPreview;
     public GUI_Commands commands;
-    public GUI_Selected selected;
+    public GUI_Selected selectedGui;
     public GUI_LayerSelect layerSelect;
 
     public string currentColor;
@@ -56,6 +56,12 @@ public class StateManager : MonoBehaviour
         }
         saveAndPreview.active = conditionCharacterSet.isFullfilled;
         objectSelection.showCharacter((!conditionCharacterSet.isFullfilled && currentLayer == GlobalVars.Instance.playLayer) );
+        if(conditionCharacterSet.isFullfilled && currentGameObject.name == "Character")
+        {
+            State_Default state = new State_Default();
+            state.manager = this;
+            changeState(state);
+        }
         curState.update();
     }
 

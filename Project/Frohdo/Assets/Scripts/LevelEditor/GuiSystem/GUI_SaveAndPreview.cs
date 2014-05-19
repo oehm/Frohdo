@@ -24,6 +24,7 @@ public class GUI_SaveAndPreview : GUI_Element
         if (GUILayout.Button("PREV", skin.button))
         {
             LevelEditorParser.Instance.levelName = "TEST";
+            LevelEditorParser.Instance.saveLevel();
             SceneManager.Instance.loadScene(SceneManager.Scene.Game);
         }
         GUILayout.EndHorizontal();
