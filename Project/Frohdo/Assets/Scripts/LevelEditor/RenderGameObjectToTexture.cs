@@ -7,11 +7,16 @@ public class RenderGameObjectToTexture : MonoBehaviour
 
     private Vector3 targetPos;
 
+    void Start()
+    {
+        renderCam.transparencySortMode = TransparencySortMode.Orthographic;
+    }
+
     public Texture renderGameObjectToTexture(GameObject obj, int width, int height, string color)
     {
-        targetPos = renderCam.transform.localPosition + new Vector3(0, 0, 5);
+        targetPos = renderCam.transform.localPosition + new Vector3(0, 0, -5);
         GameObject toRender = Instantiate(obj, targetPos, Quaternion.identity) as GameObject;
-        //toRender.transform.localRotation = Quaternion.AngleAxis(180.0f, Vector3.up);
+        toRender.transform.localRotation = Quaternion.AngleAxis(180.0f, Vector3.up);
         if (color != null)
         {
             Colorable colorable = toRender.GetComponentInChildren<Colorable>();
@@ -21,6 +26,11 @@ public class RenderGameObjectToTexture : MonoBehaviour
             }
         }
 
+        renderCam.clearFlags = CameraClearFlags.Color;
+        renderCam.backgroundColor = new Color(1, 1, 1, 0);
+
+        renderCam.DoClear();
+        
         RenderTexture renderTex = new RenderTexture(width, height, 16);
         Texture2D tex2D = new Texture2D(width, height);
 
@@ -38,7 +48,7 @@ public class RenderGameObjectToTexture : MonoBehaviour
         renderCam.targetTexture = null;
 
 
-        //DestroyImmediate(toRender);
+        DestroyImmediate(toRender);
         return tex2D;
     }
 }

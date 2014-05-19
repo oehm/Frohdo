@@ -18,6 +18,8 @@ public class GUI_Controller_Editor : MonoBehaviour
     public Vector2 bg;
     public Vector2 objSelection;
     public Vector2 objSelectionSize;
+    public Vector2 saveAndP;
+    public Vector2 saveAndPSize;
 
 
     public List<GUI_ContentColor> colorButtons;
@@ -64,8 +66,10 @@ public class GUI_Controller_Editor : MonoBehaviour
 
     private void InitGUI()
     {
-        gui_save = new GUI_SaveAndPreview(new Vector2(0, 0), new Vector2(150, 50), skin);
+        gui_save = new GUI_SaveAndPreview(saveAndP, saveAndPSize, skin);
         gui_save.active = false;
+        gui_save.parentRect = topRect;
+        stateManager.saveAndPreview = gui_save;
         addGui(gui_save);
 
         gui_selected = new GUI_Selected(new Vector2(ForceAspectRatio.screenWidth, 0), new Vector2(100, 100), skin);
@@ -174,6 +178,7 @@ public class GUI_Controller_Editor : MonoBehaviour
         leftRect = new Rect(ForceAspectRatio.xOffset, ForceAspectRatio.yOffset + 80, 300, ForceAspectRatio.screenHeight - 80);
 
 
+        gui_objectSelect.parentRect = leftRect;
         foreach (GUI_Element g in guiList)
         {
             //g.resize(ForceAspectRatio.screenRect);

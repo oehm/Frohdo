@@ -31,7 +31,9 @@ public class GUI_ObjectSelection : GUI_Element
     {
         if (!active) return;
         GUILayout.BeginArea(_rect);
-        scrollPos = GUILayout.BeginScrollView(scrollPos, skin.scrollView);
+
+        scrollPos = GUILayout.BeginScrollView(scrollPos, false, false);
+        //scrollPos = GUILayout.BeginScrollView(scrollPos, false, false, new GUIStyle(), new GUIStyle());
         {
             int xCount = 0;
             GUILayout.BeginHorizontal("");
@@ -40,7 +42,7 @@ public class GUI_ObjectSelection : GUI_Element
                 xCount++;
                 if (character == toMark && showMarked)
                 {
-                    if (GUILayout.Button(character.content, skin.customStyles[4]))
+                    if (GUILayout.Button(character.content, skin.customStyles[5]))
                     {
                         character.func(character.prefab);
                     }
@@ -65,7 +67,7 @@ public class GUI_ObjectSelection : GUI_Element
                 xCount++;
                 if (showMarked && g == toMark)
                 {
-                    if (GUILayout.Button(g.content, skin.customStyles[4]))
+                    if (GUILayout.Button(g.content, skin.customStyles[5]))
                     {
                         g.func(g.prefab);
                     }

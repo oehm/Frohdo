@@ -105,7 +105,7 @@ MonoBehaviour:
     m_Margin:
       m_Left: 4
       m_Right: 4
-      m_Top: 10
+      m_Top: 15
       m_Bottom: 0
     m_Padding:
       m_Left: 0
@@ -546,7 +546,7 @@ MonoBehaviour:
   m_verticalSlider:
     m_Name: verticalslider
     m_Normal:
-      m_Background: {fileID: 11021, guid: 0000000000000000e000000000000000, type: 0}
+      m_Background: {fileID: 0}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Hover:
       m_Background: {fileID: 0}
@@ -605,7 +605,7 @@ MonoBehaviour:
   m_verticalSliderThumb:
     m_Name: verticalsliderthumb
     m_Normal:
-      m_Background: {fileID: 11011, guid: 0000000000000000e000000000000000, type: 0}
+      m_Background: {fileID: 0}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Hover:
       m_Background: {fileID: 11012, guid: 0000000000000000e000000000000000, type: 0}
@@ -664,7 +664,7 @@ MonoBehaviour:
   m_horizontalScrollbar:
     m_Name: horizontalscrollbar
     m_Normal:
-      m_Background: {fileID: 11008, guid: 0000000000000000e000000000000000, type: 0}
+      m_Background: {fileID: 0}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Hover:
       m_Background: {fileID: 0}
@@ -723,7 +723,7 @@ MonoBehaviour:
   m_horizontalScrollbarThumb:
     m_Name: horizontalscrollbarthumb
     m_Normal:
-      m_Background: {fileID: 11007, guid: 0000000000000000e000000000000000, type: 0}
+      m_Background: {fileID: 0}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Hover:
       m_Background: {fileID: 0}
@@ -900,7 +900,7 @@ MonoBehaviour:
   m_verticalScrollbar:
     m_Name: verticalscrollbar
     m_Normal:
-      m_Background: {fileID: 11020, guid: 0000000000000000e000000000000000, type: 0}
+      m_Background: {fileID: 0}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Hover:
       m_Background: {fileID: 0}
@@ -927,7 +927,7 @@ MonoBehaviour:
       m_Left: 0
       m_Right: 0
       m_Top: 9
-      m_Bottom: 9
+      m_Bottom: 0
     m_Margin:
       m_Left: 1
       m_Right: 4
@@ -959,7 +959,7 @@ MonoBehaviour:
   m_verticalScrollbarThumb:
     m_Name: verticalscrollbarthumb
     m_Normal:
-      m_Background: {fileID: 11019, guid: 0000000000000000e000000000000000, type: 0}
+      m_Background: {fileID: 0}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Hover:
       m_Background: {fileID: 0}
@@ -1136,7 +1136,7 @@ MonoBehaviour:
   m_ScrollView:
     m_Name: scrollview
     m_Normal:
-      m_Background: {fileID: 2800000, guid: ecd5223ea9adc483fa7865723e94b2c4, type: 3}
+      m_Background: {fileID: 0}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Hover:
       m_Background: {fileID: 0}
@@ -1160,17 +1160,17 @@ MonoBehaviour:
       m_Background: {fileID: 0}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Border:
-      m_Left: 10
-      m_Right: 10
-      m_Top: 10
-      m_Bottom: 10
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
     m_Margin:
-      m_Left: 6
-      m_Right: 6
-      m_Top: 12
-      m_Bottom: 20
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
     m_Padding:
-      m_Left: 8
+      m_Left: 0
       m_Right: 0
       m_Top: 0
       m_Bottom: 0
@@ -1456,6 +1456,64 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Margin:
+      m_Left: 1
+      m_Right: 1
+      m_Top: 1
+      m_Bottom: 1
+    m_Padding:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    m_Overflow:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    m_Font: {fileID: 12800000, guid: 14e59639e917f2a44b9e6396134adda0, type: 3}
+    m_FontSize: 21
+    m_FontStyle: 0
+    m_Alignment: 4
+    m_WordWrap: 0
+    m_RichText: 0
+    m_TextClipping: 0
+    m_ImagePosition: 0
+    m_ContentOffset: {x: 0, y: 0}
+    m_FixedWidth: 140
+    m_FixedHeight: 140
+    m_StretchWidth: 0
+    m_StretchHeight: 0
+  - m_Name: objToMark
+    m_Normal:
+      m_Background: {fileID: 2800000, guid: 755794653a9e7574cb7692137f4493e2, type: 3}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_Hover:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 0}
+    m_Active:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 0}
+    m_Focused:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 0}
+    m_OnNormal:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 0}
+    m_OnHover:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 0}
+    m_OnActive:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 0}
+    m_OnFocused:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 0}
+    m_Border:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    m_Margin:
       m_Left: 0
       m_Right: 0
       m_Top: 0
@@ -1479,8 +1537,8 @@ MonoBehaviour:
     m_TextClipping: 0
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 120
-    m_FixedHeight: 120
+    m_FixedWidth: 150
+    m_FixedHeight: 150
     m_StretchWidth: 0
     m_StretchHeight: 0
   m_Settings:
