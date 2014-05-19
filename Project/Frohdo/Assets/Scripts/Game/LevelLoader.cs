@@ -107,7 +107,7 @@ public class LevelLoader : MonoBehaviour
                     InsertObject command = new InsertObject();
                     LevelObjectXML l = new LevelObjectXML();
                     l.color = "";
-                    l.name = "CharacterEditor";
+                    l.name = "Character";
                     l.pos = characterXML.pos;
                     command.setUpCommand(l, layerObject.GetComponentInChildren<Layer>(), i);
                     EditCommandManager.Instance.executeCommand(command);

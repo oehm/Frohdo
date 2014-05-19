@@ -131,6 +131,8 @@ public class GUI_Controller_Editor : MonoBehaviour
 
             for (int o = 0; o < LevelObjectController.Instance.levelObjectPrefabs_.Count; o++)
             {
+                if (LevelObjectController.Instance.levelObjectPrefabs_[o].name == "Character") continue;
+                
                 GUIContent curCont = new GUIContent(renderToTexture.renderGameObjectToTexture(LevelObjectController.Instance.levelObjectPrefabs_[o], 256, 256, colors[i]), LevelObjectController.Instance.levelObjectPrefabs_[o].name);
                 GUI_ContentObject contObj = new GUI_ContentObject();
                 contObj.content = curCont;
@@ -226,7 +228,7 @@ public class GUI_Controller_Editor : MonoBehaviour
 
     public GUIContent getContent(GameObject obj, string color)
     {
-        if (obj.name == "CharacterEditor")
+        if (obj.name == "Character")
         {
             return character.content;
         }

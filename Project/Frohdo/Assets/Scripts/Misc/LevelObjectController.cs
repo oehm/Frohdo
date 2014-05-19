@@ -79,7 +79,9 @@ public class LevelObjectController : MonoBehaviour
             {
                 if (editor && gridable.editorVersion != null)
                 {
-                    return gridable.editorVersion;
+                    GameObject character = gridable.editorVersion;
+                    character.name = levelObjectPrefab.name;
+                    return character;
                 }
 
                 return levelObjectPrefab;
