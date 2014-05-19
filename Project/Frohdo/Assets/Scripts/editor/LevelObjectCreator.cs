@@ -11,13 +11,15 @@ public class LevelObjectCreator : EditorWindow {
         EditorWindow.GetWindow(typeof(LevelObjectCreator));
     }
 
-    public GameObject emptyLevelObject_;
+    //environment settings
+    private LevelObjectController levelObjectController_;
 
     //default values for convinience, values are not saved when window closes
 
     //general
     private string name_ = "";
     private Texture2D texture_;
+    private int physLayer_ = LayerMask.NameToLayer("Solids");
 
     //gridable
     private int height_ = 0;
@@ -52,11 +54,16 @@ public class LevelObjectCreator : EditorWindow {
 
     void OnGUI()
     {
+        //environment settings
+        GUILayout.Label("environment settings", EditorStyles.boldLabel);
+        levelObjectController_ = (LevelObjectController)EditorGUILayout.ObjectField("levelObjectController", levelObjectController_, typeof(LevelObjectController), true);
+
         //general
         GUILayout.Label("general", EditorStyles.boldLabel);
         name_ = EditorGUILayout.TextField("Name", name_);
         texture_ = (Texture2D)EditorGUILayout.ObjectField("texture", texture_, typeof(Texture2D), false);
-        
+        physLayer_ = EditorGUILayout.LayerField("physic layer", physLayer_);
+
 
         //gridable
         GUILayout.Label("gridable", EditorStyles.boldLabel);
@@ -86,19 +93,18 @@ public class LevelObjectCreator : EditorWindow {
 
         //colorable
         isColorable_ = EditorGUILayout.BeginToggleGroup("colorable", isColorable_);
-        color_ = EditorGUILayout.TextField("color", color_);
+            color_ = EditorGUILayout.TextField("color", color_);
 
-        //coatable
-        isCoatable_ = EditorGUILayout.Toggle("coatable", isCoatable_);
+            //coatable
+            isCoatable_ = EditorGUILayout.Toggle("coatable", isCoatable_);
 
-        //vanishable
-        isVanishable_ = EditorGUILayout.Toggle("vanishable", isVanishable_);
+            //vanishable
+            isVanishable_ = EditorGUILayout.Toggle("vanishable", isVanishable_);
 
-
-        //pukable
-        isPukeable_ = EditorGUILayout.BeginToggleGroup("pukable", isPukeable_);
-        pukeBehaviour_ = (Pukeable.Behaviour)EditorGUILayout.EnumPopup("behaviour", pukeBehaviour_);
-        EditorGUILayout.EndToggleGroup();
+            //pukable
+            isPukeable_ = EditorGUILayout.BeginToggleGroup("pukable", isPukeable_);
+                pukeBehaviour_ = (Pukeable.Behaviour)EditorGUILayout.EnumPopup("behaviour", pukeBehaviour_);
+            EditorGUILayout.EndToggleGroup();
 
         EditorGUILayout.EndToggleGroup();
 
@@ -112,11 +118,10 @@ public class LevelObjectCreator : EditorWindow {
         useBehaviour_ = (Usable.Behaviour)EditorGUILayout.EnumPopup("behaviour", useBehaviour_);
         EditorGUILayout.EndToggleGroup();
 
-
         //apply
         if(GUILayout.Button("apply"))
         {
-            Debug.Log("apllied: " + name_);
+            Debug.Log("created: " + name_);
             createLevelObjectPrefab();
 
         }
@@ -124,12 +129,93 @@ public class LevelObjectCreator : EditorWindow {
     }
 
     private void createLevelObjectPrefab(){
-        //GameObject levelObject = editorVersion_;//new GameObject();//GameObject.Instantiate(emptyLevelObject_) as GameObject;
+        if (levelObjectController_ == null)
+        {
+            Debug.LogError("no levelObjectController set! prefab not created");
+        }
 
 
+        GameObject levelObject = GameObject.CreatePrimitive(PrimitiveType.Quad);//new GameObject(name_);//GameObject.Instantiate(emptyLevelObject_) as GameObject;
 
-        //UnityEngine.Object prefab = PrefabUtility.CreateEmptyPrefab("Assets/Prefabs/LevelObjects/Test/" + name_ + ".prefab");
-        //PrefabUtility.ReplacePrefab(levelObject, prefab, ReplacePrefabOptions.ConnectToPrefab);
+//add components and set stuff
+
+
+//general
+        //create new material and put it on there
+        Material newMaterial = new Material(Shader.Find("Transparent/Diffuse"));
+        newMaterial.SetTexture("_MainTex", texture_);
+        AssetDatabase.CreateAsset(newMaterial, "Assets/Prefabs/LevelObjects/Test/Materials/" + name_ + ".mat");
+        levelObject.GetComponent<MeshRenderer>().material = newMaterial;
+
+        //set physLayer and tag
+        levelObject.layer = physLayer_;
+        levelObject.tag = "LevelObject";
+
+//gridable
+        //set scale
+        levelObject.transform.localScale = new Vector3(width_, height_, 1.0f);
+
+        //remove mesh collider and add collider2d (better collider tbd)
+        DestroyImmediate(levelObject.GetComponent<Collider>());
+        levelObject.AddComponent<BoxCollider2D>();
+
+        //add gridable
+        Gridable gridable = levelObject.AddComponent<Gridable>();
+        gridable.width = width_;
+        gridable.height = height_;
+        gridable.hitMat = hitMat_;
+        gridable.editorVersion = editorVersion_;
+        gridable.availableInLayer = availableInLayer_;
+
+//colorable
+        if (isColorable_)
+        {
+            //add colorable
+            Colorable colorable = levelObject.AddComponent<Colorable>();
+            colorable.setColorStringUnityEditor(color_, levelObjectController_);
+
+            //add coatable
+            if (isCoatable_)
+            {
+                levelObject.AddComponent<Coatable>();
+            }
+
+            //add vanishable
+            if (isVanishable_)
+            {
+                levelObject.AddComponent<Vanishable>();
+            }
+        }
+
+//pukable
+        if (isPukeable_)
+        {
+            Pukeable pukeable = levelObject.AddComponent<Pukeable>();
+            pukeable.behaviour_ = pukeBehaviour_;
+        }
+
+//collectable
+        if (isCollectable_)
+        {
+            Collectable collectable = levelObject.AddComponent<Collectable>();
+            collectable.behaviour_ = collectBehaviour_;
+        }
+
+//usable
+        if (isUsableable_)
+        {
+            Usable usable = levelObject.AddComponent<Usable>();
+            usable.behaviour_ = useBehaviour_;
+        }
+
+
+        GameObject prefab = PrefabUtility.CreatePrefab("Assets/Prefabs/LevelObjects/Test/" + name_ + ".prefab", levelObject, ReplacePrefabOptions.ConnectToPrefab) as GameObject;
+
+        levelObjectController_.levelObjectPrefabs_.Add(prefab);
+        EditorUtility.SetDirty(levelObjectController_);
+
+        DestroyImmediate(levelObject);
+        AssetDatabase.Refresh();
     }
 
 

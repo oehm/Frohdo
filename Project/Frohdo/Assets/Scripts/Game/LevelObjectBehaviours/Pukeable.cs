@@ -14,30 +14,6 @@ public class Pukeable : MonoBehaviour {
 
     }
 
-    public void setBehaviour(Behaviour behaviour)
-    {
-        switch (behaviour_)
-        {
-            case Behaviour.normal:
-                gameObject.GetComponentInChildren<Renderer>().material = gameObject.GetComponentInChildren<Renderer>().materials[0];
-                break;
-
-            case Behaviour.coated:
-                gameObject.GetComponentInChildren<Renderer>().material = gameObject.GetComponentInChildren<Renderer>().materials[1];
-                break;
-
-            case Behaviour.funnel:
-                gameObject.GetComponentInChildren<Renderer>().material = gameObject.GetComponentInChildren<Renderer>().materials[0];
-                break;
-
-            default:
-
-                break;
-        }
-
-        behaviour_ = behaviour;
-    }
-
     public void recievePuke(string color, GameObject puke)
     {
         switch (behaviour_)
