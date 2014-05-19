@@ -44,7 +44,8 @@ public class LevelLoader : MonoBehaviour
 
         if (editor)
         {
-            Editor_Grid.Instance.initGrid(levelXML.size.Vector2);
+            Editor_Grid.Instance.initGrid(new Vector2(30,50));
+            //Editor_Grid.Instance.initGrid(levelXML.size.Vector2);
             StateManager manager = GameObject.Find("SceneController").GetComponentInChildren<StateManager>() as StateManager;
         }
         for (int i = 0; i < levelXML.layers.Count; i++)

@@ -51,7 +51,9 @@ public class GUI_Controller_Editor : MonoBehaviour
         gui_commands = new GUI_Commands(Vector2.zero, Vector2.zero, skin);
         stateManager.commands = gui_commands;
         gui_selected = new GUI_Selected(Vector2.zero, Vector2.zero, skin);
-        stateManager.selected = gui_selected;
+        stateManager.selectedGui = gui_selected;
+        gui_objectSelect = new GUI_ObjectSelection(Vector2.zero, Vector2.zero, skin);
+        stateManager.objectSelection = gui_objectSelect;
     }
 
     void Start()
@@ -72,9 +74,10 @@ public class GUI_Controller_Editor : MonoBehaviour
         stateManager.saveAndPreview = gui_save;
         addGui(gui_save);
 
-        gui_selected = new GUI_Selected(new Vector2(ForceAspectRatio.screenWidth, 0), new Vector2(100, 100), skin);
+        gui_selected = new GUI_Selected(new Vector2(0, 0), new Vector2(100, 100), skin);
         gui_selected.active = false;
-        addGui(gui_selected);
+        gui_selected.manager = stateManager;
+        stateManager.selectedGui = gui_selected;
 
         gui_commands = new GUI_Commands(Commands, commandsSize, skin);
         gui_commands.active = true;
@@ -116,12 +119,13 @@ public class GUI_Controller_Editor : MonoBehaviour
         string[] colors = LevelObjectController.Instance.getColors();
         gui_LevelObjects = new List<GUI_ContentObject>[colors.Length];
 
-        Debug.Log(GlobalVars.Instance.playLayer);
         GUIContent characterGuiCont = new GUIContent(renderToTexture.renderGameObjectToTexture(LevelObjectController.Instance.GetPrefabByName("Character", GlobalVars.Instance.playLayer, true), 256, 256, ""), LevelObjectController.Instance.GetPrefabByName("Character", GlobalVars.Instance.playLayer, true).name);
         GUI_ContentObject charactercont = new GUI_ContentObject();
         charactercont.content = characterGuiCont;
         charactercont.func = stateManager.updateObject;
         charactercont.prefab = LevelObjectController.Instance.GetPrefabByName("Character", GlobalVars.Instance.playLayer, true);
+        Gridable[] g = charactercont.prefab.GetComponentsInChildren<Gridable>(true);
+        charactercont.layerMat = g[0].availableInLayer;
         gui_objectSelect.character = charactercont;
         character = charactercont;
 
@@ -136,6 +140,8 @@ public class GUI_Controller_Editor : MonoBehaviour
                 GUIContent curCont = new GUIContent(renderToTexture.renderGameObjectToTexture(LevelObjectController.Instance.levelObjectPrefabs_[o], 256, 256, colors[i]), LevelObjectController.Instance.levelObjectPrefabs_[o].name);
                 GUI_ContentObject contObj = new GUI_ContentObject();
                 contObj.content = curCont;
+                Gridable[] go = LevelObjectController.Instance.levelObjectPrefabs_[o].GetComponentsInChildren<Gridable>(true);
+                contObj.layerMat = go[0].availableInLayer;
                 contObj.func = stateManager.updateObject;
                 contObj.prefab = LevelObjectController.Instance.levelObjectPrefabs_[o];
                 gui_LevelObjects[i].Add(contObj);
@@ -180,7 +186,6 @@ public class GUI_Controller_Editor : MonoBehaviour
 
         leftRect = new Rect(ForceAspectRatio.xOffset, ForceAspectRatio.yOffset + 80, 300, ForceAspectRatio.screenHeight - 80);
 
-
         gui_objectSelect.parentRect = leftRect;
         foreach (GUI_Element g in guiList)
         {
@@ -199,6 +204,7 @@ public class GUI_Controller_Editor : MonoBehaviour
         GUILayout.BeginArea(leftRect, skin.customStyles[3]);
         gui_objectSelect.Draw();
         GUILayout.EndArea();
+        gui_selected.Draw();
     }
 
     public void addGui(GUI_Element gui)
@@ -214,8 +220,12 @@ public class GUI_Controller_Editor : MonoBehaviour
     public bool mouseOnGui(Vector2 pos)
     {
         bool mOnGui = false;
-        Vector2 invertedPos = new Vector2(pos.x, ForceAspectRatio.screenHeight - pos.y + ForceAspectRatio.yOffset);
-        if (gui_objectSelect.mouseOnGui(pos))
+        Vector2 invertedPos = new Vector2(pos.x, ForceAspectRatio.screenHeight - pos.y - ForceAspectRatio.yOffset);
+        if (gui_objectSelect.mouseOnGui(invertedPos))
+        {
+            return true;
+        }
+        if (gui_selected.mouseOnGui(invertedPos))
         {
             return true;
         }

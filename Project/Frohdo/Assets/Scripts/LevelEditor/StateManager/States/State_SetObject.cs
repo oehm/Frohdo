@@ -11,7 +11,7 @@ public class State_SetObject : Editor_State {
     public void init()
     {
         manager.colorSelection.active = true;
-        manager.selected.active = false;
+        manager.selectedGui.active = false;
         manager.commands.active = true;
         manager.objectSelection.changeColor(manager.currentColor);
         manager.objectSelection.markObject(true);
@@ -43,7 +43,13 @@ public class State_SetObject : Editor_State {
         }
 
 
-        if (manager.guiController.mouseOnGui(mousePos) ) return;
+        if (manager.guiController.mouseOnGui(mousePos))
+        {
+            State_Default newState = new State_Default();
+            newState.manager = manager;
+            manager.changeState(newState);
+            return;
+        }
         Gridable grid = manager.currentGameObject.GetComponent<Gridable>();
         Layer layer = manager.layers[manager.currentLayer].GetComponent<Layer>();
         objToSet = layer.AddLevelObjectByName(manager.currentGameObject.name, manager.currentColor, EditorHelper.getLocalObjectPosition(mousePos, layer.gameObject, grid), manager.currentLayer, true);
