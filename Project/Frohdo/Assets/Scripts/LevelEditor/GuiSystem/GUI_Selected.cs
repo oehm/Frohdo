@@ -52,7 +52,7 @@ public class GUI_Selected : GUI_Element {
     {
         Gridable g = obj.GetComponentInChildren<Gridable>();
         Vector2 objPos = Camera.main.WorldToScreenPoint(obj.transform.position + new Vector3(g.width/2,g.height/2));
-        objPos.y = ForceAspectRatio.screenHeight - objPos.y;
-        pos = objPos;
+        objPos.y = ForceAspectRatio.screenHeight - objPos.y + ForceAspectRatio.yOffset*2;
+        pos = new  Vector2(objPos.x,objPos.y);
     }
 }

@@ -219,7 +219,6 @@ public class GUI_Controller_Editor : MonoBehaviour
 
     public bool mouseOnGui(Vector2 pos)
     {
-        Debug.Log(pos);
         bool mOnGui = false;
         Vector2 invertedPos = new Vector2(pos.x - ForceAspectRatio.xOffset, ForceAspectRatio.screenHeight - pos.y + ForceAspectRatio.yOffset);
         if (gui_objectSelect.mouseOnGui(invertedPos))
