@@ -255,7 +255,7 @@ MonoBehaviour:
   renderToTexture: {fileID: 1512534629}
   colorsp: {x: .519999981, y: 0}
   colorsSize: {x: .409999996, y: 1}
-  Commands: {x: .0199999996, y: 0}
+  Commands: {x: .0199999996, y: .100000001}
   commandsSize: {x: .25999999, y: 1}
   layer: {x: .280000001, y: 0}
   layerSize: {x: .270000011, y: 1}
