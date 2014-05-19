@@ -10,6 +10,7 @@ public class Colorable : MonoBehaviour {
         {
             try
             {
+
                 colorObject_ = LevelObjectController.Instance.GetColor(value);
             }
             catch
@@ -22,7 +23,23 @@ public class Colorable : MonoBehaviour {
         }
     }
 
-    private string color_;
+    public void setColorStringUnityEditor(string color, LevelObjectController levelObjectController)
+    {
+        try
+        {
+
+            colorObject_ = levelObjectController.GetColor(color);
+        }
+        catch
+        {
+            Debug.Log("LevelObject can not be coloured in: " + color);
+            return;
+        }
+        gameObject.GetComponentInChildren<Renderer>().sharedMaterials[0].color = colorObject_;
+        color_ = color;
+    }
+
+    public string color_;
     private Color colorObject_;
 
     private Color previousColorObject_;
@@ -30,6 +47,8 @@ public class Colorable : MonoBehaviour {
 
     public void Start()
     {
+        colorString = color_;
+
         animationTimeCount_ = GlobalVars.Instance.animationTime;
     }
 

@@ -60,7 +60,6 @@ public class SetUpManager : MonoBehaviour
         return c;
     }
 
-
     private void setUpEmpyScene()
     {
         Editor_Grid.Instance.initGrid(levelSize);

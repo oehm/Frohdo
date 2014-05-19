@@ -117,11 +117,12 @@ public class GUI_Controller_Editor : MonoBehaviour
         string[] colors = LevelObjectController.Instance.getColors();
         gui_LevelObjects = new List<GUI_ContentObject>[colors.Length];
 
-        GUIContent characterGuiCont = new GUIContent(renderToTexture.renderGameObjectToTexture(LevelObjectController.Instance.getCharacter(true), 256, 256, ""), LevelObjectController.Instance.getCharacter(true).name);
+        Debug.Log(GlobalVars.Instance.playLayer);
+        GUIContent characterGuiCont = new GUIContent(renderToTexture.renderGameObjectToTexture(LevelObjectController.Instance.GetPrefabByName("Character", GlobalVars.Instance.playLayer, true), 256, 256, ""), LevelObjectController.Instance.GetPrefabByName("Character", GlobalVars.Instance.playLayer, true).name);
         GUI_ContentObject charactercont = new GUI_ContentObject();
         charactercont.content = characterGuiCont;
         charactercont.func = stateManager.updateObject;
-        charactercont.prefab = LevelObjectController.Instance.getCharacter(true);
+        charactercont.prefab = LevelObjectController.Instance.GetPrefabByName("Character", GlobalVars.Instance.playLayer, true);
         gui_objectSelect.character = charactercont;
         character = charactercont;
 
@@ -131,6 +132,8 @@ public class GUI_Controller_Editor : MonoBehaviour
 
             for (int o = 0; o < LevelObjectController.Instance.levelObjectPrefabs_.Count; o++)
             {
+                if (LevelObjectController.Instance.levelObjectPrefabs_[o].name == "Character") continue;
+                
                 GUIContent curCont = new GUIContent(renderToTexture.renderGameObjectToTexture(LevelObjectController.Instance.levelObjectPrefabs_[o], 256, 256, colors[i]), LevelObjectController.Instance.levelObjectPrefabs_[o].name);
                 GUI_ContentObject contObj = new GUI_ContentObject();
                 contObj.content = curCont;
@@ -230,7 +233,7 @@ public class GUI_Controller_Editor : MonoBehaviour
 
     public GUIContent getContent(GameObject obj, string color)
     {
-        if (obj.name == "CharacterEditor")
+        if (obj.name == "Character")
         {
             return character.content;
         }

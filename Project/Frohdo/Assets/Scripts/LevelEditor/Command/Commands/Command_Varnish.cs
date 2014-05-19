@@ -12,19 +12,19 @@ public class VarnishObj : Command {
         
     public bool exectute()
     {
-        Varnishable v = toVarnish.GetComponent<Varnishable>();      
+        Coatable v = toVarnish.GetComponent<Coatable>();      
         if(v == null)
         {
             return false;
         }
-        v.varnish();
+        v.coat();
         return true;
     }
     
     public void undo()
     {
-        Varnishable v = toVarnish.GetComponent<Varnishable>();
-        v.unvarnish();      
+        Coatable v = toVarnish.GetComponent<Coatable>();
+        v.uncoat();      
     }
     
     public void redo()

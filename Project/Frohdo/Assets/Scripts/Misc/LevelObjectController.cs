@@ -74,12 +74,14 @@ public class LevelObjectController : MonoBehaviour
             Gridable[] gridables = levelObjectPrefab.GetComponentsInChildren<Gridable>(true);
             //i assume here that every level object has only 1 gridable attached
             Gridable gridable = gridables[0];
-            
+
             if (levelObjectPrefab.name.Equals(name) && gridable.availableInLayer[layer])
             {
                 if (editor && gridable.editorVersion != null)
                 {
-                    return gridable.editorVersion;
+                    GameObject character = gridable.editorVersion;
+                    character.name = levelObjectPrefab.name;
+                    return character;
                 }
 
                 return levelObjectPrefab;

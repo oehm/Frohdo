@@ -15,7 +15,7 @@ public class SCondition_Varnishable : SCondition
         }
         else
         {
-            Varnishable v =  selectedObject.GetComponentInChildren<Varnishable>();
+            Coatable v =  selectedObject.GetComponentInChildren<Coatable>();
             if (v != null)
             {
                 isFullfilled = true;
