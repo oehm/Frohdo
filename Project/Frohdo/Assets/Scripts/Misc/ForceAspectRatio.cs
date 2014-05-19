@@ -100,7 +100,7 @@ public class ForceAspectRatio : MonoBehaviour
         if (!backgroundCam) {
             // Make a new camera behind the normal camera which displays black; otherwise the unused space is undefined
             backgroundCam = new GameObject("BackgroundCam", typeof(Camera)).camera;
-            backgroundCam.depth = int.MinValue;
+            backgroundCam.depth = -3;
             // backgroundCam.clearFlags = CameraClearFlags.SolidColor;
             backgroundCam.clearFlags = CameraClearFlags.Skybox;
             backgroundCam.backgroundColor = Color.black;

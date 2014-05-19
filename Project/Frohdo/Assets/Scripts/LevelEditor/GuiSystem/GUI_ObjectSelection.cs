@@ -30,9 +30,10 @@ public class GUI_ObjectSelection : GUI_Element
     public override void Draw()
     {
         if (!active) return;
-        _rect.height = ForceAspectRatio.screenHeight;
         GUILayout.BeginArea(_rect);
-        scrollPos = GUILayout.BeginScrollView(scrollPos, skin.scrollView);
+
+        scrollPos = GUILayout.BeginScrollView(scrollPos, false, false);
+        //scrollPos = GUILayout.BeginScrollView(scrollPos, false, false, new GUIStyle(), new GUIStyle());
         {
             int xCount = 0;
             GUILayout.BeginHorizontal("");
@@ -48,7 +49,7 @@ public class GUI_ObjectSelection : GUI_Element
                 }
                 else
                 {
-                    if (GUILayout.Button(character.content, skin.customStyles[0]))
+                    if (GUILayout.Button(character.content, skin.customStyles[4]))
                     {
                         character.func(character.prefab);
                         toMark = character;
@@ -73,7 +74,7 @@ public class GUI_ObjectSelection : GUI_Element
                 }
                 else
                 {
-                    if (GUILayout.Button(g.content, skin.customStyles[0]))
+                    if (GUILayout.Button(g.content, skin.customStyles[4]))
                     {
                         g.func(g.prefab);
                         toMark = g;
@@ -105,12 +106,6 @@ public class GUI_ObjectSelection : GUI_Element
     public void showCharacter(bool show)
     {
         showCharacter_ = show;
-    }
-
-    public override void resize(Rect screenRect)
-    {
-        base.resize(screenRect);
-        _rect.x = ForceAspectRatio.xOffset;
     }
 
     public void markObject(bool show)

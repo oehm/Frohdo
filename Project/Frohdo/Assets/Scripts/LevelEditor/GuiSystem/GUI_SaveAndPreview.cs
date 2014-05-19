@@ -14,21 +14,19 @@ public class GUI_SaveAndPreview : GUI_Element
     public override void Draw()
     {
         if (!active) return;
-        _rect = GUILayout.Window(2, _rect, windowFunc, "",skin.customStyles[9]);
-    }
-
-    private void windowFunc(int winId)
-    {
+        GUILayout.BeginArea(_rect);
+        GUILayout.BeginHorizontal();
         if (GUILayout.Button("SAVE", skin.button))
         {
             LevelEditorParser.Instance.levelName = "TEST";            
             LevelEditorParser.Instance.saveLevel();
         }
-        if (GUILayout.Button("PREVIEW", skin.button))
+        if (GUILayout.Button("PREV", skin.button))
         {
             LevelEditorParser.Instance.levelName = "TEST";
             SceneManager.Instance.loadScene(SceneManager.Scene.Game);
         }
-        GUI.DragWindow(new Rect(0, 0, 10000, 10000));
+        GUILayout.EndHorizontal();
+        GUILayout.EndArea();
     }
 }
