@@ -7,16 +7,11 @@ public class RenderGameObjectToTexture : MonoBehaviour
 
     private Vector3 targetPos;
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public Texture renderGameObjectToTexture(GameObject obj, int width, int height, string color)
     {
-        targetPos = renderCam.transform.position + new Vector3(0, 0, 5);
+        targetPos = renderCam.transform.localPosition + new Vector3(0, 0, 5);
         GameObject toRender = Instantiate(obj, targetPos, Quaternion.identity) as GameObject;
+        //toRender.transform.localRotation = Quaternion.AngleAxis(180.0f, Vector3.up);
         if (color != null)
         {
             Colorable colorable = toRender.GetComponentInChildren<Colorable>();
@@ -43,7 +38,7 @@ public class RenderGameObjectToTexture : MonoBehaviour
         renderCam.targetTexture = null;
 
 
-        DestroyImmediate(toRender);
+        //DestroyImmediate(toRender);
         return tex2D;
     }
 }

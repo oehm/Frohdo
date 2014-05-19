@@ -23,10 +23,11 @@ public List<GUI_ContentColor> content { get; set; }
     {
         if (!active) return;
         GUILayout.BeginArea(_rect);
-        GUILayout.BeginHorizontal("");
+        GUILayout.BeginHorizontal();
+        GUILayout.Label("COLORS", skin.label);
         foreach (GUI_ContentColor g in content)
         {
-            if (GUILayout.Button(g.content, skin.button))
+            if (GUILayout.Button(g.content, skin.customStyles[1]))
             {
                 g.func(g.color);
             }

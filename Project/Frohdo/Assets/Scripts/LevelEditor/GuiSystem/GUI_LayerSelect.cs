@@ -42,7 +42,8 @@ public class GUI_LayerSelect : GUI_Element
     {
         if (!active) return;
         GUILayout.BeginArea(_rect);
-        GUILayout.BeginHorizontal("");
+        GUILayout.BeginHorizontal();
+        GUILayout.Label("LAYER", skin.label);
         int oldSelected = selected;
         selected = GUILayout.Toolbar(selected, pureContent, skin.button);
         if (oldSelected != selected)

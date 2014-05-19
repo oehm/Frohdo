@@ -30,7 +30,6 @@ public class GUI_ObjectSelection : GUI_Element
     public override void Draw()
     {
         if (!active) return;
-        _rect.height = ForceAspectRatio.screenHeight;
         GUILayout.BeginArea(_rect);
         scrollPos = GUILayout.BeginScrollView(scrollPos, skin.scrollView);
         {
@@ -41,14 +40,14 @@ public class GUI_ObjectSelection : GUI_Element
                 xCount++;
                 if (character == toMark && showMarked)
                 {
-                    if (GUILayout.Button(character.content, skin.customStyles[5]))
+                    if (GUILayout.Button(character.content, skin.customStyles[4]))
                     {
                         character.func(character.prefab);
                     }
                 }
                 else
                 {
-                    if (GUILayout.Button(character.content, skin.customStyles[0]))
+                    if (GUILayout.Button(character.content, skin.customStyles[4]))
                     {
                         character.func(character.prefab);
                         toMark = character;
@@ -66,14 +65,14 @@ public class GUI_ObjectSelection : GUI_Element
                 xCount++;
                 if (showMarked && g == toMark)
                 {
-                    if (GUILayout.Button(g.content, skin.customStyles[5]))
+                    if (GUILayout.Button(g.content, skin.customStyles[4]))
                     {
                         g.func(g.prefab);
                     }
                 }
                 else
                 {
-                    if (GUILayout.Button(g.content, skin.customStyles[0]))
+                    if (GUILayout.Button(g.content, skin.customStyles[4]))
                     {
                         g.func(g.prefab);
                         toMark = g;
