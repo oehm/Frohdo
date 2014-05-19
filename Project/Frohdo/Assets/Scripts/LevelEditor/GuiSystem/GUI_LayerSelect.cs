@@ -41,12 +41,9 @@ public class GUI_LayerSelect : GUI_Element
     public override void Draw()
     {
         if (!active) return;
-        _rect = GUILayout.Window(4, _rect, windowFunc, "", skin.customStyles[6]);
-    }
-
-    private void windowFunc(int winId)
-    {
-        GUILayout.BeginHorizontal("");
+        GUILayout.BeginArea(_rect);
+        GUILayout.BeginHorizontal();
+        GUILayout.Label("LAYER", skin.label);
         int oldSelected = selected;
         selected = GUILayout.Toolbar(selected, pureContent, skin.button);
         if (oldSelected != selected)
@@ -54,8 +51,9 @@ public class GUI_LayerSelect : GUI_Element
             content[selected].func(content[selected].layerIndex);
         }
         GUILayout.EndHorizontal();
-        GUI.DragWindow(new Rect(0, 0, 10000, 10000));
+        GUILayout.EndArea();
     }
+
 
     public void select(int layerIndex)
     {

@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 public class SetUpManager : MonoBehaviour
 {
+    //GUISizes
     public GameObject layerPrefab_;
     public GameObject layerBgPrefab_;
-    public Camera renderCam;
 
     public string savePath;
 
@@ -23,7 +23,6 @@ public class SetUpManager : MonoBehaviour
 
     private Vector2 levelSize;
     private string levelName;
-
     void Awake()
     {
         sceneController = GameObject.Find("SceneController");
@@ -31,11 +30,7 @@ public class SetUpManager : MonoBehaviour
         levelName = "Enter Level Name";
         levelSize = new Vector2(40, 25);
         LevelEditorParser.Instance.savePath = savePath;
-
         Editor_Grid.Instance.layerBg_pref = layerBgPrefab_;
-
-        renderToTexture = createController("GameobjectToTextureRenderer", "RenderGameObjectToTexture") as RenderGameObjectToTexture;
-        renderToTexture.renderCam = renderCam;
 
         if (SceneManager.Instance.loadLevelToEdit)
         {
@@ -52,16 +47,6 @@ public class SetUpManager : MonoBehaviour
             setUpEmpyScene();
         }
 
-        guiController = createController("GUI_Controller", "GUI_Controller_Editor") as GUI_Controller_Editor;
-        stateManager.guiController = guiController;
-        Camera.main.GetComponent<CameraMovement>().gui = guiController;
-
-        InitGUI();
-    }
-
-    void Start()
-    {
-        Camera.main.GetComponent<CameraMovement>().gui = guiController;
     }
 
 
@@ -75,109 +60,6 @@ public class SetUpManager : MonoBehaviour
         return c;
     }
 
-    private void InitGUI()
-    {
-        GUI_SaveAndPreview gui_save = new GUI_SaveAndPreview(new Vector2(ForceAspectRatio.screenWidth,  500), new Vector2(150, 50), skin);
-        gui_save.active = false;
-        guiController.addGui(gui_save);
-        stateManager.saveAndPreview = gui_save;
-
-        GUI_Selected gui_selected = new GUI_Selected(new Vector2(ForceAspectRatio.screenWidth , 0), new Vector2(100, 100), skin);
-        gui_selected.active = false;
-        guiController.addGui(gui_selected);
-        gui_selected.manager = stateManager;
-        stateManager.selected = gui_selected;
-
-        GUI_Commands gui_commands = new GUI_Commands(new Vector2(975, 0), new Vector2(200, 65), skin);
-        gui_commands.active = false;
-        guiController.addGui(gui_commands);
-        stateManager.commands = gui_commands;      
-
-        initGuiObjectSelect();
-        initColorSelect();
-        initGuiLayerSelect();
-    }
-
-    private void initColorSelect()
-    {
-        List<GUI_ContentColor> colorButtons = new List<GUI_ContentColor>();
-        guiController.colorButtons = colorButtons;
-        string[] colors = LevelObjectController.Instance.getColors();
-
-        for (int i = 0; i < colors.Length; i++)
-        {
-            Texture2D tex = new Texture2D(30, 30);
-            Color[] c = tex.GetPixels();
-            for (int j = 0; j < c.Length; j++) c[j] = LevelObjectController.Instance.GetColor(colors[i]);
-            tex.SetPixels(c);
-            tex.Apply();
-            GUI_ContentColor cont = new GUI_ContentColor();
-            cont.content = new GUIContent(tex);
-            cont.func = stateManager.updateColor;
-            cont.color = colors[i];
-            colorButtons.Add(cont);
-        }
-
-        GUI_ColorSelection gui_color = new GUI_ColorSelection(new Vector2(ForceAspectRatio.xOffset + 300, ForceAspectRatio.yOffset), new Vector2(300, 50), skin);
-        gui_color.content = colorButtons;
-        guiController.addGui(gui_color);
-        stateManager.colorSelection = gui_color; 
-    }
-
-    private void initGuiObjectSelect()
-    {
-        GUI_ObjectSelection gui_objectSelect = new GUI_ObjectSelection(new Vector2(ForceAspectRatio.xOffset, ForceAspectRatio.yOffset), new Vector2(280, ForceAspectRatio.screenHeight), skin);        
-        
-        string[] colors = LevelObjectController.Instance.getColors();
-        guiController.gui_LevelObjects = new List<GUI_ContentObject>[colors.Length];
-
-        GameObject characterPrefab = LevelObjectController.Instance.GetPrefabByName("Character", GlobalVars.Instance.playLayer, true);
-
-        GUIContent characterGuiCont = new GUIContent(renderToTexture.renderGameObjectToTexture(characterPrefab, 256, 256, ""), characterPrefab.name);
-        GUI_ContentObject charactercont = new GUI_ContentObject();
-        charactercont.content = characterGuiCont;
-        charactercont.func = stateManager.updateObject;
-        charactercont.prefab = LevelObjectController.Instance.GetPrefabByName("Character", GlobalVars.Instance.playLayer, true);
-        gui_objectSelect.character = charactercont;
-        guiController.character = charactercont;
-        
-        for (int i = 0; i < colors.Length; i++)
-        {
-            guiController.gui_LevelObjects[i] = new List<GUI_ContentObject>();
-            
-            for (int o = 0; o < LevelObjectController.Instance.levelObjectPrefabs_.Count; o++)
-            {
-                GUIContent curCont = new GUIContent(renderToTexture.renderGameObjectToTexture(LevelObjectController.Instance.levelObjectPrefabs_[o], 256, 256, colors[i]), LevelObjectController.Instance.levelObjectPrefabs_[o].name);
-                GUI_ContentObject contObj = new GUI_ContentObject();
-                contObj.content = curCont;
-                contObj.func = stateManager.updateObject;
-                contObj.prefab = LevelObjectController.Instance.levelObjectPrefabs_[o];
-                guiController.gui_LevelObjects[i].Add(contObj);
-            }
-        }
-        gui_objectSelect.guiController = guiController;
-        gui_objectSelect.objects = guiController.gui_LevelObjects[0];
-        guiController.addGui(gui_objectSelect);
-        stateManager.objectSelection = gui_objectSelect;
-    }
-
-    private void initGuiLayerSelect()
-    {
-        GUI_LayerSelect gui_layerSelect = new GUI_LayerSelect(new Vector2(ForceAspectRatio.xOffset + 300, ForceAspectRatio.yOffset + 75), new Vector2(350, 50), skin);
-        List<GUI_ContentLayer> gui_content = new List<GUI_ContentLayer>();
-
-        for(int i=0; i< GlobalVars.Instance.LayerCount; i++)
-        {
-            GUI_ContentLayer c = new GUI_ContentLayer();
-            c.content = new GUIContent(("Layer" + (i + 1).ToString()));
-            c.layerIndex = i;
-            c.func = stateManager.updateLayer;
-            gui_content.Add(c);
-        }
-        gui_layerSelect.content = gui_content;
-        guiController.addGui(gui_layerSelect);
-        stateManager.layerSelect = gui_layerSelect;
-    }
 
     private void setUpEmpyScene()
     {

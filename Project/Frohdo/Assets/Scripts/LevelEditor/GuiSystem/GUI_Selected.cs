@@ -7,13 +7,30 @@ public class GUI_Selected : GUI_Element {
     public GUI_ContentObject content;
     public StateManager manager;
 
+    private Vector2 _pos;
+
+    public new Rect parentRect { get; set; } //force override of base class
+    public new Vector2 pos
+    {
+        get
+        {
+            return _pos;
+        }
+        set
+        {
+            _pos = value;
+            _rect = new Rect(_pos.x, _pos.y, size.x, size.y);
+            Debug.Log(_rect);
+        }
+    }//force override of base class
+    public new Vector2 size { get;set;}//force override of base class
+
     public GameObject obj { get; set; }
     public int layerIdx { get; set; }
 
-
-    public GUI_Selected(Vector2 pos, Vector2 s, GUISkin sk)
+    public GUI_Selected(Vector2 p, Vector2 s, GUISkin sk)
     {
-        position = pos;
+        pos = pos;
         size = s;
         skin = sk;
         content = null;
@@ -24,21 +41,20 @@ public class GUI_Selected : GUI_Element {
     public override void Draw()
     {
         if (!active) return;
-        _rect = GUILayout.Window(11, _rect, windowFunc, "",skin.customStyles[4]);
-    }
-
-    private void windowFunc(int winId)
-    {
-        if (content != null)
-        {
-            GUILayout.Box(content.content, skin.box);
-        }
-        GUILayout.BeginHorizontal("");        
-        if(GUILayout.Button("DELETE",skin.button))
+        GUILayout.BeginArea(_rect);
+        if (GUILayout.Button("DELETE", skin.button))
         {
             manager.deleteObject(obj, layerIdx);
         }
-        GUILayout.EndHorizontal();
-        GUI.DragWindow(new Rect(0, 0, 10000, 10000));
+        GUILayout.EndArea();
+    }
+
+    public void setPos(GameObject obj)
+    {
+        Vector2 objPos = Camera.main.WorldToScreenPoint(obj.transform.position);
+        Gridable g = obj.GetComponentInChildren<Gridable>();
+        objPos.x += 100;
+        objPos.y = ForceAspectRatio.screenHeight - objPos.y - 100;
+        pos = objPos;
     }
 }
