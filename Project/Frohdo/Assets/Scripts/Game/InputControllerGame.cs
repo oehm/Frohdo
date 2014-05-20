@@ -15,8 +15,8 @@ public class InputControllerGame : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void FixedUpdate () {
-
+	void FixedUpdate () 
+    {
         float inputX = Input.GetAxis("Horizontal");
         inputX = inputX == 0.0f ? 0 : Mathf.Sign(inputX);
         float inputY = Input.GetAxis("Vertical");
@@ -33,5 +33,10 @@ public class InputControllerGame : MonoBehaviour {
         bool kill = Input.GetButton("Kill");
 
         character_.InputMovement(input, jump, puke, kill);
+
+        if (!ScoreController.Instance.isRunning && (input.x != 0.0f || input.y != 0.0f || jump || puke))
+        {
+            ScoreController.Instance.isRunning = true;
+        }
 	}
 }

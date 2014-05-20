@@ -88,7 +88,8 @@ public class LevelLoader : MonoBehaviour
 
                 if (!editor)
                 {
-                    GameObject levelObjectObject = layerScript.AddLevelObjectByName(levelObjectXML.name, levelObjectXML.color, levelObjectXML.pos.Vector2, i, editor);
+                    //GameObject levelObjectObject =
+                    layerScript.AddLevelObjectByName(levelObjectXML.name, levelObjectXML.color, levelObjectXML.pos.Vector2, i, editor);
                 }
                 else
                 {
@@ -130,6 +131,11 @@ public class LevelLoader : MonoBehaviour
             {
                 moveToLayer(layerObject, LayerMask.NameToLayer("BackgroundDrawings"));
             }
+        }
+
+        if (!editor)
+        {
+            ScoreController.Instance.LevelHash = path; //just temporary, calculate it later
         }
     }
 

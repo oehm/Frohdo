@@ -324,8 +324,6 @@ public class LevelObjectCreator : EditorWindow {
 
                     Vector2[] verticesArr = vertices.ToArray();
 
-                    Vector2 scaling = new Vector2(1.0f / width_, -1.0f / height_);
-
                     for(int i = 0; i < verticesArr.Length; i++) // (Vector2 vertex in verticesArr)
                     {
                         verticesArr[i].x /= width_;

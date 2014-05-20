@@ -44,9 +44,8 @@ public class Character : MonoBehaviour {
             {
                 isKilling_ = kill;
                 //start killing yourself
-                SceneManager.Instance.loadScene(SceneManager.Scene.Game);
-
                 movement_.InputMovement(Vector2.zero, false);
+                SceneManager.Instance.loadScene(SceneManager.Scene.Game);
             }
             else
             {
@@ -90,7 +89,8 @@ public class Character : MonoBehaviour {
 
         if (usedThing.GetComponent<Usable>().behaviour_ == Usable.Behaviour.Door)
         {
-            SceneManager.Instance.loadScene(SceneManager.Scene.LevelSelect);
+            ScoreController.Instance.isRunning = false;
+            SceneManager.Instance.loadScene(SceneManager.Scene.RateScreen);
         }
         if (usedThing.GetComponent<Usable>().behaviour_ == Usable.Behaviour.ColorRatio)
         {

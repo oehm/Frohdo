@@ -48,6 +48,8 @@ public class CharacterPuke : MonoBehaviour
     {
         if (pukeInput_ && ratios_ > 0)
         {
+            ScoreController.Instance.CountAPuke();
+
             GameObject pukeObject = (GameObject)Instantiate(pukePrefab_);
 
             pukeObject.GetComponent<Colorable>().colorString = colorable_.colorString;
@@ -93,6 +95,7 @@ public class CharacterPuke : MonoBehaviour
             }
         }
     }
+
 
     public void AddRatio(string color)
     {

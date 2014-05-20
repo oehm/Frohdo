@@ -67,7 +67,8 @@ public class SceneManager : MonoBehaviour
         MainMenu,
         Game,
         Editor,
-        LevelSelect
+        LevelSelect,
+        RateScreen
 
     }
 }
