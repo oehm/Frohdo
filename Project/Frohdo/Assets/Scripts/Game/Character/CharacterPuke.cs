@@ -22,6 +22,7 @@ public class CharacterPuke : MonoBehaviour
 
 
     private bool pukeInput_;
+    private bool playPukeSound_;
 
 
     private int ratios_;
@@ -34,6 +35,7 @@ public class CharacterPuke : MonoBehaviour
 
         ratios_ = 0;
         colorable_.colorString = "W";
+        playPukeSound_ = false;
 	}
 
 
@@ -42,12 +44,26 @@ public class CharacterPuke : MonoBehaviour
         pukeInput_ = puke;
     }
 
+    void Update()
+    {
+        if (playPukeSound_)
+        {
+            playPukeSound_ = false;
+            AudioSource pukesound = gameObject.GetComponentInChildren<AudioSource>();
+            if (pukesound.isPlaying) pukesound.Stop();
+            pukesound.clip = SoundController.Instance.getRandomPukeSound();
+            if (pukesound.clip != null) pukesound.Play();
+        }
+    }
+
 
     // FixedUpdate is called once per physic frame
     void FixedUpdate()
     {
         if (pukeInput_ && ratios_ > 0)
         {
+            playPukeSound_ = true;
+
             GameObject pukeObject = (GameObject)Instantiate(pukePrefab_);
 
             pukeObject.GetComponent<Colorable>().colorString = colorable_.colorString;
