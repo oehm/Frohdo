@@ -49,11 +49,6 @@ public class LevelEditorParser
         level.backgroundColor = color;
     }
 
-    public void setSize(Vector2 size)
-    {
-        level.size = new SerializableVector2(size);
-    }
-
     public void saveLevel()
     {
         clear();

@@ -41,9 +41,10 @@ public class GlobalVars : ScriptableObject
     public List<float> layerZPos;
     public List<Vector2> layerParallax;
 
+
     public int playLayer;
 
-
+    public Vector2 maxLevelSize;
     void OnEnable()
     {
         if (instance != null)

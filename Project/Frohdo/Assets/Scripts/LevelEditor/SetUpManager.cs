@@ -20,15 +20,12 @@ public class SetUpManager : MonoBehaviour
     private RenderGameObjectToTexture renderToTexture;
     //Other Controller
     public StateManager stateManager;
-
-    private Vector2 levelSize;
     private string levelName;
     void Awake()
     {
         sceneController = GameObject.Find("SceneController");
         sceneObjects = GameObject.Find("SceneObjects");
         levelName = "Enter Level Name";
-        levelSize = new Vector2(40, 25);
         LevelEditorParser.Instance.savePath = savePath;
         Editor_Grid.Instance.layerBg_pref = layerBgPrefab_;
 
@@ -62,7 +59,7 @@ public class SetUpManager : MonoBehaviour
 
     private void setUpEmpyScene()
     {
-        Editor_Grid.Instance.initGrid(levelSize);
+        Editor_Grid.Instance.initGrid(GlobalVars.Instance.maxLevelSize);
         for (int i = 0; i < GlobalVars.Instance.LayerCount; i++)
         {
             GameObject layerObject = (GameObject)Instantiate(layerPrefab_);

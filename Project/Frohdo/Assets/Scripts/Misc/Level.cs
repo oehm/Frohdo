@@ -5,8 +5,8 @@ using System.Xml.Serialization;
 [XmlRoot("Level")]
 public class LevelXML
 {
-    [XmlElement("Size")]
-    public SerializableVector2 size;
+    //[XmlElement("Size")]
+    //public SerializableVector2 size;
     [XmlElement("BackgroundColor")]
     public string backgroundColor;
     [XmlArray("Layers"), XmlArrayItem("Layer")]
