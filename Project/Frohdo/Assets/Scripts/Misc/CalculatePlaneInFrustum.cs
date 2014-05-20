@@ -23,9 +23,9 @@ public class CalculatePlaneInFrustum : MonoBehaviour
             sizes[i].x += sizes[i].x * GlobalVars.Instance.layerParallax[i].x;
             sizes[i].y += sizes[i].y * GlobalVars.Instance.layerParallax[i].y;
             
-            sizes[i].x = (int)((int)sizes[i].x * 2 / 2);
-            sizes[i].y = (int)((int)sizes[i].y * 2 / 2);
-           
+            sizes[i].x = (int)((int)sizes[i].x / 2) * 2;
+            sizes[i].y = (int)((int)sizes[i].y / 2) * 2;
+            Debug.Log(sizes[i]);
         }
         return sizes;
     }
