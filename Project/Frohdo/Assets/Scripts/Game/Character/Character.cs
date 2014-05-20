@@ -72,15 +72,15 @@ public class Character : MonoBehaviour {
         }
     }
 
-    public void pickUp(GameObject pickUp)
+    public void pickUp(GameObject pickUpThing)
     {
         //Debug.Log("picked up: " + pickUp.name);
 
-        if (pickUp.GetComponent<Collectable>().behaviour_ == Collectable.Behaviour.ColorRatio)
+        if (pickUpThing.GetComponent<Collectable>().behaviour_ == Collectable.Behaviour.ColorRatio)
         {
-            string color = pickUp.GetComponent<Colorable>().colorString;
+            string color = pickUpThing.GetComponent<Colorable>().colorString;
             puke_.AddRatio(color);
-            Destroy(pickUp);
+            Destroy(pickUpThing);
         }
     }
 
