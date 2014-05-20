@@ -61,7 +61,15 @@ public class State_SetObject : Editor_State {
         //try placing it
         InsertObject command = new InsertObject();
         command.setUpCommand(objToSet, manager.layers[manager.currentLayer], manager.currentLayer);
-        EditCommandManager.Instance.executeCommand(command);
+        if(EditCommandManager.Instance.executeCommand(command))
+        {
+            if (manager.conditionCharacterSet.isFullfilled && manager.currentGameObject.name == "Character")
+            {
+                State_Default state = new State_Default();
+                state.manager = manager;
+                manager.changeState(state);
+            }
+        }
 
         GameObject.Destroy(objToSet);
         objToSet = null;
