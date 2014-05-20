@@ -56,11 +56,14 @@ public class StateManager : MonoBehaviour
         }
         saveAndPreview.active = conditionCharacterSet.isFullfilled;
         objectSelection.showCharacter((!conditionCharacterSet.isFullfilled && currentLayer == GlobalVars.Instance.playLayer) );
-        if(conditionCharacterSet.isFullfilled && currentGameObject.name == "Character")
+        if (currentGameObject != null)
         {
-            State_Default state = new State_Default();
-            state.manager = this;
-            changeState(state);
+            if (conditionCharacterSet.isFullfilled && currentGameObject.name == "Character")
+            {
+                State_Default state = new State_Default();
+                state.manager = this;
+                changeState(state);
+            }
         }
         curState.update();
         objectSelection.layerIndex = currentLayer;
@@ -98,14 +101,14 @@ public class StateManager : MonoBehaviour
 
     public void updateLayer(params object[] paramter)
     {
-        GameObject.Find("grid" + currentLayer.ToString()).GetComponent<Renderer>().enabled = false;
+        GameObject.Find("grid" + currentLayer.ToString()).GetComponentInChildren<Renderer>().enabled = false;
         
         int? layerIndex = paramter[0] as int?;
         currentLayer = layerIndex.Value;
 
         objectSelection.layerIndex = layerIndex.Value;
 
-        GameObject.Find("grid" + currentLayer.ToString()).GetComponent<Renderer>().enabled = true;
+        GameObject.Find("grid" + currentLayer.ToString()).GetComponentInChildren<Renderer>().enabled = true;
     }
 
     public void leftMouseDown()

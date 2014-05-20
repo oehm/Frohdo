@@ -24,3 +24,4 @@ MonoBehaviour:
   - {x: .100000001, y: .00999999978}
   - {x: .5, y: .00999999978}
   playLayer: 1
+  maxLevelSize: {x: 48, y: 28}

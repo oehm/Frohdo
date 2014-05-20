@@ -19,6 +19,11 @@ public class LevelLoader : MonoBehaviour
     {
         string path = SceneManager.Instance.levelToLoad;
         bool editor = SceneManager.Instance.loadLevelToEdit;
+        if(editor)
+        {
+            SceneObjects = GameObject.Find("SceneObjects");
+            camera_ = Camera.main;
+        }
         LoadLevel(path, editor);
         SceneManager.Instance.loadLevelToEdit = false;
     }
@@ -44,7 +49,7 @@ public class LevelLoader : MonoBehaviour
 
         if (editor)
         {
-            Editor_Grid.Instance.initGrid(new Vector2(30,50));
+            Editor_Grid.Instance.initGrid(GlobalVars.Instance.maxLevelSize);
             //Editor_Grid.Instance.initGrid(levelXML.size.Vector2);
             StateManager manager = GameObject.Find("SceneController").GetComponentInChildren<StateManager>() as StateManager;
         }
@@ -74,22 +79,28 @@ public class LevelLoader : MonoBehaviour
                 bg.transform.parent = GameObject.Find("SceneObjects").GetComponentsInChildren<Layer>()[i].transform;
                 bg.name = "grid"+i.ToString();
                 bg.GetComponent<Renderer>().enabled = false;
+                bg.GetComponent<Renderer>().material.mainTextureScale = Editor_Grid.Instance.planeSizes[i];
             }
 
             for (int j = 0; j < layerXML.levelObjects.Count; j++)
             {
                 LevelObjectXML levelObjectXML = layerXML.levelObjects[j];
 
-
-                GameObject levelObjectObject = layerScript.AddLevelObjectByName(levelObjectXML.name, levelObjectXML.color, levelObjectXML.pos.Vector2, i, editor);
-                if (editor)
+                if (!editor)
+                {
+                    GameObject levelObjectObject = layerScript.AddLevelObjectByName(levelObjectXML.name, levelObjectXML.color, levelObjectXML.pos.Vector2, i, editor);
+                }
+                else
                 {
                     InsertObject command = new InsertObject();
                     command.setUpCommand(levelObjectXML, layerObject.GetComponentInChildren<Layer>(), i);
                     EditCommandManager.Instance.executeCommand(command);
                 }
             }
-
+            if(editor)
+            {
+                EditCommandManager.Instance.resetHistory();
+            }
             CharacterObjectXML characterXML = layerXML.Character;
 
             if (characterXML != null)

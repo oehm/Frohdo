@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 public class SetUpManager : MonoBehaviour
 {
-    //GUISizes
     public GameObject layerPrefab_;
     public GameObject layerBgPrefab_;
 
@@ -14,10 +13,7 @@ public class SetUpManager : MonoBehaviour
     private GameObject sceneObjects;
     public GUISkin skin;
 
-    //Controller to Init
-    private GUI_Controller_Editor guiController;
-    private LevelLoader Levelloader;
-    private RenderGameObjectToTexture renderToTexture;
+    public GameObject levelloader;
     //Other Controller
     public StateManager stateManager;
     private string levelName;
@@ -31,13 +27,10 @@ public class SetUpManager : MonoBehaviour
 
         if (SceneManager.Instance.loadLevelToEdit)
         {
-            Levelloader = createController("LevelLoader", "LevelLoader") as LevelLoader;
-            Levelloader.layerPrefab_ = layerPrefab_;
-            Levelloader.camera_ = Camera.main;
-            Levelloader.SceneObjects = sceneObjects;
-            Levelloader.LoadLevel(SceneManager.Instance.levelToLoad, true);
-            SceneManager.Instance.loadLevelToEdit = false;
-            Levelloader.gameObject.SetActive(false);
+            levelloader = Instantiate(levelloader) as GameObject;
+            levelloader.transform.parent = sceneController.transform;
+            levelloader.name = "LevelLoader";
+            
         }
         else
         {
@@ -47,15 +40,6 @@ public class SetUpManager : MonoBehaviour
     }
 
 
-    private Component createController(string name, string type)
-    {
-        GameObject o = new GameObject();
-        o.transform.parent = sceneController.transform;
-        o.name = name;
-        o.AddComponent(type);
-        Component c = o.GetComponent(type);
-        return c;
-    }
 
     private void setUpEmpyScene()
     {

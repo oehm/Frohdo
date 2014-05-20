@@ -767,6 +767,7 @@ MonoBehaviour:
   layerBgPrefab_: {fileID: 100000, guid: 2d1442fe22bac6648aafffdb59af8a3d, type: 2}
   savePath: \\Levels\\Custom\\
   skin: {fileID: 11400000, guid: 483c0d88aa3c78d4e9eb96e1294c9aa7, type: 2}
+  levelloader: {fileID: 100000, guid: 41752eb8b4130dc47b5a7faa7c02f017, type: 2}
   stateManager: {fileID: 574217518}
 --- !u!1 &1585728983
 GameObject:
