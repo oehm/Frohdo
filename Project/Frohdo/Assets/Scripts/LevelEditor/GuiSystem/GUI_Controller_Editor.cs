@@ -20,6 +20,8 @@ public class GUI_Controller_Editor : MonoBehaviour
     public Vector2 objSelectionSize;
     public Vector2 saveAndP;
     public Vector2 saveAndPSize;
+    public Vector2 backgroundColor;
+    public Vector2 backgroundColorSize;
 
 
     public List<GUI_ContentColor> colorButtons;
@@ -36,6 +38,7 @@ public class GUI_Controller_Editor : MonoBehaviour
     private GUI_Commands gui_commands;
     private GUI_Selected gui_selected;
     private GUI_ObjectSelection gui_objectSelect;
+    private GUI_Background gui_background;
 
     private Rect topRect;
     private Rect leftRect;
@@ -54,6 +57,7 @@ public class GUI_Controller_Editor : MonoBehaviour
         stateManager.selectedGui = gui_selected;
         gui_objectSelect = new GUI_ObjectSelection(Vector2.zero, Vector2.zero, skin);
         stateManager.objectSelection = gui_objectSelect;
+        gui_background = new GUI_Background(backgroundColor,backgroundColorSize,skin);
     }
 
     void Start()
@@ -92,6 +96,7 @@ public class GUI_Controller_Editor : MonoBehaviour
     private void initColorSelect()
     {
         List<GUI_ContentColor> colorButtons = new List<GUI_ContentColor>();
+        List<GUI_ContentColor> backgroundButtons = new List<GUI_ContentColor>();
         string[] colors = LevelObjectController.Instance.getColors();
 
         for (int i = 0; i < colors.Length; i++)
@@ -102,14 +107,25 @@ public class GUI_Controller_Editor : MonoBehaviour
             tex.SetPixels(c);
             tex.Apply();
             GUI_ContentColor cont = new GUI_ContentColor();
+            GUI_ContentColor contBG = new GUI_ContentColor();
             cont.content = new GUIContent(tex);
             cont.func = stateManager.updateColor;
             cont.color = colors[i];
             colorButtons.Add(cont);
+
+            contBG.content = new GUIContent(tex);
+            contBG.func = stateManager.changeBackgroundColor;
+            contBG.color = colors[i];
+            backgroundButtons.Add(contBG);
         }
         gui_color = new GUI_ColorSelection(colorsp, colorsSize, skin);
         gui_color.parentRect = topRect;
         gui_color.content = colorButtons;
+
+        gui_background.content = backgroundButtons;
+        gui_background.parentRect = topRect;
+
+        //addGui(gui_background);
         addGui(gui_color);
     }
 
@@ -186,11 +202,13 @@ public class GUI_Controller_Editor : MonoBehaviour
 
         leftRect = new Rect(ForceAspectRatio.xOffset, ForceAspectRatio.yOffset + 80, 300, ForceAspectRatio.screenHeight - 80);
 
+        gui_background.parentRect = topRect;
+
         gui_objectSelect.parentRect = leftRect;
-        foreach (GUI_Element g in guiList)
-        {
-            //g.resize(ForceAspectRatio.screenRect);
-        }
+        //foreach (GUI_Element g in guiList)
+        //{
+        //    //g.resize(ForceAspectRatio.screenRect);
+        //}
     }
 
     void OnGUI()
@@ -204,6 +222,7 @@ public class GUI_Controller_Editor : MonoBehaviour
         GUILayout.BeginArea(leftRect, skin.customStyles[3]);
         gui_objectSelect.Draw();
         GUILayout.EndArea();
+        gui_background.Draw();
         gui_selected.Draw();
     }
 
@@ -232,6 +251,10 @@ public class GUI_Controller_Editor : MonoBehaviour
         foreach (GUI_Element g in guiList)
         {
             if (g.mouseOnGui(invertedPos)) return true;
+        }
+        if(gui_background.mouseOnGui(invertedPos))
+        {
+            return true;
         }
         return mOnGui;
     }

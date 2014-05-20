@@ -253,17 +253,19 @@ MonoBehaviour:
   skin: {fileID: 11400000, guid: 483c0d88aa3c78d4e9eb96e1294c9aa7, type: 2}
   stateManager: {fileID: 574217518}
   renderToTexture: {fileID: 1512534629}
-  colorsp: {x: .519999981, y: 0}
+  colorsp: {x: .389999986, y: 0}
   colorsSize: {x: .409999996, y: 1}
   Commands: {x: .0199999996, y: .100000001}
   commandsSize: {x: .25999999, y: 1}
-  layer: {x: .280000001, y: 0}
+  layer: {x: .219999999, y: 0}
   layerSize: {x: .270000011, y: 1}
   bg: {x: 0, y: 0}
   objSelection: {x: 0, y: 0}
   objSelectionSize: {x: 1, y: 1}
   saveAndP: {x: .850000024, y: .100000001}
-  saveAndPSize: {x: .980000019, y: 1}
+  saveAndPSize: {x: .200000003, y: 1}
+  backgroundColor: {x: .800000012, y: .200000003}
+  backgroundColorSize: {x: .0500000007, y: 10}
 --- !u!1 &727060717
 GameObject:
   m_ObjectHideFlags: 0

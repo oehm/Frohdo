@@ -22,6 +22,7 @@ public class CharacterPuke : MonoBehaviour
 
 
     private bool pukeInput_;
+    private bool playPukeSound_;
 
 
     private int ratios_;
@@ -34,12 +35,25 @@ public class CharacterPuke : MonoBehaviour
 
         ratios_ = 0;
         colorable_.colorString = "W";
+        playPukeSound_ = false;
 	}
 
 
     public void InputMovement(bool puke)
     {
         pukeInput_ = puke;
+    }
+
+    void Update()
+    {
+        if (playPukeSound_)
+        {
+            playPukeSound_ = false;
+            AudioSource pukesound = gameObject.GetComponentInChildren<AudioSource>();
+            if (pukesound.isPlaying) pukesound.Stop();
+            pukesound.clip = SoundController.Instance.getRandomPukeSound();
+            if (pukesound.clip != null) pukesound.Play();
+        }
     }
 
 
@@ -49,6 +63,7 @@ public class CharacterPuke : MonoBehaviour
         if (pukeInput_ && ratios_ > 0)
         {
             ScoreController.Instance.CountAPuke();
+            playPukeSound_ = true;
 
             GameObject pukeObject = (GameObject)Instantiate(pukePrefab_);
 

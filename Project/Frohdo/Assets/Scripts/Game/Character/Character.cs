@@ -14,6 +14,7 @@ public class Character : MonoBehaviour {
     private CharacterMovement movement_;
     private CharacterPuke puke_;
     private CharacterPickup pickup_;
+    private Tooltip tooltip_;
 
     private bool lookLeft_;
     private bool lookUp_;
@@ -27,6 +28,7 @@ public class Character : MonoBehaviour {
         movement_ = gameObject_.GetComponentInChildren<CharacterMovement>();
         puke_ = gameObject_.GetComponentInChildren<CharacterPuke>();
         pickup_ = gameObject_.GetComponentInChildren<CharacterPickup>();
+        tooltip_ = gameObject_.GetComponentInChildren<Tooltip>();
 
         lookLeft_ = false;
         lookUp_ = false;
@@ -93,10 +95,8 @@ public class Character : MonoBehaviour {
             SceneManager.Instance.loadScene(SceneManager.Scene.RateScreen);
         }
         if (usedThing.GetComponent<Usable>().behaviour_ == Usable.Behaviour.ColorRatio)
-        {
-            //show tooltip here
+        { 
+            tooltip_.setTooltip(2, usedThing.GetComponent<Colorable>().colorString);
         }
-        
     }
-
 }
