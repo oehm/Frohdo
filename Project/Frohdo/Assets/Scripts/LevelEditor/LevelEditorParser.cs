@@ -22,11 +22,11 @@ public class LevelEditorParser
     public string levelName { get; set; }
     
     private LevelXML level;
-
+    
 
     void Start()
     {
-
+        
     }
 
     public void initEmpty()

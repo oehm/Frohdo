@@ -23,7 +23,6 @@ public class SetUpManager : MonoBehaviour
         sceneObjects = GameObject.Find("SceneObjects");
         levelName = "Enter Level Name";
         LevelEditorParser.Instance.savePath = savePath;
-        LevelEditorParser.Instance.setLevelBackground("W");
         Editor_Grid.Instance.layerBg_pref = layerBgPrefab_;
 
         if (SceneManager.Instance.loadLevelToEdit)
@@ -36,6 +35,7 @@ public class SetUpManager : MonoBehaviour
         else
         {
             setUpEmpyScene();
+            LevelEditorParser.Instance.setLevelBackground("W");
         }
 
     }
