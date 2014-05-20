@@ -9,6 +9,8 @@ public class GUI_ObjectSelection : GUI_Element
     public List<GUI_ContentObject> objects;
     public GUI_ContentObject character;
 
+    public int layerIndex { get;set;}
+
     private Vector2 scrollPos;
     private bool showCharacter_;
     private bool showMarked;
@@ -58,6 +60,7 @@ public class GUI_ObjectSelection : GUI_Element
             }
             foreach (GUI_ContentObject g in objects)
             {
+                if (!g.layerMat[layerIndex]) continue;
                 if (xCount >= 2)
                 {
                     xCount = 0;

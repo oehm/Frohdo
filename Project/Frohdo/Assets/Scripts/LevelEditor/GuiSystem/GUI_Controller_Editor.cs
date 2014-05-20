@@ -52,6 +52,8 @@ public class GUI_Controller_Editor : MonoBehaviour
         stateManager.commands = gui_commands;
         gui_selected = new GUI_Selected(Vector2.zero, Vector2.zero, skin);
         stateManager.selectedGui = gui_selected;
+        gui_objectSelect = new GUI_ObjectSelection(Vector2.zero, Vector2.zero, skin);
+        stateManager.objectSelection = gui_objectSelect;
     }
 
     void Start()
@@ -117,12 +119,13 @@ public class GUI_Controller_Editor : MonoBehaviour
         string[] colors = LevelObjectController.Instance.getColors();
         gui_LevelObjects = new List<GUI_ContentObject>[colors.Length];
 
-        Debug.Log(GlobalVars.Instance.playLayer);
         GUIContent characterGuiCont = new GUIContent(renderToTexture.renderGameObjectToTexture(LevelObjectController.Instance.GetPrefabByName("Character", GlobalVars.Instance.playLayer, true), 256, 256, ""), LevelObjectController.Instance.GetPrefabByName("Character", GlobalVars.Instance.playLayer, true).name);
         GUI_ContentObject charactercont = new GUI_ContentObject();
         charactercont.content = characterGuiCont;
         charactercont.func = stateManager.updateObject;
         charactercont.prefab = LevelObjectController.Instance.GetPrefabByName("Character", GlobalVars.Instance.playLayer, true);
+        Gridable[] g = charactercont.prefab.GetComponentsInChildren<Gridable>(true);
+        charactercont.layerMat = g[0].availableInLayer;
         gui_objectSelect.character = charactercont;
         character = charactercont;
 
@@ -137,6 +140,8 @@ public class GUI_Controller_Editor : MonoBehaviour
                 GUIContent curCont = new GUIContent(renderToTexture.renderGameObjectToTexture(LevelObjectController.Instance.levelObjectPrefabs_[o], 256, 256, colors[i]), LevelObjectController.Instance.levelObjectPrefabs_[o].name);
                 GUI_ContentObject contObj = new GUI_ContentObject();
                 contObj.content = curCont;
+                Gridable[] go = LevelObjectController.Instance.levelObjectPrefabs_[o].GetComponentsInChildren<Gridable>(true);
+                contObj.layerMat = go[0].availableInLayer;
                 contObj.func = stateManager.updateObject;
                 contObj.prefab = LevelObjectController.Instance.levelObjectPrefabs_[o];
                 gui_LevelObjects[i].Add(contObj);
