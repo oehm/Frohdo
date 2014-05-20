@@ -54,7 +54,7 @@ public class GUI_Background : GUI_Element
                 if (GUILayout.Button(content[i].content, skin.customStyles[7]))
                 {
                     selected = i;
-                    //content[i].func();
+                    content[i].func(content[i].color);
                     popUp = false;
                 }
             }

@@ -96,6 +96,7 @@ public class GUI_Controller_Editor : MonoBehaviour
     private void initColorSelect()
     {
         List<GUI_ContentColor> colorButtons = new List<GUI_ContentColor>();
+        List<GUI_ContentColor> backgroundButtons = new List<GUI_ContentColor>();
         string[] colors = LevelObjectController.Instance.getColors();
 
         for (int i = 0; i < colors.Length; i++)
@@ -106,16 +107,22 @@ public class GUI_Controller_Editor : MonoBehaviour
             tex.SetPixels(c);
             tex.Apply();
             GUI_ContentColor cont = new GUI_ContentColor();
+            GUI_ContentColor contBG = new GUI_ContentColor();
             cont.content = new GUIContent(tex);
             cont.func = stateManager.updateColor;
             cont.color = colors[i];
             colorButtons.Add(cont);
+
+            contBG.content = new GUIContent(tex);
+            contBG.func = stateManager.changeBackgroundColor;
+            contBG.color = colors[i];
+            backgroundButtons.Add(contBG);
         }
         gui_color = new GUI_ColorSelection(colorsp, colorsSize, skin);
         gui_color.parentRect = topRect;
         gui_color.content = colorButtons;
 
-        gui_background.content = colorButtons;
+        gui_background.content = backgroundButtons;
         gui_background.parentRect = topRect;
 
         //addGui(gui_background);

@@ -35,6 +35,7 @@ public class SetUpManager : MonoBehaviour
         else
         {
             setUpEmpyScene();
+            LevelEditorParser.Instance.setLevelBackground("W");
         }
 
     }

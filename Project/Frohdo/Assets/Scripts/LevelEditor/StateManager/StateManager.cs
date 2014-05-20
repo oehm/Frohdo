@@ -56,15 +56,6 @@ public class StateManager : MonoBehaviour
         }
         saveAndPreview.active = conditionCharacterSet.isFullfilled;
         objectSelection.showCharacter((!conditionCharacterSet.isFullfilled && currentLayer == GlobalVars.Instance.playLayer) );
-        if (currentGameObject != null)
-        {
-            if (conditionCharacterSet.isFullfilled && currentGameObject.name == "Character")
-            {
-                State_Default state = new State_Default();
-                state.manager = this;
-                changeState(state);
-            }
-        }
         curState.update();
         objectSelection.layerIndex = currentLayer;
     }
@@ -86,6 +77,14 @@ public class StateManager : MonoBehaviour
         GameObject obj = paramter[0] as GameObject;
         curState.updateObject(obj);
         //show mark??
+    }
+
+    public void changeBackgroundColor(params object[] paramter)
+    {
+        string color = paramter[0] as string;
+        Colorable c = GameObject.Find("Background").GetComponentInChildren<Colorable>();
+        c.colorIn(color);
+        LevelEditorParser.Instance.setLevelBackground(color);
     }
 
     //The selcted object is soted in the state. delete this not the prefab..
