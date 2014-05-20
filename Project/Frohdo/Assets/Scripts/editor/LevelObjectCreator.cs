@@ -15,6 +15,8 @@ public class LevelObjectCreator : EditorWindow {
     //environment settings
     private LevelObjectController levelObjectController_;
 
+    int[][] vArray;
+
     //default values for convinience, values are not saved when window closes
 
     //general
@@ -82,6 +84,7 @@ public class LevelObjectCreator : EditorWindow {
             hitMat_ = new mArray[width_];
             hitMat_[0] = new mArray();
             hitMat_[0].arr = new bool[height_];
+
         }
 
         hitMat_ = ResizeArray(hitMat_, new int[] { width_, height_ });
@@ -94,6 +97,28 @@ public class LevelObjectCreator : EditorWindow {
             }
             GUILayout.EndHorizontal();
         }
+
+        
+        GUILayout.Label("result", EditorStyles.boldLabel);
+        if (GUILayout.Button("apply"))
+        {
+            vArray = createVMat(hitMat_);
+        }
+        if (vArray != null)
+        {
+            for (int y = 0; y < vArray[0].Length; y++)
+            {
+                GUILayout.BeginHorizontal("");
+                for (int x = 0; x < vArray.Length; x++)
+                {
+                    EditorGUILayout.IntField(vArray[x][y], "");
+                }
+                GUILayout.EndHorizontal();
+            }
+
+        }
+
+
 
         editorVersion_ = (GameObject)EditorGUILayout.ObjectField("editor version", editorVersion_, typeof(GameObject), false);
         GUILayout.Label("available in layer", EditorStyles.label);
@@ -171,9 +196,9 @@ public class LevelObjectCreator : EditorWindow {
 
         //remove mesh collider and add collider2d (better collider tbd)
         DestroyImmediate(levelObject.GetComponent<Collider>());
-        levelObject.AddComponent<BoxCollider2D>();
+        //levelObject.AddComponent<BoxCollider2D>();
 
-        createCollider();
+        createCollider(levelObject);
 
         //add gridable
         Gridable gridable = levelObject.AddComponent<Gridable>();
@@ -224,10 +249,29 @@ public class LevelObjectCreator : EditorWindow {
             usable.behaviour_ = useBehaviour_;
         }
 
+        int insertIdx = -1;
+
+        for (int i = 0; i < levelObjectController_.levelObjectPrefabs_.Count; i++)
+        {
+            if (levelObjectController_.levelObjectPrefabs_[i].name.Equals(name_))
+            {
+                insertIdx = i;
+                break;
+            }
+        }
 
         GameObject prefab = PrefabUtility.CreatePrefab("Assets/Prefabs/LevelObjects/Test/" + name_ + ".prefab", levelObject, ReplacePrefabOptions.ConnectToPrefab) as GameObject;
 
-        levelObjectController_.levelObjectPrefabs_.Add(prefab);
+
+        if (insertIdx < 0)
+        {
+            levelObjectController_.levelObjectPrefabs_.Add(prefab);
+        }
+        else
+        {
+            levelObjectController_.levelObjectPrefabs_[insertIdx] = prefab;
+        }
+
         EditorUtility.SetDirty(levelObjectController_);
 
         DestroyImmediate(levelObject);
@@ -258,71 +302,215 @@ public class LevelObjectCreator : EditorWindow {
         return temp;
     }
 
-    private PolygonCollider2D createCollider()
+    private void createCollider(GameObject g)
     {
         //fill a bool array with the vertices to be set
-        bool[][] bArray = new bool[hitMat_.Length + 1][];
-        for (int x = 0; x < bArray.Length; x++)
+        vArray = createVMat(hitMat_);
+
+        PolygonCollider2D collider = g.AddComponent<PolygonCollider2D>();
+
+        int count = 0;
+        for (int x = 0; x < vArray.Length; x++)
         {
-            bArray[x] = new bool[hitMat_[0].arr.Length + 1];
-            for (int y = 0; y < bArray[x].Length; y++)
+            for (int y = 0; y < vArray[x].Length; y++)
             {
-                bool needsVertice = false;
-
-                if (x > 0)
+                if (vArray[x][y] != 0)
                 {
-                    if (y > 0)
+                    List<Vector2> vertices = new List<Vector2>();
+                    //Debug.Log("Path:");
+
+                    traverseHorizontal(x, y, vArray, vertices, new Vector2(x, y));
+                    collider.pathCount = count + 1;
+
+                    Vector2[] verticesArr = vertices.ToArray();
+
+                    Vector2 scaling = new Vector2(1.0f / width_, -1.0f / height_);
+
+                    for(int i = 0; i < verticesArr.Length; i++) // (Vector2 vertex in verticesArr)
                     {
-                        if (hitMat_[x - 1].arr[y - 1]) needsVertice = true;
+                        verticesArr[i].x /= width_;
+                        verticesArr[i].y /= height_;
+
+                        verticesArr[i].x -= 0.5f;
+                        verticesArr[i].y -= 0.5f;
+
                     }
-                    if (y < hitMat_[0].arr.Length - 1)
-                    {
-                        if (hitMat_[x - 1].arr[y + 1]) needsVertice = true;
-                    }
-                }
 
-                if (x < hitMat_.Length - 1)
-                {
-                    if (y > 0)
-                    {
-                        if (hitMat_[x + 1].arr[y - 1]) needsVertice = true;
-                    }
-                    if (y < hitMat_[0].arr.Length - 1)
-                    {
-                        if (hitMat_[x + 1].arr[y + 1]) needsVertice = true;
-                    }
-                }
-
-                bArray[x][y] = needsVertice;
-            }
-        }
-
-
-        List<Vector2> vertices = new List<Vector2>();
-
-        Vector2 p = new Vector2(0, 0);
-        Vector2 s = new Vector2(0, 0);
-        Vector2 dir = new Vector2( 1, 0);
-
-        for (int x = 0; x < bArray.Length && vertices.Count == 0; x++)
-        {
-            for (int y = 0; y < bArray[x].Length; y++)
-            {
-                if (bArray[x][y])
-                {
-                    p = s =  new Vector2(x, y);
-                    vertices.Add(p);
-                    break;
+                    collider.SetPath(count, verticesArr);
+                    count++;
                 }
             }
         }
-
-        do
-        {
-
-        } while (!p.Equals(s));
-
-        return null;
     }
 
+    private void traverseHorizontal(int x, int y, int[][] arr, List<Vector2> result, Vector2 start)
+    {
+        //Debug.Log("traverseHorizontal at: " + x +" " + y);
+        bool on = false;
+        int xT = 0;
+
+        int toAdd = -1;
+
+        for (; xT < arr.Length; xT++) //traverse the line
+        {
+            if (on)//when on a line
+            {
+                if (xT == x)//and point reached: 
+                {
+                    break;//break with last saved
+                }
+                if (arr[xT][y] == 4)
+                {
+                    //arr[xT][y] = 2;
+                    toAdd = xT;
+                }
+            }
+            else//when not on an line
+            {
+                if (xT == x)//and point reached:
+                {
+                    for (xT++; xT < arr.Length && arr[xT][y] == 0; xT++) { }//traverse further until something found
+                    if (arr[xT][y] == 2) arr[xT][y] = 4; //mark crosspoint
+                    toAdd = xT;//save it
+                    break;//and break with last saved
+                }
+                else//and point not reached
+                {
+                    if (arr[xT][y] != 0) toAdd = xT; //and something found: save it
+                }
+            }
+            if (arr[xT][y] % 2 != 0) on = !on;//switch on line
+        }
+
+        Vector2 nextInOutline = new Vector2(toAdd, y);
+
+        result.Add(nextInOutline);
+        if ( nextInOutline != start)
+        {
+            traverseVertical(toAdd, y, arr, result, start);
+        }
+        arr[x][y]--;
+    }
+
+    private void traverseVertical(int x, int y, int[][] arr, List<Vector2> result, Vector2 start)
+    {
+        //Debug.Log("traverseVertical at: " + x + " " + y);
+        bool on = false;
+        int yT = 0;
+
+        int toAdd = -1;
+        for (; yT < arr[x].Length; yT++) //traverse the line
+        {
+            if (on)//when on a line
+            {
+                if (yT == y)//and point reached: 
+                {
+                    if (arr[x][yT] == 4)
+                    {
+                        arr[x][yT] = 2;
+                        for (yT++; yT < arr[x].Length && arr[x][yT] == 0; yT++) { }//traverse further until something found
+                        toAdd = yT;//save it
+                        break;//and break with last saved
+                    }
+                    break;//break with last saved
+                }
+            }
+            else//when not on an line
+            {
+                if (yT == y)//and point reached:
+                {
+                    for (yT++; yT < arr[x].Length && arr[x][yT] == 0; yT++) { }//traverse further until something found
+                    toAdd = yT;//save it
+                    break;//and break with last saved
+                }
+                else//and point not reached
+                {
+                    if (arr[x][yT] != 0) toAdd = yT; //and something found: save it
+                }
+            }
+            if (arr[x][yT] % 2 != 0) on = !on;//switch on line
+        }
+
+        Vector2 nextInOutline = new Vector2(x, toAdd);
+
+        result.Add(nextInOutline);
+        if (nextInOutline != start)
+        {
+            traverseHorizontal(x, toAdd, arr, result, start);
+        }
+        arr[x][y]--;
+    }
+
+
+    private int[][] createVMat(mArray[] hitMat)
+    {
+        int[][] vMat = new int[hitMat.Length + 1][];
+        for (int x = 0; x < vMat.Length; x++)
+        {
+            vMat[x] = new int[hitMat[0].arr.Length + 1];
+            for (int y = 0; y < vMat[x].Length; y++)
+            {
+                vMat[x][y] = 0;
+            }
+        }
+        for (int x = 0; x < hitMat.Length; x++)
+        {
+            for (int y = 0; y < hitMat[x].arr.Length; y++)
+            {
+                if (hitMat[x].arr[y])
+                {
+                    vMat[x  ][y  ] = 1;
+                    vMat[x+1][y  ] = 1;
+                    vMat[x  ][y+1] = 1;
+                    vMat[x+1][y+1] = 1;
+
+                    bool left = false;
+                    bool up = false;
+
+                    //check left
+                    if (x > 0 && hitMat[x-1].arr[y])
+                    {
+                        vMat[x  ][y  ] = vMat[x  ][y  ] == 0 ? 1 : 0;
+                        vMat[x  ][y+1] = vMat[x  ][y+1] == 0 ? 1 : 0;
+                        left = true;
+                    }
+
+                    //check up
+                    if (y > 0 && hitMat[x].arr[y-1])
+                    {
+                        vMat[x  ][y  ] = vMat[x  ][y  ] == 0 ? 1 : 0;
+                        vMat[x+1][y  ] = vMat[x+1][y  ] == 0 ? 1 : 0;
+                        up = true;
+                    }
+
+                    //check leftup
+                    if (x > 0 && y > 0 && hitMat[x - 1].arr[y - 1])
+                    {
+                        if (left || up)
+                        {
+                            vMat[x  ][y  ] = vMat[x  ][y  ] == 0 ? 1 : 0;
+                        }
+                        else
+                        {
+                            vMat[x  ][y  ] = 2;
+                        }
+                    }
+
+                    //check leftdown
+                    if ( x > 0 && y < hitMat[x].arr.Length - 1 && hitMat[x - 1].arr[y + 1])
+                    {
+                        if (left)
+                        {
+                            vMat[x][y + 1] = vMat[x][y + 1] == 0 ? 1 : 0;
+                        }
+                        else
+                        {
+                            vMat[x][y + 1] = 2;
+                        }
+                    }
+                }
+            }
+        }
+        return vMat;
+    }
 }

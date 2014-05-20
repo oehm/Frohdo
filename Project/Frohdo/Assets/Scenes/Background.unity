@@ -244,11 +244,43 @@ Prefab:
     - target: {fileID: 11400000, guid: e2e0803c8b7ab254fba3b0c26409de07, type: 2}
       propertyPath: levelObjectPrefabs_.Array.data[8]
       value: 
-      objectReference: {fileID: 100000, guid: 735d41a4e26cdef4abfaefa20b0544c0, type: 2}
+      objectReference: {fileID: 100000, guid: 04464b5b6eeefad418656f8a2ab0f697, type: 2}
     - target: {fileID: 11400000, guid: e2e0803c8b7ab254fba3b0c26409de07, type: 2}
       propertyPath: levelObjectPrefabs_.Array.data[9]
       value: 
-      objectReference: {fileID: 100000, guid: 502feeb514ce1d24d8b5b7ce044af484, type: 2}
+      objectReference: {fileID: 100000, guid: 04464b5b6eeefad418656f8a2ab0f697, type: 2}
+    - target: {fileID: 11400000, guid: e2e0803c8b7ab254fba3b0c26409de07, type: 2}
+      propertyPath: levelObjectPrefabs_.Array.data[10]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: e2e0803c8b7ab254fba3b0c26409de07, type: 2}
+      propertyPath: levelObjectPrefabs_.Array.data[11]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: e2e0803c8b7ab254fba3b0c26409de07, type: 2}
+      propertyPath: levelObjectPrefabs_.Array.data[12]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: e2e0803c8b7ab254fba3b0c26409de07, type: 2}
+      propertyPath: levelObjectPrefabs_.Array.data[13]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: e2e0803c8b7ab254fba3b0c26409de07, type: 2}
+      propertyPath: levelObjectPrefabs_.Array.data[14]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: e2e0803c8b7ab254fba3b0c26409de07, type: 2}
+      propertyPath: levelObjectPrefabs_.Array.data[15]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: e2e0803c8b7ab254fba3b0c26409de07, type: 2}
+      propertyPath: levelObjectPrefabs_.Array.data[16]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: e2e0803c8b7ab254fba3b0c26409de07, type: 2}
+      propertyPath: levelObjectPrefabs_.Array.data[17]
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e2e0803c8b7ab254fba3b0c26409de07, type: 2}
   m_RootGameObject: {fileID: 342958977}
