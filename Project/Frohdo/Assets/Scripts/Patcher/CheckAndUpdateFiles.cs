@@ -66,7 +66,10 @@ public class CheckAndUpdateFiles : MonoBehaviour {
 	void Update () {
         switch (status)
         {
-            case 2: SceneManager.Instance.loadScene(SceneManager.Scene.MainMenu); break;
+            case 2:
+                SoundController.Instance.startBackgroundSoundLoop();
+                SceneManager.Instance.loadScene(SceneManager.Scene.MainMenu);
+                break;
         }
 	}
 
