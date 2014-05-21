@@ -37,7 +37,8 @@
 
 		struct Input
 		{
-			float2 uv_MainTex;
+			float2 uv_MainTex : Texcoord0;
+			float2 uv_OverlayTex : Texcoord1;
 			fixed4 color;
 			fixed4 overlayColor;
 		};
@@ -57,7 +58,7 @@
 		void surf (Input IN, inout SurfaceOutput o)
 		{
 			fixed4 c = tex2D(_MainTex, IN.uv_MainTex) * IN.overlayColor;
-			fixed4 cOver = tex2D(_OverlayTex, IN.uv_MainTex) * IN.color;
+			fixed4 cOver = tex2D(_OverlayTex, IN.uv_OverlayTex) * IN.color;
 
 			o.Albedo = cOver.a < 0.5 ? c.rgb : c.rgb * cOver.rgb;
 			//o.Albedo = lerp(c.rgb, c.rgb * cOver.rgb, cOver.a);

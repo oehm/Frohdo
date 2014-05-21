@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.IO;
+using System.Security.Cryptography;
+using System;
 
 public class ScoreController : MonoBehaviour {
 
@@ -57,5 +60,18 @@ public class ScoreController : MonoBehaviour {
         {
             pukeCount++;
         }
+    }
+
+    public string getMD5ofFile(string s) //gets MD5 from File on Disc!!
+    {
+        FileStream f = File.OpenRead(s);
+
+        byte[] data = new byte[f.Length];
+        f.Read(data, 0, (int)f.Length);
+
+        MD5 md5 = MD5.Create();
+        byte[] hash = md5.ComputeHash(data);
+
+        return BitConverter.ToString(hash);
     }
 }

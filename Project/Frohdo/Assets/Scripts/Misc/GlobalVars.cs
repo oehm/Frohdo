@@ -45,6 +45,9 @@ public class GlobalVars : ScriptableObject
     public int playLayer;
 
     public Vector2 maxLevelSize;
+
+    public int maxRatios;
+
     void OnEnable()
     {
         if (instance != null)
