@@ -66,6 +66,7 @@ public class SoundController : MonoBehaviour
         _backgroundSource = this.gameObject.GetComponent<AudioSource>();
         _backloopstarted = false;
         _backgroundSource.volume = BackgroundSoundVolume;
+        Debug.Log(_backgroundSource.volume);
         loadAudioFiles();
     }
 
