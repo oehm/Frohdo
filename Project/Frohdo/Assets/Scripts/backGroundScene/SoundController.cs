@@ -31,14 +31,14 @@ public class SoundController : MonoBehaviour {
 
     private void loadAudioFiles()
     {
-        Pukeclips.Add((AudioClip)Resources.Load("/Sounds/puke1.wav"));
+        Pukeclips.Add((AudioClip)Resources.Load("Sounds/puke1"));
     }
 
     public AudioClip getRandomPukeSound()
     {
         if (Pukeclips.Count > 0)
         {
-            return Pukeclips[Random.Range(0,Pukeclips.Count)];
+            return Pukeclips[Random.Range(0,Pukeclips.Count-1)];
         }
         else
         {
