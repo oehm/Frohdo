@@ -44,9 +44,9 @@ public class StateManager : MonoBehaviour
     }
     void Start()
     {
+        updateLayer(currentLayer);
         conditionCharacterSet.playLayer = layers[GlobalVars.Instance.playLayer];
         curState.init();
-        updateLayer(currentLayer);
     }
 
     void Update()
@@ -63,6 +63,7 @@ public class StateManager : MonoBehaviour
 
     public void changeState(Editor_State newState)
     {
+        //Debug.Log(newState.GetType());
         curState = newState;
         curState.init();
     }
@@ -107,6 +108,8 @@ public class StateManager : MonoBehaviour
         currentLayer = layerIndex.Value;
 
         objectSelection.layerIndex = layerIndex.Value;
+
+        selectedGui.layerIdx = layerIndex.Value;
 
         GameObject.Find("grid" + currentLayer.ToString()).GetComponentInChildren<Renderer>().enabled = true;
     }

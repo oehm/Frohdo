@@ -39,6 +39,7 @@ public class GUI_Selected : GUI_Element {
         skin = sk;
         content = null;
 
+        layerIdx = GlobalVars.Instance.playLayer;
         active = true;
     }
 
@@ -60,9 +61,10 @@ public class GUI_Selected : GUI_Element {
             active = false;
             return;
         }
-        Gridable g = obj.GetComponentInChildren<Gridable>();
+        Gridable g = obj.GetComponentsInChildren<Gridable>(true)[0];
         Vector2 objPos = Camera.main.WorldToScreenPoint(obj.transform.position + new Vector3(g.width/2,g.height/2));
         objPos.y = ForceAspectRatio.screenHeight - objPos.y + ForceAspectRatio.yOffset*2;
         position = new  Vector2(objPos.x,objPos.y);
+        this.obj = obj;
     }
 }

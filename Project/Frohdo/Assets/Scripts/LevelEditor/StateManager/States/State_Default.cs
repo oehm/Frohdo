@@ -24,6 +24,10 @@ public class State_Default : Editor_State {
 
     public void leftMouseDown()
     {
+        if(manager.guiController.mouseOnGui(mousePos))
+        {
+            return;
+        }
         Vector2 matIndex = EditorHelper.getMatIndex(EditorHelper.localMouseToLocalLayer(mousePos, GameObject.Find("SceneObjects").GetComponentsInChildren<Layer>()[manager.currentLayer].gameObject,true),Editor_Grid.Instance.planeSizes[manager.currentLayer]);
         if(matIndex.x >= 0 && matIndex.y >= 0 && matIndex.x < Editor_Grid.Instance.planeSizes[manager.currentLayer].x &&  matIndex.y < Editor_Grid.Instance.planeSizes[manager.currentLayer].y)
         {
@@ -34,6 +38,7 @@ public class State_Default : Editor_State {
                 newState.manager = manager;
                 newState.selected = select;
                 manager.changeState(newState);
+                return;
             }
         }
     }

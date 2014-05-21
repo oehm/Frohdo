@@ -63,9 +63,9 @@ public class InsertObject : Command
     private bool placeObject()
     {
 
-        Gridable htemp = obj.GetComponent<Gridable>();
+        Gridable htemp  = obj.GetComponentsInChildren<Gridable>(true)[0];
         Vector3 pos = obj.transform.localPosition;
-        return CommandHelper.setMatrix(ref Editor_Grid.Instance.levelGrid[matLAyer], pos, htemp, obj);
+        return CommandHelper.setMatrix( matLAyer, pos, htemp, obj);
 
     }
 
@@ -74,7 +74,7 @@ public class InsertObject : Command
         obj.SetActive(false);
 
         Gridable htemp = obj.GetComponent<Gridable>();
-        CommandHelper.setMatrixForceOverride(ref Editor_Grid.Instance.levelGrid[matLAyer], obj.transform.localPosition, htemp, null);
+        CommandHelper.setMatrixForceOverride(matLAyer, obj.transform.localPosition, htemp, null);
     }
 
     public void redo()
