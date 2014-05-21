@@ -33,6 +33,7 @@ public class State_SetObject : Editor_State {
         if (matIndex.x >= 0 && matIndex.y >= 0 && matIndex.x < Editor_Grid.Instance.planeSizes[manager.currentLayer].x && matIndex.y < Editor_Grid.Instance.planeSizes[manager.currentLayer].y)
         {
             GameObject select = Editor_Grid.Instance.levelGrid[manager.currentLayer][(int)matIndex.x][(int)matIndex.y];
+            //Debug.Log(select);
             if (select != null)
             {
                 State_ObjectSelected newState = new State_ObjectSelected();

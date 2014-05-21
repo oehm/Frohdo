@@ -29,24 +29,24 @@ public class EditCommandManager
 
     public bool executeCommand(Command c)
     {
-        //if (history.Count > 0)
-        //{
-        //    DeleteObj test = new DeleteObj();
-        //    if (c.GetType() == history[history.Count - 1].GetType() && c.GetType() == test.GetType())
-        //    {
-        //        Debug.Log("same type");
-        //        DeleteObj del1, del2;
-        //        del1 = (DeleteObj)c;
-        //        del2 = (DeleteObj)history[history.Count - 1];
+        if (history.Count > 0)
+        {
+            DeleteObj test = new DeleteObj();
+            if (c.GetType() == history[history.Count - 1].GetType() && c.GetType() == test.GetType())
+            {
+                Debug.Log("same type");
+                DeleteObj del1, del2;
+                del1 = (DeleteObj)c;
+                del2 = (DeleteObj)history[history.Count - 1];
 
-        //        if (del1.obj == del2.obj)
-        //        {
-        //            redo();
-        //            return true;
-        //        }
+                if (del1.obj == del2.obj)
+                {
+                    redo();
+                    return true;
+                }
 
-        //    }
-        //}
+            }
+        }
         if (!c.exectute()) return false;
         if (histIndex < history.Count - 1)
         {

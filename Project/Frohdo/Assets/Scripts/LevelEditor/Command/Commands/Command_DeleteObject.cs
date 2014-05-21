@@ -26,22 +26,22 @@ public class DeleteObj : Command
     {
         obj.SetActive(false);
 
-        Gridable htemp = obj.GetComponent<Gridable>();
+        Gridable htemp = obj.GetComponentsInChildren<Gridable>(true)[0];
         Vector3 pos = obj.transform.localPosition;
-        CommandHelper.setMatrixForceOverride(ref Editor_Grid.Instance.levelGrid[matLAyer], pos, htemp, null);
+        CommandHelper.setMatrixForceOverride(matLAyer, pos, htemp, null);
         return true;
     }
 
     private void placeObject()
     {
-        Gridable htemp = obj.GetComponent<Gridable>();
+        Gridable htemp = obj.GetComponentsInChildren<Gridable>(true)[0];
         Vector3 pos = obj.transform.position;
-
-        CommandHelper.setMatrixForceOverride(ref Editor_Grid.Instance.levelGrid[matLAyer], pos, htemp, obj);
+        CommandHelper.setMatrixForceOverride(matLAyer, pos, htemp, obj);
     }
 
     public void undo()
     {
+        Debug.Log("undo!");
         obj.SetActive(true);
         placeObject();
     }
