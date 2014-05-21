@@ -10,9 +10,37 @@ public class SoundController : MonoBehaviour
     private List<AudioClip> Pukeclips;
     private List<AudioClip> Background_clips;
 
-    private float _pukeSoundVolume = 1;
-    public float PukeSoundVolume { get { return _pukeSoundVolume; } set { _pukeSoundVolume = value; } }
-    public float BackgroundSoundVolume { get { return _backgroundSource.volume; } set { if (_backgroundSource != null) _backgroundSource.volume = value; } }
+    public float PukeSoundVolume
+    {
+        get
+        {
+            if (PlayerPrefs.HasKey("PukeVolume"))
+                return PlayerPrefs.GetFloat("PukeVolume");
+            else
+                return 1;
+        }
+        set
+        {
+            PlayerPrefs.SetFloat("PukeVolume", value);
+        }
+    }
+
+    public float BackgroundSoundVolume
+    {
+        get
+        {
+            if (PlayerPrefs.HasKey("BackgroundVolume"))
+                return PlayerPrefs.GetFloat("BackgroundVolume");
+            else
+                return 0.5f;
+        }
+        set
+        {
+            PlayerPrefs.SetFloat("BackgroundVolume", value);
+            if (_backgroundSource != null)
+                _backgroundSource.volume = value;
+        }
+    }
 
     private AudioSource _backgroundSource;
 
@@ -37,6 +65,7 @@ public class SoundController : MonoBehaviour
         Background_clips = new List<AudioClip>();
         _backgroundSource = this.gameObject.GetComponent<AudioSource>();
         _backloopstarted = false;
+        _backgroundSource.volume = BackgroundSoundVolume;
         loadAudioFiles();
     }
 
@@ -112,7 +141,7 @@ public class SoundController : MonoBehaviour
     {
         if (_backloopstarted && !_backgroundSource.isPlaying) //if soundloop is started once.. we will get a random background every time the old one is over. (when paused or stopped manually, nothing happens!
         {
-            startBackgroundSoundLoop(); 
+            startBackgroundSoundLoop();
         }
     }
 }
