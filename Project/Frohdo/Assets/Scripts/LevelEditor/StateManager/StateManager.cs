@@ -124,7 +124,7 @@ public class StateManager : MonoBehaviour
     public void mouseMove(Vector2 pos)
     {
         curState.mouseMove(pos);
-        Debug.Log(guiController.mouseOnGui(pos));
+        //Debug.Log(guiController.mouseOnGui(pos));
     }
 
 

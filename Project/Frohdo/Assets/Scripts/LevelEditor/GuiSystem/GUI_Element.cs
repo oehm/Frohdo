@@ -11,7 +11,7 @@ abstract public class GUI_Element
     protected GUISkin skin;
 
     public bool active { get; set; }
-    public Rect parentRect
+    public virtual Rect parentRect
     {
         get
         {

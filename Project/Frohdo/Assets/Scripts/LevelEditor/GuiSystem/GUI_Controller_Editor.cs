@@ -204,8 +204,7 @@ public class GUI_Controller_Editor : MonoBehaviour
 
         leftRect = new Rect(ForceAspectRatio.xOffset, ForceAspectRatio.yOffset + 80, 300, ForceAspectRatio.screenHeight - 80);
 
-        bgRect = new Rect(ForceAspectRatio.xOffset + topRect.width * backgroundColor.x, ForceAspectRatio.yOffset + topRect.height * backgroundColor.y, backgroundColorSize.x * topRect.width, backgroundColorSize.y * topRect.height);
-
+        bgRect = new Rect(topRect.x + topRect.width * backgroundColor.x, topRect.y + topRect.height * backgroundColor.y, backgroundColorSize.x * topRect.width,  skin.customStyles[7].fixedHeight * 7);
         
         gui_background.parentRect = bgRect;
         gui_objectSelect.parentRect = leftRect;
@@ -261,7 +260,11 @@ public class GUI_Controller_Editor : MonoBehaviour
         //}
         if (gui_background.mouseOnGui(invertedPos))
         {
-            //return true;
+            return true;
+        }
+        if(gui_selected.mouseOnGui(invertedPos))
+        {
+            return true;
         }
         return mOnGui;
     }
