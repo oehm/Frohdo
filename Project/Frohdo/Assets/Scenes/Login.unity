@@ -84,7 +84,7 @@ GameObject:
   - 4: {fileID: 232306413}
   - 114: {fileID: 232306412}
   m_Layer: 0
-  m_Name: SceneDestroyer
+  m_Name: LoginSceneDestroyer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -103,7 +103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneObjs:
   - {fileID: 1946248197}
-  - {fileID: 1819346344}
+  - {fileID: 654210236}
 --- !u!4 &232306413
 Transform:
   m_ObjectHideFlags: 0
@@ -168,7 +168,7 @@ GameObject:
   - 124: {fileID: 654210238}
   - 114: {fileID: 654210237}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: LoginCamera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -250,7 +250,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1819346345}
   m_Layer: 0
-  m_Name: SceneObjects
+  m_Name: LoginSceneObjects
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -277,7 +277,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1946248198}
   m_Layer: 0
-  m_Name: SceneController
+  m_Name: LoginSceneController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

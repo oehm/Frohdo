@@ -24,18 +24,27 @@ public class ForceAspectRatio : MonoBehaviour
     static Camera backgroundCam;
 
 	void Awake () {
-		Screen.fullScreen = Screen.fullScreen;
-		_landscapeModeOnly = landscapeModeOnly;
-        cam = camera;
-        if (!cam) {
-            cam = Camera.main;
-			//Debug.Log ("Setting the main camera " + cam.name);
-        }
-		else {
-			//Debug.Log ("Setting the main camera " + cam.name);
-		}
+        Debug.Log("Awake");
+        activate();
+	}
 
-        if (!cam) {
+    public void activate()
+    {
+        Screen.fullScreen = Screen.fullScreen;
+        _landscapeModeOnly = landscapeModeOnly;
+        cam = camera;
+        if (!cam)
+        {
+            cam = Camera.main;
+            //Debug.Log ("Setting the main camera " + cam.name);
+        }
+        else
+        {
+            //Debug.Log ("Setting the main camera " + cam.name);
+        }
+
+        if (!cam)
+        {
             //Debug.LogError ("No camera available");
             return;
         }
@@ -43,7 +52,7 @@ public class ForceAspectRatio : MonoBehaviour
         SetCamera();
 
         cam.transparencySortMode = TransparencySortMode.Orthographic;
-	}
+    }
 
 	void Update()
 	{

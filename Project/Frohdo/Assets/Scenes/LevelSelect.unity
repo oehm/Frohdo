@@ -104,6 +104,7 @@ MonoBehaviour:
   sceneObjs:
   - {fileID: 574485112}
   - {fileID: 1077803520}
+  - {fileID: 2083252114}
 --- !u!4 &22665416
 Transform:
   m_ObjectHideFlags: 0
@@ -182,48 +183,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 807898471}
   - {fileID: 455355784}
   m_Father: {fileID: 0}
---- !u!1 &807898470
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 807898471}
-  - 114: {fileID: 807898472}
-  m_Layer: 0
-  m_Name: PauseMenu
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &807898471
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 807898470}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 574485113}
---- !u!114 &807898472
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 807898470}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e01373aa31b19334d95bba2d1ee89694, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  destroyer: {fileID: 22665415}
 --- !u!1 &1077803520
 GameObject:
   m_ObjectHideFlags: 0
@@ -277,7 +238,7 @@ Transform:
   m_PrefabInternal: {fileID: 2038703627}
   m_GameObject: {fileID: 1762572253}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2010111262}
@@ -290,11 +251,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1762572253}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8200875e660d34a43b17b73c44d309b8, type: 3}
+  m_Script: {fileID: 11500000, guid: 4fdc1a41fbe07e14aaec50f7dd2cc902, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _wantedAspectRatio: 1.77777803
-  landscapeModeOnly: 1
 --- !u!124 &1762572256
 Behaviour:
   m_ObjectHideFlags: 0
@@ -367,7 +326,7 @@ Transform:
   m_PrefabInternal: {fileID: 2038703627}
   m_GameObject: {fileID: 1960048913}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2010111262}
@@ -380,11 +339,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1960048913}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8200875e660d34a43b17b73c44d309b8, type: 3}
+  m_Script: {fileID: 11500000, guid: 4fdc1a41fbe07e14aaec50f7dd2cc902, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _wantedAspectRatio: 1.77777803
-  landscapeModeOnly: 1
 --- !u!124 &1960048916
 Behaviour:
   m_ObjectHideFlags: 0
@@ -442,7 +399,6 @@ GameObject:
   - 20: {fileID: 2010111267}
   - 92: {fileID: 2010111266}
   - 124: {fileID: 2010111265}
-  - 81: {fileID: 2010111264}
   - 114: {fileID: 2010111263}
   m_Layer: 0
   m_Name: LevelSelectCam
@@ -458,7 +414,7 @@ Transform:
   m_PrefabInternal: {fileID: 2038703627}
   m_GameObject: {fileID: 2010111261}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0, z: -10}
+  m_LocalPosition: {x: 0, y: -0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1960048914}
@@ -478,14 +434,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _wantedAspectRatio: 1.77777803
   landscapeModeOnly: 1
---- !u!81 &2010111264
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 8100000, guid: 43bd0df0891bd3a46a25d52410add3c7,
-    type: 2}
-  m_PrefabInternal: {fileID: 2038703627}
-  m_GameObject: {fileID: 2010111261}
-  m_Enabled: 1
 --- !u!124 &2010111265
 Behaviour:
   m_ObjectHideFlags: 0
@@ -549,7 +497,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 43bd0df0891bd3a46a25d52410add3c7, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 43bd0df0891bd3a46a25d52410add3c7, type: 2}
       propertyPath: m_LocalRotation.x
@@ -571,8 +519,57 @@ Prefab:
       propertyPath: m_Name
       value: LevelSelectCam
       objectReference: {fileID: 0}
+    - target: {fileID: 400004, guid: 43bd0df0891bd3a46a25d52410add3c7, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 43bd0df0891bd3a46a25d52410add3c7, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 43bd0df0891bd3a46a25d52410add3c7, type: 2}
   m_RootGameObject: {fileID: 2010111261}
   m_IsPrefabParent: 0
   m_IsExploded: 1
+--- !u!1 &2083252114
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 2083252116}
+  - 114: {fileID: 2083252115}
+  m_Layer: 0
+  m_Name: SceneDisabler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2083252115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2083252114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd881161b659f0643ac82736ad4690a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneObjs:
+  - {fileID: 574485112}
+  - {fileID: 1077803520}
+--- !u!4 &2083252116
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2083252114}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.06067467, y: .229294077, z: -3.62501621}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}

@@ -60,9 +60,19 @@ public class Login : MonoBehaviour
 
         if (GUILayout.Button("Stay offline"))
         {
-            SceneManager.Instance.loadScene(SceneManager.Scene.MainMenu);
+            SceneManager.Instance.returnFromLoginAndEscMenu();
         }
         GUILayout.EndHorizontal();
+
+        if (SceneManager.Instance.getSavedSceneTypeWhenInLogin() != SceneManager.Scene.MainMenu)
+        {
+            GUILayout.BeginHorizontal();
+            if (GUILayout.Button("Back to main menu"))
+            {
+                SceneManager.Instance.loadScene(SceneManager.Scene.MainMenu);
+            }
+            GUILayout.EndHorizontal();
+        }
         GUILayout.FlexibleSpace();
         GUILayout.EndVertical();
 

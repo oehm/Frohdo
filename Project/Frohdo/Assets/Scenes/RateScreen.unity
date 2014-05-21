@@ -104,6 +104,7 @@ MonoBehaviour:
   sceneObjs:
   - {fileID: 2023869072}
   - {fileID: 1696378272}
+  - {fileID: 1743636768}
 --- !u!4 &207062758
 Transform:
   m_ObjectHideFlags: 0
@@ -270,6 +271,47 @@ Transform:
   m_Children:
   - {fileID: 2026903946}
   m_Father: {fileID: 0}
+--- !u!1 &1743636768
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1743636770}
+  - 114: {fileID: 1743636769}
+  m_Layer: 0
+  m_Name: SceneDisabler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1743636769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1743636768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd881161b659f0643ac82736ad4690a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneObjs:
+  - {fileID: 2023869072}
+  - {fileID: 1696378272}
+--- !u!4 &1743636770
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1743636768}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.06067467, y: .229294077, z: -3.62501621}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
 --- !u!1 &1809700607
 GameObject:
   m_ObjectHideFlags: 0
@@ -396,7 +438,6 @@ GameObject:
   - 20: {fileID: 2026903951}
   - 92: {fileID: 2026903950}
   - 124: {fileID: 2026903949}
-  - 81: {fileID: 2026903948}
   - 114: {fileID: 2026903947}
   m_Layer: 0
   m_Name: Camera
@@ -432,14 +473,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _wantedAspectRatio: 1.77777803
   landscapeModeOnly: 1
---- !u!81 &2026903948
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 8100000, guid: 43bd0df0891bd3a46a25d52410add3c7,
-    type: 2}
-  m_PrefabInternal: {fileID: 672874104}
-  m_GameObject: {fileID: 2026903945}
-  m_Enabled: 1
 --- !u!124 &2026903949
 Behaviour:
   m_ObjectHideFlags: 0

@@ -18,6 +18,12 @@ public class SceneManager : MonoBehaviour
     private bool loading = false;
     private AsyncOperation async;
 
+    private Scene curscene;
+    private Scene savedSceneWhenInLoginScene;
+
+    public bool Startup { get { return startup; } set { startup = value; } }
+    private bool startup = true;
+
     public string levelToLoad { get; set; }
     public string levelToEdit { get; set; }
 
@@ -54,10 +60,47 @@ public class SceneManager : MonoBehaviour
     public void loadScene(Scene nextScene)
     {
         SceneDestroyer destroyer = GameObject.Find("SceneDestroyer").GetComponent<SceneDestroyer>();
+        
+        GameObject loginSceneDestroyer = GameObject.Find("LoginSceneDestroyer"); //we need this if we are in login and Esc menu and we choose to go back to the menu for example!
+        if (loginSceneDestroyer != null)
+        {
+            loginSceneDestroyer.GetComponent<SceneDestroyer>().suicide();
+        }
 
         async = Application.LoadLevelAdditiveAsync((int)nextScene);        
         destroyer.suicide();
+        curscene = nextScene;
+        savedSceneWhenInLoginScene = nextScene;
         loading = true;
+    }
+    //Will return the Type of the Current Scene (if in Login Scene the Last scene will be returned!)
+    public Scene getCurrentSceneType()
+    {
+        return curscene;
+    }
+
+    public Scene getSavedSceneTypeWhenInLogin()
+    {
+        return savedSceneWhenInLoginScene;
+    }
+
+    public void showLoginAndEscMenu()
+    {
+        if (startup) startup = false;
+        SceneDisabler disabler = GameObject.Find("SceneDisabler").GetComponent<SceneDisabler>();
+        curscene = Scene.Login;
+        async = Application.LoadLevelAdditiveAsync((int)Scene.Login);
+        disabler.disable();
+    }
+
+    public void returnFromLoginAndEscMenu() // we need this if we only want to close esc and login scene and continue with the last scene.
+    {
+        SceneDisabler disabler = GameObject.Find("SceneDisabler").GetComponent<SceneDisabler>();
+        SceneDestroyer destroyer = GameObject.Find("LoginSceneDestroyer").GetComponent<SceneDestroyer>();
+        destroyer.suicide();
+        disabler.enable();
+        curscene = savedSceneWhenInLoginScene;
+        GameObject.FindObjectOfType<ForceAspectRatio>().activate();
     }
 
     public enum Scene

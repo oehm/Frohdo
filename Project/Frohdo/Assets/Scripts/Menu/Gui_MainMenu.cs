@@ -23,7 +23,7 @@ public class Gui_MainMenu : MonoBehaviour
 
     void Start()
     {
-
+        if (SceneManager.Instance.Startup) SceneManager.Instance.showLoginAndEscMenu();
         menuFunction = mainMenu;
     }
 
