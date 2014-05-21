@@ -33,6 +33,9 @@ public class CheckAndUpdateFiles : MonoBehaviour {
         Uri loc = new Uri(localDir);
         localDir = new Uri(loc.AbsoluteUri).LocalPath;
 
+        WWWForm myform = new WWWForm();
+        Debug.Log(myform.headers["Content-Type"]);
+
         ThreadStart ts = new ThreadStart(CheckFiles);
         Thread th = new Thread(ts);
         //th.Start();
@@ -66,7 +69,7 @@ public class CheckAndUpdateFiles : MonoBehaviour {
         {
             case 2:
                 SoundController.Instance.startBackgroundSoundLoop();
-                SceneManager.Instance.loadScene(SceneManager.Scene.MainMenu);
+                SceneManager.Instance.loadScene(SceneManager.Scene.Login);
                 break;
         }
 	}
