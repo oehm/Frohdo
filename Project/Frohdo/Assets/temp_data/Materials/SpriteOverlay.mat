@@ -24,7 +24,7 @@ Material:
         first:
           name: _OverlayTex
         second:
-          m_Texture: {fileID: 2800000, guid: ca033803bd1773d4dbf539e13c606583, type: 3}
+          m_Texture: {fileID: 2800000, guid: cae7ed5077549884c94ee888fafb8b71, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
     m_Floats:
