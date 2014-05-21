@@ -42,6 +42,7 @@ public class GUI_Controller_Editor : MonoBehaviour
 
     private Rect topRect;
     private Rect leftRect;
+    private Rect bgRect;
 
     void Awake()
     {
@@ -57,7 +58,8 @@ public class GUI_Controller_Editor : MonoBehaviour
         stateManager.selectedGui = gui_selected;
         gui_objectSelect = new GUI_ObjectSelection(Vector2.zero, Vector2.zero, skin);
         stateManager.objectSelection = gui_objectSelect;
-        gui_background = new GUI_Background(backgroundColor,backgroundColorSize,skin);
+        gui_background = new GUI_Background(new Vector2(0,0),new Vector2(1,1),skin);
+        stateManager.backgroundgui = gui_background;
     }
 
     void Start()
@@ -65,6 +67,7 @@ public class GUI_Controller_Editor : MonoBehaviour
         screenSize = ForceAspectRatio.screenRect;
         topRect = new Rect(ForceAspectRatio.xOffset, ForceAspectRatio.yOffset, ForceAspectRatio.screenWidth, 80);
         leftRect = new Rect(ForceAspectRatio.xOffset, ForceAspectRatio.yOffset + 80, 300, ForceAspectRatio.screenHeight - 80);
+        bgRect = new Rect(ForceAspectRatio.xOffset, ForceAspectRatio.yOffset, backgroundColorSize.x * topRect.width, backgroundColorSize.y * topRect.height);
 
         InitGUI();
         resize();
@@ -123,9 +126,8 @@ public class GUI_Controller_Editor : MonoBehaviour
         gui_color.content = colorButtons;
 
         gui_background.content = backgroundButtons;
-        gui_background.parentRect = topRect;
+        gui_background.parentRect = bgRect;
 
-        //addGui(gui_background);
         addGui(gui_color);
     }
 
@@ -202,13 +204,16 @@ public class GUI_Controller_Editor : MonoBehaviour
 
         leftRect = new Rect(ForceAspectRatio.xOffset, ForceAspectRatio.yOffset + 80, 300, ForceAspectRatio.screenHeight - 80);
 
-        gui_background.parentRect = topRect;
+        bgRect = new Rect(ForceAspectRatio.xOffset + topRect.width * backgroundColor.x, ForceAspectRatio.yOffset + topRect.height * backgroundColor.y, backgroundColorSize.x * topRect.width, backgroundColorSize.y * topRect.height);
 
+        
+        gui_background.parentRect = bgRect;
         gui_objectSelect.parentRect = leftRect;
-        //foreach (GUI_Element g in guiList)
-        //{
-        //    //g.resize(ForceAspectRatio.screenRect);
-        //}
+        foreach (GUI_Element g in guiList)
+        {
+            g.parentRect = topRect;
+        }
+        screenSize = ForceAspectRatio.screenRect;
     }
 
     void OnGUI()
@@ -222,7 +227,9 @@ public class GUI_Controller_Editor : MonoBehaviour
         GUILayout.BeginArea(leftRect, skin.customStyles[3]);
         gui_objectSelect.Draw();
         GUILayout.EndArea();
+        GUILayout.BeginArea(bgRect);
         gui_background.Draw();
+        GUILayout.EndArea();
         gui_selected.Draw();
     }
 
@@ -239,22 +246,22 @@ public class GUI_Controller_Editor : MonoBehaviour
     public bool mouseOnGui(Vector2 pos)
     {
         bool mOnGui = false;
-        Vector2 invertedPos = new Vector2(pos.x - ForceAspectRatio.xOffset, ForceAspectRatio.screenHeight - pos.y + ForceAspectRatio.yOffset);
-        if (gui_objectSelect.mouseOnGui(invertedPos))
+        Vector2 invertedPos = new Vector2(pos.x, ForceAspectRatio.screenHeight - pos.y + 2* ForceAspectRatio.yOffset);
+        if (leftRect.Contains(invertedPos))
         {
             return true;
         }
-        if (gui_selected.mouseOnGui(invertedPos))
+        if (topRect.Contains(invertedPos))
         {
             return true;
         }
-        foreach (GUI_Element g in guiList)
+        //foreach (GUI_Element g in guiList)
+        //{
+        //    if (g.mouseOnGui(invertedPos)) return true;
+        //}
+        if (gui_background.mouseOnGui(invertedPos))
         {
-            if (g.mouseOnGui(invertedPos)) return true;
-        }
-        if(gui_background.mouseOnGui(invertedPos))
-        {
-            return true;
+            //return true;
         }
         return mOnGui;
     }

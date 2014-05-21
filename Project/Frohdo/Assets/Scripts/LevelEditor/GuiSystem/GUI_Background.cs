@@ -8,7 +8,8 @@ public class GUI_Background : GUI_Element
     public List<GUI_ContentColor> content { get; set; }
 
     private int selected;
-    private bool popUp;
+    public bool popUp;
+
 
     public GUI_Background(Vector2 pos, Vector2 s, GUISkin sk)
     {
@@ -26,11 +27,12 @@ public class GUI_Background : GUI_Element
     {
         if (!popUp)
         {
-            return base.mouseOnGui(pos);
+            return parentRect.Contains(pos);
         }
         else
         {
-            Rect popUpRect = new Rect(_rect.x, _rect.y, skin.customStyles[7].fixedWidth, skin.customStyles[7].fixedHeight * content.Count);
+            Rect popUpRect = new Rect(_rect.x * parentRect.width + parentRect.x, _rect.y * parentRect.height + parentRect.y, skin.customStyles[7].fixedWidth, skin.customStyles[7].fixedHeight * content.Count);
+            Debug.Log(popUpRect);
             return popUpRect.Contains(pos);
         }
     }
@@ -38,6 +40,7 @@ public class GUI_Background : GUI_Element
     public override void Draw()
     {
         if (!active) return;
+
         GUILayout.BeginArea(_rect);
         if (!popUp)
         {
@@ -61,5 +64,6 @@ public class GUI_Background : GUI_Element
             GUILayout.EndVertical();
         }
         GUILayout.EndArea();
+
     }
 }

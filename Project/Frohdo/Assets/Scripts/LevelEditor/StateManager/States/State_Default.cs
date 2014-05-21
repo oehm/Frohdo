@@ -13,6 +13,7 @@ public class State_Default : Editor_State {
         manager.selectedGui.active = false;
         manager.commands.active = true;
         manager.objectSelection.markObject(false);
+        manager.backgroundgui.popUp = false;
         mousePos = new Vector2(0, 0);
     }
 

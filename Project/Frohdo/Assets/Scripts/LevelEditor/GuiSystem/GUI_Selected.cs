@@ -10,7 +10,7 @@ public class GUI_Selected : GUI_Element {
     private Vector2 _pos;
 
     public new Rect parentRect { get; set; } //force override of base class
-    public new Vector2 pos
+    public Vector2 pos
     {
         get
         {

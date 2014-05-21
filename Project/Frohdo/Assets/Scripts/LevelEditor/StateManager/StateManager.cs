@@ -11,6 +11,7 @@ public class StateManager : MonoBehaviour
     public GUI_Commands commands;
     public GUI_Selected selectedGui;
     public GUI_LayerSelect layerSelect;
+    public GUI_Background backgroundgui;
 
     public string currentColor;
     public GameObject currentGameObject;
@@ -123,6 +124,7 @@ public class StateManager : MonoBehaviour
     public void mouseMove(Vector2 pos)
     {
         curState.mouseMove(pos);
+        Debug.Log(guiController.mouseOnGui(pos));
     }
 
 

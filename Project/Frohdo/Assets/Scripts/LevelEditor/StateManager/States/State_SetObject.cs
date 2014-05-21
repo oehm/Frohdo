@@ -15,6 +15,7 @@ public class State_SetObject : Editor_State {
         manager.commands.active = true;
         manager.objectSelection.changeColor(manager.currentColor);
         manager.objectSelection.markObject(true);
+        manager.backgroundgui.popUp = false;
 
         mousePos = new Vector2(0, 0);
         objToSet = null;
