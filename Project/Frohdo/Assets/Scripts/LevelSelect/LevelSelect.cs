@@ -59,7 +59,7 @@ public class LevelSelect : MonoBehaviour {
         if (dinfo.Exists)
         {
             int id = 0;
-            Debug.Log(dinfo.GetDirectories().Length);
+            //Debug.Log(dinfo.GetDirectories().Length);
             foreach (DirectoryInfo d in dinfo.GetDirectories())
             {
                 Levelobj obj;
@@ -89,12 +89,13 @@ public class LevelSelect : MonoBehaviour {
     {
         levels = new List<Levelobj>();
 
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < 18; i++)
         {
             Levelobj obj;
             try
             {
-                obj = new OnlineLevelObj(i, 0);
+                obj = gameObject.AddComponent(typeof(OnlineLevelObj)) as OnlineLevelObj;
+                ((OnlineLevelObj)obj).init(i, "hash");
             }
             catch (Exception)
             {
@@ -116,7 +117,7 @@ public class LevelSelect : MonoBehaviour {
         if (dinfo.Exists)
         {
             int id = 0;
-            Debug.Log(dinfo.GetDirectories().Length);
+            //Debug.Log(dinfo.GetDirectories().Length);
             foreach (DirectoryInfo d in dinfo.GetDirectories())
             {
                 Levelobj obj;
@@ -133,7 +134,7 @@ public class LevelSelect : MonoBehaviour {
                     Debug.Log(e);
                     continue;
                 }
-                Debug.Log(d.FullName + " added!");
+                //Debug.Log(d.FullName + " added!");
             }
         }
         else
@@ -172,7 +173,7 @@ public class LevelSelect : MonoBehaviour {
 
         style.customStyles[2].fixedHeight = screenHeight * 0.1f;
         style.customStyles[2].fixedWidth = screenWidth / 6;
-        style.customStyles[2].fontSize = (int)(screenHeight * 0.05f);
+        style.customStyles[2].fontSize = (int)(screenHeight * 0.065f);
 
         style.customStyles[3].fixedWidth = screenWidth / 2;
         style.customStyles[3].fixedHeight = screenHeight * 0.8f;
@@ -182,11 +183,11 @@ public class LevelSelect : MonoBehaviour {
 
         style.customStyles[5].fixedWidth = screenWidth / 6;
         style.customStyles[5].fixedHeight = screenHeight * 0.1f;
-        style.customStyles[5].fontSize = (int)(screenHeight * 0.05f);
+        style.customStyles[5].fontSize = (int)(screenHeight * 0.065f);
 
         style.customStyles[6].fixedWidth = screenWidth / 10;
         style.customStyles[6].fixedHeight = screenHeight * 0.1f;
-        style.customStyles[6].fontSize = (int)(screenHeight * 0.05f);
+        style.customStyles[6].fontSize = (int)(screenHeight * 0.065f);
 
         style.customStyles[7].fixedWidth = screenWidth;
         style.customStyles[7].fixedHeight = screenHeight;
@@ -198,9 +199,9 @@ public class LevelSelect : MonoBehaviour {
 
         style.button.fixedWidth = screenWidth / 2;
         style.button.fixedHeight = screenHeight * 0.8f / LevelsToShow;
-        style.button.fontSize = (int)((screenHeight * 0.8f / LevelsToShow) * 0.5f);
+        style.button.fontSize = (int)((screenHeight * 0.8f / LevelsToShow) * 0.7f);
 
-        style.label.fontSize = (int)((screenHeight * 0.8f / LevelsToShow) * 0.5f);
+        style.label.fontSize = (int)((screenHeight * 0.8f / LevelsToShow) * 0.7f);
 
         GUI.skin = style;
         GUILayout.BeginVertical();
@@ -240,12 +241,12 @@ public class LevelSelect : MonoBehaviour {
                     if (regsiterToShow == 0)
                     {
                         GUI.enabled = false;
-                        GUILayout.Button("<color=" + buttonDisabledColorHexString + ">Eigene Levels</color>", "topbarbutton");
+                        GUILayout.Button("<color=" + buttonDisabledColorHexString + ">Custom</color>", "topbarbutton");
                         GUI.enabled = true;
                     }
                     else
                     {
-                        if (GUILayout.Button("Eigene Levels", "topbarbutton"))
+                        if (GUILayout.Button("Custom", "topbarbutton"))
                         {
                             regsiterToShow = 0;
                             reloadLevels = true;
@@ -415,7 +416,7 @@ abstract class Levelobj : MonoBehaviour
     {
         if (StartLoadingThumb)
         {
-            Debug.Log("Starting Coroutine with path" + path);
+            //Debug.Log("Starting Coroutine with path" + path);
             StartCoroutine(FetchThumb(path));
             StartLoadingThumb = false;
         }
@@ -429,7 +430,7 @@ abstract class Levelobj : MonoBehaviour
 
     IEnumerator FetchThumb(string path)
     {
-        Debug.Log("In COROUTINE!");
+        //Debug.Log("In COROUTINE!");
         ThumbCurrentlyLoading = true;
         currentDownloadTime = 0.0f;
         thumbdownload = new WWW(path);
@@ -443,7 +444,7 @@ abstract class Levelobj : MonoBehaviour
         {
             Debug.Log(thumbdownload.error);
         }
-        Debug.Log("FINISHED!");
+        //Debug.Log("FINISHED!");
     }
 
     protected void showHighscore()
@@ -488,7 +489,7 @@ abstract class Levelobj : MonoBehaviour
     protected void showThumbnail()
     {
         GUILayout.BeginHorizontal();
-        GUILayout.Label("Name: " + name);
+        GUILayout.Label(name);
         GUILayout.EndHorizontal();
 
         GUILayout.BeginHorizontal();
@@ -502,8 +503,8 @@ abstract class Levelobj : MonoBehaviour
         {
             GUILayout.FlexibleSpace();
             GUILayout.BeginHorizontal("imagebox");
-            if (ThumbCurrentlyLoading) GUILayout.Label("Vorschaubild wird geladen");
-            else GUILayout.Label("Vorschaubild konnte nicht gefunden werden!");
+            if (ThumbCurrentlyLoading) GUILayout.Label("Loading thumbnail ...");
+            else GUILayout.Label("Unable to Load thumbnail!");
             GUILayout.EndHorizontal();
             GUILayout.FlexibleSpace();
         }
@@ -554,12 +555,12 @@ class CustomLevelObj : Levelobj
         GUILayout.EndVertical();
         GUILayout.BeginHorizontal("bottombar");
         GUILayout.FlexibleSpace();
-        if (GUILayout.Button("Level starten", "forwardbackwardbutton"))
+        if (GUILayout.Button("Spielen", "forwardbackwardbutton"))
         {
             SceneManager.Instance.levelToLoad = XMLPath.FullName;
             SceneManager.Instance.loadScene(SceneManager.Scene.Game);
         }
-        if (GUILayout.Button("Level bearbeiten", "forwardbackwardbutton"))
+        if (GUILayout.Button("Bearbeiten", "forwardbackwardbutton"))
         {
             SceneManager.Instance.levelToLoad = XMLPath.FullName;
             SceneManager.Instance.loadLevelToEdit = true;
@@ -606,16 +607,11 @@ class OnlineLevelObj : Levelobj //online - not downloaded
 {
     String hash = null;
 
-    public OnlineLevelObj(int id, int onlineid)
+    public void init(int id, string onlinehash)
     {
         this.id = id;
         this.name = "Online-Level " + id;
-    }
-
-    public void init(int id, int onlineid)
-    {
-        this.id = id;
-        this.name = "Online-Level " + id;
+        this.hash = onlinehash;
     }
 
     public override void loadHighScores()

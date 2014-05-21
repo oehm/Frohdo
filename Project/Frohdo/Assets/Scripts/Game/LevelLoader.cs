@@ -137,7 +137,7 @@ public class LevelLoader : MonoBehaviour
 
         if (!editor)
         {
-            ScoreController.Instance.LevelHash = path; //just temporary, calculate it later
+            ScoreController.Instance.LevelHash = ScoreController.Instance.getMD5ofFile(path); //just temporary, calculate it later
         }
     }
 

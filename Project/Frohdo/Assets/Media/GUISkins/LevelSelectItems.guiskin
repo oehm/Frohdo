@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 12001, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: LevelSelectItems
   m_EditorClassIdentifier: 
-  m_Font: {fileID: 12800000, guid: 74457e3e514be8c42a5211f3699613fd, type: 3}
+  m_Font: {fileID: 12800000, guid: 14e59639e917f2a44b9e6396134adda0, type: 3}
   m_box:
     m_Name: box
     m_Normal:
@@ -118,7 +118,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Font: {fileID: 0}
-    m_FontSize: 36
+    m_FontSize: 29
     m_FontStyle: 0
     m_Alignment: 3
     m_WordWrap: 0
@@ -126,8 +126,8 @@ MonoBehaviour:
     m_TextClipping: 1
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 808
-    m_FixedHeight: 72.7200012
+    m_FixedWidth: 474.5
+    m_FixedHeight: 42.6399994
     m_StretchWidth: 1
     m_StretchHeight: 0
   m_toggle:
@@ -236,7 +236,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Font: {fileID: 0}
-    m_FontSize: 36
+    m_FontSize: 29
     m_FontStyle: 0
     m_Alignment: 4
     m_WordWrap: 1
@@ -1247,8 +1247,8 @@ MonoBehaviour:
     m_TextClipping: 0
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 808
-    m_FixedHeight: 727.200012
+    m_FixedWidth: 474.5
+    m_FixedHeight: 426.399994
     m_StretchWidth: 1
     m_StretchHeight: 0
   - m_Name: topbar
@@ -1305,8 +1305,8 @@ MonoBehaviour:
     m_TextClipping: 0
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 1616
-    m_FixedHeight: 90.9000015
+    m_FixedWidth: 949
+    m_FixedHeight: 53.2999992
     m_StretchWidth: 1
     m_StretchHeight: 0
   - m_Name: topbarbutton
@@ -1355,7 +1355,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Font: {fileID: 0}
-    m_FontSize: 45
+    m_FontSize: 34
     m_FontStyle: 0
     m_Alignment: 4
     m_WordWrap: 0
@@ -1363,8 +1363,8 @@ MonoBehaviour:
     m_TextClipping: 0
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 269.333344
-    m_FixedHeight: 90.9000015
+    m_FixedWidth: 158.166672
+    m_FixedHeight: 53.2999992
     m_StretchWidth: 1
     m_StretchHeight: 0
   - m_Name: levelselectbox
@@ -1421,8 +1421,8 @@ MonoBehaviour:
     m_TextClipping: 0
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 808
-    m_FixedHeight: 727.200012
+    m_FixedWidth: 474.5
+    m_FixedHeight: 426.399994
     m_StretchWidth: 1
     m_StretchHeight: 0
   - m_Name: bottombar
@@ -1479,8 +1479,8 @@ MonoBehaviour:
     m_TextClipping: 0
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 808
-    m_FixedHeight: 90.9000015
+    m_FixedWidth: 474.5
+    m_FixedHeight: 53.2999992
     m_StretchWidth: 1
     m_StretchHeight: 0
   - m_Name: forwardbackwardbutton
@@ -1529,7 +1529,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Font: {fileID: 0}
-    m_FontSize: 45
+    m_FontSize: 34
     m_FontStyle: 0
     m_Alignment: 4
     m_WordWrap: 0
@@ -1537,8 +1537,8 @@ MonoBehaviour:
     m_TextClipping: 0
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 269.333344
-    m_FixedHeight: 90.9000015
+    m_FixedWidth: 158.166672
+    m_FixedHeight: 53.2999992
     m_StretchWidth: 1
     m_StretchHeight: 0
   - m_Name: bottombarCurLevelLabel
@@ -1587,7 +1587,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Font: {fileID: 0}
-    m_FontSize: 45
+    m_FontSize: 34
     m_FontStyle: 0
     m_Alignment: 4
     m_WordWrap: 0
@@ -1595,8 +1595,8 @@ MonoBehaviour:
     m_TextClipping: 0
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 161.600006
-    m_FixedHeight: 90.9000015
+    m_FixedWidth: 94.9000015
+    m_FixedHeight: 53.2999992
     m_StretchWidth: 1
     m_StretchHeight: 0
   - m_Name: mainbox
@@ -1653,8 +1653,8 @@ MonoBehaviour:
     m_TextClipping: 0
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 1616
-    m_FixedHeight: 909
+    m_FixedWidth: 949
+    m_FixedHeight: 533
     m_StretchWidth: 1
     m_StretchHeight: 0
   - m_Name: imagebox
@@ -1688,8 +1688,8 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Margin:
-      m_Left: 20
-      m_Right: 20
+      m_Left: 0
+      m_Right: 0
       m_Top: 10
       m_Bottom: 10
     m_Padding:
@@ -1711,8 +1711,8 @@ MonoBehaviour:
     m_TextClipping: 0
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 646.400024
-    m_FixedHeight: 363.600006
+    m_FixedWidth: 379.600006
+    m_FixedHeight: 213.199997
     m_StretchWidth: 1
     m_StretchHeight: 1
   - m_Name: highscoreNumbersBox
@@ -1769,7 +1769,7 @@ MonoBehaviour:
     m_TextClipping: 0
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 269.333344
+    m_FixedWidth: 158.166672
     m_FixedHeight: 363.600006
     m_StretchWidth: 1
     m_StretchHeight: 1

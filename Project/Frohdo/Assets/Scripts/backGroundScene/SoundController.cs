@@ -10,18 +10,23 @@ public class SoundController : MonoBehaviour
     private List<AudioClip> Pukeclips;
     private List<AudioClip> Background_clips;
 
-    public float PukeSoundVolume
+    private AudioSource _backgroundSource;
+    private AudioSource _clickSoundsSource;
+
+    bool _backloopstarted;
+
+    public float MiscSoundVolume
     {
         get
         {
-            if (PlayerPrefs.HasKey("PukeVolume"))
-                return PlayerPrefs.GetFloat("PukeVolume");
+            if (PlayerPrefs.HasKey("MiscVolume"))
+                return PlayerPrefs.GetFloat("MiscVolume");
             else
                 return 1;
         }
         set
         {
-            PlayerPrefs.SetFloat("PukeVolume", value);
+            PlayerPrefs.SetFloat("MiscVolume", value);
         }
     }
 
@@ -42,10 +47,6 @@ public class SoundController : MonoBehaviour
         }
     }
 
-    private AudioSource _backgroundSource;
-
-    bool _backloopstarted;
-
     public static SoundController Instance
     {
         get
@@ -63,10 +64,14 @@ public class SoundController : MonoBehaviour
         instance = this;
         Pukeclips = new List<AudioClip>();
         Background_clips = new List<AudioClip>();
-        _backgroundSource = this.gameObject.GetComponent<AudioSource>();
+        _backgroundSource = this.gameObject.GetComponents<AudioSource>()[0];
+        _clickSoundsSource = this.gameObject.GetComponents<AudioSource>()[1];
+
         _backloopstarted = false;
         _backgroundSource.volume = BackgroundSoundVolume;
-        Debug.Log(_backgroundSource.volume);
+
+        _clickSoundsSource.volume = MiscSoundVolume;
+
         loadAudioFiles();
     }
 
@@ -77,6 +82,8 @@ public class SoundController : MonoBehaviour
 
         //PukeSounds load
         Pukeclips.Add((AudioClip)Resources.Load("Sounds/Pukes/puke1"));
+
+        _clickSoundsSource.clip = (AudioClip)Resources.Load("Sounds/Misc/Click");
     }
 
     public void startBackgroundSoundLoop()
@@ -136,6 +143,12 @@ public class SoundController : MonoBehaviour
             Debug.Log("No Puke Sound-files in list");
         }
         return null;
+    }
+
+    public void playClickSound()
+    {
+        if (_clickSoundsSource.clip != null &&  _clickSoundsSource.isPlaying) _clickSoundsSource.Stop();
+        _clickSoundsSource.Play();
     }
 
     void Update()

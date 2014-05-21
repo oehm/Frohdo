@@ -33,8 +33,6 @@ public class CheckAndUpdateFiles : MonoBehaviour {
         Uri loc = new Uri(localDir);
         localDir = new Uri(loc.AbsoluteUri).LocalPath;
 
-        Debug.Log(localDir);
-
         ThreadStart ts = new ThreadStart(CheckFiles);
         Thread th = new Thread(ts);
         //th.Start();
@@ -109,8 +107,7 @@ public class CheckAndUpdateFiles : MonoBehaviour {
             {
                 if (currentlyhave.Contains(s))
                 {
-                    Debug.Log(getSHAofFile(localDir + s) + " --- " + getRemoteSHA(s));
-                    if (!getSHAofFile(localDir + s).Equals(getRemoteSHA(s)))
+                    if (!ScoreController.Instance.getMD5ofFile(localDir + s).Equals(getRemoteMD5(s)))
                     {
                         Debug.Log("Files are not the same " + s);
                         toPatch.Add(s);
@@ -134,22 +131,9 @@ public class CheckAndUpdateFiles : MonoBehaviour {
         }
     }
 
-    private object getRemoteSHA(string s) //gets SHA from File on Server via Script!!
+    private string getRemoteMD5(string s) //gets SHA from File on Server via Script!!
     {
-        return getSHAofFile(@"C:\Users\Dominic\Desktop\test_Data\" + s);
-    }
-
-    private object getSHAofFile(string s) //gets SHA from File on Disc!!
-    {
-        FileStream f = File.OpenRead(s);
-
-        byte[] data = new byte[f.Length];
-        f.Read(data, 0, (int) f.Length);
-
-        SHA256 sha = SHA256.Create();
-        byte[] hash = sha.ComputeHash(data);
-
-        return BitConverter.ToString(hash);
+        return ScoreController.Instance.getMD5ofFile(@"C:\Users\Dominic\Desktop\test_Data\" + s);
     }
 
     string GetRelativePath(string filespec, string folder)

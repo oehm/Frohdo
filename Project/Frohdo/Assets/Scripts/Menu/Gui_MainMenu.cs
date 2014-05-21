@@ -61,7 +61,7 @@ public class Gui_MainMenu : MonoBehaviour
     {
         GUILayout.BeginArea(new Rect((ForceAspectRatio.screenWidth + ForceAspectRatio.xOffset) / 2 - 300, (ForceAspectRatio.screenHeight + ForceAspectRatio.yOffset) / 2 - 200, 600, 400));
 
-        GUILayout.Label("QuallityLevel", mainStyle.label);
+        GUILayout.Label("QualityLevel", mainStyle.label);
         quallity = GUILayout.Toolbar(quallity, quallityOptions,mainStyle.customStyles[0]);
         QualitySettings.SetQualityLevel(quallity);
 
@@ -69,10 +69,10 @@ public class Gui_MainMenu : MonoBehaviour
         {
             Screen.fullScreen = !Screen.fullScreen;
         }
-        GUILayout.Label("Hintergrund Lautstärke", mainStyle.label);
+        GUILayout.Label("Background volume", mainStyle.label);
         SoundController.Instance.BackgroundSoundVolume = GUILayout.HorizontalSlider(SoundController.Instance.BackgroundSoundVolume, 0, 1);
-        GUILayout.Label("Kotz Lautstärke", mainStyle.label);
-        SoundController.Instance.PukeSoundVolume = GUILayout.HorizontalSlider(SoundController.Instance.PukeSoundVolume, 0, 1);
+        GUILayout.Label("Sounds", mainStyle.label);
+        SoundController.Instance.MiscSoundVolume = GUILayout.HorizontalSlider(SoundController.Instance.MiscSoundVolume, 0, 1);
 
         if (GUILayout.Button("Back", mainStyle.button))
         {
