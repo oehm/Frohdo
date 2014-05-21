@@ -10,7 +10,7 @@ public class GUI_Selected : GUI_Element {
     private Vector2 _pos;
 
     public new Rect parentRect { get; set; } //force override of base class
-    public new Vector2 pos
+    public new Vector2 position
     {
         get
         {
@@ -24,12 +24,17 @@ public class GUI_Selected : GUI_Element {
     }//force override of base class
     public new Vector2 size { get;set;}//force override of base class
 
+    public override bool mouseOnGui(Vector2 pos)
+    {
+        return _rect.Contains(pos);
+    }
+
     public GameObject obj { get; set; }
     public int layerIdx { get; set; }
 
     public GUI_Selected(Vector2 p, Vector2 s, GUISkin sk)
     {
-        pos = pos;
+        position = p;
         size = s;
         skin = sk;
         content = null;
@@ -50,9 +55,14 @@ public class GUI_Selected : GUI_Element {
 
     public void setPos(GameObject obj)
     {
+        if(obj == null)
+        {
+            active = false;
+            return;
+        }
         Gridable g = obj.GetComponentInChildren<Gridable>();
         Vector2 objPos = Camera.main.WorldToScreenPoint(obj.transform.position + new Vector3(g.width/2,g.height/2));
         objPos.y = ForceAspectRatio.screenHeight - objPos.y + ForceAspectRatio.yOffset*2;
-        pos = new  Vector2(objPos.x,objPos.y);
+        position = new  Vector2(objPos.x,objPos.y);
     }
 }

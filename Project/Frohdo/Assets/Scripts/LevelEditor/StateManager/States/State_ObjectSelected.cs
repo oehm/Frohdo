@@ -14,6 +14,7 @@ public class State_ObjectSelected : Editor_State
         manager.selectedGui.active = true;
         manager.commands.active = true;
         manager.objectSelection.markObject(false);
+        manager.backgroundgui.popUp = false;
 
         manager.selectedGui.obj = selected;
         manager.conditionVarnishable.selectedObject = selected;

@@ -12,6 +12,11 @@ public class Gui_MainMenu : MonoBehaviour
 
     private GUIContent mainScreen;
 
+    private bool muted = false;
+
+    float screenHeight;
+    float screenWidth;
+
     //options
     int quallity = 4;
     public GUIContent[] quallityOptions;
@@ -24,12 +29,32 @@ public class Gui_MainMenu : MonoBehaviour
 
     void OnGUI()
     {
+        screenHeight = ForceAspectRatio.screenHeight;
+        screenWidth = ForceAspectRatio.screenWidth;
         menuFunction();
     }
 
     void mainMenu()
     {
+        GUILayout.BeginArea(new Rect(ForceAspectRatio.xOffset, ForceAspectRatio.yOffset, screenWidth, screenHeight/5));
+            GUILayout.BeginVertical();
+            if (GUILayout.Button("Mute Beautiful Background Sound", mainStyle.customStyles[1]))
+            {
+                muted = true;
+            }
+            if (muted)
+            {
+                GUILayout.Label("Sorry, but mute not implemented for that beautiful Sound!", mainStyle.customStyles[2]);
+            }
+            else
+            {
+                GUILayout.Label("", mainStyle.customStyles[2]);
+            }
+            GUILayout.EndVertical();
+        GUILayout.EndArea();
+
         GUILayout.BeginArea(new Rect((ForceAspectRatio.screenWidth) / 2 - 300 + ForceAspectRatio.xOffset, (ForceAspectRatio.screenHeight) / 2 - 200 + ForceAspectRatio.yOffset, 600, 400));
+        
         if (GUILayout.Button("GameScene", mainStyle.button))
         {
             SceneManager.Instance.loadScene(SceneManager.Scene.LevelSelect);
