@@ -395,6 +395,7 @@ GameObject:
   - 4: {fileID: 820877838}
   - 114: {fileID: 820877837}
   - 82: {fileID: 820877839}
+  - 81: {fileID: 820877840}
   m_Layer: 0
   m_Name: SoundManager
   m_TagString: Untagged
@@ -434,7 +435,7 @@ AudioSource:
   serializedVersion: 3
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: .5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -482,6 +483,13 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
+--- !u!81 &820877840
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 820877836}
+  m_Enabled: 1
 --- !u!1 &1129471647
 GameObject:
   m_ObjectHideFlags: 0

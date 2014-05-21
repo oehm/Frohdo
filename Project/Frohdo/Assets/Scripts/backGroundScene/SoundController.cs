@@ -10,6 +10,9 @@ public class SoundController : MonoBehaviour
     private List<AudioClip> Pukeclips;
     private List<AudioClip> Background_clips;
 
+    private float _pukeSoundVolume = 1;
+    public float PukeSoundVolume { get { return _pukeSoundVolume; } set { _pukeSoundVolume = value; } }
+    public float BackgroundSoundVolume { get { return _backgroundSource.volume; } set { if (_backgroundSource != null) _backgroundSource.volume = value; } }
 
     private AudioSource _backgroundSource;
 
@@ -112,5 +115,4 @@ public class SoundController : MonoBehaviour
             startBackgroundSoundLoop(); 
         }
     }
-
 }

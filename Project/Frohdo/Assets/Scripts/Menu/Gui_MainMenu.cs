@@ -86,6 +86,10 @@ public class Gui_MainMenu : MonoBehaviour
         {
             Screen.fullScreen = !Screen.fullScreen;
         }
+        GUILayout.Label("Hintergrund Lautstärke", mainStyle.label);
+        SoundController.Instance.BackgroundSoundVolume = GUILayout.HorizontalSlider(SoundController.Instance.BackgroundSoundVolume, 0, 1);
+        GUILayout.Label("Kotz Lautstärke", mainStyle.label);
+        SoundController.Instance.PukeSoundVolume = GUILayout.HorizontalSlider(SoundController.Instance.PukeSoundVolume, 0, 1);
 
         if (GUILayout.Button("Back", mainStyle.button))
         {
