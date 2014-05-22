@@ -53,7 +53,8 @@ public class LevelObjectCreator : EditorWindow {
     private bool isUsableable_ = false;
     private Usable.Behaviour useBehaviour_;
 
-
+    //deleting
+    string deleteName_ = "";
 
     void OnGUI()
     {
@@ -163,7 +164,27 @@ public class LevelObjectCreator : EditorWindow {
             createLevelObjectPrefab();
 
         }
-        
+
+        GUILayout.Space(50.0f);
+        GUILayout.Label("delete", EditorStyles.label);
+        deleteName_ = EditorGUILayout.TextField("Name", deleteName_);
+        if (GUILayout.Button("delete"))
+        {
+            deleteLevelObjectPrefab(deleteName_);
+
+        }
+    }
+
+    private void deleteLevelObjectPrefab(string name)
+    {
+        GameObject levelObject = levelObjectController_.GetPrefabByName(name);
+
+        levelObjectController_.levelObjectPrefabs_.Remove(levelObject);
+
+
+        if (levelObject == null) return;
+
+        AssetDatabase.DeleteAsset("Assets/Prefabs/LevelObjects/Final/" + name);
     }
 
     private void createLevelObjectPrefab(){
@@ -176,6 +197,8 @@ public class LevelObjectCreator : EditorWindow {
 
         GameObject levelObject = GameObject.CreatePrimitive(PrimitiveType.Quad);//new GameObject(name_);//GameObject.Instantiate(emptyLevelObject_) as GameObject;
 
+        AssetDatabase.CreateFolder("Assets/Prefabs/LevelObjects/Final", name_);
+
 //add components and set stuff
 
 
@@ -183,7 +206,7 @@ public class LevelObjectCreator : EditorWindow {
         //create new material and put it on there
         Material newMaterial = new Material(Shader.Find("Transparent/Diffuse"));
         newMaterial.SetTexture("_MainTex", texture_);
-        AssetDatabase.CreateAsset(newMaterial, "Assets/Prefabs/LevelObjects/Test/Materials/" + name_ + ".mat");
+        AssetDatabase.CreateAsset(newMaterial, "Assets/Prefabs/LevelObjects/Final/" + name_ + "/" + name_ + ".mat");
         levelObject.GetComponent<MeshRenderer>().material = newMaterial;
 
         //set physLayer and tag
@@ -249,28 +272,23 @@ public class LevelObjectCreator : EditorWindow {
             usable.behaviour_ = useBehaviour_;
         }
 
-        int insertIdx = -1;
-
-        for (int i = 0; i < levelObjectController_.levelObjectPrefabs_.Count; i++)
+        try
         {
-            if (levelObjectController_.levelObjectPrefabs_[i].name.Equals(name_))
+            if (levelObjectController_.GetPrefabByName(name_) != null)
             {
-                insertIdx = i;
-                break;
+                deleteLevelObjectPrefab(name_);
             }
+
         }
-
-        GameObject prefab = PrefabUtility.CreatePrefab("Assets/Prefabs/LevelObjects/Test/" + name_ + ".prefab", levelObject, ReplacePrefabOptions.ConnectToPrefab) as GameObject;
-
-
-        if (insertIdx < 0)
+        catch (Exception e)
         {
-            levelObjectController_.levelObjectPrefabs_.Add(prefab);
+
         }
-        else
-        {
-            levelObjectController_.levelObjectPrefabs_[insertIdx] = prefab;
-        }
+
+        GameObject prefab = PrefabUtility.CreatePrefab("Assets/Prefabs/LevelObjects/Final/" + name_ + "/" + name_ + ".prefab", levelObject, ReplacePrefabOptions.ConnectToPrefab) as GameObject;
+
+        levelObjectController_.levelObjectPrefabs_.Add(prefab);
+
 
         EditorUtility.SetDirty(levelObjectController_);
 
@@ -331,6 +349,9 @@ public class LevelObjectCreator : EditorWindow {
 
                         verticesArr[i].x -= 0.5f;
                         verticesArr[i].y -= 0.5f;
+
+                        verticesArr[i].y *= -1.0f;
+
 
                     }
 

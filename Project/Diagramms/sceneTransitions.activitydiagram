@@ -6,20 +6,6 @@
       <body>Game</body>
     </comment>
   </ownedCommentsInternal>
-  <profileInstances>
-    <packageHasProfileInstances Id="6705297e-55fa-47b8-8098-f83b1ce301b4">
-      <profileInstance Id="baa2784e-0858-4fd5-880b-0beb571acd7d" name="StandardProfileL2">
-        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
-      </profileInstance>
-      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
-    </packageHasProfileInstances>
-    <packageHasProfileInstances Id="833f5700-cabb-44e7-86fe-202ef0291892">
-      <profileInstance Id="62131c35-4673-4fbf-be0a-2ddc14ed4091" name="StandardProfileL3">
-        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
-      </profileInstance>
-      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
-    </packageHasProfileInstances>
-  </profileInstances>
   <packagedElements>
     <activityRootModelHasActivity>
       <activity Id="8f5f7f87-136b-4cf1-8a44-abb82720d8c5" name="sceneTransitions" isAbstract="false" isLeaf="false" isActiveClass="false" isReentrant="false" isReadOnly="false" isSingleExecution="false">
@@ -53,6 +39,10 @@
               <controlFlow Id="1defc703-58b3-40ab-b5c4-be9dcef1b440" isLeaf="false">
                 <opaqueActionMoniker Id="d7bef5f4-f99e-427d-82b6-48d9f88dda9e" LastKnownName="LevelSelect" />
                 <elementDefinition Id="52ddc2a8-f573-4913-b11c-ee721673e952" />
+              </controlFlow>
+              <controlFlow Id="22b3908d-5596-4da2-98c4-9a60de4125ba" isLeaf="false">
+                <opaqueActionMoniker Id="27d57955-1cf0-433d-be15-fc90ccaa3fc9" LastKnownName="Credits" />
+                <elementDefinition Id="79fda11d-4750-46ca-a043-8fa1c9ae14ad" />
               </controlFlow>
             </flowNodeTargets>
           </opaqueAction>
@@ -90,7 +80,7 @@
             <elementDefinition Id="1bf39f87-a589-4259-b570-8ad64d9eeaf0" />
             <flowNodeTargets>
               <controlFlow Id="4579360d-7da3-42ea-afde-8e8502329d6e" isLeaf="false">
-                <opaqueActionMoniker Id="071b3f28-6d16-4451-8ff9-231e4bfab99a" LastKnownName="Rate" />
+                <opaqueActionMoniker Id="071b3f28-6d16-4451-8ff9-231e4bfab99a" LastKnownName="Rate/Highscore" />
                 <elementDefinition Id="7b1529cc-e2e8-4793-a264-f2ed487a8c28" />
               </controlFlow>
               <controlFlow Id="c091609e-7d96-451d-81a9-cf63e4cf9287" isLeaf="false">
@@ -115,9 +105,13 @@
                 <opaqueActionMoniker Id="63baf1c4-0afe-447d-8067-6daba72a4190" LastKnownName="Upldoad" />
                 <elementDefinition Id="88729c45-c5bb-4e92-93f7-91188d03c419" />
               </controlFlow>
+              <controlFlow Id="2272eb4d-b882-46cc-a090-1bac7ffd74af" isLeaf="false">
+                <opaqueActionMoniker Id="d7bef5f4-f99e-427d-82b6-48d9f88dda9e" LastKnownName="LevelSelect" />
+                <elementDefinition Id="5840c5da-591e-4a4f-b4b7-8996a30950ae" />
+              </controlFlow>
             </flowNodeTargets>
           </opaqueAction>
-          <opaqueAction Id="071b3f28-6d16-4451-8ff9-231e4bfab99a" name="Rate" isLeaf="false">
+          <opaqueAction Id="071b3f28-6d16-4451-8ff9-231e4bfab99a" name="Rate/Highscore" isLeaf="false">
             <elementDefinition Id="c4e39206-62a0-48b3-a0f8-032605698ea7" />
             <flowNodeTargets>
               <controlFlow Id="b15bc947-322b-4b04-a60b-b2dd7d4fc59d" isLeaf="false">
@@ -144,11 +138,34 @@
               </controlFlow>
             </flowNodeTargets>
           </opaqueAction>
+          <opaqueAction Id="27d57955-1cf0-433d-be15-fc90ccaa3fc9" name="Credits" isLeaf="false">
+            <elementDefinition Id="3d72661d-e620-44f0-b57f-0e4f10b1fbf9" />
+            <flowNodeTargets>
+              <controlFlow Id="9c926084-a83a-46f3-82db-d6996deca250" isLeaf="false">
+                <opaqueActionMoniker Id="1bb853e2-fa1a-43cb-923e-825f89fdeb0d" LastKnownName="MainMenu" />
+                <elementDefinition Id="7c817b9e-e18e-4515-8aca-e40256832fe7" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
         </nodes>
       </activity>
     </activityRootModelHasActivity>
   </packagedElements>
   <package Id="555bf357-d9de-4d5f-8984-eef4c3a50556" name="Diagramms">
     <elementDefinition Id="5badc319-2d47-4f7f-bc1a-8d0b071d2838" />
+    <profileInstances>
+      <packageHasProfileInstances Id="6705297e-55fa-47b8-8098-f83b1ce301b4">
+        <profileInstance Id="baa2784e-0858-4fd5-880b-0beb571acd7d" name="StandardProfileL2">
+          <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+        </profileInstance>
+        <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+      </packageHasProfileInstances>
+      <packageHasProfileInstances Id="833f5700-cabb-44e7-86fe-202ef0291892">
+        <profileInstance Id="62131c35-4673-4fbf-be0a-2ddc14ed4091" name="StandardProfileL3">
+          <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+        </profileInstance>
+        <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+      </packageHasProfileInstances>
+    </profileInstances>
   </package>
 </activityRootModel>

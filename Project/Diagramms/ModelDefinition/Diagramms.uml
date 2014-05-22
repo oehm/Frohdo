@@ -86,6 +86,14 @@
                   LastKnownName="LevelSelect"
                   LastKnownLocation="Diagramms.uml" />
               </controlFlow>
+              <controlFlow
+                Id="79fda11d-4750-46ca-a043-8fa1c9ae14ad"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="3d72661d-e620-44f0-b57f-0e4f10b1fbf9"
+                  LastKnownName="Credits"
+                  LastKnownLocation="Diagramms.uml" />
+              </controlFlow>
             </flowNodeTargets>
           </opaqueAction>
           <opaqueAction
@@ -152,7 +160,7 @@
                 isLeaf="false">
                 <opaqueActionMoniker
                   Id="c4e39206-62a0-48b3-a0f8-032605698ea7"
-                  LastKnownName="Rate"
+                  LastKnownName="Rate/Highscore"
                   LastKnownLocation="Diagramms.uml" />
               </controlFlow>
               <controlFlow
@@ -193,11 +201,19 @@
                   LastKnownName="Upldoad"
                   LastKnownLocation="Diagramms.uml" />
               </controlFlow>
+              <controlFlow
+                Id="5840c5da-591e-4a4f-b4b7-8996a30950ae"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="4eef204e-18e3-4d97-9143-84facea11752"
+                  LastKnownName="LevelSelect"
+                  LastKnownLocation="Diagramms.uml" />
+              </controlFlow>
             </flowNodeTargets>
           </opaqueAction>
           <opaqueAction
             Id="c4e39206-62a0-48b3-a0f8-032605698ea7"
-            name="Rate"
+            name="Rate/Highscore"
             isLeaf="false">
             <flowNodeTargets>
               <controlFlow
@@ -236,6 +252,21 @@
                 <opaqueActionMoniker
                   Id="4eef204e-18e3-4d97-9143-84facea11752"
                   LastKnownName="LevelSelect"
+                  LastKnownLocation="Diagramms.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction
+            Id="3d72661d-e620-44f0-b57f-0e4f10b1fbf9"
+            name="Credits"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="7c817b9e-e18e-4515-8aca-e40256832fe7"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="d3b82b65-2ff7-436e-bab7-7d6cca2a90f4"
+                  LastKnownName="MainMenu"
                   LastKnownLocation="Diagramms.uml" />
               </controlFlow>
             </flowNodeTargets>

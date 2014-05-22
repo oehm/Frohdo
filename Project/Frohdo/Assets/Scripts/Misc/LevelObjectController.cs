@@ -93,6 +93,24 @@ public class LevelObjectController : MonoBehaviour
     }
 
 
+    public GameObject GetPrefabByName(string name)
+    {
+        foreach (GameObject levelObjectPrefab in levelObjectPrefabs_)
+        {
+            Gridable[] gridables = levelObjectPrefab.GetComponentsInChildren<Gridable>(true);
+            //i assume here that every level object has only 1 gridable attached
+            Gridable gridable = gridables[0];
+
+            if (levelObjectPrefab.name.Equals(name))
+            {
+                return levelObjectPrefab;
+            }
+        }
+
+        Debug.Log("LevelObject prefab not found: " + name);
+        throw new System.Exception("LevelObject prefab not found: " + name);
+    }
+
     public Color GetColor(string color)
     {
         if (color.Equals("W") == true) return W;
