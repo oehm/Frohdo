@@ -13,7 +13,11 @@ public class State_Default : Editor_State {
         manager.selectedGui.active = false;
         manager.commands.active = true;
         manager.objectSelection.markObject(false);
+        manager.objectSelection.active = true;
         manager.backgroundgui.popUp = false;
+        manager.guiSaveScreen.active = false;
+        manager.backgroundgui.active = true;
+        manager.layerSelect.active = true;
         mousePos = new Vector2(0, 0);
     }
 

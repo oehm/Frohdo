@@ -12,7 +12,7 @@ public class SCondition_CharacterSet : SCondition {
         Gridable[] posObjs = playLayer.GetComponentsInChildren<Gridable>();
         foreach(Gridable g in posObjs)
         {
-            if(g.gameObject.name == "Character")
+            if(g.gameObject.name == "CharacterEditor")
             {
                 if(g.gameObject.activeSelf)
                 {

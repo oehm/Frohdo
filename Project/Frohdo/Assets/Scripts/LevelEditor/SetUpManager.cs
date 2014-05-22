@@ -16,12 +16,10 @@ public class SetUpManager : MonoBehaviour
     public GameObject levelloader;
     //Other Controller
     public StateManager stateManager;
-    private string levelName;
     void Awake()
     {
         sceneController = GameObject.Find("SceneController");
         sceneObjects = GameObject.Find("SceneObjects");
-        levelName = "Enter Level Name";
         LevelEditorParser.Instance.savePath = savePath;
         Editor_Grid.Instance.layerBg_pref = layerBgPrefab_;
 

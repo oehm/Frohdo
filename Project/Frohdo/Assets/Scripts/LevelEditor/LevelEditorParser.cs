@@ -88,7 +88,7 @@ public class LevelEditorParser
             Gridable[] hs = obj.GetComponentsInChildren<Gridable>();
             foreach (Gridable h in hs)
             {
-                if (h.gameObject.name == "Character")
+                if (h.gameObject.name == "CharacterEditor")
                 {
                     CharacterObjectXML character = new CharacterObjectXML();
                     character.pos = new SerializableVector2(h.gameObject.transform.localPosition);
