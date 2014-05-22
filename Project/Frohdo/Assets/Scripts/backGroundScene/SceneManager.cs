@@ -95,12 +95,17 @@ public class SceneManager : MonoBehaviour
 
     public void returnFromLoginAndEscMenu() // we need this if we only want to close esc and login scene and continue with the last scene.
     {
-        SceneDisabler disabler = GameObject.Find("SceneDisabler").GetComponent<SceneDisabler>();
-        SceneDestroyer destroyer = GameObject.Find("LoginSceneDestroyer").GetComponent<SceneDestroyer>();
-        destroyer.suicide();
-        disabler.enable();
-        curscene = savedSceneWhenInLoginScene;
-        GameObject.FindObjectOfType<ForceAspectRatio>().activate();
+        if (LoginManager.GlobalStatus == LoginManager.LoginStatus.LoggedIn || 
+            LoginManager.GlobalStatus == LoginManager.LoginStatus.LoggedOut || 
+            LoginManager.GlobalStatus == LoginManager.LoginStatus.Refused)
+        {
+            SceneDisabler disabler = GameObject.Find("SceneDisabler").GetComponent<SceneDisabler>();
+            SceneDestroyer destroyer = GameObject.Find("LoginSceneDestroyer").GetComponent<SceneDestroyer>();
+            destroyer.suicide();
+            disabler.enable();
+            curscene = savedSceneWhenInLoginScene;
+            GameObject.FindObjectOfType<ForceAspectRatio>().activate();
+        }
     }
 
     public enum Scene
