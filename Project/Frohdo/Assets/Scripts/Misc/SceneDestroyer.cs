@@ -8,7 +8,6 @@ public class SceneDestroyer : MonoBehaviour
     {
         foreach (GameObject g in sceneObjs)
         {
-            Debug.Log("Dest: " + g);
             Destroy(g);
         }
         Destroy(gameObject);

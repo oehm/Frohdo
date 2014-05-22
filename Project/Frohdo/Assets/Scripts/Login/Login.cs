@@ -8,9 +8,10 @@ public class Login : MonoBehaviour
     public GUISkin style;
     public SceneDestroyer destroyer;
 
-    string login, pass;
+    float screenHeight;
+    float screenWidth;
 
-    enum LoginStatus { LoggedOut, LoggingIn, LoggedIn };
+    string login, pass;
 
     // Use this for initialization
     void Start()
@@ -27,8 +28,8 @@ public class Login : MonoBehaviour
 
     void OnGUI()
     {
-        float screenHeight = ForceAspectRatio.screenHeight;
-        float screenWidth = ForceAspectRatio.screenWidth;
+        screenHeight = ForceAspectRatio.screenHeight;
+        screenWidth = ForceAspectRatio.screenWidth;
 
         style.customStyles[0].fixedWidth = screenWidth;
         style.customStyles[0].fixedHeight = screenHeight;
@@ -41,6 +42,30 @@ public class Login : MonoBehaviour
 
         GUILayout.BeginArea(new Rect(ForceAspectRatio.xOffset + screenWidth / 4, ForceAspectRatio.yOffset, screenWidth / 2, screenHeight), "", style.customStyles[0]);
 
+        switch (LoginManager.GlobalStatus)
+        {
+            case LoginManager.LoginStatus.LoggedOut:
+                loggedoff();
+                break;
+            case LoginManager.LoginStatus.LoggingIn:
+                logginIn();
+                break;
+            case LoginManager.LoginStatus.LoggedIn:
+                loggedIn();
+                break;
+            case LoginManager.LoginStatus.Reconnecting:
+                reconnecting();
+                break;
+            case LoginManager.LoginStatus.Refused:
+                refused();
+                break;
+        }
+
+        GUILayout.EndArea();
+    }
+
+    void loggedoff()
+    {
         GUILayout.BeginVertical();
         GUILayout.FlexibleSpace();
         GUILayout.Label("Login:", style.label);
@@ -52,8 +77,11 @@ public class Login : MonoBehaviour
         GUILayout.BeginHorizontal();
         if (GUILayout.Button("Login"))
         {
+
             if (!(login.Trim().Length == 0 || pass.Trim().Length == 0))
             {
+                LoginManager.GlobalStatus = LoginManager.LoginStatus.LoggingIn;
+                LoginManager.Instance.tryConnect();
                 Debug.Log("Try to log in: " + login + " _ " + pass);
             }
         }
@@ -64,6 +92,34 @@ public class Login : MonoBehaviour
         }
         GUILayout.EndHorizontal();
 
+        drawmenubutton();
+
+        GUILayout.FlexibleSpace();
+        GUILayout.EndVertical();
+    }
+
+    void loggedIn()
+    {
+
+    }
+
+    void logginIn()
+    {
+
+    }
+
+    void reconnecting()
+    {
+
+    }
+
+    void refused()
+    {
+
+    }
+
+    void drawmenubutton()
+    {
         if (SceneManager.Instance.getSavedSceneTypeWhenInLogin() != SceneManager.Scene.MainMenu)
         {
             GUILayout.BeginHorizontal();
@@ -73,9 +129,5 @@ public class Login : MonoBehaviour
             }
             GUILayout.EndHorizontal();
         }
-        GUILayout.FlexibleSpace();
-        GUILayout.EndVertical();
-
-        GUILayout.EndArea();
     }
 }

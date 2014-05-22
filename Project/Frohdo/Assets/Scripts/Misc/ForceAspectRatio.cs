@@ -24,7 +24,6 @@ public class ForceAspectRatio : MonoBehaviour
     static Camera backgroundCam;
 
 	void Awake () {
-        Debug.Log("Awake");
         activate();
 	}
 
