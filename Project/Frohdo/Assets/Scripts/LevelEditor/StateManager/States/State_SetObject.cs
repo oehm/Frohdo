@@ -65,7 +65,7 @@ public class State_SetObject : Editor_State {
         command.setUpCommand(objToSet, manager.layers[manager.currentLayer], manager.currentLayer);
         if(EditCommandManager.Instance.executeCommand(command))
         {
-            if (manager.conditionCharacterSet.isFullfilled && manager.currentGameObject.name == "CharacterEditor")
+            if (manager.conditionCharacterSet.isFullfilled && manager.currentGameObject.name == "Character")
             {
                 State_Default state = new State_Default();
                 state.manager = manager;

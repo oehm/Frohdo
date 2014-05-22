@@ -284,7 +284,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &727060718
 Transform:
   m_ObjectHideFlags: 0
@@ -371,6 +371,10 @@ Prefab:
     - target: {fileID: 400000, guid: 191c9c5da0bfb9844b3c1cdd04dd5d40, type: 2}
       propertyPath: m_LocalRotation.w
       value: -4.37113883e-08
+      objectReference: {fileID: 0}
+    - target: {fileID: 2000000, guid: 191c9c5da0bfb9844b3c1cdd04dd5d40, type: 2}
+      propertyPath: orthographic
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 191c9c5da0bfb9844b3c1cdd04dd5d40, type: 2}
@@ -580,7 +584,7 @@ Camera:
   near clip plane: .00999999978
   far clip plane: 100
   field of view: 60
-  orthographic: 0
+  orthographic: 1
   orthographic size: 1
   m_Depth: -4
   m_CullingMask:
