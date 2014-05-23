@@ -19,6 +19,7 @@ public class CharacterPuke : MonoBehaviour
     //private
     private Character character_;
     private Colorable colorable_;
+    private Animator animator_;
 
 
     private bool pukeInput_;
@@ -31,8 +32,9 @@ public class CharacterPuke : MonoBehaviour
 	// Use this for initialization
     void Start()
     {
-        character_ = gameObject.GetComponentInChildren<Character>();
-        colorable_ = character_.gameObject.GetComponentInChildren<Colorable>();
+        character_ = gameObject.GetComponent<Character>();
+        colorable_ = character_.Colorable;
+        animator_ = character_.gameObject.GetComponentInChildren<Animator>();
         //colorable_.gameObject.GetComponent<Renderer>().material.SetTextureOffset("_OverlayTex", new Vector2(0.0f, 0.5f));
         ratios_ = 0;
         colorable_.colorString = "W";
@@ -72,6 +74,7 @@ public class CharacterPuke : MonoBehaviour
     {
         ScoreController.Instance.CountAPuke();
         playPukeSound_ = true;
+        animator_.SetTrigger("puke");
 
         GameObject pukeObject = (GameObject)Instantiate(pukePrefab_);
 

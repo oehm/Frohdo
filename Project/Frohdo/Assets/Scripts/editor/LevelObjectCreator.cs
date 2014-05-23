@@ -193,7 +193,18 @@ public class LevelObjectCreator : EditorWindow {
             Debug.LogError("no levelObjectController set! prefab not created");
             return;
         }
+        try
+        {
+            if (levelObjectController_.GetPrefabByName(name_) != null)
+            {
+                deleteLevelObjectPrefab(name_);
+            }
 
+        }
+        catch (Exception e)
+        {
+
+        }
 
         GameObject levelObject = GameObject.CreatePrimitive(PrimitiveType.Quad);//new GameObject(name_);//GameObject.Instantiate(emptyLevelObject_) as GameObject;
 
@@ -272,18 +283,7 @@ public class LevelObjectCreator : EditorWindow {
             usable.behaviour_ = useBehaviour_;
         }
 
-        try
-        {
-            if (levelObjectController_.GetPrefabByName(name_) != null)
-            {
-                deleteLevelObjectPrefab(name_);
-            }
-
-        }
-        catch (Exception e)
-        {
-
-        }
+        
 
         GameObject prefab = PrefabUtility.CreatePrefab("Assets/Prefabs/LevelObjects/Final/" + name_ + "/" + name_ + ".prefab", levelObject, ReplacePrefabOptions.ConnectToPrefab) as GameObject;
 

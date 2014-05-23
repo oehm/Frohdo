@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 3, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
 --- !u!23 &2300000
@@ -73,10 +73,10 @@ PolygonCollider2D:
   m_IsTrigger: 0
   m_Poly:
     m_Paths:
-    - - {x: .5, y: .166666657}
-      - {x: .5, y: -.5}
-      - {x: -.5, y: -.5}
-      - {x: -.5, y: .166666657}
+    - - {x: .111111112, y: .111111112}
+      - {x: .111111112, y: -.111111112}
+      - {x: -.111111112, y: -.111111112}
+      - {x: -.111111112, y: .111111112}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -135,11 +135,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c1db793888da1f419dc8e9fe57e3593, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  height: 3
+  height: 2
   width: 2
   hitMat:
-  - arr: 000101
-  - arr: 000101
+  - arr: 0101
+  - arr: 0101
   editorVersion: {fileID: 0}
   availableInLayer: 00010101
 --- !u!1001 &100100000

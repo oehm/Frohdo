@@ -72,6 +72,8 @@ public class ScoreController : MonoBehaviour {
         MD5 md5 = MD5.Create();
         byte[] hash = md5.ComputeHash(data);
 
+        f.Close();
+
         return BitConverter.ToString(hash);
     }
 }

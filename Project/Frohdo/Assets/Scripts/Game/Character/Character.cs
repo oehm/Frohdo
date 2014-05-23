@@ -11,10 +11,11 @@ public class Character : MonoBehaviour {
 
     //private
     private GameObject gameObject_;
-    private CharacterMovement movement_;
-    private CharacterPuke puke_;
-    private CharacterPickup pickup_;
-    private Tooltip tooltip_;
+    public CharacterMovement Movement{ get; private set;}
+    public CharacterPuke Puke { get; private set; }
+    public CharacterPickup Pickup { get; private set; }
+    public CharacterTooltip Tooltip { get; private set; }
+    public Colorable Colorable { get; private set; }
 
     private bool lookLeft_;
     private bool lookUp_;
@@ -25,10 +26,11 @@ public class Character : MonoBehaviour {
     void Awake()
     {
         gameObject_ = transform.parent.gameObject;
-        movement_ = gameObject_.GetComponentInChildren<CharacterMovement>();
-        puke_ = gameObject_.GetComponentInChildren<CharacterPuke>();
-        pickup_ = gameObject_.GetComponentInChildren<CharacterPickup>();
-        tooltip_ = gameObject_.GetComponentInChildren<Tooltip>();
+        Movement = gameObject_.GetComponentInChildren<CharacterMovement>();
+        Puke = gameObject_.GetComponentInChildren<CharacterPuke>();
+        Pickup = gameObject_.GetComponentInChildren<CharacterPickup>();
+        Tooltip = gameObject_.GetComponentInChildren<CharacterTooltip>();
+        Colorable = gameObject_.GetComponentInChildren<Colorable>();
 
         lookLeft_ = false;
         lookUp_ = false;
@@ -46,7 +48,7 @@ public class Character : MonoBehaviour {
             {
                 isKilling_ = kill;
                 //start killing yourself
-                movement_.InputMovement(Vector2.zero, false);
+                Movement.InputMovement(Vector2.zero, false);
                 SceneManager.Instance.loadScene(SceneManager.Scene.Game);
             }
             else
@@ -62,11 +64,11 @@ public class Character : MonoBehaviour {
                 lookUp_ = run.y > 0;
                 lookDown_ = run.y < 0;
 
-                pickup_.EnabledDown = lookDown_;
-                pickup_.EnabledUp = lookUp_;
+                Pickup.EnabledDown = lookDown_;
+                Pickup.EnabledUp = lookUp_;
 
-                movement_.InputMovement(run, jump);
-                puke_.InputMovement(puke);
+                Movement.InputMovement(run, jump);
+                Puke.InputMovement(puke);
 
             }
 
@@ -80,7 +82,7 @@ public class Character : MonoBehaviour {
         if (pickUpThing.GetComponent<Collectable>().behaviour_ == Collectable.Behaviour.ColorRatio)
         {
             string color = pickUpThing.GetComponent<Colorable>().colorString;
-            puke_.AddRatio(color);
+            Puke.AddRatio(color);
             Destroy(pickUpThing);
         }
     }
@@ -96,7 +98,7 @@ public class Character : MonoBehaviour {
         }
         if (usedThing.GetComponent<Usable>().behaviour_ == Usable.Behaviour.ColorRatio)
         { 
-            tooltip_.setTooltip(2, usedThing.GetComponent<Colorable>().colorString);
+            Tooltip.setTooltip(2, usedThing.GetComponent<Colorable>().colorString);
         }
     }
 }

@@ -12,6 +12,7 @@ public class CharacterMovement : MonoBehaviour {
 
     //private
     private Character character_;
+    private Animator animator_;
 
     private Vector2 runInput_;
     private bool jumpInput_;
@@ -20,6 +21,7 @@ public class CharacterMovement : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         character_ = gameObject.GetComponent<Character>();
+        animator_ = character_.gameObject.GetComponentInChildren<Animator>();
 
         runInput_ = new Vector2(0.0f, 0.0f);
         jumpInput_ = false;
@@ -31,6 +33,15 @@ public class CharacterMovement : MonoBehaviour {
     {
         runInput_ = run;
         jumpInput_ = jump;
+    }
+
+    void Update()
+    {
+        animator_.SetBool("lookLeft", character_.lookLeft);
+        animator_.SetBool("jumps", !canJump());
+
+        float velocity = Mathf.Abs( character_.gameObject.rigidbody2D.velocity.x / runMaxSpeed_);
+        animator_.SetFloat("velocity", velocity);
     }
 
     // FixedUpdate is called once per physic frame

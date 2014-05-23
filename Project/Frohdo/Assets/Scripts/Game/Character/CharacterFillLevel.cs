@@ -15,7 +15,7 @@ public class CharacterFillLevel : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         character_ = gameObject.GetComponentInChildren<Character>();
-        characterPuke_ = character_.gameObject.GetComponentInChildren<CharacterPuke>();
+        characterPuke_ = character_.Puke;
         material_ = character_.gameObject.GetComponentInChildren<Renderer>().material;
         level_ = characterPuke_.Ratios;
         material_.SetTextureOffset(textureName_, new Vector2(0.0f, 0.5f - 0.25f * characterPuke_.Ratios));
