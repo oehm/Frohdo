@@ -42,6 +42,7 @@ public class LevelEditorParser
             l.layerId = count;
             count++;
         }
+        levelName = "Enter Level Name";
     }
 
     public void setLevelBackground(string color)

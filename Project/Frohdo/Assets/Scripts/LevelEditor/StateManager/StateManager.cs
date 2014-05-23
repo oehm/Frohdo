@@ -13,6 +13,8 @@ public class StateManager : MonoBehaviour
     public GUI_LayerSelect layerSelect;
     public GUI_Background backgroundgui;
 
+    public GUI_SaveScreen  guiSaveScreen;
+
     public string currentColor;
     public GameObject currentGameObject;
     public int currentLayer;
@@ -63,7 +65,7 @@ public class StateManager : MonoBehaviour
 
     public void changeState(Editor_State newState)
     {
-        //Debug.Log(newState.GetType());
+        Debug.Log(newState.GetType());
         curState = newState;
         curState.init();
     }
@@ -130,5 +132,14 @@ public class StateManager : MonoBehaviour
         //Debug.Log(guiController.mouseOnGui(pos));
     }
 
+    public void saveLevel(bool startAfter)
+    {
+                
+        guiSaveScreen.preview = startAfter;
+        State_SaveScreen newState = new State_SaveScreen();
+        newState.manager = this;
+        changeState(newState);
+
+    }
 
 }

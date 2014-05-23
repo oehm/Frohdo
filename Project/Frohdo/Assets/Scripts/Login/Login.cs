@@ -16,7 +16,8 @@ public class Login : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        login = "";
+        login = PlayerPrefs.GetString("LoginName");
+        if (login == null) login = "";
         pass = "";
     }
 
@@ -78,10 +79,10 @@ public class Login : MonoBehaviour
         if (GUILayout.Button("Login"))
         {
 
-            if (!(login.Trim().Length == 0 || pass.Trim().Length == 0))
+            //if (!(login.Trim().Length == 0 || pass.Trim().Length == 0))
             {
-                LoginManager.GlobalStatus = LoginManager.LoginStatus.LoggingIn;
-                LoginManager.Instance.tryConnect();
+                PlayerPrefs.SetString("LoginName", login.Trim());
+                LoginManager.Instance.tryConnect(login.Trim(), pass.Trim());
                 Debug.Log("Try to log in: " + login + " _ " + pass);
             }
         }

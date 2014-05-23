@@ -15,7 +15,12 @@ public class RenderGameObjectToTexture : MonoBehaviour
     public Texture renderGameObjectToTexture(GameObject obj, int width, int height, string color)
     {
         targetPos = renderCam.transform.localPosition + new Vector3(0, 0, -5);
+        Gridable g = obj.GetComponentsInChildren<Gridable>(true)[0];
+        renderCam.orthographicSize = Mathf.Max(g.height, g.width) + 0.75f;
         GameObject toRender = Instantiate(obj, targetPos, Quaternion.identity) as GameObject;
+
+        TextMesh textMesh = new TextMesh();
+
         toRender.transform.localRotation = Quaternion.AngleAxis(180.0f, Vector3.up);
         if (color != null)
         {

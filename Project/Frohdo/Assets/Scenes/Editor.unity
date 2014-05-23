@@ -254,18 +254,18 @@ MonoBehaviour:
   skin: {fileID: 11400000, guid: 483c0d88aa3c78d4e9eb96e1294c9aa7, type: 2}
   stateManager: {fileID: 574217518}
   renderToTexture: {fileID: 1512534629}
-  colorsp: {x: .449999988, y: 0}
-  colorsSize: {x: .409999996, y: 1}
+  colorsp: {x: .449999988, y: .100000001}
+  colorsSize: {x: .280000001, y: 1}
   Commands: {x: .0199999996, y: .100000001}
   commandsSize: {x: .25999999, y: 1}
   layer: {x: .25999999, y: 0}
   layerSize: {x: .270000011, y: 1}
-  bg: {x: 0, y: 0}
+  bg: {x: 0, y: .100000001}
   objSelection: {x: 0, y: 0}
   objSelectionSize: {x: 1, y: 1}
-  saveAndP: {x: .850000024, y: .100000001}
+  saveAndP: {x: .819999993, y: .100000001}
   saveAndPSize: {x: .200000003, y: 1}
-  backgroundColor: {x: .949999988, y: .300000012}
+  backgroundColor: {x: .75999999, y: .300000012}
   backgroundColorSize: {x: .0500000007, y: 3}
 --- !u!1 &727060717
 GameObject:
@@ -284,7 +284,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &727060718
 Transform:
   m_ObjectHideFlags: 0
@@ -371,6 +371,10 @@ Prefab:
     - target: {fileID: 400000, guid: 191c9c5da0bfb9844b3c1cdd04dd5d40, type: 2}
       propertyPath: m_LocalRotation.w
       value: -4.37113883e-08
+      objectReference: {fileID: 0}
+    - target: {fileID: 2000000, guid: 191c9c5da0bfb9844b3c1cdd04dd5d40, type: 2}
+      propertyPath: orthographic
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 191c9c5da0bfb9844b3c1cdd04dd5d40, type: 2}
@@ -580,7 +584,7 @@ Camera:
   near clip plane: .00999999978
   far clip plane: 100
   field of view: 60
-  orthographic: 0
+  orthographic: 1
   orthographic size: 1
   m_Depth: -4
   m_CullingMask:

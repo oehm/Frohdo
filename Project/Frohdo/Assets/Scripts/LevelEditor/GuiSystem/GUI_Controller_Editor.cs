@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 
 public class GUI_Controller_Editor : MonoBehaviour
 {
@@ -39,10 +40,13 @@ public class GUI_Controller_Editor : MonoBehaviour
     private GUI_Selected gui_selected;
     private GUI_ObjectSelection gui_objectSelect;
     private GUI_Background gui_background;
+    private GUI_SaveScreen gui_SaveScreen;
+    private GUI_LayerSelect gui_layerSelect;
 
     private Rect topRect;
     private Rect leftRect;
     private Rect bgRect;
+    private Rect saveRect;
 
     void Awake()
     {
@@ -60,6 +64,11 @@ public class GUI_Controller_Editor : MonoBehaviour
         stateManager.objectSelection = gui_objectSelect;
         gui_background = new GUI_Background(new Vector2(0,0),new Vector2(1,1),skin);
         stateManager.backgroundgui = gui_background;
+        gui_SaveScreen = new GUI_SaveScreen(new Vector2(0,0), new Vector2(1, 1), skin);
+        stateManager.guiSaveScreen = gui_SaveScreen;
+        gui_layerSelect = new GUI_LayerSelect(Vector2.zero,Vector2.zero, skin);
+        stateManager.layerSelect = gui_layerSelect;
+
     }
 
     void Start()
@@ -68,6 +77,9 @@ public class GUI_Controller_Editor : MonoBehaviour
         topRect = new Rect(ForceAspectRatio.xOffset, ForceAspectRatio.yOffset, ForceAspectRatio.screenWidth, 80);
         leftRect = new Rect(ForceAspectRatio.xOffset, ForceAspectRatio.yOffset + 80, 300, ForceAspectRatio.screenHeight - 80);
         bgRect = new Rect(ForceAspectRatio.xOffset, ForceAspectRatio.yOffset, backgroundColorSize.x * topRect.width, backgroundColorSize.y * topRect.height);
+        saveRect = screenSize;
+
+        //levelName = "Enter Level Name";
 
         InitGUI();
         resize();
@@ -79,6 +91,7 @@ public class GUI_Controller_Editor : MonoBehaviour
         gui_save.active = false;
         gui_save.parentRect = topRect;
         stateManager.saveAndPreview = gui_save;
+        gui_save.manager = stateManager;
         addGui(gui_save);
 
         gui_selected = new GUI_Selected(new Vector2(0, 0), new Vector2(100, 100), skin);
@@ -90,6 +103,12 @@ public class GUI_Controller_Editor : MonoBehaviour
         gui_commands.active = true;
         gui_commands.parentRect = topRect;
         addGui(gui_commands);
+
+        gui_SaveScreen.parentRect = saveRect;
+        gui_SaveScreen.active = false;
+        gui_SaveScreen.manger = stateManager;
+        stateManager.guiSaveScreen = gui_SaveScreen;
+
 
         initGuiObjectSelect();
         initColorSelect();
@@ -173,7 +192,7 @@ public class GUI_Controller_Editor : MonoBehaviour
 
     private void initGuiLayerSelect()
     {
-        GUI_LayerSelect gui_layerSelect = new GUI_LayerSelect(layer, layerSize, skin);
+        gui_layerSelect = new GUI_LayerSelect(layer, layerSize, skin);
         gui_layerSelect.parentRect = topRect;
         List<GUI_ContentLayer> gui_content = new List<GUI_ContentLayer>();
 
@@ -205,9 +224,12 @@ public class GUI_Controller_Editor : MonoBehaviour
         leftRect = new Rect(ForceAspectRatio.xOffset, ForceAspectRatio.yOffset + 80, 300, ForceAspectRatio.screenHeight - 80);
 
         bgRect = new Rect(topRect.x + topRect.width * backgroundColor.x, topRect.y + topRect.height * backgroundColor.y, backgroundColorSize.x * topRect.width,  skin.customStyles[7].fixedHeight * 7);
-        
+
+        saveRect = ForceAspectRatio.screenRect;
+
         gui_background.parentRect = bgRect;
         gui_objectSelect.parentRect = leftRect;
+        gui_SaveScreen.parentRect = saveRect;
         foreach (GUI_Element g in guiList)
         {
             g.parentRect = topRect;
@@ -230,6 +252,9 @@ public class GUI_Controller_Editor : MonoBehaviour
         gui_background.Draw();
         GUILayout.EndArea();
         gui_selected.Draw();
+        GUILayout.BeginArea(saveRect);
+        gui_SaveScreen.Draw();
+        GUILayout.EndArea();
     }
 
     public void addGui(GUI_Element gui)

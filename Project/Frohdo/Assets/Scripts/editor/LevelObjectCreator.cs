@@ -215,7 +215,7 @@ public class LevelObjectCreator : EditorWindow {
 
 //general
         //create new material and put it on there
-        Material newMaterial = new Material(Shader.Find("Transparent/Diffuse"));
+        Material newMaterial = new Material(Shader.Find("Transparent/BetterDiffuse"));
         newMaterial.SetTexture("_MainTex", texture_);
         AssetDatabase.CreateAsset(newMaterial, "Assets/Prefabs/LevelObjects/Final/" + name_ + "/" + name_ + ".mat");
         levelObject.GetComponent<MeshRenderer>().material = newMaterial;
