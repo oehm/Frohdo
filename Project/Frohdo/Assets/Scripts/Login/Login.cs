@@ -73,7 +73,7 @@ public class Login : MonoBehaviour
         login = GUILayout.TextField(login, style.textField);
         GUILayout.Label("Pass:", style.label);
         pass = GUILayout.PasswordField(pass, '*', style.textField);
-        GUILayout.Space(screenHeight / 10);
+        //GUILayout.Space(screenHeight / 10);
         GUILayout.FlexibleSpace();
         GUILayout.BeginHorizontal();
         if (GUILayout.Button("Login"))
@@ -101,7 +101,27 @@ public class Login : MonoBehaviour
 
     void loggedIn()
     {
+        GUILayout.BeginVertical();
+        GUILayout.FlexibleSpace();
+        GUILayout.Label("You are Logged In as: " + LoginManager.Instance.User, style.label);
+        GUILayout.FlexibleSpace();
+        GUILayout.BeginHorizontal();
+        if (GUILayout.Button("Logout"))
+        {
+            LoginManager.Instance.LogOut();
+            pass = "";
+        }
 
+        if (GUILayout.Button("Continue online"))
+        {
+            SceneManager.Instance.returnFromLoginAndEscMenu();
+        }
+        GUILayout.EndHorizontal();
+
+        drawmenubutton();
+
+        GUILayout.FlexibleSpace();
+        GUILayout.EndVertical();
     }
 
     void logginIn()

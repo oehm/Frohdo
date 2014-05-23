@@ -20,6 +20,8 @@ public class LoginManager : MonoBehaviour
 
     private string user, pass;
 
+    public string User { get { return user; } }
+
     private static WWWForm form;
     private static WWW request;
 
@@ -95,6 +97,28 @@ public class LoginManager : MonoBehaviour
         return enc.GetString(arr);
     }
 
+    IEnumerator MakeRequest()
+    {
+        request = new WWW(url, form.data, form.headers);
+        yield return request;
+
+        Hashtable header = new Hashtable();
+        foreach (string s in request.responseHeaders.Keys)
+        {
+            header.Add(s, request.responseHeaders[s]);
+        }
+
+        if (header.ContainsKey("STATUS"))
+        {
+            if (header["STATUS"].ToString().Equals("200 OK"))
+            {
+
+            }
+        }
+
+        savenewCookie();
+    }
+
     IEnumerator GetDummyCookie()
     {
         request = new WWW("http://community.mediacube.at/users/sign_in", form.data, form.headers);
@@ -147,6 +171,13 @@ public class LoginManager : MonoBehaviour
         {
             Debug.Log(request.error);
         }
+        _globalStatus = LoginStatus.LoggedOut;
+    }
+
+    public void LogOut()
+    {
+        _cookie = "";
+        pass = "";
         _globalStatus = LoginStatus.LoggedOut;
     }
 }
