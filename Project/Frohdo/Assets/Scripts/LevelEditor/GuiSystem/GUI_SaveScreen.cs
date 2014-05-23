@@ -3,10 +3,6 @@ using System.Collections;
 
 public class GUI_SaveScreen : GUI_Element
 {
-
-
-    public string levelName { get; set; }
-
     public bool preview;
 
     public StateManager manger;
@@ -29,12 +25,11 @@ public class GUI_SaveScreen : GUI_Element
         if (!active) return;
         GUILayout.BeginArea(_rect, skin.box);
         GUILayout.TextArea(warning, skin.label);
-        
-        levelName = GUILayout.TextField(levelName,skin.textField);
+
+        LevelEditorParser.Instance.levelName = GUILayout.TextField(LevelEditorParser.Instance.levelName, skin.textField);
         GUILayout.BeginHorizontal();
         if (GUILayout.Button("OKAY!",skin.button))
         {
-            LevelEditorParser.Instance.levelName = levelName;
             LevelEditorParser.Instance.saveLevel();
             if(preview)
             {

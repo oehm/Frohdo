@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.IO;
 using System;
 
 public class LevelLoader : MonoBehaviour
@@ -51,9 +52,9 @@ public class LevelLoader : MonoBehaviour
         {
             Editor_Grid.Instance.initGrid(GlobalVars.Instance.maxLevelSize);
             LevelEditorParser.Instance.initEmpty();
+            LevelEditorParser.Instance.levelName =  Path.GetFileNameWithoutExtension(SceneManager.Instance.levelToLoad);
             StateManager manager = GameObject.Find("SceneController").GetComponentInChildren<StateManager>() as StateManager;
             manager.changeBackgroundColor(levelXML.backgroundColor);
-
         }
         for (int i = 0; i < levelXML.layers.Count; i++)
         {

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 
 public class GUI_Controller_Editor : MonoBehaviour
 {
@@ -23,7 +24,6 @@ public class GUI_Controller_Editor : MonoBehaviour
     public Vector2 backgroundColor;
     public Vector2 backgroundColorSize;
 
-    public string levelName { get; set; }
 
     public List<GUI_ContentColor> colorButtons;
     public List<GUI_ContentObject>[] gui_LevelObjects;
@@ -79,7 +79,7 @@ public class GUI_Controller_Editor : MonoBehaviour
         bgRect = new Rect(ForceAspectRatio.xOffset, ForceAspectRatio.yOffset, backgroundColorSize.x * topRect.width, backgroundColorSize.y * topRect.height);
         saveRect = screenSize;
 
-        levelName = "Enter Level Name";
+        //levelName = "Enter Level Name";
 
         InitGUI();
         resize();
@@ -106,7 +106,6 @@ public class GUI_Controller_Editor : MonoBehaviour
 
         gui_SaveScreen.parentRect = saveRect;
         gui_SaveScreen.active = false;
-        gui_SaveScreen.levelName = levelName;
         gui_SaveScreen.manger = stateManager;
         stateManager.guiSaveScreen = gui_SaveScreen;
 

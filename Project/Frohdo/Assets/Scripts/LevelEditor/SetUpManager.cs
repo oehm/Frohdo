@@ -28,7 +28,6 @@ public class SetUpManager : MonoBehaviour
             levelloader = Instantiate(levelloader) as GameObject;
             levelloader.transform.parent = sceneController.transform;
             levelloader.name = "LevelLoader";
-            
         }
         else
         {
