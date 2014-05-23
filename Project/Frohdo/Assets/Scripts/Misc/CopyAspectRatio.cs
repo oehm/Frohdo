@@ -22,6 +22,7 @@ public class CopyAspectRatio : MonoBehaviour {
             lastScreenHeight = Screen.height;
             lastfullscreen = Screen.fullScreen;
             camera.rect = mainCamera_.rect;
+            camera.aspect = mainCamera_.aspect;
         }
 	}
 }

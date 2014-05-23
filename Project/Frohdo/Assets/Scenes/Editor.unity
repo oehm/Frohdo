@@ -112,7 +112,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 132876609}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.1111116, y: 7.5538578, z: 5.71715927}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -346,15 +346,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400000, guid: 191c9c5da0bfb9844b3c1cdd04dd5d40, type: 2}
       propertyPath: m_LocalPosition.x
-      value: .111111112
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 191c9c5da0bfb9844b3c1cdd04dd5d40, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -2.28157902
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 191c9c5da0bfb9844b3c1cdd04dd5d40, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -11.1111116
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 191c9c5da0bfb9844b3c1cdd04dd5d40, type: 2}
       propertyPath: m_LocalRotation.x
@@ -538,7 +538,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 897562637}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.111111112, y: 2.28157902, z: -11.1111116}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 661876488}
@@ -601,7 +601,7 @@ Transform:
   m_PrefabInternal: {fileID: 755819480}
   m_GameObject: {fileID: 1413290641}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: -4.37113883e-08}
-  m_LocalPosition: {x: .111111112, y: -2.28157902, z: -11.1111116}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 543055657}
@@ -803,7 +803,7 @@ GameObject:
   - 114: {fileID: 1805751084}
   m_Layer: 0
   m_Name: CameraBackgroundDrawings
-  m_TagString: MainCamera
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -891,7 +891,7 @@ GameObject:
   - 114: {fileID: 1920213552}
   m_Layer: 0
   m_Name: CameraBackground
-  m_TagString: MainCamera
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1042,7 +1042,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2145896911}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.06067467, y: .229294077, z: -3.62501621}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

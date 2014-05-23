@@ -29,7 +29,7 @@ public class LoginManager : MonoBehaviour
 
     bool started = false;
 
-    private string _dummcookie = "";
+    private int reconnects = 0;
 
     public static LoginManager Instance
     {
@@ -61,11 +61,17 @@ public class LoginManager : MonoBehaviour
                 {
                     _cookie = "";
                     started = true;
-                    StartCoroutine(GetDummyCookie());
+                    StartCoroutine(LoginAndGetCookie());
                 }
                 break;
 
             case LoginStatus.Reconnecting:
+                if (!started)
+                {
+                    _cookie = "";
+                    started = true;
+                    StartCoroutine(LoginAndGetCookie());
+                }
                 break;
 
 
@@ -115,11 +121,16 @@ public class LoginManager : MonoBehaviour
 
             }
         }
+        else
+        {
+            reconnects = 0;
+            _globalStatus = LoginStatus.Reconnecting; //No Connection
+        }
 
         savenewCookie();
     }
 
-    IEnumerator GetDummyCookie()
+    IEnumerator LoginAndGetCookie()
     {
         request = new WWW("http://community.mediacube.at/users/sign_in", form.data, form.headers);
         yield return request;
@@ -139,11 +150,20 @@ public class LoginManager : MonoBehaviour
             else
             {
                 Debug.Log("Logindata incorrect");
+                LogOut();
             }
         }else{
             Debug.Log("No Connection to Server!");
+            if(_globalStatus != LoginStatus.Reconnecting){
+                _globalStatus = LoginStatus.Refused;
+            }else{
+                if(reconnects < 4){
+                    reconnects++;
+                    started = false;
+                }
+            }
         }
-        savenewCookie();
+        if(_globalStatus != LoginStatus.Reconnecting ||(_globalStatus == LoginStatus.Reconnecting && reconnects >= 4)) savenewCookie();
     }
 
     void savenewCookie()
@@ -179,5 +199,6 @@ public class LoginManager : MonoBehaviour
         _cookie = "";
         pass = "";
         _globalStatus = LoginStatus.LoggedOut;
+        started = false;
     }
 }
