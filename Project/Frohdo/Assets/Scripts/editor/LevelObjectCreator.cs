@@ -201,7 +201,7 @@ public class LevelObjectCreator : EditorWindow {
             }
 
         }
-        catch (Exception e)
+        catch (Exception)
         {
 
         }

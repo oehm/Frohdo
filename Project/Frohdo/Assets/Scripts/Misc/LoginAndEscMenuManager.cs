@@ -15,7 +15,6 @@ public class LoginAndEscMenuManager : MonoBehaviour
     }
 
     private bool _axisLocked = false;
-    private float _lockedTime = 0;
 
     // Use this for initialization
     void Start()

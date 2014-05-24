@@ -13,4 +13,3 @@ public class SceneDestroyer : MonoBehaviour
         Destroy(gameObject);
     }
 }
-

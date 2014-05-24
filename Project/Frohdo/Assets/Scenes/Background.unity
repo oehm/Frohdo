@@ -82,7 +82,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 58695204}
-  - 114: {fileID: 58695205}
   m_Layer: 0
   m_Name: Singletons
   m_TagString: Untagged
@@ -103,21 +102,11 @@ Transform:
   - {fileID: 342958979}
   - {fileID: 1972822929}
   - {fileID: 2045589145}
+  - {fileID: 760977557}
   - {fileID: 415781947}
   - {fileID: 1219160661}
   - {fileID: 820877838}
   m_Father: {fileID: 0}
---- !u!114 &58695205
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 58695203}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a8efec1166736349a92c1032829b128, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &342958977
 GameObject:
   m_ObjectHideFlags: 0
@@ -489,6 +478,44 @@ Prefab:
   m_RootGameObject: {fileID: 342958977}
   m_IsPrefabParent: 0
   m_IsExploded: 1
+--- !u!1 &760977556
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 760977557}
+  - 114: {fileID: 760977558}
+  m_Layer: 0
+  m_Name: PatcherManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &760977557
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 760977556}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 58695204}
+--- !u!114 &760977558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 760977556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16cf4446aa008f74187d74ee240069c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &820877836
 GameObject:
   m_ObjectHideFlags: 0
@@ -932,7 +959,7 @@ GameObject:
   - 4: {fileID: 2045589145}
   - 114: {fileID: 2045589146}
   m_Layer: 0
-  m_Name: LoginManager
+  m_Name: NetworkManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

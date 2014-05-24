@@ -43,21 +43,21 @@ public class Login : MonoBehaviour
 
         GUILayout.BeginArea(new Rect(ForceAspectRatio.xOffset + screenWidth / 4, ForceAspectRatio.yOffset, screenWidth / 2, screenHeight), "", style.customStyles[0]);
 
-        switch (LoginManager.GlobalStatus)
+        switch (NetworkManager.GlobalStatus)
         {
-            case LoginManager.LoginStatus.LoggedOut:
+            case NetworkManager.LoginStatus.LoggedOut:
                 loggedoff();
                 break;
-            case LoginManager.LoginStatus.LoggingIn:
+            case NetworkManager.LoginStatus.LoggingIn:
                 logginIn();
                 break;
-            case LoginManager.LoginStatus.LoggedIn:
+            case NetworkManager.LoginStatus.LoggedIn:
                 loggedIn();
                 break;
-            case LoginManager.LoginStatus.Reconnecting:
+            case NetworkManager.LoginStatus.Reconnecting:
                 reconnecting();
                 break;
-            case LoginManager.LoginStatus.Refused:
+            case NetworkManager.LoginStatus.Refused:
                 refused();
                 break;
         }
@@ -82,7 +82,7 @@ public class Login : MonoBehaviour
             //if (!(login.Trim().Length == 0 || pass.Trim().Length == 0))
             {
                 PlayerPrefs.SetString("LoginName", login.Trim());
-                LoginManager.Instance.tryConnect(login.Trim(), pass.Trim());
+                NetworkManager.Instance.tryConnect(login.Trim(), pass.Trim());
                 Debug.Log("Try to log in: " + login + " _ " + pass);
             }
         }
@@ -103,12 +103,12 @@ public class Login : MonoBehaviour
     {
         GUILayout.BeginVertical();
         GUILayout.FlexibleSpace();
-        GUILayout.Label("You are Logged In as: " + LoginManager.Instance.User, style.label);
+        GUILayout.Label("You are Logged In as: " + NetworkManager.Instance.User, style.label);
         GUILayout.FlexibleSpace();
         GUILayout.BeginHorizontal();
         if (GUILayout.Button("Logout"))
         {
-            LoginManager.Instance.LogOut();
+            NetworkManager.Instance.LogOut();
             pass = "";
         }
 
