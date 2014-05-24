@@ -28,8 +28,10 @@ public class State_Default : Editor_State {
 
     public void leftMouseDown()
     {
-        if(manager.guiController.mouseOnGui(mousePos))
+        if (manager.layerSelect.mouseOnGui(mousePos))
+        //if (manager.guicontroller.mouseOnGui(mousePos))
         {
+            Debug.Log("MOUSE ON LAYER SELECT!");
             return;
         }
         Vector2 matIndex = EditorHelper.getMatIndex(EditorHelper.localMouseToLocalLayer(mousePos, GameObject.Find("SceneObjects").GetComponentsInChildren<Layer>()[manager.currentLayer].gameObject,true),Editor_Grid.Instance.planeSizes[manager.currentLayer]);
@@ -60,13 +62,10 @@ public class State_Default : Editor_State {
 
     public void updateColor(string color)
     {
-        manager.currentColor = color;
-        manager.objectSelection.changeColor(color);
     }
 
     public void updateObject(GameObject obj)
     {
-        manager.currentGameObject = obj;
         State_SetObject newState = new State_SetObject();
         newState.manager = manager;
         manager.changeState(newState);

@@ -13,7 +13,7 @@ public class State_SetObject : Editor_State {
         manager.colorSelection.active = true;
         manager.selectedGui.active = false;
         manager.commands.active = true;
-        manager.objectSelection.changeColor(manager.currentColor);
+        //manager.objectSelection.changeColor(manager.currentColor);
         manager.objectSelection.markObject(true);
         manager.backgroundgui.popUp = false;
 
@@ -45,8 +45,10 @@ public class State_SetObject : Editor_State {
         }
 
 
-        if (manager.guiController.mouseOnGui(mousePos))
+        //if (manager.guiController.mouseOnGui(mousePos))
+        if (manager.layerSelect.mouseOnGui(mousePos))
         {
+            Debug.Log("LayerSelect");
             State_Default newState = new State_Default();
             newState.manager = manager;
             manager.changeState(newState);
@@ -67,6 +69,7 @@ public class State_SetObject : Editor_State {
         {
             if (manager.conditionCharacterSet.isFullfilled && manager.currentGameObject.name == "Character")
             {
+                Debug.Log("Character set!");
                 State_Default state = new State_Default();
                 state.manager = manager;
                 manager.changeState(state);
@@ -90,16 +93,10 @@ public class State_SetObject : Editor_State {
 
     public void updateColor(string color)
     {
-        manager.currentColor = color;
-        manager.objectSelection.changeColor(color);
     }
 
     public void updateObject(GameObject obj)
     {
-        manager.currentGameObject = obj;
 
-        State_SetObject newState = new State_SetObject();
-        newState.manager = manager;
-        manager.changeState(newState);
     }
 }
