@@ -73,12 +73,15 @@ public class StateManager : MonoBehaviour
     public void updateColor(params object[] parameter)
     {
         string color = parameter[0] as string;
+        currentColor = color;
+        objectSelection.changeColor(color);
         curState.updateColor(color);
     }
 
     public void updateObject(params object[] paramter)
     {
         GameObject obj = paramter[0] as GameObject;
+        currentGameObject = obj;
         curState.updateObject(obj);
         //show mark??
     }

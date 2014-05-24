@@ -40,7 +40,6 @@ public class State_ObjectSelected : Editor_State
 
     public void updateColor(string color)
     {
-        manager.currentColor = color;
         ChangeColor command = new ChangeColor();
         command.setUpCommand(selected, color);
 
