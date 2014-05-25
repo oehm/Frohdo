@@ -45,8 +45,8 @@ public class State_SetObject : Editor_State {
         }
 
 
-        //if (manager.guiController.mouseOnGui(mousePos))
-        if (manager.layerSelect.mouseOnGui(mousePos))
+        if (manager.guiController.mouseOnGui(mousePos))
+        //if (manager.layerSelect.mouseOnGui(mousePos))
         {
             Debug.Log("LayerSelect");
             State_Default newState = new State_Default();
