@@ -22,6 +22,7 @@ public class GlobalVars : ScriptableObject
 
 
     public float animationTime;
+    public float pukeTime;
 
     public float mainCamerZ;
 
