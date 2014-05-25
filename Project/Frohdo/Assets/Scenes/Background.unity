@@ -168,8 +168,8 @@ MonoBehaviour:
   - {fileID: 100000, guid: aece66fc22326cc42bbc34b08f7dc880, type: 2}
   - {fileID: 100000, guid: feed874d4bfad6b449b00f783dd05176, type: 2}
   - {fileID: 100000, guid: 1b798c36fbe9c2940a3ddd39dcdb6b3f, type: 2}
-  - {fileID: 100000, guid: 948a1c6cf6778ef4aa3f21b1630bbcac, type: 2}
   - {fileID: 100000, guid: 2854a5f8e57233f4589004fe1c84152d, type: 2}
+  - {fileID: 100000, guid: 948a1c6cf6778ef4aa3f21b1630bbcac, type: 2}
 --- !u!4 &342958979
 Transform:
   m_ObjectHideFlags: 0
@@ -468,11 +468,11 @@ Prefab:
     - target: {fileID: 11400000, guid: e2e0803c8b7ab254fba3b0c26409de07, type: 2}
       propertyPath: levelObjectPrefabs_.Array.data[32]
       value: 
-      objectReference: {fileID: 100000, guid: 948a1c6cf6778ef4aa3f21b1630bbcac, type: 2}
+      objectReference: {fileID: 100000, guid: 2854a5f8e57233f4589004fe1c84152d, type: 2}
     - target: {fileID: 11400000, guid: e2e0803c8b7ab254fba3b0c26409de07, type: 2}
       propertyPath: levelObjectPrefabs_.Array.data[33]
       value: 
-      objectReference: {fileID: 100000, guid: 2854a5f8e57233f4589004fe1c84152d, type: 2}
+      objectReference: {fileID: 100000, guid: 948a1c6cf6778ef4aa3f21b1630bbcac, type: 2}
     - target: {fileID: 11400000, guid: e2e0803c8b7ab254fba3b0c26409de07, type: 2}
       propertyPath: levelObjectPrefabs_.Array.data[34]
       value: 

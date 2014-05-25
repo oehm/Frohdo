@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Name: GlobalVarsInstance
   m_EditorClassIdentifier: 
   animationTime: .5
+  pukeTime: .5
   mainCamerZ: -10
   layerZPos:
   - 0

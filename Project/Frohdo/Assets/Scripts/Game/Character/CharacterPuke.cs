@@ -23,6 +23,8 @@ public class CharacterPuke : MonoBehaviour
 
 
     private bool pukeInput_;
+    private bool isPuking_;
+    private float animationTimeCount_;
     private bool playPukeSound_;
 
 
@@ -38,7 +40,9 @@ public class CharacterPuke : MonoBehaviour
         //colorable_.gameObject.GetComponent<Renderer>().material.SetTextureOffset("_OverlayTex", new Vector2(0.0f, 0.5f));
         ratios_ = 0;
         colorable_.colorString = "W";
+        isPuking_ = false;
         playPukeSound_ = false;
+        animationTimeCount_ = 0.0f;
 	}
 
 
@@ -57,6 +61,16 @@ public class CharacterPuke : MonoBehaviour
             pukesound.clip = SoundController.Instance.getRandomPukeSound();
             if (pukesound.clip != null) pukesound.Play();
         }
+
+        if (isPuking_)
+        {
+            animationTimeCount_ += Time.deltaTime;
+            if (animationTimeCount_ >= GlobalVars.Instance.pukeTime)
+            {
+                Puke();
+                isPuking_ = false;
+            }
+        }
     }
 
 
@@ -65,7 +79,10 @@ public class CharacterPuke : MonoBehaviour
     {
         if (pukeInput_ && ratios_ > 0)
         {
-            Puke();
+            isPuking_ = true;
+            animationTimeCount_ = 0.0f;
+            animator_.SetTrigger("puke");
+            playPukeSound_ = true;
         }
     }
 
@@ -73,8 +90,6 @@ public class CharacterPuke : MonoBehaviour
     private void Puke()
     {
         ScoreController.Instance.CountAPuke();
-        playPukeSound_ = true;
-        animator_.SetTrigger("puke");
 
         GameObject pukeObject = (GameObject)Instantiate(pukePrefab_);
 
