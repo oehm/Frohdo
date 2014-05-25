@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
-    <StartArguments>/env /user:Administrator http://www.clipartsfree.net/search.php%3fload=tv%2520test%2520screen%2520download</StartArguments>
+    <StartArguments>"http://community.mediacube.at/uploads/public/patcher/01.zip" "/assets/testUpdate Test File" "http://community.mediacube.at/uploads/public/patches/testfile.cs" "/assets/scriptstestfile.cs"</StartArguments>
   </PropertyGroup>
   <PropertyGroup>
     <PublishUrlHistory>publish\</PublishUrlHistory>

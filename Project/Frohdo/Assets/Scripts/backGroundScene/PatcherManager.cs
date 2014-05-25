@@ -213,7 +213,7 @@ public class PatcherManager : MonoBehaviour
 
         foreach (Hashtable s in toPatch)
         {
-            parameter += s["urlFiles"] + " ";
+            parameter += "\"" + s["urlFiles"] + "\" \"" + s["urlLocalDir"] + s["name"] + "\" ";
         }
         Debug.Log(localDir + @"\..\Patcher.exe");
         Debug.Log(parameter);
