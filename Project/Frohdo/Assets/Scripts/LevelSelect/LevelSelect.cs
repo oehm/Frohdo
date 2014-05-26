@@ -557,12 +557,12 @@ class CustomLevelObj : Levelobj
         GUILayout.FlexibleSpace();
         if (GUILayout.Button("Spielen", "forwardbackwardbutton"))
         {
-            SceneManager.Instance.levelToLoad = XMLPath.FullName;
+            SceneManager.Instance.levelToLoad = new LevelAndType(XMLPath.FullName, LevelLoader.LevelType.Custom);
             SceneManager.Instance.loadScene(SceneManager.Scene.Game);
         }
         if (GUILayout.Button("Bearbeiten", "forwardbackwardbutton"))
         {
-            SceneManager.Instance.levelToLoad = XMLPath.FullName;
+            SceneManager.Instance.levelToLoad = new LevelAndType(XMLPath.FullName, LevelLoader.LevelType.Custom);
             SceneManager.Instance.loadLevelToEdit = true;
             SceneManager.Instance.loadScene(SceneManager.Scene.Editor);
         }
@@ -595,7 +595,7 @@ class LocalLevelObj : Levelobj //already on disk
         GUILayout.FlexibleSpace();
         if (GUILayout.Button("Level starten", "forwardbackwardbutton"))
         {
-            SceneManager.Instance.levelToLoad = XMLPath.FullName;
+            SceneManager.Instance.levelToLoad = new LevelAndType(XMLPath.FullName, LevelLoader.LevelType.Normal);
             SceneManager.Instance.loadScene(SceneManager.Scene.Game);
         }
         GUILayout.FlexibleSpace();

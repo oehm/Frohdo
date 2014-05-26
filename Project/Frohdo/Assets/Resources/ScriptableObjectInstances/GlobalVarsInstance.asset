@@ -27,3 +27,5 @@ MonoBehaviour:
   playLayer: 1
   maxLevelSize: {x: 48, y: 28}
   maxRatios: 4
+  LoginUri: http://community.mediacube.at/users/sign_in
+  LevelUploadUri: http://community.mediacube.at/levels

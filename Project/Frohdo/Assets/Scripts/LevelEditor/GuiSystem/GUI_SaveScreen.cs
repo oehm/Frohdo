@@ -26,7 +26,7 @@ public class GUI_SaveScreen : GUI_Element
         GUILayout.BeginArea(_rect, skin.box);
         GUILayout.TextArea(warning, skin.label);
 
-        LevelEditorParser.Instance.levelName = GUILayout.TextField(LevelEditorParser.Instance.levelName, skin.textField);
+        SceneManager.Instance.levelToLoad.LevelTitle = GUILayout.TextField(SceneManager.Instance.levelToLoad.LevelTitle, skin.textField);
         GUILayout.BeginHorizontal();
         if (GUILayout.Button("OKAY!",skin.button))
         {

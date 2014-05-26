@@ -14,7 +14,7 @@ public class NetworkManager : MonoBehaviour
 
     private static LoginStatus _globalStatus;
 
-    public static LoginStatus GlobalStatus { get { return _globalStatus; } }
+    public LoginStatus GlobalStatus { get { return _globalStatus; } }
 
     public string Cookie { get { return _cookie; } }
 
@@ -24,8 +24,6 @@ public class NetworkManager : MonoBehaviour
 
     private static WWWForm form;
     private static WWW request;
-
-    String url = "";
 
     bool started = false;
 
@@ -98,36 +96,9 @@ public class NetworkManager : MonoBehaviour
         return enc.GetString(arr);
     }
 
-    IEnumerator MakeRequest()
-    {
-        request = new WWW(url, form.data, form.headers);
-        yield return request;
-
-        Hashtable header = new Hashtable();
-        foreach (string s in request.responseHeaders.Keys)
-        {
-            header.Add(s, request.responseHeaders[s]);
-        }
-
-        if (header.ContainsKey("STATUS"))
-        {
-            if (header["STATUS"].ToString().Equals("200 OK"))
-            {
-
-            }
-        }
-        else
-        {
-            reconnects = 0;
-            _globalStatus = LoginStatus.Reconnecting; //No Connection
-        }
-
-        savenewCookie();
-    }
-
     IEnumerator LoginAndGetCookie()
     {
-        request = new WWW("http://community.mediacube.at/users/sign_in", form.data, form.headers);
+        request = new WWW(GlobalVars.Instance.LoginUri, form.data, form.headers);
         yield return request;
         Hashtable header = new Hashtable();
         foreach (string s in request.responseHeaders.Keys)

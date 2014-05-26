@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.IO;
 
 public class SceneManager : MonoBehaviour
 {
@@ -24,7 +25,7 @@ public class SceneManager : MonoBehaviour
     public bool Startup { get { return startup; } set { startup = value; } }
     private bool startup = true;
 
-    public string levelToLoad { get; set; }
+    public LevelAndType levelToLoad { get; set; }
     public string levelToEdit { get; set; }
 
     public bool loadLevelToEdit { get; set; } 
@@ -95,9 +96,9 @@ public class SceneManager : MonoBehaviour
 
     public void returnFromLoginAndEscMenu() // we need this if we only want to close esc and login scene and continue with the last scene.
     {
-        if (NetworkManager.GlobalStatus == NetworkManager.LoginStatus.LoggedIn || 
-            NetworkManager.GlobalStatus == NetworkManager.LoginStatus.LoggedOut || 
-            NetworkManager.GlobalStatus == NetworkManager.LoginStatus.Refused)
+        if (NetworkManager.Instance.GlobalStatus == NetworkManager.LoginStatus.LoggedIn ||
+            NetworkManager.Instance.GlobalStatus == NetworkManager.LoginStatus.LoggedOut ||
+            NetworkManager.Instance.GlobalStatus == NetworkManager.LoginStatus.Refused)
         {
             SceneDisabler disabler = GameObject.Find("SceneDisabler").GetComponent<SceneDisabler>();
             SceneDestroyer destroyer = GameObject.Find("LoginSceneDestroyer").GetComponent<SceneDestroyer>();
@@ -118,5 +119,21 @@ public class SceneManager : MonoBehaviour
         LevelSelect,
         RateScreen,
         Login
+    }
+}
+
+public class LevelAndType
+{
+    public string LeveltoLoad;
+    public string LevelTitle;
+    public string LevelDescription;
+    public LevelLoader.LevelType type;
+
+    public LevelAndType(string LeveltoLoad, LevelLoader.LevelType type)
+    {
+        this.LeveltoLoad = LeveltoLoad;
+        this.type = type;
+        this.LevelTitle = Path.GetFileNameWithoutExtension(LeveltoLoad);
+        this.LevelDescription = "";
     }
 }
