@@ -41,17 +41,56 @@ public class RateScreen : MonoBehaviour {
             GUILayout.EndHorizontal();
             GUILayout.Space(50);
             GUILayout.BeginHorizontal();
-            if (GUILayout.Button("continue",skin.button))
+            if (LevelUploadManager.Instance.GlobalStatus != LevelUploadManager.LevelUploadStatus.FailedOnMD5Check)
             {
-                SceneManager.Instance.loadScene(SceneManager.Scene.LevelSelect);
+                if (LevelUploadManager.Instance.GlobalStatus == LevelUploadManager.LevelUploadStatus.Uploading)
+                {
+                    GUI.enabled = false;
+                    if (GUILayout.Button("continue", skin.button))
+                    {
+                        SceneManager.Instance.loadScene(SceneManager.Scene.LevelSelect);
+                    }
+                    GUI.enabled = true;
+                }
+                else
+                {
+                    if (GUILayout.Button("continue", skin.button))
+                    {
+                        SceneManager.Instance.loadScene(SceneManager.Scene.LevelSelect);
+                    }
+                }
             }
             if (SceneManager.Instance.levelToLoad.type == LevelLoader.LevelType.Custom)
             {
                 if (NetworkManager.Instance.GlobalStatus == NetworkManager.LoginStatus.LoggedIn)
                 {
-                    if (GUILayout.Button("Upload Level", skin.button))
-                    {
-                        LevelUploadManager.Instance.StartUploadLevel();
+                    switch(LevelUploadManager.Instance.GlobalStatus){
+                        case LevelUploadManager.LevelUploadStatus.ReadyForUpload:
+                            if (GUILayout.Button("Upload Level", skin.button))
+                            {
+                                LevelUploadManager.Instance.StartUploadLevel();
+                            }
+                            break;
+
+                        case LevelUploadManager.LevelUploadStatus.Uploading:
+                            GUILayout.Label("Uploading Level ...", skin.customStyles[0]);
+                            break;
+
+                        case LevelUploadManager.LevelUploadStatus.FinishedUploadSuccessful:
+                            GUILayout.Label("Upload Finished Successfully", skin.customStyles[0]);
+                            break;
+
+                        case LevelUploadManager.LevelUploadStatus.FailedOnMD5Check:
+                            if (GUILayout.Button("Shoot yourself", skin.button))
+                            {
+                                SceneManager.Instance.loadScene(SceneManager.Scene.LevelSelect);
+                            }
+                            GUILayout.Label("little fucker.", skin.customStyles[0]);
+                            break;
+                            
+                        case LevelUploadManager.LevelUploadStatus.FailedOnUpload:
+                            GUILayout.Label("Something went wrong while uploading", skin.customStyles[0]);
+                            break;
                     }
                 }
                 else

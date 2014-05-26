@@ -127,6 +127,7 @@ public class LevelAndType
     public string LeveltoLoad;
     public string LevelTitle;
     public string LevelDescription;
+    public string thumbpath;
     public LevelLoader.LevelType type;
 
     public LevelAndType(string LeveltoLoad, LevelLoader.LevelType type)
@@ -134,6 +135,7 @@ public class LevelAndType
         this.LeveltoLoad = LeveltoLoad;
         this.type = type;
         this.LevelTitle = Path.GetFileNameWithoutExtension(LeveltoLoad);
+        this.thumbpath = LeveltoLoad.Substring(0, LeveltoLoad.Length - 4) + "_thumb.jpg";
         this.LevelDescription = "";
     }
 }

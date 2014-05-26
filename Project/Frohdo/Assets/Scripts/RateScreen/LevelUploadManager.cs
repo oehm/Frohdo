@@ -7,25 +7,24 @@ public class LevelUploadManager : MonoBehaviour
 {
 
     public enum LevelUploadStatus { CheckingLevelType, ReadyForUpload, NoCustomLevel, Uploading, FailedOnMD5Check, FailedOnUpload, FinishedUploadSuccessful };
-    public enum HashEqualsStatus { Unchecked, CheckingHash, HashSame, HashDiffer }
+    public enum HashEqualsStatus { Unchecked, HashSame, HashDiffer }
 
     private static LevelUploadManager instance = null;
 
     private string _cookie;
 
-    private static LevelUploadStatus _globalStatus;
+    private  static LevelUploadStatus _globalStatus;
 
-    private static HashEqualsStatus _globalHashStatus;
+    private  static HashEqualsStatus _globalHashStatus;
 
-    public static LevelUploadStatus GlobalStatus { get { return _globalStatus; } }
+    public LevelUploadStatus GlobalStatus { get { return _globalStatus; } }
 
-    public static HashEqualsStatus GlobalHashStatus { get { return _globalHashStatus; } }
+    //public HashEqualsStatus GlobalHashStatus { get { return _globalHashStatus; } }
 
     private static WWWForm form;
     private static WWW request;
 
     bool checkStarted;
-    bool hashCheckStarted;
     bool UploadStarted;
 
     public static LevelUploadManager Instance
@@ -47,7 +46,6 @@ public class LevelUploadManager : MonoBehaviour
         _globalHashStatus = HashEqualsStatus.Unchecked;
         checkStarted = false;
         UploadStarted = false;
-        hashCheckStarted = false;
 
         form = new WWWForm();
     }
@@ -80,27 +78,22 @@ public class LevelUploadManager : MonoBehaviour
                 }
                 break;
         }
-        switch (_globalHashStatus)
-        {
-            case HashEqualsStatus.CheckingHash:
-                if (!hashCheckStarted)
-                {
-                    hashCheckStarted = true;
-                    checkHashOfLevel();
-                }
-                break;
-        }
     }
 
     private IEnumerator UploadLevel()
     {
-        Debug.Log("COOKIE SET: " + NetworkManager.Instance.Cookie);
-        form.headers.Add("Cookie", NetworkManager.Instance.Cookie);
+        form.headers["Content-Type"] = "multipart/form-data";
+        form.headers.Add("accept-charset","UTF-8");
+        form.headers.Add("action", "/levels");
+        form.headers.Add("class", "new_level");
+        form.headers.Add("enctype", "multipart/form-data");
+        form.headers.Add("id" ,"new_level");
+        form.headers.Add("method", "post");
+        form.headers.Add("Cookie", "request_method=GET; " + NetworkManager.Instance.Cookie);
 
         form.AddBinaryData("level[hashCode]",System.Text.Encoding.UTF8.GetBytes(ScoreController.Instance.LevelHash));
         form.AddBinaryData("level[title]", System.Text.Encoding.UTF8.GetBytes(SceneManager.Instance.levelToLoad.LevelTitle));
         form.AddBinaryData("level[description]", System.Text.Encoding.UTF8.GetBytes(SceneManager.Instance.levelToLoad.LevelDescription));
-        //form.AddBinaryData( level[urlThumbnail]
 
         string xml = "";
 
@@ -119,7 +112,8 @@ public class LevelUploadManager : MonoBehaviour
         if (_globalStatus != LevelUploadStatus.FailedOnUpload)
         {
             form.AddBinaryData("level[urlXML]",System.Text.Encoding.UTF8.GetBytes(xml), SceneManager.Instance.levelToLoad.LevelTitle + ".xml", "text/xml");
-
+            form.AddBinaryData("level[urlThumbnail]", System.Text.Encoding.UTF8.GetBytes(new StreamReader(SceneManager.Instance.levelToLoad.thumbpath).ReadToEnd()), SceneManager.Instance.levelToLoad.LevelTitle + "_thumb.jpg", "image/jpeg");
+            form.AddField("commit", "Create");
             request = new WWW(GlobalVars.Instance.LevelUploadUri, form.data, form.headers);
             yield return request;
 
@@ -154,7 +148,7 @@ public class LevelUploadManager : MonoBehaviour
 
     public void StartUploadLevel()
     {
-        if (NetworkManager.Instance.GlobalStatus == NetworkManager.LoginStatus.LoggedIn)
+        if (NetworkManager.Instance.GlobalStatus == NetworkManager.LoginStatus.LoggedIn && _globalStatus == LevelUploadStatus.ReadyForUpload)
             _globalStatus = LevelUploadStatus.Uploading;
     }
 

@@ -6,7 +6,7 @@ using System;
 public class NetworkManager : MonoBehaviour
 {
 
-    public enum LoginStatus { LoggedOut, LoggingIn, LoggedIn, Reconnecting, Refused };
+    public enum LoginStatus { LoggedOut, LoggingIn, LoggedIn, Reconnecting, Refused, LoginIncorrect };
 
     private static NetworkManager instance = null;
 
@@ -79,7 +79,6 @@ public class NetworkManager : MonoBehaviour
     {
         if (_globalStatus == LoginStatus.LoggedOut)
         {
-            _globalStatus = LoginStatus.LoggingIn;
             form = new WWWForm();
             this.user = user;
             this.pass = pass;
@@ -87,6 +86,7 @@ public class NetworkManager : MonoBehaviour
             form.AddField("user[password]", pass);
             form.AddField("user[remember_me]", 0);
             form.AddField("commit", "Sign in");
+            _globalStatus = LoginStatus.LoggingIn;
         }
     }
 
@@ -108,6 +108,7 @@ public class NetworkManager : MonoBehaviour
 
         if (header.ContainsKey("STATUS"))
         {
+            Debug.Log(header["STATUS"]);
             if (header["STATUS"].ToString().Equals("HTTP/1.1 302 Found"))
             {
                 request = new WWW("http://community.mediacube.at/", null, header);
@@ -116,7 +117,7 @@ public class NetworkManager : MonoBehaviour
             else
             {
                 Debug.Log("Logindata incorrect");
-                LogOut();
+                LoginIncorr();
             }
         }else{
             Debug.Log("No Connection to Server!");
@@ -129,7 +130,7 @@ public class NetworkManager : MonoBehaviour
                 }
             }
         }
-        if(_globalStatus != LoginStatus.Reconnecting ||(_globalStatus == LoginStatus.Reconnecting && reconnects >= 4)) savenewCookie();
+        if(_globalStatus != LoginStatus.LoginIncorrect &&(_globalStatus != LoginStatus.Reconnecting ||(_globalStatus == LoginStatus.Reconnecting && reconnects >= 4))) savenewCookie();
     }
 
     void savenewCookie()
@@ -165,6 +166,13 @@ public class NetworkManager : MonoBehaviour
         _cookie = "";
         pass = "";
         _globalStatus = LoginStatus.LoggedOut;
+        started = false;
+    }
+    public void LoginIncorr()
+    {
+        _cookie = "";
+        pass = "";
+        _globalStatus = LoginStatus.LoginIncorrect;
         started = false;
     }
 }

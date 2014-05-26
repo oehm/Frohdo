@@ -60,9 +60,24 @@ public class Login : MonoBehaviour
             case NetworkManager.LoginStatus.Refused:
                 refused();
                 break;
+            case NetworkManager.LoginStatus.LoginIncorrect:
+                LoginIcorr();
+                break;
         }
 
         GUILayout.EndArea();
+    }
+
+    private void LoginIcorr()
+    {
+        GUILayout.BeginVertical();
+        GUILayout.FlexibleSpace();
+        GUILayout.Label("Logindata incorrect!", style.label);
+        if(GUILayout.Button("OK")){
+            NetworkManager.Instance.LogOut();
+        }
+        GUILayout.FlexibleSpace();
+        GUILayout.EndVertical();
     }
 
     void loggedoff()
