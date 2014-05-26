@@ -13,9 +13,9 @@ public class LevelUploadManager : MonoBehaviour
 
     private string _cookie;
 
-    private  static LevelUploadStatus _globalStatus;
+    private static LevelUploadStatus _globalStatus;
 
-    private  static HashEqualsStatus _globalHashStatus;
+    private static HashEqualsStatus _globalHashStatus;
 
     public LevelUploadStatus GlobalStatus { get { return _globalStatus; } }
 
@@ -82,37 +82,47 @@ public class LevelUploadManager : MonoBehaviour
 
     private IEnumerator UploadLevel()
     {
-        form.headers["Content-Type"] = "multipart/form-data";
-        form.headers.Add("accept-charset","UTF-8");
-        form.headers.Add("action", "/levels");
-        form.headers.Add("class", "new_level");
-        form.headers.Add("enctype", "multipart/form-data");
-        form.headers.Add("id" ,"new_level");
-        form.headers.Add("method", "post");
+        //form.headers["Content-Type"] = "multipart/form-data";
+        form.headers.Add("accept-charset", "UTF-8");
+        //form.headers.Add("action", "/levels");
+        //form.headers.Add("class", "new_level");
+        //form.headers.Add("enctype", "multipart/form-data");
+        //form.headers.Add("id", "new_level");
+        //form.headers.Add("method", "post");
         form.headers.Add("Cookie", "request_method=GET; " + NetworkManager.Instance.Cookie);
 
-        form.AddBinaryData("level[hashCode]",System.Text.Encoding.UTF8.GetBytes(ScoreController.Instance.LevelHash));
-        form.AddBinaryData("level[title]", System.Text.Encoding.UTF8.GetBytes(SceneManager.Instance.levelToLoad.LevelTitle));
-        form.AddBinaryData("level[description]", System.Text.Encoding.UTF8.GetBytes(SceneManager.Instance.levelToLoad.LevelDescription));
+        //form.AddBinaryData("level[hashCode]", System.Text.Encoding.UTF8.GetBytes(ScoreController.Instance.LevelHash));
+        //form.AddBinaryData("level[title]", System.Text.Encoding.UTF8.GetBytes(SceneManager.Instance.levelToLoad.LevelTitle));
+        //form.AddBinaryData("level[description]", System.Text.Encoding.UTF8.GetBytes(SceneManager.Instance.levelToLoad.LevelDescription));
 
-        string xml = "";
+        form.AddField("level[hashCode]", ScoreController.Instance.LevelHash);
+        form.AddField("level[title]", SceneManager.Instance.levelToLoad.LevelTitle);
+        form.AddField("level[description]", SceneManager.Instance.levelToLoad.LevelDescription);
 
-        try
+        WWW xmlFile = new WWW("file:///" + SceneManager.Instance.levelToLoad.LeveltoLoad);
+        yield return xmlFile;
+        if (xmlFile.error != null && !xmlFile.error.Equals(""))
         {
-            StreamReader rd = new StreamReader(SceneManager.Instance.levelToLoad.LeveltoLoad);
-            xml = rd.ReadToEnd();
-            rd.Close();
-        }
-        catch (Exception)
-        {
-            Debug.Log("Error loading xml for upload!");
+            Debug.Log("Error loading xml for upload! -- " + xmlFile.error);
             _globalStatus = LevelUploadStatus.FailedOnUpload;
+            yield break;
+        }
+
+        WWW thumbnail = new WWW("file:///" + SceneManager.Instance.levelToLoad.thumbpath);
+        yield return xmlFile;
+        if (thumbnail.error != null && !thumbnail.error.Equals(""))
+        {
+            Debug.Log("No thumb found!");
+            _globalStatus = LevelUploadStatus.FailedOnUpload;
+            yield break;
         }
 
         if (_globalStatus != LevelUploadStatus.FailedOnUpload)
         {
-            form.AddBinaryData("level[urlXML]",System.Text.Encoding.UTF8.GetBytes(xml), SceneManager.Instance.levelToLoad.LevelTitle + ".xml", "text/xml");
-            form.AddBinaryData("level[urlThumbnail]", System.Text.Encoding.UTF8.GetBytes(new StreamReader(SceneManager.Instance.levelToLoad.thumbpath).ReadToEnd()), SceneManager.Instance.levelToLoad.LevelTitle + "_thumb.jpg", "image/jpeg");
+
+            form.AddBinaryData("level[urlXML]", xmlFile.bytes, SceneManager.Instance.levelToLoad.LevelTitle + ".xml", "text/xml");
+            form.AddBinaryData("level[urlThumbnail]", thumbnail.bytes, SceneManager.Instance.levelToLoad.LevelTitle + "_thumb.jpg", "image/jpeg");
+
             form.AddField("commit", "Create");
             request = new WWW(GlobalVars.Instance.LevelUploadUri, form.data, form.headers);
             yield return request;
@@ -142,7 +152,7 @@ public class LevelUploadManager : MonoBehaviour
         }
         else
         {
-            yield return false;
+            yield break;
         }
     }
 
