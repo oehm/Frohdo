@@ -111,13 +111,13 @@ public class NetworkManager : MonoBehaviour
             Debug.Log(header["STATUS"]);
             if (header["STATUS"].ToString().Equals("HTTP/1.1 302 Found"))
             {
-                request = new WWW("http://community.mediacube.at/", null, header);
-                yield return request;
+
             }
             else
             {
                 Debug.Log("Logindata incorrect");
                 LoginIncorr();
+                yield break;
             }
         }else{
             Debug.Log("No Connection to Server!");
@@ -130,20 +130,21 @@ public class NetworkManager : MonoBehaviour
                 }
             }
         }
-        if(_globalStatus != LoginStatus.LoginIncorrect &&(_globalStatus != LoginStatus.Reconnecting ||(_globalStatus == LoginStatus.Reconnecting && reconnects >= 4))) savenewCookie();
+        if(_globalStatus != LoginStatus.LoginIncorrect &&(_globalStatus != LoginStatus.Reconnecting ||(_globalStatus == LoginStatus.Reconnecting && reconnects >= 4))) savenewCookie(request);
     }
 
-    void savenewCookie()
+    public void savenewCookie(WWW requ)
     {
         started = false;
-        if (String.IsNullOrEmpty(request.error))
         {
-            if (request.responseHeaders.ContainsKey("SET-COOKIE"))
+            if (requ.responseHeaders.ContainsKey("SET-COOKIE"))
             {
-                String[] data = request.responseHeaders["SET-COOKIE"].Split(";"[0]);
+                String[] data = requ.responseHeaders["SET-COOKIE"].Split(";"[0]);
+                Debug.Log("COOOOOOOOKIE!...: \n" + requ.responseHeaders["SET-COOKIE"]);
                 if (data.Length > 0)
                 {
                     _cookie = data[0];
+                    //_cookie = request.responseHeaders["SET-COOKIE"];
                     Debug.Log("newCookie: " + _cookie);
                     _globalStatus = LoginStatus.LoggedIn;
                     return;
@@ -154,11 +155,6 @@ public class NetworkManager : MonoBehaviour
                 Debug.Log("OH NO WE DIDNT GET A NEW COOKIE!!!! NOOOOOOOOOOOOOOOOOOO");
             }
         }
-        else
-        {
-            Debug.Log(request.error);
-        }
-        _globalStatus = LoginStatus.LoggedOut;
     }
 
     public void LogOut()
