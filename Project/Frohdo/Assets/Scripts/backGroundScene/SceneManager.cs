@@ -117,6 +117,7 @@ public class SceneManager : MonoBehaviour
         Editor,
         LevelSelect,
         RateScreen,
-        Login
+        Login,
+        Options
     }
 }

@@ -17,9 +17,6 @@ public class Gui_MainMenu : MonoBehaviour
     float screenHeight;
     float screenWidth;
 
-    //options
-    int quallity = 4;
-    public GUIContent[] quallityOptions;
 
     void Start()
     {
@@ -48,7 +45,7 @@ public class Gui_MainMenu : MonoBehaviour
         }
         if (GUILayout.Button("Options", mainStyle.button))
         {
-            menuFunction = options;
+            SceneManager.Instance.loadScene(SceneManager.Scene.Options);
         }
         if (GUILayout.Button("Quit", mainStyle.button))
         {
@@ -57,27 +54,4 @@ public class Gui_MainMenu : MonoBehaviour
         GUILayout.EndArea();
     }
 
-    void options()
-    {
-        GUILayout.BeginArea(new Rect((ForceAspectRatio.screenWidth + ForceAspectRatio.xOffset) / 2 - 300, (ForceAspectRatio.screenHeight + ForceAspectRatio.yOffset) / 2 - 200, 600, 400));
-
-        GUILayout.Label("QualityLevel", mainStyle.label);
-        quallity = GUILayout.Toolbar(quallity, quallityOptions,mainStyle.customStyles[0]);
-        QualitySettings.SetQualityLevel(quallity);
-
-        if (GUILayout.Button("Fullscreen ON/OFF", mainStyle.button))
-        {
-            Screen.fullScreen = !Screen.fullScreen;
-        }
-        GUILayout.Label("Background volume", mainStyle.label);
-        SoundController.Instance.BackgroundSoundVolume = GUILayout.HorizontalSlider(SoundController.Instance.BackgroundSoundVolume, 0, 1);
-        GUILayout.Label("Sounds", mainStyle.label);
-        SoundController.Instance.MiscSoundVolume = GUILayout.HorizontalSlider(SoundController.Instance.MiscSoundVolume, 0, 1);
-
-        if (GUILayout.Button("Back", mainStyle.button))
-        {
-            menuFunction = mainMenu;
-        }
-        GUILayout.EndArea();
-    }
 }
