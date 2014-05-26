@@ -3,8 +3,6 @@ using System.Collections;
 
 public class Login : MonoBehaviour
 {
-
-
     public GUISkin style;
     public SceneDestroyer destroyer;
 
@@ -41,6 +39,23 @@ public class Login : MonoBehaviour
 
         style.label.fontSize = (int)((screenHeight / 10) * 0.7);
 
+        style.customStyles[1].fontSize = (int)((screenHeight / 10) * 0.7);
+        style.customStyles[1].fixedWidth = screenWidth / 4;
+        style.customStyles[1].fixedHeight = screenHeight / 8;
+
+        style.customStyles[2].fontSize = (int)((screenHeight / 10) * 0.7);
+        style.customStyles[2].fixedWidth = screenWidth / 2;
+        style.customStyles[2].fixedHeight = screenHeight / 8;
+
+        style.customStyles[3].fontSize = (int)((screenHeight / 10) * 0.7);
+        style.customStyles[3].fixedWidth = screenWidth / 2;
+        style.customStyles[3].fixedHeight = screenHeight / 8;
+
+        style.button.fontSize = (int)((screenHeight / 10) * 0.7);
+        style.button.fixedHeight = screenHeight / 10;
+        style.button.fixedWidth = screenWidth / 4;
+
+        GUI.skin = style;
         GUILayout.BeginArea(new Rect(ForceAspectRatio.xOffset + screenWidth / 4, ForceAspectRatio.yOffset, screenWidth / 2, screenHeight), "", style.customStyles[0]);
 
         switch (NetworkManager.Instance.GlobalStatus)
@@ -66,14 +81,16 @@ public class Login : MonoBehaviour
         }
 
         GUILayout.EndArea();
+        GUI.skin = null;
     }
 
     private void LoginIcorr()
     {
         GUILayout.BeginVertical();
         GUILayout.FlexibleSpace();
-        GUILayout.Label("Logindata incorrect!", style.label);
-        if(GUILayout.Button("OK")){
+        GUILayout.Label("Logindata incorrect!", "CenterAlignLabelDoubleWidth");
+        if (GUILayout.Button("OK", "ButtonDoubleWidth"))
+        {
             NetworkManager.Instance.LogOut();
         }
         GUILayout.FlexibleSpace();
@@ -118,7 +135,7 @@ public class Login : MonoBehaviour
     {
         GUILayout.BeginVertical();
         GUILayout.FlexibleSpace();
-        GUILayout.Label("You are Logged In as: " + NetworkManager.Instance.User, style.label);
+        GUILayout.Label("You are Logged In as: " + NetworkManager.Instance.User, "CenterAlignLabelDoubleWidth");
         GUILayout.FlexibleSpace();
         GUILayout.BeginHorizontal();
         if (GUILayout.Button("Logout"))
@@ -141,7 +158,11 @@ public class Login : MonoBehaviour
 
     void logginIn()
     {
-
+        GUILayout.BeginVertical();
+        GUILayout.FlexibleSpace();
+        GUILayout.Label("Logging in. Please wait ...", "CenterAlignLabelDoubleWidth");
+        GUILayout.FlexibleSpace();
+        GUILayout.EndVertical();
     }
 
     void reconnecting()
@@ -159,7 +180,7 @@ public class Login : MonoBehaviour
         if (SceneManager.Instance.getSavedSceneTypeWhenInLogin() != SceneManager.Scene.MainMenu)
         {
             GUILayout.BeginHorizontal();
-            if (GUILayout.Button("Back to main menu"))
+            if (GUILayout.Button("Back to main menu", "ButtonDoubleWidth"))
             {
                 SceneManager.Instance.loadScene(SceneManager.Scene.MainMenu);
             }
