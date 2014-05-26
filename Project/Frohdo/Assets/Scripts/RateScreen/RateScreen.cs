@@ -24,6 +24,10 @@ public class RateScreen : MonoBehaviour {
         GUILayout.BeginVertical();
             GUILayout.Label("LevelHash:",skin.customStyles[0]);
             GUILayout.Label(levelHash_,skin.label);
+            //GUILayout.Label("Levelname:", skin.customStyles[0]);
+            //GUILayout.Label(SceneManager.Instance.levelToLoad.LevelTitle, skin.label);
+            //GUILayout.Label("LevelPath:", skin.customStyles[0]);
+            //GUILayout.Label(SceneManager.Instance.levelToLoad.LeveltoLoad, skin.label);
             GUILayout.Space(30);
             GUILayout.BeginHorizontal();
                 GUILayout.BeginVertical();
@@ -36,10 +40,26 @@ public class RateScreen : MonoBehaviour {
                 GUILayout.EndVertical();    
             GUILayout.EndHorizontal();
             GUILayout.Space(50);
+            GUILayout.BeginHorizontal();
             if (GUILayout.Button("continue",skin.button))
             {
                 SceneManager.Instance.loadScene(SceneManager.Scene.LevelSelect);
             }
+            if (SceneManager.Instance.levelToLoad.type == LevelLoader.LevelType.Custom)
+            {
+                if (NetworkManager.Instance.GlobalStatus == NetworkManager.LoginStatus.LoggedIn)
+                {
+                    if (GUILayout.Button("Upload Level", skin.button))
+                    {
+                        LevelUploadManager.Instance.StartUploadLevel();
+                    }
+                }
+                else
+                {
+                    GUILayout.Label("You have to be logged in in order to upload a level!", skin.customStyles[0]);
+                }
+            }
+            GUILayout.EndHorizontal();
 
         GUILayout.EndVertical();
         GUILayout.EndArea();

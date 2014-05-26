@@ -18,8 +18,6 @@ public class LevelEditorParser
     }
 
     public string savePath;
-
-    public string levelName { get; set; }
     
     private LevelXML level;
     
@@ -42,7 +40,7 @@ public class LevelEditorParser
             l.layerId = count;
             count++;
         }
-        levelName = "Enter Level Name";
+        SceneManager.Instance.levelToLoad.LevelTitle = "Enter Level Name";
     }
 
     public void setLevelBackground(string color)
@@ -54,11 +52,11 @@ public class LevelEditorParser
     {
         clear();
         updateXMLLevelObjects();
-        
-        System.IO.Directory.CreateDirectory(Application.dataPath + savePath + levelName);
-        SceneManager.Instance.levelToLoad = Application.dataPath + savePath + levelName + "\\" + levelName + ".xml";
-        SceneManager.Instance.levelToEdit = Application.dataPath + savePath + levelName + "\\" + levelName + ".xml";
-        XML_Loader.Save(Application.dataPath + savePath + levelName + "\\" + levelName + ".xml", level);
+
+        System.IO.Directory.CreateDirectory(Application.dataPath + savePath + SceneManager.Instance.levelToLoad.LevelTitle);
+        SceneManager.Instance.levelToLoad = new LevelAndType(Application.dataPath + savePath + SceneManager.Instance.levelToLoad.LevelTitle + "\\" + SceneManager.Instance.levelToLoad.LevelTitle + ".xml", LevelLoader.LevelType.Custom);
+        SceneManager.Instance.levelToEdit = Application.dataPath + savePath + SceneManager.Instance.levelToLoad.LevelTitle + "\\" + SceneManager.Instance.levelToLoad.LevelTitle + ".xml";
+        XML_Loader.Save(Application.dataPath + savePath + SceneManager.Instance.levelToLoad.LevelTitle + "\\" + SceneManager.Instance.levelToLoad.LevelTitle + ".xml", level);
     }
 
     public void addLevelObject(int layerIndex, LevelObjectXML obj)

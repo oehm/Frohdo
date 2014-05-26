@@ -43,7 +43,7 @@ public class Login : MonoBehaviour
 
         GUILayout.BeginArea(new Rect(ForceAspectRatio.xOffset + screenWidth / 4, ForceAspectRatio.yOffset, screenWidth / 2, screenHeight), "", style.customStyles[0]);
 
-        switch (NetworkManager.GlobalStatus)
+        switch (NetworkManager.Instance.GlobalStatus)
         {
             case NetworkManager.LoginStatus.LoggedOut:
                 loggedoff();

@@ -5,7 +5,7 @@ using System;
 
 public class LevelLoader : MonoBehaviour
 {
-
+    public enum LevelType { Story, Custom, Normal}
 
     public GameObject SceneObjects;
 
@@ -18,14 +18,14 @@ public class LevelLoader : MonoBehaviour
     // Use this for initialization
     void Awake()
     {
-        string path = SceneManager.Instance.levelToLoad;
+        string path = SceneManager.Instance.levelToLoad.LeveltoLoad;
         bool editor = SceneManager.Instance.loadLevelToEdit;
         if(editor)
         {
             SceneObjects = GameObject.Find("SceneObjects");
             camera_ = Camera.main;
         }
-        LoadLevel(path, editor);
+        LoadLevel(path, editor, SceneManager.Instance.levelToLoad.type);
         SceneManager.Instance.loadLevelToEdit = false;
     }
 
@@ -35,7 +35,7 @@ public class LevelLoader : MonoBehaviour
 
     }
 
-    public void LoadLevel(string path, bool editor)
+    public void LoadLevel(string path, bool editor, LevelType type)
     {
         LevelXML levelXML = XML_Loader.Load(path);
 
@@ -52,7 +52,6 @@ public class LevelLoader : MonoBehaviour
         {
             Editor_Grid.Instance.initGrid(GlobalVars.Instance.maxLevelSize);
             LevelEditorParser.Instance.initEmpty();
-            LevelEditorParser.Instance.levelName =  Path.GetFileNameWithoutExtension(SceneManager.Instance.levelToLoad);
             StateManager manager = GameObject.Find("SceneController").GetComponentInChildren<StateManager>() as StateManager;
             manager.changeBackgroundColor(levelXML.backgroundColor);
         }

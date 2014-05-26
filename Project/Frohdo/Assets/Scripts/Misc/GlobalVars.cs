@@ -49,6 +49,10 @@ public class GlobalVars : ScriptableObject
 
     public int maxRatios;
 
+    public string LoginUri;
+
+    public string LevelUploadUri;
+
     void OnEnable()
     {
         if (instance != null)
