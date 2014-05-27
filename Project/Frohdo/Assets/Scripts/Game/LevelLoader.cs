@@ -146,6 +146,32 @@ public class LevelLoader : MonoBehaviour
         if (!editor && type != LevelType.Story)
         {
             ScoreController.Instance.LevelHash = ScoreController.Instance.getMD5ofFile(path); //just temporary, calculate it later
+            
+            RenderTexture renderTex = new RenderTexture(1024, 1024, 16);
+            Texture2D tex2D = new Texture2D(1024, 1024);
+
+
+            RenderTexture.active = renderTex;
+            Camera.main.targetTexture = renderTex;
+
+            float oldAspect = Camera.main.aspect;
+            int oldCullingMask = Camera.main.cullingMask;
+
+            Camera.main.aspect = 1.0f;//Camera.main.aspect;
+            Camera.main.cullingMask = LayerMask.NameToLayer("Everything");
+            Camera.main.camera.Render();
+
+            tex2D.ReadPixels(new Rect(0, 0, renderTex.width, renderTex.height), 0, 0);
+            tex2D.Apply();
+
+            RenderTexture.active = null;
+            Camera.main.targetTexture = null;
+            Camera.main.aspect = oldAspect;
+            Camera.main.cullingMask = oldCullingMask;
+
+            byte[] bytes = tex2D.EncodeToPNG();
+            File.WriteAllBytes(SceneManager.Instance.levelToLoad.thumbpath,bytes);
+            //Tell unity to delete the texture, by default it seems to keep hold of it and memory crashes will occur after too many screenshots.
         }
     }
 
