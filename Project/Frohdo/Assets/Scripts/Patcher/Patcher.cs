@@ -14,7 +14,7 @@ public class Patcher : MonoBehaviour {
     public GUIStyle gstyle;
 
 	void Start () {
-        Debug.Log(PatcherManager.Instance);
+        //Debug.Log(PatcherManager.Instance);
         PatcherManager.Instance.checkForPatch();
 	}
 

@@ -128,6 +128,10 @@ public class NetworkManager : MonoBehaviour
                     reconnects++;
                     started = false;
                 }
+                else
+                {
+                    _globalStatus = LoginStatus.Refused;
+                }
             }
         }
         if(_globalStatus != LoginStatus.LoginIncorrect &&(_globalStatus != LoginStatus.Reconnecting ||(_globalStatus == LoginStatus.Reconnecting && reconnects >= 4))) savenewCookie(request);

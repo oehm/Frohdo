@@ -37,7 +37,15 @@ public class LevelLoader : MonoBehaviour
 
     public void LoadLevel(string path, bool editor, LevelType type)
     {
-        LevelXML levelXML = XML_Loader.Load(path);
+        LevelXML levelXML;
+        if (type == LevelType.Story)
+        {
+            levelXML = XML_Loader.LoadFromResources(path); //for story levels!!
+        }
+        else
+        {
+            levelXML = XML_Loader.Load(path);
+        }
 
         if (levelXML.layers.Count != GlobalVars.Instance.LayerCount)
         {
@@ -135,7 +143,7 @@ public class LevelLoader : MonoBehaviour
             }
         }
 
-        if (!editor)
+        if (!editor && type != LevelType.Story)
         {
             ScoreController.Instance.LevelHash = ScoreController.Instance.getMD5ofFile(path); //just temporary, calculate it later
         }

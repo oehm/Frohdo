@@ -172,7 +172,15 @@ public class Login : MonoBehaviour
 
     void refused()
     {
-
+        GUILayout.BeginVertical();
+        GUILayout.FlexibleSpace();
+        GUILayout.Label("Unable to Login.\nMaybe you are not properly connected or there are \"Server issues\" (Nope!)", "CenterAlignLabelDoubleWidth");
+        if (GUILayout.Button("back", "ButtonDoubleWidth"))
+        {
+            NetworkManager.Instance.LogOut();
+        }
+        GUILayout.FlexibleSpace();
+        GUILayout.EndVertical();
     }
 
     void drawmenubutton()
