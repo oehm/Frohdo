@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
+using UnityEditor;
 using System.Collections;
 using System.IO;
 using System;
 
 public class LevelLoader : MonoBehaviour
 {
-    public enum LevelType { Story, Custom, Normal}
+    public enum LevelType { Story, Custom, Normal }
 
     public GameObject SceneObjects;
 
@@ -20,7 +21,7 @@ public class LevelLoader : MonoBehaviour
     {
         string path = SceneManager.Instance.levelToLoad.LeveltoLoad;
         bool editor = SceneManager.Instance.loadLevelToEdit;
-        if(editor)
+        if (editor)
         {
             SceneObjects = GameObject.Find("SceneObjects");
             camera_ = Camera.main;
@@ -38,6 +39,7 @@ public class LevelLoader : MonoBehaviour
     public void LoadLevel(string path, bool editor, LevelType type)
     {
         LevelXML levelXML;
+        Vector2 characterPos = new Vector2(0, 0);
         if (type == LevelType.Story)
         {
             levelXML = XML_Loader.LoadFromResources(path); //for story levels!!
@@ -113,9 +115,9 @@ public class LevelLoader : MonoBehaviour
                 EditCommandManager.Instance.resetHistory();
             }
             CharacterObjectXML characterXML = layerXML.Character;
-
             if (characterXML != null)
             {
+                characterPos = characterXML.pos.Vector2;
                 if (!editor)
                 {
                     GameObject characterObject = layerScript.AddCharacter(characterXML.pos.Vector2, i, editor);
@@ -147,8 +149,8 @@ public class LevelLoader : MonoBehaviour
         {
             ScoreController.Instance.LevelHash = ScoreController.Instance.getMD5ofFile(path); //just temporary, calculate it later
             
-            RenderTexture renderTex = new RenderTexture(1024, 1024, 16);
-            Texture2D tex2D = new Texture2D(1024, 1024);
+            RenderTexture renderTex = new RenderTexture(1280, 768,16);
+            Texture2D tex2D = new Texture2D(1280, 768);
 
 
             RenderTexture.active = renderTex;
@@ -157,12 +159,14 @@ public class LevelLoader : MonoBehaviour
             float oldAspect = Camera.main.aspect;
             int oldCullingMask = Camera.main.cullingMask;
 
-            Camera.main.aspect = 1.0f;//Camera.main.aspect;
+            Camera.main.aspect = 16.0f/9.0f;//Camera.main.aspect;
             Camera.main.cullingMask = LayerMask.NameToLayer("Everything");
+            Camera.main.transform.position = new Vector3(characterPos.x, characterPos.y, GlobalVars.Instance.mainCamerZ);
             Camera.main.camera.Render();
 
             tex2D.ReadPixels(new Rect(0, 0, renderTex.width, renderTex.height), 0, 0);
             tex2D.Apply();
+            EditorUtility.CompressTexture(tex2D, TextureFormat.RGB565, 2);
 
             RenderTexture.active = null;
             Camera.main.targetTexture = null;
