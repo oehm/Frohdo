@@ -131,6 +131,15 @@ public class LevelAndType
     public string thumbpath;
     public LevelLoader.LevelType type;
 
+    public LevelAndType()
+    {
+        this.LeveltoLoad = "";
+        this.LevelTitle = "";
+        this.type = LevelLoader.LevelType.Custom;
+        this.LevelDescription = "";
+        this.thumbpath = "";
+    }
+
     public LevelAndType(string LeveltoLoad, LevelLoader.LevelType type)
     {
         this.LeveltoLoad = LeveltoLoad;

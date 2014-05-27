@@ -108,7 +108,7 @@ public class NetworkManager : MonoBehaviour
 
         if (header.ContainsKey("STATUS"))
         {
-            Debug.Log(header["STATUS"]);
+            //Debug.Log(header["STATUS"]);
             if (header["STATUS"].ToString().Equals("HTTP/1.1 302 Found"))
             {
 
@@ -144,12 +144,12 @@ public class NetworkManager : MonoBehaviour
             if (requ.responseHeaders.ContainsKey("SET-COOKIE"))
             {
                 String[] data = requ.responseHeaders["SET-COOKIE"].Split(";"[0]);
-                Debug.Log("COOOOOOOOKIE!...: \n" + requ.responseHeaders["SET-COOKIE"]);
+                //Debug.Log("COOOOOOOOKIE!...: \n" + requ.responseHeaders["SET-COOKIE"]);
                 if (data.Length > 0)
                 {
                     _cookie = data[0];
                     //_cookie = request.responseHeaders["SET-COOKIE"];
-                    Debug.Log("newCookie: " + _cookie);
+                    //Debug.Log("newCookie: " + _cookie);
                     _globalStatus = LoginStatus.LoggedIn;
                     return;
                 }
