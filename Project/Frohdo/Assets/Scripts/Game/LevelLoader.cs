@@ -151,7 +151,7 @@ public class LevelLoader : MonoBehaviour
 
             WWW thumbdownload = new WWW(SceneManager.Instance.levelToLoad.thumbpath);
 
-            if ( thumbdownload==null && type == LevelType.Custom)
+            if ( thumbdownload.error != "" && type == LevelType.Custom)
             {
                 ScreenShotManager.Instance.takeScreenShot();
                 
