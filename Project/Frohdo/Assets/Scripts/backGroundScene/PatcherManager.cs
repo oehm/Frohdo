@@ -84,6 +84,7 @@ public class PatcherManager : MonoBehaviour
             _globalStatus = PatcherStatus.Patched;
         }
         else _globalStatus = PatcherStatus.Patching;
+        Debug.Log("PATCHER Debug!");
     }
 
     IEnumerator CheckFiles()

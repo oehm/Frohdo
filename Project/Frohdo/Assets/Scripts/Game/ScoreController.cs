@@ -49,7 +49,7 @@ public class ScoreController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         if (isRunning)
-        {        
+        {
             timeCount += (int)(Time.deltaTime * 1000.0f);
         }
 	}

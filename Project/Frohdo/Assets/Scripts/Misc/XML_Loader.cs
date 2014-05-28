@@ -25,11 +25,9 @@ public class XML_Loader : MonoBehaviour
 
     public static LevelXML LoadFromResources(string path)
     {
-        //Debug.Log("Load level from resources!");
         XmlSerializer serializer = new XmlSerializer(typeof(LevelXML));
-        TextAsset ta = Resources.Load(path) as TextAsset;
+        TextAsset ta = Resources.Load<TextAsset>(path);
         Stream s = new MemoryStream(ta.bytes);
         return serializer.Deserialize(s) as LevelXML;
     }
-   
 } 
