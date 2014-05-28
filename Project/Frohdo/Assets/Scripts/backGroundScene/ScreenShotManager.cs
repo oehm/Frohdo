@@ -81,7 +81,6 @@ public class ScreenShotManager : MonoBehaviour {
         RenderTexture.active = renderTexture;
         for (int i = 0; i < cams.Length;i++ )
         {
-            //Debug.Log("Rendering Camera with depth:" + camsSorted[i].depth.ToString());
             
             camsSorted[i].targetTexture = renderTexture;
 
