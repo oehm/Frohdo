@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<Level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <BackgroundColor>G</BackgroundColor>
+  <Layers>
+    <Layer LayerID="0">
+      <LevelObjects />
+    </Layer>
+    <Layer LayerID="1">
+      <LevelObjects>
+        <LevelObject>
+          <name>6x4-skull</name>
+          <color>C</color>
+          <pos>
+            <X>-14</X>
+            <Y>0</Y>
+          </pos>
+        </LevelObject>
+        <LevelObject>
+          <name>6x4_Z_tetris</name>
+          <color>C</color>
+          <pos>
+            <X>-15</X>
+            <Y>-4</Y>
+          </pos>
+        </LevelObject>
+        <LevelObject>
+          <name>10x2_tetris</name>
+          <color>C</color>
+          <pos>
+            <X>-19</X>
+            <Y>-7</Y>
+          </pos>
+        </LevelObject>
+        <LevelObject>
+          <name>ColorRatio</name>
+          <color>C</color>
+          <pos>
+            <X>-21.5</X>
+            <Y>-5.5</Y>
+          </pos>
+        </LevelObject>
+        <LevelObject>
+          <name>Door</name>
+          <pos>
+            <X>-19</X>
+            <Y>-4.5</Y>
+          </pos>
+        </LevelObject>
+      </LevelObjects>
+      <Character>
+        <pos>
+          <X>-23</X>
+          <Y>-4.5</Y>
+        </pos>
+      </Character>
+    </Layer>
+    <Layer LayerID="2">
+      <LevelObjects />
+    </Layer>
+    <Layer LayerID="3">
+      <LevelObjects />
+    </Layer>
+  </Layers>
+</Level>

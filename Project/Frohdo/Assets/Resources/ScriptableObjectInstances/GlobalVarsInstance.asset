@@ -29,3 +29,7 @@ MonoBehaviour:
   maxRatios: 4
   LoginUri: http://community.mediacube.at/users/sign_in
   LevelUploadUri: http://community.mediacube.at/levels/
+  TopOnlineLevelListUrl: http://community.mediacube.at/levels.xml
+  CommunityBasePath: http://community.mediacube.at/
+  playlistUrl: http://community.mediacube.at/myLevelplaylist.xml
+  AddToPlaylistUrl: http://community.mediacube.at/levels/add_level_to_playlist?id=

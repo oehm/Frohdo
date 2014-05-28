@@ -147,7 +147,7 @@ public class LevelUploadManager : MonoBehaviour
             foreach (string s in request.responseHeaders.Keys)
             {
                 header.Add(s, request.responseHeaders[s]);
-                Debug.Log("Upload-Header: " + s + ": " + request.responseHeaders[s]);
+                //Debug.Log("Upload-Header: " + s + ": " + request.responseHeaders[s]);
             }
 
             if (header.ContainsKey("STATUS"))
@@ -164,9 +164,9 @@ public class LevelUploadManager : MonoBehaviour
                 {
                     foreach (string ke in requHeaders.Keys)
                     {
-                        Debug.Log("request-Header: " + ke + ": " + requHeaders[ke]);
+                        //Debug.Log("request-Header: " + ke + ": " + requHeaders[ke]);
                     }
-                    Debug.Log("DONE!");
+                    //Debug.Log("DONE!");
                     _globalStatus = LevelUploadStatus.FailedOnUpload;
                 }
             }

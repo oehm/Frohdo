@@ -99,6 +99,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 760676340}
+  - {fileID: 989622207}
+  - {fileID: 1788323734}
   - {fileID: 342958979}
   - {fileID: 1972822929}
   - {fileID: 2045589145}
@@ -489,6 +492,44 @@ Prefab:
   m_RootGameObject: {fileID: 342958977}
   m_IsPrefabParent: 0
   m_IsExploded: 1
+--- !u!1 &760676339
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 760676340}
+  - 114: {fileID: 760676341}
+  m_Layer: 0
+  m_Name: DownloadLevelManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &760676340
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 760676339}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.1931541, y: 12.46661, z: 2.29730225}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 58695204}
+--- !u!114 &760676341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 760676339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c4bdf5f4bc646f4082ed84e7e662df2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &760977556
 GameObject:
   m_ObjectHideFlags: 0
@@ -691,6 +732,45 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
+--- !u!1 &989622205
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 989622207}
+  - 114: {fileID: 989622206}
+  m_Layer: 0
+  m_Name: DownloadTopOnlineLevelListManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &989622206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 989622205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c028dd600ecee9419eebcab4647d63e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  XML: 
+--- !u!4 &989622207
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 989622205}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.1931541, y: 12.46661, z: 2.29730225}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 58695204}
 --- !u!1 &1129471647
 GameObject:
   m_ObjectHideFlags: 0
@@ -883,6 +963,45 @@ Prefab:
   m_RootGameObject: {fileID: 1920058905}
   m_IsPrefabParent: 0
   m_IsExploded: 1
+--- !u!1 &1788323733
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1788323734}
+  - 114: {fileID: 1788323735}
+  m_Layer: 0
+  m_Name: DownloadPlaylistScriptManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1788323734
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1788323733}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.1931541, y: 12.46661, z: 2.29730225}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 58695204}
+--- !u!114 &1788323735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1788323733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2ef1102d5530b94ca78050d7d297d76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  XML: 
 --- !u!1 &1920058905
 GameObject:
   m_ObjectHideFlags: 0

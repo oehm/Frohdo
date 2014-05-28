@@ -149,7 +149,7 @@ public class NetworkManager : MonoBehaviour
                 {
                     _cookie = data[0];
                     //_cookie = request.responseHeaders["SET-COOKIE"];
-                    //Debug.Log("newCookie: " + _cookie);
+                    Debug.Log("newCookie: " + _cookie);
                     _globalStatus = LoginStatus.LoggedIn;
                     return;
                 }

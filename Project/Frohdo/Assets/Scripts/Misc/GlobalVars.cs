@@ -53,6 +53,14 @@ public class GlobalVars : ScriptableObject
 
     public string LevelUploadUri;
 
+    public string TopOnlineLevelListUrl;
+
+    public string CommunityBasePath;
+
+    public string playlistUrl;
+
+    public string AddToPlaylistUrl;
+
     void OnEnable()
     {
         if (instance != null)
