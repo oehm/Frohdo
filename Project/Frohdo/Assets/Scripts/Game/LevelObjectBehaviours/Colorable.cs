@@ -18,7 +18,7 @@ public class Colorable : MonoBehaviour {
                 Debug.Log("LevelObject can not be coloured in: " + value);
                 return;
             }
-            Debug.Log(gameObject.GetComponentInChildren<Renderer>().material.name);
+            //Debug.Log(gameObject.GetComponentInChildren<Renderer>().material.name);
             gameObject.GetComponentInChildren<Renderer>().material.color = colorObject_;
             color_ = value;
         }

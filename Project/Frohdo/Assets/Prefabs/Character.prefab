@@ -318,6 +318,7 @@ MonoBehaviour:
   pukeOffSide_: {x: 1.25, y: 0}
   pukeOffUp_: {x: 0, y: 1.25}
   pukeOffDown_: {x: 0, y: 0}
+  pukesound_: {fileID: 8200000}
 --- !u!114 &11400006
 MonoBehaviour:
   m_ObjectHideFlags: 1
