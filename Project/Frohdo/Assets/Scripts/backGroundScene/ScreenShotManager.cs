@@ -39,6 +39,10 @@ public class ScreenShotManager : MonoBehaviour {
         {
             path = SceneManager.Instance.levelToLoad.thumbpath;
         }
+        else
+        {
+            System.IO.Directory.CreateDirectory(Path.GetDirectoryName(path));
+        }
         
         texture = new Texture2D(imgWidth, imgHeight);
         renderTexture = new RenderTexture(imgWidth, imgHeight, 32);
