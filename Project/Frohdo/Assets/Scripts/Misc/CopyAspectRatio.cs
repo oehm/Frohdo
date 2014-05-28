@@ -25,4 +25,10 @@ public class CopyAspectRatio : MonoBehaviour {
             camera.aspect = mainCamera_.aspect;
         }
 	}
+
+    public void forceUpdate()
+    {
+        mainCamera_ = ForceAspectRatio.CameraMain;
+        Update();
+    }
 }

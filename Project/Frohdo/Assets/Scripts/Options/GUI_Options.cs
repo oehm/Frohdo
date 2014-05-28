@@ -1,14 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GUI_Options : MonoBehaviour {
+public class GUI_Options : MonoBehaviour
+{
 
     public GUISkin mainStyle;
 
     //options
+    private Vector2 lastSize;
     int quallity = 4;
     public GUIContent[] quallityOptions;
-    
+
+
+    void Start()
+    {
+        lastSize = new Vector2(Screen.width, Screen.height);                
+    }
+
     void OnGUI()
     {
         GUILayout.BeginArea(new Rect((ForceAspectRatio.screenWidth + ForceAspectRatio.xOffset) / 2 - 300, (ForceAspectRatio.screenHeight + ForceAspectRatio.yOffset) / 2 - 200, 600, 400));
@@ -19,7 +27,15 @@ public class GUI_Options : MonoBehaviour {
 
         if (GUILayout.Button("Fullscreen ON/OFF", mainStyle.button))
         {
-            Screen.fullScreen = !Screen.fullScreen;
+            if(!Screen.fullScreen)
+            {
+                lastSize = new Vector2(Screen.width, Screen.height);                
+                Screen.SetResolution(Screen.width, Screen.height, true);
+            }
+            else
+            {
+                Screen.SetResolution((int)lastSize.x, (int)lastSize.y, false);
+            }
         }
         GUILayout.Label("Background volume", mainStyle.label);
         SoundController.Instance.BackgroundSoundVolume = GUILayout.HorizontalSlider(SoundController.Instance.BackgroundSoundVolume, 0, 1);

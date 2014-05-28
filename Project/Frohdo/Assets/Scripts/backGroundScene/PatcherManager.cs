@@ -172,11 +172,14 @@ public class PatcherManager : MonoBehaviour
     {
         List<Hashtable> files = new List<Hashtable>();
 
-        string json = request.text;
+        string json = request.text.Trim();
         json = json.Replace("[", ""); json = json.Replace("]", "");
         json = json.Replace("},{", "~");
 
+        if (json.Length == 0) return files;
         string[] split = json.Split('~');
+
+        Debug.Log(json + " " + split.Length + " " + split[0]);
 
         foreach (string s in split)
         {
