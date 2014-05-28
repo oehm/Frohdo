@@ -38,5 +38,18 @@ public class InputControllerGame : MonoBehaviour {
         {
             ScoreController.Instance.isRunning = true;
         }
+
+
+        if (Input.GetButton("ScreenShot"))
+        {
+            if (SceneManager.Instance.levelToLoad.type == LevelLoader.LevelType.Custom)
+            {
+                ScreenShotManager.Instance.takeScreenShot();
+            }
+            else
+            {
+                ScreenShotManager.Instance.takeScreenShot(Application.dataPath + "\\testScreenShot.png");
+            }
+        }
 	}
 }

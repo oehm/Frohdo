@@ -148,34 +148,41 @@ public class LevelLoader : MonoBehaviour
         if (!editor && type != LevelType.Story)
         {
             ScoreController.Instance.LevelHash = ScoreController.Instance.getMD5ofFile(path); //just temporary, calculate it later
-            
-            RenderTexture renderTex = new RenderTexture(1280, 768,16);
-            Texture2D tex2D = new Texture2D(1280, 768);
+
+            WWW thumbdownload = new WWW(SceneManager.Instance.levelToLoad.thumbpath);
+
+            if ( thumbdownload==null && type == LevelType.Custom)
+            {
+                ScreenShotManager.Instance.takeScreenShot();
+                
+                //RenderTexture renderTex = new RenderTexture(1280, 768, 16);
+                //Texture2D tex2D = new Texture2D(1280, 768);
 
 
-            RenderTexture.active = renderTex;
-            Camera.main.targetTexture = renderTex;
+                //RenderTexture.active = renderTex;
+                //Camera.main.targetTexture = renderTex;
 
-            float oldAspect = Camera.main.aspect;
-            int oldCullingMask = Camera.main.cullingMask;
+                //float oldAspect = Camera.main.aspect;
+                //int oldCullingMask = Camera.main.cullingMask;
 
-            Camera.main.aspect = 16.0f/9.0f;//Camera.main.aspect;
-            Camera.main.cullingMask = LayerMask.NameToLayer("Everything");
-            Camera.main.transform.position = new Vector3(characterPos.x, characterPos.y, GlobalVars.Instance.mainCamerZ);
-            Camera.main.camera.Render();
+                //Camera.main.aspect = 16.0f / 9.0f;//Camera.main.aspect;
+                //Camera.main.cullingMask = LayerMask.NameToLayer("Everything");
+                //Camera.main.transform.position = new Vector3(characterPos.x, characterPos.y, GlobalVars.Instance.mainCamerZ);
+                //Camera.main.camera.Render();
 
-            tex2D.ReadPixels(new Rect(0, 0, renderTex.width, renderTex.height), 0, 0);
-            tex2D.Apply();
-            EditorUtility.CompressTexture(tex2D, TextureFormat.RGB565, 2);
+                //tex2D.ReadPixels(new Rect(0, 0, renderTex.width, renderTex.height), 0, 0);
+                //tex2D.Apply();
+                //EditorUtility.CompressTexture(tex2D, TextureFormat.RGB565, 2);
 
-            RenderTexture.active = null;
-            Camera.main.targetTexture = null;
-            Camera.main.aspect = oldAspect;
-            Camera.main.cullingMask = oldCullingMask;
+                //RenderTexture.active = null;
+                //Camera.main.targetTexture = null;
+                //Camera.main.aspect = oldAspect;
+                //Camera.main.cullingMask = oldCullingMask;
 
-            byte[] bytes = tex2D.EncodeToPNG();
-            File.WriteAllBytes(SceneManager.Instance.levelToLoad.thumbpath,bytes);
-            //Tell unity to delete the texture, by default it seems to keep hold of it and memory crashes will occur after too many screenshots.
+                //byte[] bytes = tex2D.EncodeToPNG();
+                //File.WriteAllBytes(SceneManager.Instance.levelToLoad.thumbpath, bytes);
+                //Tell unity to delete the texture, by default it seems to keep hold of it and memory crashes will occur after too many screenshots.
+            }
         }
     }
 
