@@ -171,6 +171,8 @@ MonoBehaviour:
   - {fileID: 100000, guid: 2854a5f8e57233f4589004fe1c84152d, type: 2}
   - {fileID: 100000, guid: 948a1c6cf6778ef4aa3f21b1630bbcac, type: 2}
   - {fileID: 100000, guid: 1b798c36fbe9c2940a3ddd39dcdb6b3f, type: 2}
+  - {fileID: 100000, guid: a9fe8a3789b4b9d40854f08fdf19b786, type: 2}
+  - {fileID: 100000, guid: e80de1c7e4b9e2441a2d22c3a83ee52c, type: 2}
 --- !u!4 &342958979
 Transform:
   m_ObjectHideFlags: 0
@@ -300,7 +302,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 11400000, guid: e2e0803c8b7ab254fba3b0c26409de07, type: 2}
       propertyPath: levelObjectPrefabs_.Array.size
-      value: 34
+      value: 36
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: e2e0803c8b7ab254fba3b0c26409de07, type: 2}
       propertyPath: m_LocalPosition.x
@@ -477,7 +479,11 @@ Prefab:
     - target: {fileID: 11400000, guid: e2e0803c8b7ab254fba3b0c26409de07, type: 2}
       propertyPath: levelObjectPrefabs_.Array.data[34]
       value: 
-      objectReference: {fileID: 100000, guid: 56b6e55f943d9b346a09d005e873b58e, type: 2}
+      objectReference: {fileID: 100000, guid: a9fe8a3789b4b9d40854f08fdf19b786, type: 2}
+    - target: {fileID: 11400000, guid: e2e0803c8b7ab254fba3b0c26409de07, type: 2}
+      propertyPath: levelObjectPrefabs_.Array.data[35]
+      value: 
+      objectReference: {fileID: 100000, guid: e80de1c7e4b9e2441a2d22c3a83ee52c, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e2e0803c8b7ab254fba3b0c26409de07, type: 2}
   m_RootGameObject: {fileID: 342958977}
