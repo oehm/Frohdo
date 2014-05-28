@@ -152,6 +152,7 @@ public class LevelLoader : MonoBehaviour
 
             if ( thumbdownload.error != "" && type == LevelType.Custom)
             {
+                Camera.main.transform.position = new Vector3(characterPos.x, characterPos.y, GlobalVars.Instance.mainCamerZ);
                 ScreenShotManager.Instance.takeScreenShot();
             }
         }
