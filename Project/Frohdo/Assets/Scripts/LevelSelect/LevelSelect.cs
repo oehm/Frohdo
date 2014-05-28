@@ -431,7 +431,10 @@ abstract class Levelobj : MonoBehaviour
             else
             {
                 //Debug.Log("Loading thumb from res: " + path);
+                thumbnail.alphaIsTransparency = false;
+                //thumbnail.
                 thumbnail = (Texture2D)Resources.Load(path, typeof(Texture2D));
+                
             }
         }
         currentDownloadTime += Time.deltaTime;

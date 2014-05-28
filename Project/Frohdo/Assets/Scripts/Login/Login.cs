@@ -5,6 +5,7 @@ public class Login : MonoBehaviour
 {
     public GUISkin style;
     public SceneDestroyer destroyer;
+    public Texture2D ColorHexagon;
 
     float screenHeight;
     float screenWidth;
@@ -33,53 +34,79 @@ public class Login : MonoBehaviour
         style.customStyles[0].fixedWidth = screenWidth;
         style.customStyles[0].fixedHeight = screenHeight;
 
-        style.textField.fixedWidth = screenWidth / 2;
-        style.textField.fixedHeight = screenHeight / 10;
-        style.textField.fontSize = (int)((screenHeight / 10) * 0.7);
+        style.textField.fixedWidth = screenWidth/2.5f;
+        style.textField.fixedHeight = screenHeight / 12;
+        style.textField.fontSize = (int)((screenHeight / 12) * 0.7);
 
-        style.label.fontSize = (int)((screenHeight / 10) * 0.7);
+        style.label.fontSize = (int)((screenHeight / 12) * 0.7);
 
-        style.customStyles[1].fontSize = (int)((screenHeight / 10) * 0.7);
-        style.customStyles[1].fixedWidth = screenWidth / 4;
+        //Center Align Label
+        style.customStyles[1].fontSize = (int)((screenHeight / 12) * 0.7);
+        style.customStyles[1].fixedWidth = screenWidth / 5;
         style.customStyles[1].fixedHeight = screenHeight / 8;
 
-        style.customStyles[2].fontSize = (int)((screenHeight / 10) * 0.7);
-        style.customStyles[2].fixedWidth = screenWidth / 2;
+        //centerAlignDoubleWidth
+        style.customStyles[2].fontSize = (int)((screenHeight / 12) * 0.7);
+        style.customStyles[2].fixedWidth = screenWidth / 2.5f;
         style.customStyles[2].fixedHeight = screenHeight / 8;
 
-        style.customStyles[3].fontSize = (int)((screenHeight / 10) * 0.7);
-        style.customStyles[3].fixedWidth = screenWidth / 2;
+        //double width button
+        style.customStyles[3].fontSize = (int)((screenHeight / 12) * 0.7);
+        style.customStyles[3].fixedWidth = screenWidth / 2.5f;
         style.customStyles[3].fixedHeight = screenHeight / 8;
 
-        style.button.fontSize = (int)((screenHeight / 10) * 0.7);
+        //fontsize for login-button ...
+        style.button.fontSize = (int)((screenHeight / 12) * 0.7);
         style.button.fixedHeight = screenHeight / 10;
-        style.button.fixedWidth = screenWidth / 4;
+        style.button.fixedWidth = screenWidth / 5;
+
+        //halfbox to split screen into 2 halfs
+        style.customStyles[4].fixedWidth = screenWidth / 2f;
+        style.customStyles[4].fixedHeight = screenHeight;
+
+        //box with color hexagon puicture
+        style.box.fixedHeight = screenHeight;
+        style.box.fixedWidth = screenWidth / 2;
 
         GUI.skin = style;
-        GUILayout.BeginArea(new Rect(ForceAspectRatio.xOffset + screenWidth / 4, ForceAspectRatio.yOffset, screenWidth / 2, screenHeight), "", style.customStyles[0]);
+        GUILayout.BeginArea(new Rect(ForceAspectRatio.xOffset, ForceAspectRatio.yOffset, screenWidth, screenHeight), "", style.customStyles[0]);
+            GUILayout.BeginHorizontal();
+                GUILayout.BeginVertical("HalfBox");
+                    GUILayout.FlexibleSpace();
+                    GUILayout.BeginHorizontal();
+                        GUILayout.FlexibleSpace();
+                        switch (NetworkManager.Instance.GlobalStatus)
+                        {
+                            case NetworkManager.LoginStatus.LoggedOut:
+                                loggedoff();
+                                break;
+                            case NetworkManager.LoginStatus.LoggingIn:
+                                logginIn();
+                                break;
+                            case NetworkManager.LoginStatus.LoggedIn:
+                                loggedIn();
+                                break;
+                            case NetworkManager.LoginStatus.Reconnecting:
+                                reconnecting();
+                                break;
+                            case NetworkManager.LoginStatus.Refused:
+                                refused();
+                                break;
+                            case NetworkManager.LoginStatus.LoginIncorrect:
+                                LoginIcorr();
+                                break;
+                        }
+                        GUILayout.FlexibleSpace();
+                    GUILayout.EndHorizontal();
+                    GUILayout.FlexibleSpace();
+                GUILayout.EndVertical();
 
-        switch (NetworkManager.Instance.GlobalStatus)
-        {
-            case NetworkManager.LoginStatus.LoggedOut:
-                loggedoff();
-                break;
-            case NetworkManager.LoginStatus.LoggingIn:
-                logginIn();
-                break;
-            case NetworkManager.LoginStatus.LoggedIn:
-                loggedIn();
-                break;
-            case NetworkManager.LoginStatus.Reconnecting:
-                reconnecting();
-                break;
-            case NetworkManager.LoginStatus.Refused:
-                refused();
-                break;
-            case NetworkManager.LoginStatus.LoginIncorrect:
-                LoginIcorr();
-                break;
-        }
-
+                GUILayout.BeginVertical("HalfBox");
+                    GUILayout.FlexibleSpace();
+                        GUILayout.Box(ColorHexagon);
+                    GUILayout.FlexibleSpace();
+                GUILayout.EndVertical();
+            GUILayout.EndHorizontal();
         GUILayout.EndArea();
         GUI.skin = null;
     }

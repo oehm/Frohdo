@@ -15,7 +15,7 @@ MonoBehaviour:
   m_box:
     m_Name: box
     m_Normal:
-      m_Background: {fileID: 2800000, guid: 75b0ee33acf6c7144a56273339ba7ff2, type: 3}
+      m_Background: {fileID: 2800000, guid: f174d0b21eea2f9499b8cd358a49c80d, type: 3}
       m_TextColor: {r: .799999952, g: .799999952, b: .799999952, a: 1}
     m_Hover:
       m_Background: {fileID: 0}
@@ -61,14 +61,14 @@ MonoBehaviour:
     m_Font: {fileID: 0}
     m_FontSize: 0
     m_FontStyle: 0
-    m_Alignment: 1
+    m_Alignment: 4
     m_WordWrap: 0
     m_RichText: 1
     m_TextClipping: 1
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 0
-    m_FixedHeight: 0
+    m_FixedWidth: 485.5
+    m_FixedHeight: 548
     m_StretchWidth: 1
     m_StretchHeight: 0
   m_button:
@@ -118,7 +118,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Font: {fileID: 0}
-    m_FontSize: 34
+    m_FontSize: 31
     m_FontStyle: 0
     m_Alignment: 4
     m_WordWrap: 0
@@ -126,8 +126,8 @@ MonoBehaviour:
     m_TextClipping: 1
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 217.25
-    m_FixedHeight: 48.7999992
+    m_FixedWidth: 194.199997
+    m_FixedHeight: 54.7999992
     m_StretchWidth: 1
     m_StretchHeight: 0
   m_toggle:
@@ -236,7 +236,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Font: {fileID: 12800000, guid: 14e59639e917f2a44b9e6396134adda0, type: 3}
-    m_FontSize: 34
+    m_FontSize: 31
     m_FontStyle: 0
     m_Alignment: 3
     m_WordWrap: 1
@@ -295,7 +295,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Font: {fileID: 12800000, guid: 14e59639e917f2a44b9e6396134adda0, type: 3}
-    m_FontSize: 34
+    m_FontSize: 31
     m_FontStyle: 0
     m_Alignment: 0
     m_WordWrap: 0
@@ -303,8 +303,8 @@ MonoBehaviour:
     m_TextClipping: 1
     m_ImagePosition: 3
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 434.5
-    m_FixedHeight: 48.7999992
+    m_FixedWidth: 388.399994
+    m_FixedHeight: 45.6666679
     m_StretchWidth: 1
     m_StretchHeight: 0
   m_textArea:
@@ -1247,8 +1247,8 @@ MonoBehaviour:
     m_TextClipping: 0
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 869
-    m_FixedHeight: 488
+    m_FixedWidth: 971
+    m_FixedHeight: 548
     m_StretchWidth: 0
     m_StretchHeight: 0
   - m_Name: CenterAlignLabel
@@ -1297,7 +1297,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Font: {fileID: 0}
-    m_FontSize: 34
+    m_FontSize: 31
     m_FontStyle: 0
     m_Alignment: 4
     m_WordWrap: 1
@@ -1305,8 +1305,8 @@ MonoBehaviour:
     m_TextClipping: 0
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 217.25
-    m_FixedHeight: 61
+    m_FixedWidth: 194.199997
+    m_FixedHeight: 68.5
     m_StretchWidth: 1
     m_StretchHeight: 0
   - m_Name: CenterAlignLabelDoubleWidth
@@ -1355,7 +1355,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Font: {fileID: 0}
-    m_FontSize: 34
+    m_FontSize: 31
     m_FontStyle: 0
     m_Alignment: 4
     m_WordWrap: 1
@@ -1363,11 +1363,69 @@ MonoBehaviour:
     m_TextClipping: 0
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 434.5
-    m_FixedHeight: 61
+    m_FixedWidth: 388.399994
+    m_FixedHeight: 68.5
     m_StretchWidth: 1
     m_StretchHeight: 0
   - m_Name: ButtonDoubleWidth
+    m_Normal:
+      m_Background: {fileID: 2800000, guid: 75b0ee33acf6c7144a56273339ba7ff2, type: 3}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_Hover:
+      m_Background: {fileID: 2800000, guid: 75b0ee33acf6c7144a56273339ba7ff2, type: 3}
+      m_TextColor: {r: .382352948, g: .382352948, b: .382352948, a: 1}
+    m_Active:
+      m_Background: {fileID: 2800000, guid: 75b0ee33acf6c7144a56273339ba7ff2, type: 3}
+      m_TextColor: {r: .04184689, g: .632352948, b: .0703541264, a: 1}
+    m_Focused:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 0}
+    m_OnNormal:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 0}
+    m_OnHover:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 0}
+    m_OnActive:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 0}
+    m_OnFocused:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 0}
+    m_Border:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    m_Margin:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    m_Padding:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    m_Overflow:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    m_Font: {fileID: 0}
+    m_FontSize: 31
+    m_FontStyle: 0
+    m_Alignment: 4
+    m_WordWrap: 1
+    m_RichText: 1
+    m_TextClipping: 0
+    m_ImagePosition: 0
+    m_ContentOffset: {x: 0, y: 0}
+    m_FixedWidth: 388.399994
+    m_FixedHeight: 68.5
+    m_StretchWidth: 1
+    m_StretchHeight: 0
+  - m_Name: HalfBox
     m_Normal:
       m_Background: {fileID: 2800000, guid: 75b0ee33acf6c7144a56273339ba7ff2, type: 3}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
@@ -1421,8 +1479,8 @@ MonoBehaviour:
     m_TextClipping: 0
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 434.5
-    m_FixedHeight: 61
+    m_FixedWidth: 485.5
+    m_FixedHeight: 548
     m_StretchWidth: 1
     m_StretchHeight: 0
   m_Settings:

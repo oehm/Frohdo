@@ -155,6 +155,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   style: {fileID: 11400000, guid: 76b62f2cf08cac940b0ee0ab24356be9, type: 2}
   destroyer: {fileID: 232306412}
+  ColorHexagon: {fileID: 2800000, guid: bc039ee9c8535dc48af86638104ac5c4, type: 3}
 --- !u!1 &654210236
 GameObject:
   m_ObjectHideFlags: 0
