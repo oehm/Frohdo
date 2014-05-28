@@ -15,6 +15,8 @@ public class CharacterPuke : MonoBehaviour
     public Vector2 pukeOffUp_;
     public Vector2 pukeOffDown_;
 
+    public AudioSource pukesound_;
+
 
     //private
     private Character character_;
@@ -43,6 +45,7 @@ public class CharacterPuke : MonoBehaviour
         isPuking_ = false;
         playPukeSound_ = false;
         animationTimeCount_ = 0.0f;
+        pukesound_.volume = PlayerPrefs.GetFloat("MiscVolume");
 	}
 
 
@@ -56,10 +59,10 @@ public class CharacterPuke : MonoBehaviour
         if (playPukeSound_)
         {
             playPukeSound_ = false;
-            AudioSource pukesound = gameObject.GetComponentInChildren<AudioSource>();
-            if (pukesound.isPlaying) pukesound.Stop();
-            pukesound.clip = SoundController.Instance.getRandomPukeSound();
-            if (pukesound.clip != null) pukesound.Play();
+            pukesound_ = gameObject.GetComponentInChildren<AudioSource>();
+            if (pukesound_.isPlaying) pukesound_.Stop();
+            pukesound_.clip = SoundController.Instance.getRandomPukeSound();
+            if (pukesound_.clip != null) pukesound_.Play();
         }
 
         if (isPuking_)

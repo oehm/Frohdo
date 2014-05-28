@@ -105,6 +105,7 @@ Transform:
   - {fileID: 760977557}
   - {fileID: 415781947}
   - {fileID: 1219160661}
+  - {fileID: 1255526511}
   - {fileID: 820877838}
   m_Father: {fileID: 0}
 --- !u!1 &342958977
@@ -790,6 +791,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b166fd40bc4f9a249b084ab3612a74a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1255526510
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1255526511}
+  - 114: {fileID: 1255526512}
+  m_Layer: 0
+  m_Name: ScreenShotController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1255526511
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1255526510}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 11, y: 7.5538578, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 58695204}
+--- !u!114 &1255526512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1255526510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 774cea23fa4763d49bd1e5bd78e33689, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  imgWidth: 1280
+  imgHeight: 768
 --- !u!1001 &1368272278
 Prefab:
   m_ObjectHideFlags: 0
@@ -828,6 +869,14 @@ Prefab:
     - target: {fileID: 100000, guid: 047c983717113e746b6de3bbc2144cd9, type: 2}
       propertyPath: m_Layer
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 047c983717113e746b6de3bbc2144cd9, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 047c983717113e746b6de3bbc2144cd9, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 047c983717113e746b6de3bbc2144cd9, type: 2}
@@ -905,7 +954,7 @@ Transform:
   m_GameObject: {fileID: 1920058905}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1800, y: 900, z: 1}
+  m_LocalScale: {x: 100, y: 100, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
 --- !u!114 &1920058910

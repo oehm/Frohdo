@@ -78,7 +78,7 @@ public class SoundController : MonoBehaviour
     private void loadAudioFiles()
     {
         //Background Clips load
-        Background_clips.Add((AudioClip)Resources.Load("Sounds/Backgrounds/Background1"));
+        Background_clips.Add((AudioClip)Resources.Load("Sounds/Backgrounds/Menue"));
 
         //PukeSounds load
         Pukeclips.Add((AudioClip)Resources.Load("Sounds/Pukes/puke1"));

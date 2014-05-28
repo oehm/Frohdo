@@ -6,7 +6,7 @@ using System;
 public class LevelUploadManager : MonoBehaviour
 {
 
-    public enum LevelUploadStatus { CheckingLevelType, ReadyForUpload, NoCustomLevel, Uploading, FailedOnMD5Check, FailedOnUpload, FinishedUploadSuccessful };
+    public enum LevelUploadStatus { CheckingLevelType, ReadyForUpload, NoCustomLevel, Uploading, FailedOnMD5Check, FailedOnUpload, FinishedUploadSuccessful, LevelAlreadyAvailableOnline };
     public enum HashEqualsStatus { Unchecked, HashSame, HashDiffer }
 
     private static LevelUploadManager instance = null;
@@ -16,6 +16,9 @@ public class LevelUploadManager : MonoBehaviour
     private static LevelUploadStatus _globalStatus;
 
     private static HashEqualsStatus _globalHashStatus;
+
+    public string UploadProgress;
+    private bool everythingPreparedForUpload;
 
     public LevelUploadStatus GlobalStatus { get { return _globalStatus; } }
 
@@ -46,6 +49,8 @@ public class LevelUploadManager : MonoBehaviour
         _globalHashStatus = HashEqualsStatus.Unchecked;
         checkStarted = false;
         UploadStarted = false;
+        UploadProgress = "";
+        everythingPreparedForUpload = false;
 
         form = new WWWForm();
     }
@@ -66,6 +71,7 @@ public class LevelUploadManager : MonoBehaviour
                 if (!UploadStarted)
                 {
                     UploadStarted = true;
+                    UploadProgress = "";
                     checkHashOfLevel();
                     if (_globalHashStatus == HashEqualsStatus.HashSame)
                     {
@@ -75,6 +81,10 @@ public class LevelUploadManager : MonoBehaviour
                     {
                         _globalStatus = LevelUploadStatus.FailedOnMD5Check;
                     }
+                }
+                else if(everythingPreparedForUpload)
+                {
+                    UploadProgress = " (" + ((float)((int)(request.uploadProgress*10000))/100) + ")";
                 }
                 break;
         }
@@ -98,7 +108,7 @@ public class LevelUploadManager : MonoBehaviour
         form.AddField("level[hashCode]", ScoreController.Instance.LevelHash);
         form.AddField("level[title]", SceneManager.Instance.levelToLoad.LevelTitle);
         form.AddField("level[description]", SceneManager.Instance.levelToLoad.LevelDescription + "Description");
-
+        UploadProgress = " (Loading XML)";
         WWW xmlFile = new WWW("file:///" + SceneManager.Instance.levelToLoad.LeveltoLoad);
         yield return xmlFile;
         if (xmlFile.error != null && !xmlFile.error.Equals(""))
@@ -107,7 +117,7 @@ public class LevelUploadManager : MonoBehaviour
             _globalStatus = LevelUploadStatus.FailedOnUpload;
             yield break;
         }
-
+        UploadProgress = " (Loading Thumbnail)";
         WWW thumbnail = new WWW("file:///" + SceneManager.Instance.levelToLoad.thumbpath);
         yield return xmlFile;
         if (thumbnail.error != null && !thumbnail.error.Equals(""))
@@ -128,6 +138,7 @@ public class LevelUploadManager : MonoBehaviour
                 requHeaders.Add(ke, form.headers[ke]);
             }
             requHeaders.Add("Cookie", NetworkManager.Instance.Cookie);
+            everythingPreparedForUpload = true;
             request = new WWW(GlobalVars.Instance.LevelUploadUri, form.data, requHeaders);
             yield return request;
             NetworkManager.Instance.savenewCookie(request);
@@ -144,6 +155,10 @@ public class LevelUploadManager : MonoBehaviour
                 if (header["STATUS"].ToString().Equals("200 OK"))
                 {
                     _globalStatus = LevelUploadStatus.FinishedUploadSuccessful;
+                }
+                else if (header["STATUS"].ToString().Equals("405 Method Not Allowed"))
+                {
+                    _globalStatus = LevelUploadStatus.LevelAlreadyAvailableOnline;
                 }
                 else
                 {
@@ -164,6 +179,7 @@ public class LevelUploadManager : MonoBehaviour
         {
             yield break;
         }
+        everythingPreparedForUpload = false;
     }
 
     public void StartUploadLevel()
@@ -174,6 +190,7 @@ public class LevelUploadManager : MonoBehaviour
 
     private void checkHashOfLevel()
     {
+        UploadProgress = " (Checking hash)";
         if (ScoreController.Instance.LevelHash == ScoreController.Instance.getMD5ofFile(SceneManager.Instance.levelToLoad.LeveltoLoad))
         {
             _globalHashStatus = HashEqualsStatus.HashSame;

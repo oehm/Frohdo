@@ -152,12 +152,20 @@ public class LevelObjectController : MonoBehaviour
     }
 
     //color definitions
-    public readonly static Color W = new Color(0.93f, 0.94f, 0.95f);
+    //public readonly static Color W = new Color(0.93f, 0.94f, 0.95f);
+    //public readonly static Color R = new Color(0.91f, 0.30f, 0.24f);
+    //public readonly static Color G = new Color(0.18f, 0.80f, 0.44f);
+    //public readonly static Color B = new Color(0.20f, 0.60f, 0.86f);
+    //public readonly static Color Y = new Color(0.95f, 0.77f, 0.06f);
+    //public readonly static Color C = new Color(0.01f, 0.96f, 0.95f);
+    //public readonly static Color M = new Color(0.61f, 0.35f, 0.71f);
+
+    public readonly static Color W = new Color(0.80f, 0.80f, 0.80f);
     public readonly static Color R = new Color(0.91f, 0.30f, 0.24f);
     public readonly static Color G = new Color(0.18f, 0.80f, 0.44f);
     public readonly static Color B = new Color(0.20f, 0.60f, 0.86f);
     public readonly static Color Y = new Color(0.95f, 0.77f, 0.06f);
-    public readonly static Color C = new Color(0.01f, 0.96f, 0.95f);
+    public readonly static Color C = new Color(0.14f, 0.86f, 0.77f);
     public readonly static Color M = new Color(0.61f, 0.35f, 0.71f);
 
 }

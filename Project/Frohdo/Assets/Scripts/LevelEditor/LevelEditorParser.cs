@@ -40,7 +40,11 @@ public class LevelEditorParser
             l.layerId = count;
             count++;
         }
-        SceneManager.Instance.levelToLoad.LevelTitle = "Enter Level Name";
+        if (SceneManager.Instance.levelToLoad == null)
+        {
+            SceneManager.Instance.levelToLoad = new LevelAndType();
+            SceneManager.Instance.levelToLoad.LevelTitle = "Enter Level Name";
+        }
     }
 
     public void setLevelBackground(string color)

@@ -146,6 +146,14 @@ public class LevelSelect : MonoBehaviour {
     void loadStoryLevels()
     {
         levels = new List<Levelobj>();
+
+        //----- This is how Story Levels must be added! -----
+        StoryLevelObj level1 = gameObject.AddComponent(typeof(StoryLevelObj)) as StoryLevelObj;
+        //-------------------id------------------Path in Resources--------------------------------- (id from 0!! without holes)
+        level1.initStoryLevel(0, "Maps/BuiltIn/The very first beginning/The very first beginning"); //WITHOUT EXTENSION XML!!!!
+        levels.Add(level1);
+        //---------------------------------------------------
+
     }
 
     void OnGUI()
@@ -416,9 +424,18 @@ abstract class Levelobj : MonoBehaviour
     {
         if (StartLoadingThumb)
         {
-            //Debug.Log("Starting Coroutine with path" + path);
-            StartCoroutine(FetchThumb(path));
             StartLoadingThumb = false;
+            if (this.GetType() != typeof(StoryLevelObj)) {
+                StartCoroutine(FetchThumb(path));
+            }
+            else
+            {
+                //Debug.Log("Loading thumb from res: " + path);
+                thumbnail.alphaIsTransparency = false;
+                //thumbnail.
+                thumbnail = (Texture2D)Resources.Load(path, typeof(Texture2D));
+                
+            }
         }
         currentDownloadTime += Time.deltaTime;
         if (currentDownloadTime >= downloadTimeout && ThumbCurrentlyLoading)
@@ -516,11 +533,12 @@ abstract class Levelobj : MonoBehaviour
 
 class StoryLevelObj : Levelobj
 {
-    public void init(int id, DirectoryInfo levelpath)
+    string respath = "";
+    public void initStoryLevel(int id, string levelpath)
     {
         this.id = id;
-        this.name = levelpath.Name;
-        searchLocalLevel(levelpath);
+        this.name = Path.GetFileNameWithoutExtension(levelpath);
+        this.respath = levelpath;
     }
     public override void loadHighScores()
     {
@@ -529,8 +547,19 @@ class StoryLevelObj : Levelobj
 
     public override void LevelInfoGui()
     {
-        if (StartLoadingThumb) loadThumbnail("file://" + XMLPath.FullName.Substring(0, XMLPath.FullName.Length - 4) + "_thumb.png");
+        //Debug.Log(respath);
+        if (StartLoadingThumb) loadThumbnail(respath + "_thumb");
         showThumbnail();
+        GUILayout.EndVertical();
+        GUILayout.BeginHorizontal("bottombar");
+        GUILayout.FlexibleSpace();
+        if (GUILayout.Button("Spielen", "forwardbackwardbutton"))
+        {
+            SceneManager.Instance.levelToLoad = new LevelAndType(respath, LevelLoader.LevelType.Story);
+            SceneManager.Instance.loadScene(SceneManager.Scene.Game);
+        }
+        GUILayout.FlexibleSpace();
+        GUILayout.EndHorizontal();
     }
 }
 class CustomLevelObj : Levelobj

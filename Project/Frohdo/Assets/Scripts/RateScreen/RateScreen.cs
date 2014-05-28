@@ -73,7 +73,7 @@ public class RateScreen : MonoBehaviour {
                             break;
 
                         case LevelUploadManager.LevelUploadStatus.Uploading:
-                            GUILayout.Label("Uploading Level ...", skin.customStyles[0]);
+                            GUILayout.Label("Uploading Level ..." + LevelUploadManager.Instance.UploadProgress, skin.customStyles[0]);
                             break;
 
                         case LevelUploadManager.LevelUploadStatus.FinishedUploadSuccessful:
@@ -90,6 +90,14 @@ public class RateScreen : MonoBehaviour {
                             
                         case LevelUploadManager.LevelUploadStatus.FailedOnUpload:
                             GUILayout.Label("Something went wrong while uploading", skin.customStyles[0]);
+                            if (GUILayout.Button("Retry", skin.button))
+                            {
+                                LevelUploadManager.Instance.StartUploadLevel();
+                            }
+                            break;
+
+                        case LevelUploadManager.LevelUploadStatus.LevelAlreadyAvailableOnline:
+                            GUILayout.Label("This level already got uploaded to the server", skin.customStyles[0]);
                             break;
                     }
                 }
