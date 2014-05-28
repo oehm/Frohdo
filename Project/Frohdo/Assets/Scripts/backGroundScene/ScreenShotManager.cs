@@ -39,6 +39,10 @@ public class ScreenShotManager : MonoBehaviour {
         {
             path = SceneManager.Instance.levelToLoad.thumbpath;
         }
+        else
+        {
+            System.IO.Directory.CreateDirectory(Path.GetDirectoryName(path));
+        }
         
         texture = new Texture2D(imgWidth, imgHeight);
         renderTexture = new RenderTexture(imgWidth, imgHeight, 32);
@@ -81,7 +85,13 @@ public class ScreenShotManager : MonoBehaviour {
         RenderTexture.active = renderTexture;
         for (int i = 0; i < cams.Length;i++ )
         {
-            //Debug.Log("Rendering Camera with depth:" + camsSorted[i].depth.ToString());
+            CopyAspectRatio camAspect = camsSorted[i].gameObject.GetComponentInChildren<CopyAspectRatio>();
+            if(camAspect)
+            {
+                //Force Update so Aspect ratio is correct!
+                camAspect.forceUpdate();
+            }
+            
             
             camsSorted[i].targetTexture = renderTexture;
 

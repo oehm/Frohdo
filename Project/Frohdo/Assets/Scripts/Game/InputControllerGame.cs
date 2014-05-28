@@ -1,21 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class InputControllerGame : MonoBehaviour {
+public class InputControllerGame : MonoBehaviour
+{
 
     public Character character_;
 
     private bool jumpDisable_;
     private bool pukeDisable_;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         jumpDisable_ = false;
         pukeDisable_ = false;
-	}
-	
-	// Update is called once per frame
-	void FixedUpdate () 
+    }
+
+    // Update is called once per frame
+    void FixedUpdate()
     {
         float inputX = Input.GetAxis("Horizontal");
         inputX = inputX == 0.0f ? 0 : Mathf.Sign(inputX);
@@ -48,8 +50,11 @@ public class InputControllerGame : MonoBehaviour {
             }
             else
             {
-                ScreenShotManager.Instance.takeScreenShot(Application.dataPath + "\\testScreenShot.png");
+                System.DateTime time = System.DateTime.Now;
+                string timeAndDate = time.DayOfYear.ToString() + "_" + time.Year.ToString() + "_" + time.Hour.ToString() + "_" + time.Minute.ToString() + "_" + time.Second.ToString();
+                string path = Application.dataPath + "/Screenshots/ScreenShot_" + timeAndDate + ".png";
+                ScreenShotManager.Instance.takeScreenShot(path);
             }
         }
-	}
+    }
 }
