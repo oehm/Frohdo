@@ -14,7 +14,7 @@ public class GUI_Options : MonoBehaviour
 
     void Start()
     {
-        lastSize = new Vector2(Screen.currentResolution.width, Screen.currentResolution.height);
+        lastSize = new Vector2(Screen.width, Screen.height);                
     }
 
     void OnGUI()
@@ -29,7 +29,7 @@ public class GUI_Options : MonoBehaviour
         {
             if(!Screen.fullScreen)
             {
-                lastSize = new Vector2(Screen.currentResolution.width, Screen.currentResolution.height);                
+                lastSize = new Vector2(Screen.width, Screen.height);                
                 Screen.SetResolution(Screen.width, Screen.height, true);
             }
             else
