@@ -2,7 +2,23 @@ fileFormatVersion: 2
 guid: 7ebd353926a1d894e8a6de7a7d2e3acb
 ModelImporter:
   serializedVersion: 16
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    100000: back
+    100002: bend1Handle
+    100004: front1
+    100006: //RootNode
+    400000: back
+    400002: bend1Handle
+    400004: front1
+    400006: //RootNode
+    2300000: back
+    2300002: front1
+    3300000: back
+    3300002: front1
+    4300000: front1
+    4300002: back
+    7400000: Take 001
+    9500000: //RootNode
   materials:
     importMaterials: 1
     materialName: 0
