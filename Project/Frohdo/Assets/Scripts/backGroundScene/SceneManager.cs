@@ -73,6 +73,8 @@ public class SceneManager : MonoBehaviour
         curscene = nextScene;
         savedSceneWhenInLoginScene = nextScene;
         loading = true;
+        Resources.UnloadUnusedAssets();
+        System.GC.Collect();
     }
     //Will return the Type of the Current Scene (if in Login Scene the Last scene will be returned!)
     public Scene getCurrentSceneType()
@@ -107,6 +109,8 @@ public class SceneManager : MonoBehaviour
             curscene = savedSceneWhenInLoginScene;
             GameObject.FindObjectOfType<ForceAspectRatio>().activate();
         }
+        Resources.UnloadUnusedAssets();
+        System.GC.Collect();
     }
 
     public enum Scene
