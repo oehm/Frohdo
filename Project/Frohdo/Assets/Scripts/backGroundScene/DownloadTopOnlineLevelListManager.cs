@@ -44,6 +44,7 @@ public class DownloadTopOnlineLevelListManager : MonoBehaviour {
                 if (!started)
                 {
                     started = true;
+                    //Debug.Log("Here");
                     StartCoroutine(download());
                 }
                 break;
@@ -58,18 +59,26 @@ public class DownloadTopOnlineLevelListManager : MonoBehaviour {
 
     public void startLoadingLevelList()
     {
-        if (_globalStatus != DownloadStatus.Downloading)
+        if (NetworkManager.Instance.GlobalStatus == NetworkManager.LoginStatus.LoggedIn)
         {
-            form = new WWWForm();
-            _globalStatus = DownloadStatus.Downloading;
+            if (_globalStatus != DownloadStatus.Downloading)
+            {
+                form = new WWWForm();
+                _globalStatus = DownloadStatus.Downloading;
+            }
         }
     }
 
     IEnumerator download()
     {
-        request = new WWW(GlobalVars.Instance.TopOnlineLevelListUrl);
+        Hashtable requHeaders = new Hashtable();
+        requHeaders.Add("Cookie", NetworkManager.Instance.Cookie);
+        //Debug.Log("TEST");
+        request = new WWW(GlobalVars.Instance.TopOnlineLevelListUrl, null, requHeaders);
         yield return request;
         Hashtable header = new Hashtable();
+        Debug.Log(header.Count);
+        Debug.Log(request.text);
         foreach (string s in request.responseHeaders.Keys)
         {
             header.Add(s, request.responseHeaders[s]);

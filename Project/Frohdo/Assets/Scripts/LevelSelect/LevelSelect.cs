@@ -557,6 +557,7 @@ abstract class Levelobj : MonoBehaviour
         }
         else
         {
+            Debug.Log(path);
             Debug.Log(thumbdownload.error);
         }
         //Debug.Log("FINISHED!");
