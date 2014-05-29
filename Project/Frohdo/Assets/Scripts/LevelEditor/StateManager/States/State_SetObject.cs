@@ -48,7 +48,7 @@ public class State_SetObject : Editor_State {
         if (manager.guiController.mouseOnGui(mousePos))
         //if (manager.layerSelect.mouseOnGui(mousePos))
         {
-            Debug.Log("LayerSelect");
+            //Debug.Log("LayerSelect");
             State_Default newState = new State_Default();
             newState.manager = manager;
             manager.changeState(newState);
@@ -69,7 +69,7 @@ public class State_SetObject : Editor_State {
         {
             if (manager.conditionCharacterSet.isFullfilled && manager.currentGameObject.name == "Character")
             {
-                Debug.Log("Character set!");
+                //Debug.Log("Character set!");
                 State_Default state = new State_Default();
                 state.manager = manager;
                 manager.changeState(state);

@@ -71,7 +71,7 @@ public class DownloadPlaylistScriptManager : MonoBehaviour
         Hashtable requHeaders = new Hashtable();
         requHeaders.Add("Cookie", NetworkManager.Instance.Cookie);
 
-        request = new WWW(GlobalVars.Instance.playlistUrl, form.data, requHeaders);
+        request = new WWW(GlobalVars.Instance.playlistUrl, null, requHeaders);
         yield return request;
         Hashtable header = new Hashtable();
         foreach (string s in request.responseHeaders.Keys)

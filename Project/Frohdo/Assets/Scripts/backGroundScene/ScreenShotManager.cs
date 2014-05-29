@@ -61,7 +61,7 @@ public class ScreenShotManager : MonoBehaviour {
             }
         }
         
-        //sort Cameras
+        //sort Cameras so later camera with least depth get rendered first
         float lastDepth = 999.0f;
         float minDepth = -99.0f;
         Camera minDepthCam = null;
@@ -81,21 +81,27 @@ public class ScreenShotManager : MonoBehaviour {
             lastDepth = 999.0f;
         }
         
-        //Render them
+        //Render all cams in the same texture. Take the sorted cameras so the kind of z-order is right
         RenderTexture.active = renderTexture;
         for (int i = 0; i < cams.Length;i++ )
         {
             CopyAspectRatio camAspect = camsSorted[i].gameObject.GetComponentInChildren<CopyAspectRatio>();
-            if(camAspect)
+            if (camAspect)
             {
                 //Force Update so Aspect ratio is correct!
                 camAspect.forceUpdate();
             }
             
-            
             camsSorted[i].targetTexture = renderTexture;
 
+            //set camera rect back to normal for rendering into texture
+            Rect oldRect = camsSorted[i].rect;
+            camsSorted[i].rect = new Rect(0.0f, 0.0f, 1.0f, 1.0f);
+
             camsSorted[i].Render();
+
+            //set camerta rect back to old value
+            camsSorted[i].rect = oldRect;
 
             texture.ReadPixels(new Rect(0, 0, imgWidth, imgHeight), 0, 0);
             texture.Apply();
