@@ -537,24 +537,7 @@ public class LevelSelect : MonoBehaviour {
                         GUILayout.BeginVertical("", "infoBox");
                 
                         if(selectedLevelid != -1){
-
                             levels[selectedLevelid].LevelInfoGui();
-
-                            //if (levels[selectedLevelid].GetType() == typeof(CustomLevelObj))
-                            //{
-                            //    GUILayout.Label("EIN CUSTOM LEVEL! - LAUFZEIT TYP-PRÜFUNG!");
-                            //    if (GUILayout.Button("Spielen"))
-                            //    {
-                            //        SceneManager.Instance.loadScene(destroyer, 3);
-                            //    }
-                            //}
-                            //if (levels[selectedLevelid].GetType() == typeof(OnlineLevelObj))
-                            //    GUILayout.Label("EIN ONLINE LEVEL! - LAUFZEIT TYP-PRÜFUNG!");
-                            //if (levels[selectedLevelid].GetType() == typeof(StoryLevelObj))
-                            //    GUILayout.Label("EIN STORY LEVEL! - LAUFZEIT TYP-PRÜFUNG!");
-                            //if (levels[selectedLevelid].GetType() == typeof(LocalLevelObj))
-                            //    GUILayout.Label("EIN LOKAL GESPEICHERTES LEVEL! - LAUFZEIT TYP-PRÜFUNG!");
-                            //GUILayout.Label("ID: " + levels[selectedLevelid].id);
                         }
                         else
                         {
@@ -575,8 +558,6 @@ abstract class Levelobj : MonoBehaviour
 
     public Texture2D thumbnail;
 
-    public abstract void loadHighScores();
-
     public FileInfo XMLPath = null;
 
     protected bool StartLoadingThumb = true;
@@ -586,7 +567,7 @@ abstract class Levelobj : MonoBehaviour
     const float downloadTimeout = 3.0f;
     float currentDownloadTime = 0.0f;
 
-    public List<highscore> highscores;//only playlist and online!
+    public List<highscore> highscores;
 
     protected int localPukeHighscore;
     protected int localTimeHighscore;
@@ -632,10 +613,8 @@ abstract class Levelobj : MonoBehaviour
 
     IEnumerator FetchThumb(string path)
     {
-        //Debug.Log("In COROUTINE!");
         ThumbCurrentlyLoading = true;
         currentDownloadTime = 0.0f;
-        //Debug.Log(path);
         thumbdownload = new WWW(path);
         yield return thumbdownload;
         ThumbCurrentlyLoading = false;
@@ -645,16 +624,15 @@ abstract class Levelobj : MonoBehaviour
         }
         else
         {
-            Debug.Log(path);
             Debug.Log(thumbdownload.error);
         }
-        //Debug.Log("FINISHED!");
     }
 
     protected void showHighscore()
     {
         bool onlinehighscores = (this.GetType() == typeof(OnlineLevelObj) || this.GetType() == typeof(LocalLevelObj)) && NetworkManager.Instance.GlobalStatus == NetworkManager.LoginStatus.LoggedIn;
         GUILayout.BeginVertical("highscoreBox");
+        
         if (onlinehighscores)
         {
             GUILayout.BeginHorizontal();
@@ -785,11 +763,6 @@ class StoryLevelObj : Levelobj
         GUILayout.FlexibleSpace();
         GUILayout.EndHorizontal();
     }
-
-    public override void loadHighScores()
-    {
-        throw new NotImplementedException();
-    }
 }
 class CustomLevelObj : Levelobj
 {
@@ -821,11 +794,6 @@ class CustomLevelObj : Levelobj
         }
         GUILayout.FlexibleSpace();
         GUILayout.EndHorizontal();
-    }
-
-    public override void loadHighScores()
-    {
-        throw new NotImplementedException();
     }
 }
 
@@ -859,7 +827,7 @@ class LocalLevelObj : Levelobj //already on disk
         GUILayout.EndHorizontal();
     }
 
-        public void loadLocalHighScores()
+    public void loadLocalHighScores()
     {
         if (loadLocalHighscore)
         {
@@ -867,11 +835,6 @@ class LocalLevelObj : Levelobj //already on disk
             localPukeHighscore = ScoreController.Instance.getlocalPukeHighscore(hash);
             localTimeHighscore = ScoreController.Instance.getlocalTimeHighscore(hash);
         }
-    }
-
-    public override void loadHighScores()
-    {
-        throw new NotImplementedException();
     }
 }
 
@@ -890,11 +853,6 @@ class OnlineLevelObj : Levelobj //online - not downloaded
     public void init(int id, string onlinehash)
     {
         throw new NotImplementedException();
-    }
-
-    public override void loadHighScores()
-    {
-        localTimeHighscore = ScoreController.Instance.getlocalTimeHighscore(hash);
     }
 
     public override void LevelInfoGui()
