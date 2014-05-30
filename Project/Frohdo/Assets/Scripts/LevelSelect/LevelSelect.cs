@@ -365,6 +365,12 @@ public class LevelSelect : MonoBehaviour {
 
         style.customStyles[10].fixedWidth = screenWidth / 6;
 
+        style.customStyles[11].fixedWidth = screenWidth / 2;
+        style.customStyles[11].fixedHeight = screenHeight * 0.4f;
+
+        style.customStyles[12].fixedWidth = screenWidth / 2;
+        style.customStyles[12].fixedHeight = screenHeight * 0.5f;
+
         style.button.fixedWidth = screenWidth / 2;
         style.button.fixedHeight = screenHeight * 0.8f / LevelsToShow;
         style.button.fontSize = (int)((screenHeight * 0.8f / LevelsToShow) * 0.7f);
@@ -582,6 +588,9 @@ abstract class Levelobj : MonoBehaviour
 
     public List<highscore> highscores;//only playlist and online!
 
+    protected int localPukeHighscore;
+    protected int localTimeHighscore;
+
     protected void searchLocalLevel(DirectoryInfo levelpath)
     {
         foreach (FileInfo f in levelpath.GetFiles())
@@ -636,7 +645,7 @@ abstract class Levelobj : MonoBehaviour
         }
         else
         {
-            //Debug.Log(path);
+            Debug.Log(path);
             Debug.Log(thumbdownload.error);
         }
         //Debug.Log("FINISHED!");
@@ -644,66 +653,106 @@ abstract class Levelobj : MonoBehaviour
 
     protected void showHighscore()
     {
-        loadHighScores();
-        GUILayout.BeginVertical("box");
+        bool onlinehighscores = (this.GetType() == typeof(OnlineLevelObj) || this.GetType() == typeof(LocalLevelObj)) && NetworkManager.Instance.GlobalStatus == NetworkManager.LoginStatus.LoggedIn;
+        GUILayout.BeginVertical("highscoreBox");
+        if (onlinehighscores)
+        {
             GUILayout.BeginHorizontal();
-                GUILayout.Label("Highscores:");
+            GUILayout.Label("Highscores:");
             GUILayout.EndHorizontal();
-            GUILayout.BeginHorizontal();
 
+            GUILayout.BeginHorizontal();
                 GUILayout.BeginVertical("highscoreNumbersBox");
-                    GameObject.Find("GUI_LevelSelect").GetComponent<LevelSelect>().style.label.alignment = TextAnchor.MiddleRight;
-                    for (int i = 0; i < 5; i++)
-                    {
-                        GUILayout.BeginVertical();
-                        GUILayout.Label("#" + (i + 1) + ": ");
-                        GUILayout.EndVertical();
-                    }
-                    GameObject.Find("GUI_LevelSelect").GetComponent<LevelSelect>().style.label.alignment = TextAnchor.MiddleLeft;
-                GUILayout.EndVertical();
-                GUILayout.BeginVertical("box");
+                GameObject.Find("GUI_LevelSelect").GetComponent<LevelSelect>().style.label.alignment = TextAnchor.MiddleRight;
                 for (int i = 0; i < 5; i++)
                 {
+
                     GUILayout.BeginVertical();
-                    if (highscores != null && i < highscores.Count)
-                    {
-                        GUILayout.Label(highscores[i].score + " - " + highscores[i].user);
-                    }
-                    else
-                    {
-                        GUILayout.Label(" ###");
-                    }
+                    GUILayout.Label("#" + (i + 1) + ": ");
                     GUILayout.EndVertical();
                 }
+                GameObject.Find("GUI_LevelSelect").GetComponent<LevelSelect>().style.label.alignment = TextAnchor.MiddleLeft;
                 GUILayout.EndVertical();
-                GameObject.Find("GUI_LevelSelect").GetComponent<LevelSelect>().style.label.alignment = TextAnchor.MiddleCenter;
+
+                GUILayout.BeginVertical("box");
+                    if (onlinehighscores)
+                    {
+                        for (int i = 0; i < 5; i++)
+                        {
+                            GUILayout.BeginVertical();
+                            if (highscores != null && i < highscores.Count)
+                            {
+                                GUILayout.Label(highscores[i].score + " - " + highscores[i].user);
+                            }
+                            else
+                            {
+                                GUILayout.Label(" ###");
+                            }
+                            GUILayout.EndVertical();
+                        }
+                    }
+                GUILayout.EndVertical();
             GUILayout.EndHorizontal();
+        }
+        else
+        {
+            GUILayout.FlexibleSpace();
+
+            GUILayout.BeginHorizontal();
+
+                GUILayout.BeginVertical();
+                if (this.GetType() == typeof(StoryLevelObj))
+                {
+                    GUILayout.Label("Highscores not available on Story Levels");
+                }
+                if (this.GetType() == typeof(CustomLevelObj))
+                {
+                    GUILayout.Label("Highscores not available on Custom Levels");
+                }
+                else if (this.GetType() == typeof(LocalLevelObj))
+                {
+                    LocalLevelObj obj = (LocalLevelObj)this;
+                    obj.loadLocalHighScores();
+                    GUILayout.Label("Offline Highscores:");
+                    GUILayout.Label("Time:  " + obj.localTimeHighscore);
+                    GUILayout.Label("Pukes: " + obj.localPukeHighscore);
+                }
+                GUILayout.EndVertical();
+
+            GUILayout.EndHorizontal();
+
+            GUILayout.FlexibleSpace();
+        }
+        GameObject.Find("GUI_LevelSelect").GetComponent<LevelSelect>().style.label.alignment = TextAnchor.MiddleCenter;
+
         GUILayout.EndVertical();
     }
 
     protected void showThumbnail()
     {
-        GUILayout.BeginHorizontal();
-        GUILayout.Label(name);
-        GUILayout.EndHorizontal();
-
-        GUILayout.BeginHorizontal();
-        if (thumbnail != null)
-        {
-            GUILayout.FlexibleSpace();
-            GUILayout.Box(thumbnail, "imagebox");
-            GUILayout.FlexibleSpace();
-        }
-        else
-        {
-            GUILayout.FlexibleSpace();
-            GUILayout.BeginHorizontal("imagebox");
-            if (ThumbCurrentlyLoading) GUILayout.Label("Loading thumbnail ...");
-            else GUILayout.Label("Unable to Load thumbnail!");
+        GUILayout.BeginVertical("thumbbox");
+            GUILayout.BeginHorizontal();
+            GUILayout.Label(name);
             GUILayout.EndHorizontal();
-            GUILayout.FlexibleSpace();
-        }
-        GUILayout.EndHorizontal();
+
+            GUILayout.BeginHorizontal();
+            if (thumbnail != null)
+            {
+                GUILayout.FlexibleSpace();
+                GUILayout.Box(thumbnail, "imagebox");
+                GUILayout.FlexibleSpace();
+            }
+            else
+            {
+                GUILayout.FlexibleSpace();
+                GUILayout.BeginHorizontal("imagebox");
+                if (ThumbCurrentlyLoading) GUILayout.Label("Loading thumbnail ...");
+                else GUILayout.Label("Unable to Load thumbnail!");
+                GUILayout.EndHorizontal();
+                GUILayout.FlexibleSpace();
+            }
+            GUILayout.EndHorizontal();
+        GUILayout.EndVertical();
     }
 
     public abstract void LevelInfoGui();
@@ -718,16 +767,13 @@ class StoryLevelObj : Levelobj
         this.name = Path.GetFileNameWithoutExtension(levelpath);
         this.respath = levelpath;
     }
-    public override void loadHighScores()
-    {
-        //throw new NotImplementedException();
-    }
 
     public override void LevelInfoGui()
     {
         //Debug.Log(respath);
         if (StartLoadingThumb) loadThumbnail(respath + "_thumb");
         showThumbnail();
+        showHighscore();
         GUILayout.EndVertical();
         GUILayout.BeginHorizontal("bottombar");
         GUILayout.FlexibleSpace();
@@ -739,6 +785,11 @@ class StoryLevelObj : Levelobj
         GUILayout.FlexibleSpace();
         GUILayout.EndHorizontal();
     }
+
+    public override void loadHighScores()
+    {
+        throw new NotImplementedException();
+    }
 }
 class CustomLevelObj : Levelobj
 {
@@ -747,11 +798,6 @@ class CustomLevelObj : Levelobj
         this.id = id;
         this.name = levelpath.Name;
         searchLocalLevel(levelpath);
-    }
-
-    public override void loadHighScores()
-    {
-        //throw new NotImplementedException();
     }
 
     public override void LevelInfoGui()
@@ -776,11 +822,17 @@ class CustomLevelObj : Levelobj
         GUILayout.FlexibleSpace();
         GUILayout.EndHorizontal();
     }
+
+    public override void loadHighScores()
+    {
+        throw new NotImplementedException();
+    }
 }
 
 class LocalLevelObj : Levelobj //already on disk
 {
     public string hash = null;
+    protected bool loadLocalHighscore = true;
     public void init(int id, DirectoryInfo levelpath)
     {
         this.id = id;
@@ -789,16 +841,12 @@ class LocalLevelObj : Levelobj //already on disk
         if(XMLPath != null) this.hash = ScoreController.Instance.getMD5ofFile(XMLPath.FullName);
     }
 
-    public override void loadHighScores()
-    {
-        //throw new NotImplementedException();
-    }
-
     public override void LevelInfoGui()
     {
         if (StartLoadingThumb) loadThumbnail("file://" + XMLPath.FullName.Substring(0, XMLPath.FullName.Length - 4) + "_thumb.png");
         showThumbnail();
         showHighscore();
+
         GUILayout.EndVertical();
         GUILayout.BeginHorizontal("bottombar");
         GUILayout.FlexibleSpace();
@@ -809,6 +857,21 @@ class LocalLevelObj : Levelobj //already on disk
         }
         GUILayout.FlexibleSpace();
         GUILayout.EndHorizontal();
+    }
+
+        public void loadLocalHighScores()
+    {
+        if (loadLocalHighscore)
+        {
+            loadLocalHighscore = false;
+            localPukeHighscore = ScoreController.Instance.getlocalPukeHighscore(hash);
+            localTimeHighscore = ScoreController.Instance.getlocalTimeHighscore(hash);
+        }
+    }
+
+    public override void loadHighScores()
+    {
+        throw new NotImplementedException();
     }
 }
 
@@ -831,7 +894,7 @@ class OnlineLevelObj : Levelobj //online - not downloaded
 
     public override void loadHighScores()
     {
-        //throw new NotImplementedException();
+        localTimeHighscore = ScoreController.Instance.getlocalTimeHighscore(hash);
     }
 
     public override void LevelInfoGui()
@@ -839,7 +902,6 @@ class OnlineLevelObj : Levelobj //online - not downloaded
         if (StartLoadingThumb) loadThumbnail(GlobalVars.Instance.CommunityBasePath + thumburl);
         showThumbnail();
         showHighscore();
-
         GUILayout.EndVertical();
         GUILayout.BeginHorizontal("bottombar");
         GUILayout.FlexibleSpace();
