@@ -6,8 +6,6 @@ public class GUI_ColorSelection : GUI_Element {
 
 public List<GUI_ContentColor> content { get; set; }
 
-    private Vector2 scrollPos;
-
     public GUI_ColorSelection(Vector2 pos, Vector2 s, GUISkin sk)
     {
         position = pos;
@@ -15,7 +13,6 @@ public List<GUI_ContentColor> content { get; set; }
         skin = sk;
 
         active = true;
-        scrollPos = new Vector2(0, 0);
         content = new List<GUI_ContentColor>();
     }
 

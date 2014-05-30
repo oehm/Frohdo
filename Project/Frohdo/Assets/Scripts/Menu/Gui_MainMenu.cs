@@ -11,13 +11,7 @@ public class Gui_MainMenu : MonoBehaviour
     public GUISkin mainStyle;
 
     private GUIContent mainScreen;
-
-    private bool muted = false;
-
-    float screenHeight;
-    float screenWidth;
-
-
+    
     void Start()
     {
         if (SceneManager.Instance.Startup) SceneManager.Instance.showLoginAndEscMenu();
@@ -26,8 +20,6 @@ public class Gui_MainMenu : MonoBehaviour
 
     void OnGUI()
     {
-        screenHeight = ForceAspectRatio.screenHeight;
-        screenWidth = ForceAspectRatio.screenWidth;
         menuFunction();
     }
 

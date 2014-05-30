@@ -19,7 +19,6 @@ public class RenderGameObjectToTexture : MonoBehaviour
         renderCam.orthographicSize = Mathf.Max(g.height, g.width) + 0.75f;
         GameObject toRender = Instantiate(obj, targetPos, Quaternion.identity) as GameObject;
 
-        TextMesh textMesh = new TextMesh();
 
         toRender.transform.localRotation = Quaternion.AngleAxis(180.0f, Vector3.up);
         if (color != null)
@@ -34,7 +33,7 @@ public class RenderGameObjectToTexture : MonoBehaviour
         renderCam.clearFlags = CameraClearFlags.Color;
         renderCam.backgroundColor = new Color(1, 1, 1, 0);
 
-        renderCam.DoClear();
+        //renderCam.DoClear(); //apparently this does nothing
         
         RenderTexture renderTex = new RenderTexture(width, height, 16);
         Texture2D tex2D = new Texture2D(width, height);

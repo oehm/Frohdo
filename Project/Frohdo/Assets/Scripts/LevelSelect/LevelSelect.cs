@@ -68,8 +68,6 @@ public class LevelSelect : MonoBehaviour {
         int id = 0;
         if (NetworkManager.Instance.GlobalStatus == NetworkManager.LoginStatus.LoggedIn)
         {
-            List<Levelobj> onlinePlaylistlevels = new List<Levelobj>();
-
             switch (DownloadPlaylistScriptManager.Instance.GlobalStatus)
             {
                 case DownloadPlaylistScriptManager.DownloadStatus.Downloaded:
@@ -135,8 +133,6 @@ public class LevelSelect : MonoBehaviour {
         if (reloadLevels) return;
 
         DirectoryInfo dinfo = new DirectoryInfo(Application.dataPath + @"\Levels\downloaded\");
-
-        List<string> levelpaths = new List<string>();
 
         if (dinfo.Exists)
         {
@@ -267,8 +263,6 @@ public class LevelSelect : MonoBehaviour {
         levels = new List<Levelobj>();
 
         DirectoryInfo dinfo = new DirectoryInfo(Application.dataPath + @"\Levels\custom\");
-
-        List<string> levelpaths = new List<string>();
 
         if (dinfo.Exists)
         {
@@ -571,7 +565,7 @@ public class LevelSelect : MonoBehaviour {
 abstract class Levelobj : MonoBehaviour
 {
     public int id;
-    public string name;
+    public new string name;
 
     public Texture2D thumbnail;
 

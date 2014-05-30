@@ -14,7 +14,6 @@ public class DownloadPlaylistScriptManager : MonoBehaviour
 
     public string XML;
 
-    private static WWWForm form;
     private static WWW request;
 
     bool started = false;
@@ -61,7 +60,6 @@ public class DownloadPlaylistScriptManager : MonoBehaviour
     {
         if (_globalStatus != DownloadStatus.Downloading)
         {
-            form = new WWWForm();
             _globalStatus = DownloadStatus.Downloading;
         }
     }

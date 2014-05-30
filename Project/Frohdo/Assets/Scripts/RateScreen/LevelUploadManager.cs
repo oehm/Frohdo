@@ -162,10 +162,10 @@ public class LevelUploadManager : MonoBehaviour
                 }
                 else
                 {
-                    foreach (string ke in requHeaders.Keys)
-                    {
-                        //Debug.Log("request-Header: " + ke + ": " + requHeaders[ke]);
-                    }
+                    //foreach (string ke in requHeaders.Keys)
+                    //{
+                    //    Debug.Log("request-Header: " + ke + ": " + requHeaders[ke]);
+                    //}
                     //Debug.Log("DONE!");
                     _globalStatus = LevelUploadStatus.FailedOnUpload;
                 }

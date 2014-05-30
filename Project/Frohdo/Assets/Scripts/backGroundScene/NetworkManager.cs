@@ -82,8 +82,8 @@ public class NetworkManager : MonoBehaviour
             form = new WWWForm();
             this.user = user;
             this.pass = pass;
-            form.AddField("user[email]", user);
-            form.AddField("user[password]", pass);
+            form.AddField("user[email]", this.user);
+            form.AddField("user[password]", this.pass);
             form.AddField("user[remember_me]", 0);
             form.AddField("commit", "Sign in");
             _globalStatus = LoginStatus.LoggingIn;

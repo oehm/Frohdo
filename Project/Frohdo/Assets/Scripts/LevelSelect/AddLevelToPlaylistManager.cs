@@ -12,7 +12,6 @@ public class AddLevelToPlaylistManager : MonoBehaviour
 
     public DownloadStatus GlobalStatus { get { return _globalStatus; } }
 
-    private static WWWForm form;
     private static WWW request;
 
     bool started = false;
@@ -63,7 +62,6 @@ public class AddLevelToPlaylistManager : MonoBehaviour
         if (_globalStatus != DownloadStatus.Downloading)
         {
             leveltoAddid = levelid;
-            form = new WWWForm();
             _globalStatus = DownloadStatus.Downloading;
         }
     }
