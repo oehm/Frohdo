@@ -19,7 +19,6 @@ public class DownloadLevelManager : MonoBehaviour
     private Texture2D thumbnail;
     private string mapname;
 
-    private static WWWForm form;
     private static WWW request;
 
     bool started = false;
@@ -66,7 +65,6 @@ public class DownloadLevelManager : MonoBehaviour
     {
         if (_globalStatus != DownloadStatus.Downloading)
         {
-            form = new WWWForm();
             this.thumbdownloadpath = thumbdownloadpath;
             this.thumbnail = thumbnail;
             this.mapname = mapname;
@@ -94,7 +92,6 @@ public class DownloadLevelManager : MonoBehaviour
             //Debug.Log(header["STATUS"]);
             if (header["STATUS"].ToString().Equals("HTTP/1.1 200 OK"))
             {
-                string xml = request.text;
                 if (thumbnail == null)
                 {
                     //NetworkManager.Instance.savenewCookie(request);

@@ -97,10 +97,6 @@ public class LevelObjectController : MonoBehaviour
     {
         foreach (GameObject levelObjectPrefab in levelObjectPrefabs_)
         {
-            Gridable[] gridables = levelObjectPrefab.GetComponentsInChildren<Gridable>(true);
-            //i assume here that every level object has only 1 gridable attached
-            Gridable gridable = gridables[0];
-
             if (levelObjectPrefab.name.Equals(name))
             {
                 return levelObjectPrefab;

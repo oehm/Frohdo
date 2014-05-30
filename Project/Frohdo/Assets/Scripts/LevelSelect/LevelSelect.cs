@@ -68,8 +68,6 @@ public class LevelSelect : MonoBehaviour {
         int id = 0;
         if (NetworkManager.Instance.GlobalStatus == NetworkManager.LoginStatus.LoggedIn)
         {
-            List<Levelobj> onlinePlaylistlevels = new List<Levelobj>();
-
             switch (DownloadPlaylistScriptManager.Instance.GlobalStatus)
             {
                 case DownloadPlaylistScriptManager.DownloadStatus.Downloaded:
@@ -135,8 +133,6 @@ public class LevelSelect : MonoBehaviour {
         if (reloadLevels) return;
 
         DirectoryInfo dinfo = new DirectoryInfo(Application.dataPath + @"\Levels\downloaded\");
-
-        List<string> levelpaths = new List<string>();
 
         if (dinfo.Exists)
         {
@@ -268,8 +264,6 @@ public class LevelSelect : MonoBehaviour {
 
         DirectoryInfo dinfo = new DirectoryInfo(Application.dataPath + @"\Levels\custom\");
 
-        List<string> levelpaths = new List<string>();
-
         if (dinfo.Exists)
         {
             int id = 0;
@@ -366,7 +360,7 @@ public class LevelSelect : MonoBehaviour {
         style.customStyles[10].fixedWidth = screenWidth / 6;
 
         style.customStyles[11].fixedWidth = screenWidth / 2;
-        style.customStyles[11].fixedHeight = screenHeight * 0.4f;
+        style.customStyles[11].fixedHeight = screenHeight * 0.3f;
 
         style.customStyles[12].fixedWidth = screenWidth / 2;
         style.customStyles[12].fixedHeight = screenHeight * 0.5f;
@@ -534,36 +528,19 @@ public class LevelSelect : MonoBehaviour {
                     GUILayout.EndVertical();
 
                     GUILayout.BeginVertical("box");
-                        GUILayout.BeginVertical("", "infoBox");
-                
-                        if(selectedLevelid != -1){
 
-                            levels[selectedLevelid].LevelInfoGui();
-
-                            //if (levels[selectedLevelid].GetType() == typeof(CustomLevelObj))
-                            //{
-                            //    GUILayout.Label("EIN CUSTOM LEVEL! - LAUFZEIT TYP-PRÜFUNG!");
-                            //    if (GUILayout.Button("Spielen"))
-                            //    {
-                            //        SceneManager.Instance.loadScene(destroyer, 3);
-                            //    }
-                            //}
-                            //if (levels[selectedLevelid].GetType() == typeof(OnlineLevelObj))
-                            //    GUILayout.Label("EIN ONLINE LEVEL! - LAUFZEIT TYP-PRÜFUNG!");
-                            //if (levels[selectedLevelid].GetType() == typeof(StoryLevelObj))
-                            //    GUILayout.Label("EIN STORY LEVEL! - LAUFZEIT TYP-PRÜFUNG!");
-                            //if (levels[selectedLevelid].GetType() == typeof(LocalLevelObj))
-                            //    GUILayout.Label("EIN LOKAL GESPEICHERTES LEVEL! - LAUFZEIT TYP-PRÜFUNG!");
-                            //GUILayout.Label("ID: " + levels[selectedLevelid].id);
-                        }
-                        else
-                        {
+                        if(selectedLevelid != -1) levels[selectedLevelid].LevelInfoGui();
+                        else {
+                            GUILayout.BeginVertical("", "infoBox");
                             GUILayout.EndVertical();
                         }
 
                     GUILayout.EndVertical();
+
                 GUILayout.EndHorizontal();
+
             GUILayout.EndArea();
+
         GUILayout.EndVertical();
     }
 }
@@ -571,11 +548,9 @@ public class LevelSelect : MonoBehaviour {
 abstract class Levelobj : MonoBehaviour
 {
     public int id;
-    public string name;
+    public new string name;
 
     public Texture2D thumbnail;
-
-    public abstract void loadHighScores();
 
     public FileInfo XMLPath = null;
 
@@ -586,7 +561,7 @@ abstract class Levelobj : MonoBehaviour
     const float downloadTimeout = 3.0f;
     float currentDownloadTime = 0.0f;
 
-    public List<highscore> highscores;//only playlist and online!
+    public List<highscore> highscores;
 
     protected int localPukeHighscore;
     protected int localTimeHighscore;
@@ -632,10 +607,8 @@ abstract class Levelobj : MonoBehaviour
 
     IEnumerator FetchThumb(string path)
     {
-        //Debug.Log("In COROUTINE!");
         ThumbCurrentlyLoading = true;
         currentDownloadTime = 0.0f;
-        //Debug.Log(path);
         thumbdownload = new WWW(path);
         yield return thumbdownload;
         ThumbCurrentlyLoading = false;
@@ -645,16 +618,15 @@ abstract class Levelobj : MonoBehaviour
         }
         else
         {
-            Debug.Log(path);
             Debug.Log(thumbdownload.error);
         }
-        //Debug.Log("FINISHED!");
     }
 
     protected void showHighscore()
     {
         bool onlinehighscores = (this.GetType() == typeof(OnlineLevelObj) || this.GetType() == typeof(LocalLevelObj)) && NetworkManager.Instance.GlobalStatus == NetworkManager.LoginStatus.LoggedIn;
         GUILayout.BeginVertical("highscoreBox");
+        
         if (onlinehighscores)
         {
             GUILayout.BeginHorizontal();
@@ -772,9 +744,11 @@ class StoryLevelObj : Levelobj
     {
         //Debug.Log(respath);
         if (StartLoadingThumb) loadThumbnail(respath + "_thumb");
-        showThumbnail();
-        showHighscore();
+        GUILayout.BeginVertical("", "infoBox");
+            showThumbnail();
+            showHighscore();
         GUILayout.EndVertical();
+
         GUILayout.BeginHorizontal("bottombar");
         GUILayout.FlexibleSpace();
         if (GUILayout.Button("Spielen", "forwardbackwardbuttonfullwidth"))
@@ -784,11 +758,6 @@ class StoryLevelObj : Levelobj
         }
         GUILayout.FlexibleSpace();
         GUILayout.EndHorizontal();
-    }
-
-    public override void loadHighScores()
-    {
-        throw new NotImplementedException();
     }
 }
 class CustomLevelObj : Levelobj
@@ -803,9 +772,11 @@ class CustomLevelObj : Levelobj
     public override void LevelInfoGui()
     {
         if (StartLoadingThumb) loadThumbnail("file://" + XMLPath.FullName.Substring(0, XMLPath.FullName.Length - 4) + "_thumb.png");
-        showThumbnail();
-        showHighscore();
+        GUILayout.BeginVertical("", "infoBox");
+            showThumbnail();
+            showHighscore();
         GUILayout.EndVertical();
+
         GUILayout.BeginHorizontal("bottombar");
         GUILayout.FlexibleSpace();
         if (GUILayout.Button("Play", "forwardbackwardbutton"))
@@ -821,11 +792,6 @@ class CustomLevelObj : Levelobj
         }
         GUILayout.FlexibleSpace();
         GUILayout.EndHorizontal();
-    }
-
-    public override void loadHighScores()
-    {
-        throw new NotImplementedException();
     }
 }
 
@@ -844,10 +810,11 @@ class LocalLevelObj : Levelobj //already on disk
     public override void LevelInfoGui()
     {
         if (StartLoadingThumb) loadThumbnail("file://" + XMLPath.FullName.Substring(0, XMLPath.FullName.Length - 4) + "_thumb.png");
-        showThumbnail();
-        showHighscore();
-
+        GUILayout.BeginVertical("", "infoBox");
+            showThumbnail();
+            showHighscore();
         GUILayout.EndVertical();
+
         GUILayout.BeginHorizontal("bottombar");
         GUILayout.FlexibleSpace();
         if (GUILayout.Button("Play ", "forwardbackwardbuttonfullwidth"))
@@ -859,7 +826,7 @@ class LocalLevelObj : Levelobj //already on disk
         GUILayout.EndHorizontal();
     }
 
-        public void loadLocalHighScores()
+    public void loadLocalHighScores()
     {
         if (loadLocalHighscore)
         {
@@ -867,11 +834,6 @@ class LocalLevelObj : Levelobj //already on disk
             localPukeHighscore = ScoreController.Instance.getlocalPukeHighscore(hash);
             localTimeHighscore = ScoreController.Instance.getlocalTimeHighscore(hash);
         }
-    }
-
-    public override void loadHighScores()
-    {
-        throw new NotImplementedException();
     }
 }
 
@@ -892,16 +854,12 @@ class OnlineLevelObj : Levelobj //online - not downloaded
         throw new NotImplementedException();
     }
 
-    public override void loadHighScores()
-    {
-        localTimeHighscore = ScoreController.Instance.getlocalTimeHighscore(hash);
-    }
-
     public override void LevelInfoGui()
     {
         if (StartLoadingThumb) loadThumbnail(GlobalVars.Instance.CommunityBasePath + thumburl);
-        showThumbnail();
-        showHighscore();
+        GUILayout.BeginVertical("", "infoBox");
+            showThumbnail();
+            showHighscore();
         GUILayout.EndVertical();
         GUILayout.BeginHorizontal("bottombar");
         GUILayout.FlexibleSpace();
