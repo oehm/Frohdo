@@ -28,7 +28,27 @@ public class State_SetObject : Editor_State {
 
     public void leftMouseDown()
     {
-        //try to select sth
+        //cancel currrent sate if layer changes
+        if (manager.layerSelect.mouseOnGui(mousePos))
+        {
+            Debug.Log("Layer!");
+            
+            manager.currentGameObject = null;
+            manager.objectSelection.markObject(false);
+
+            State_Default newState = new State_Default();
+            newState.manager = manager;
+            manager.changeState(newState);
+            return;
+        }
+
+        //do not place an object if player clikcs on gui
+        if (manager.guiController.mouseOnGui(mousePos))
+        {
+            return;
+        }
+        
+        //if mouse click not on gui try to select sth
         Vector2 matIndex = EditorHelper.getMatIndex(EditorHelper.localMouseToLocalLayer(mousePos, GameObject.Find("SceneObjects").GetComponentsInChildren<Layer>()[manager.currentLayer].gameObject, true), Editor_Grid.Instance.planeSizes[manager.currentLayer]);
         if (matIndex.x >= 0 && matIndex.y >= 0 && matIndex.x < Editor_Grid.Instance.planeSizes[manager.currentLayer].x && matIndex.y < Editor_Grid.Instance.planeSizes[manager.currentLayer].y)
         {
@@ -43,17 +63,8 @@ public class State_SetObject : Editor_State {
                 return;
             }
         }
-
-
-        if (manager.guiController.mouseOnGui(mousePos))
-        //if (manager.layerSelect.mouseOnGui(mousePos))
-        {
-            //Debug.Log("LayerSelect");
-            State_Default newState = new State_Default();
-            newState.manager = manager;
-            manager.changeState(newState);
-            return;
-        }
+        
+        //if nothing selected instantiate the gameObject
         Gridable grid = manager.currentGameObject.GetComponent<Gridable>();
         Layer layer = manager.layers[manager.currentLayer].GetComponent<Layer>();
         objToSet = layer.AddLevelObjectByName(manager.currentGameObject.name, manager.currentColor, EditorHelper.getLocalObjectPosition(mousePos, layer.gameObject, grid), manager.currentLayer, true);
