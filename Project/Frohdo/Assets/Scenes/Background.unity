@@ -910,7 +910,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   imgWidth: 1280
-  imgHeight: 768
+  imgHeight: 720
 --- !u!1001 &1368272278
 Prefab:
   m_ObjectHideFlags: 0
