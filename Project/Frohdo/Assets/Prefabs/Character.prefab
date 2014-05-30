@@ -335,6 +335,9 @@ MonoBehaviour:
   runForce_: 35
   jumpMaxSpeed_: 15
   jumpForce_: 1500
+  floorRayStart_: {x: .5, y: -1.79999995}
+  floorRayMid_: {x: 0, y: -2.0999999}
+  floorRayEnd_: {x: -.5, y: -1.79999995}
 --- !u!114 &11400008
 MonoBehaviour:
   m_ObjectHideFlags: 1

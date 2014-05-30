@@ -10,6 +10,10 @@ public class CharacterMovement : MonoBehaviour {
     public float jumpMaxSpeed_;
     public float jumpForce_;
 
+    public Vector2 floorRayStart_;
+    public Vector2 floorRayMid_;
+    public Vector2 floorRayEnd_;
+
     //private
     private Character character_;
     private Animator animator_;
@@ -70,12 +74,20 @@ public class CharacterMovement : MonoBehaviour {
         int layerMask = 1 << LayerMask.NameToLayer("Solids");
 
         Vector2 startPoint = character_.gameObject.transform.position;
-        startPoint += new Vector2(-0.5f, -2.1f);
+        startPoint += floorRayStart_;
+
+        Vector2 midPoint = character_.gameObject.transform.position;
+        midPoint += floorRayMid_;
+
         Vector2 endPoint = character_.gameObject.transform.position;
-        endPoint +=new Vector2(0.5f, -2.1f);
+        endPoint += floorRayEnd_;
 
-        RaycastHit2D hit = Physics2D.Linecast(startPoint, endPoint, layerMask);
+        RaycastHit2D hit1 = Physics2D.Linecast(startPoint, midPoint, layerMask);
+        RaycastHit2D hit2 = Physics2D.Linecast(midPoint, endPoint, layerMask);
 
-        return hit.collider != null;
+        Debug.DrawLine(startPoint, midPoint);
+        Debug.DrawLine(midPoint, endPoint);
+
+        return hit1.collider != null || hit2.collider != null;
     }
 }
