@@ -35,32 +35,38 @@ public class LevelSelect : MonoBehaviour {
 	void Update () {
         if (reloadLevels)
         {
-            if (regsiterToShow != 1 && DownloadTopOnlineLevelListManager.Instance.GlobalStatus != DownloadTopOnlineLevelListManager.DownloadStatus.Downloading)
-            {
-                DownloadTopOnlineLevelListManager.Instance.reset();
-            }
-            if (regsiterToShow != 2 && DownloadPlaylistScriptManager.Instance.GlobalStatus != DownloadPlaylistScriptManager.DownloadStatus.Downloading)
-            {
-                DownloadPlaylistScriptManager.Instance.reset();
-            }
-            selectedLevelid = -1;
             reloadLevels = false;
-            switch (regsiterToShow)
+            if (DownloadPlaylistScriptManager.Instance.GlobalStatus == DownloadPlaylistScriptManager.DownloadStatus.Downloading)
             {
-                case 0: loadCustomLevels(); break;
-                case 1: loadOnlineLevelList(); break;
-                case 2: loadLocalLevelList(); break;
-                case 3: loadStoryLevels(); break;
+                loadLocalLevelList();
             }
-            LevelMaxPages = (levels.Count-1) / LevelsToShow + 1;
-            LevelsCurPage = 0;
+            if(DownloadTopOnlineLevelListManager.Instance.GlobalStatus == DownloadTopOnlineLevelListManager.DownloadStatus.Downloading)
+            {
+                loadOnlineLevelList();
+            }
+
+            if (DownloadTopOnlineLevelListManager.Instance.GlobalStatus != DownloadTopOnlineLevelListManager.DownloadStatus.Downloading &&
+                DownloadPlaylistScriptManager.Instance.GlobalStatus != DownloadPlaylistScriptManager.DownloadStatus.Downloading)
+            {
+                selectedLevelid = -1;
+                switch (regsiterToShow)
+                {
+                    case 0: loadCustomLevels(); break;
+                    case 1: loadOnlineLevelList(); break;
+                    case 2: loadLocalLevelList(); break;
+                    case 3: loadStoryLevels(); break;
+                }
+                LevelMaxPages = (levels.Count - 1) / LevelsToShow + 1;
+                LevelsCurPage = 0;
+            }
         }
 	}
 
     void loadLocalLevelList()
     {
         levels = new List<Levelobj>();
-        if (NetworkManager.Instance.GlobalStatus == NetworkManager.LoginStatus.LoggingIn)
+        int id = 0;
+        if (NetworkManager.Instance.GlobalStatus == NetworkManager.LoginStatus.LoggedIn)
         {
             List<Levelobj> onlinePlaylistlevels = new List<Levelobj>();
 
@@ -71,28 +77,38 @@ public class LevelSelect : MonoBehaviour {
                     XmlDocument doc = new XmlDocument();
                     doc.LoadXml(DownloadPlaylistScriptManager.Instance.XML);
 
-                    int id = 0;
-                    foreach (XmlNode n in doc.GetElementsByTagName("level"))
+                    //Debug.Log(DownloadPlaylistScriptManager.Instance.XML);
+
+                    DownloadPlaylistScriptManager.Instance.reset();
+
+                    foreach (XmlNode n in doc.GetElementsByTagName("playlist"))
                     {
                         Levelobj obj;
                         string hash = "";
                         string name = "";
                         string thumburl = "";
                         string dlUrl = "";
+                        string creatorNickname = "";
                         int onlineid = -1;
+                        bool currentUserIsCreator = false;
+                        bool inplaylist = false;
 
                         foreach (XmlNode cn in n.ChildNodes)
                         {
-                            if (cn.Name.Equals("hash")) hash = cn.InnerText;
+                            if (cn.Name.Equals("hashCode")) hash = cn.InnerText;
                             if (cn.Name.Equals("title")) name = cn.InnerText;
                             if (cn.Name.Equals("urlThumbnail")) thumburl = cn.InnerText;
                             if (cn.Name.Equals("urlXML")) dlUrl = cn.InnerText;
-                            if (cn.Name.Equals("id")) onlineid = Convert.ToInt32(cn.InnerText);
+                            if (cn.Name.Equals("levelId")) onlineid = Convert.ToInt32(cn.InnerText);
+                            if (cn.Name.Equals("creatorNick")) creatorNickname = cn.InnerText;
+                            if (cn.Name.Equals("currentUserIsCreator")) currentUserIsCreator = Convert.ToBoolean(cn.InnerText);
+                            if (cn.Name.Equals("levelIsInPlaylist")) inplaylist = Convert.ToBoolean(cn.InnerText);
+                            //check if in playlist
                         }
                         try
                         {
                             obj = gameObject.AddComponent(typeof(OnlineLevelObj)) as OnlineLevelObj;
-                            ((OnlineLevelObj)obj).init(id, onlineid, hash, name, thumburl, dlUrl);
+                            ((OnlineLevelObj)obj).init(id, onlineid, hash, name, thumburl, dlUrl, inplaylist, currentUserIsCreator, creatorNickname);
                             id++;
                         }
                         catch (Exception)
@@ -101,6 +117,7 @@ public class LevelSelect : MonoBehaviour {
                             continue;
                         }
                         levels.Add(obj);
+                        //Debug.Log("add online Level: " + obj.name);
                     }
                     break;
 
@@ -110,7 +127,7 @@ public class LevelSelect : MonoBehaviour {
 
                 case DownloadPlaylistScriptManager.DownloadStatus.NotDownloaded:
                     reloadLevels = true;
-                    DownloadTopOnlineLevelListManager.Instance.startLoadingLevelList();
+                    DownloadPlaylistScriptManager.Instance.startLoadingLevelList();
                     break;
             }
         }
@@ -123,7 +140,6 @@ public class LevelSelect : MonoBehaviour {
 
         if (dinfo.Exists)
         {
-            int id = 0;
             //Debug.Log(dinfo.GetDirectories().Length);
             foreach (DirectoryInfo d in dinfo.GetDirectories())
             {
@@ -133,6 +149,26 @@ public class LevelSelect : MonoBehaviour {
                     obj = gameObject.AddComponent(typeof(LocalLevelObj)) as LocalLevelObj;
                     ((LocalLevelObj)obj).init(id, d);
                     id++;
+
+                    OnlineLevelObj toreplace = null;
+
+                    foreach (Levelobj o in levels)
+                    {
+                        if (o.GetType() == typeof(OnlineLevelObj))
+                        {
+                            if (((OnlineLevelObj)o).hash == ((LocalLevelObj)obj).hash)
+                            {
+                                toreplace = (OnlineLevelObj)o;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (toreplace != null)
+                    {
+                        levels.Remove(toreplace);
+                    }
+
                     levels.Add(obj);
                 }
                 catch (Exception e)
@@ -143,11 +179,21 @@ public class LevelSelect : MonoBehaviour {
                 }
                 //Debug.Log(d.FullName + " added!");
             }
+            //now we have to renew the id´s because some ids got deleted (if an playlist level was already downloaded!)
+
+            id = 0;
+
+            foreach (Levelobj o in levels)
+            {
+                o.id = id;
+                id++;
+            }
         }
         else
         {
             Debug.Log("FAIL!");
         }
+        //Debug.Log(levels.Count);
     }
 
     void loadOnlineLevelList()
@@ -161,6 +207,10 @@ public class LevelSelect : MonoBehaviour {
                 XmlDocument doc = new XmlDocument();
                 doc.LoadXml(DownloadTopOnlineLevelListManager.Instance.XML);
 
+                //Debug.Log(DownloadTopOnlineLevelListManager.Instance.XML);
+
+                DownloadTopOnlineLevelListManager.Instance.reset();
+
                 int id = 0;
                 foreach (XmlNode n in doc.GetElementsByTagName("level"))
                 {
@@ -169,7 +219,10 @@ public class LevelSelect : MonoBehaviour {
                     string name = "";
                     string thumburl = "";
                     string dlUrl = "";
+                    string creatorNickname = "";
                     int onlineid = -1;
+                    bool currentUserIsCreator = false;
+                    bool inplaylist = false;
 
                     foreach (XmlNode cn in n.ChildNodes)
                     {
@@ -178,11 +231,15 @@ public class LevelSelect : MonoBehaviour {
                         if (cn.Name.Equals("urlThumbnail")) thumburl = cn.InnerText;
                         if (cn.Name.Equals("urlXML")) dlUrl = cn.InnerText;
                         if (cn.Name.Equals("id")) onlineid = Convert.ToInt32(cn.InnerText);
+                        if (cn.Name.Equals("creatorNick")) creatorNickname = cn.InnerText;
+                        if (cn.Name.Equals("currentUserIsCreator")) currentUserIsCreator = Convert.ToBoolean(cn.InnerText);
+                        if (cn.Name.Equals("levelIsInPlaylist")) inplaylist = Convert.ToBoolean(cn.InnerText);
+                        //check if in playlist
                     }
                     try
                     {
                         obj = gameObject.AddComponent(typeof(OnlineLevelObj)) as OnlineLevelObj;
-                        ((OnlineLevelObj)obj).init(id, onlineid, hash, name, thumburl, dlUrl);
+                        ((OnlineLevelObj)obj).init(id, onlineid, hash, name, thumburl, dlUrl, inplaylist, currentUserIsCreator, creatorNickname);
                         id++;
                     }
                     catch (Exception)
@@ -292,17 +349,21 @@ public class LevelSelect : MonoBehaviour {
         style.customStyles[5].fixedHeight = screenHeight * 0.1f;
         style.customStyles[5].fontSize = (int)(screenHeight * 0.065f);
 
-        style.customStyles[6].fixedWidth = screenWidth / 10;
+        style.customStyles[6].fixedWidth = screenWidth / 2;
         style.customStyles[6].fixedHeight = screenHeight * 0.1f;
         style.customStyles[6].fontSize = (int)(screenHeight * 0.065f);
 
-        style.customStyles[7].fixedWidth = screenWidth;
-        style.customStyles[7].fixedHeight = screenHeight;
+        style.customStyles[7].fixedWidth = screenWidth / 10;
+        style.customStyles[7].fixedHeight = screenHeight * 0.1f;
+        style.customStyles[7].fontSize = (int)(screenHeight * 0.065f);
 
-        style.customStyles[8].fixedWidth = screenWidth / 2.5f;
-        style.customStyles[8].fixedHeight = screenHeight / 2.5f;
+        style.customStyles[8].fixedWidth = screenWidth;
+        style.customStyles[8].fixedHeight = screenHeight;
 
-        style.customStyles[9].fixedWidth = screenWidth / 6;
+        style.customStyles[9].fixedWidth = screenWidth / 2.5f;
+        style.customStyles[9].fixedHeight = screenHeight / 2.5f;
+
+        style.customStyles[10].fixedWidth = screenWidth / 6;
 
         style.button.fixedWidth = screenWidth / 2;
         style.button.fixedHeight = screenHeight * 0.8f / LevelsToShow;
@@ -362,17 +423,26 @@ public class LevelSelect : MonoBehaviour {
 
                     if (regsiterToShow == 1)
                     {
-                        GUI.enabled = false;
-                        GUILayout.Button("<color=" + buttonDisabledColorHexString + ">Top Online</color>", "topbarbutton");
-                        GUI.enabled = true;
+                        if (NetworkManager.Instance.GlobalStatus != NetworkManager.LoginStatus.LoggedIn)
+                        {
+                            regsiterToShow = 2;
+                        }
+                        else
+                        {
+                            GUI.enabled = false;
+                            GUILayout.Button("<color=" + buttonDisabledColorHexString + ">Top Online</color>", "topbarbutton");
+                            GUI.enabled = true;
+                        }
                     }
                     else
                     {
+                        if (NetworkManager.Instance.GlobalStatus != NetworkManager.LoginStatus.LoggedIn) GUI.enabled = false;
                         if (GUILayout.Button("Top Online", "topbarbutton"))
                         {
                             regsiterToShow = 1;
                             reloadLevels = true;
                         }
+                        GUI.enabled = true;
                     }
                     GUILayout.FlexibleSpace();
 
@@ -389,16 +459,25 @@ public class LevelSelect : MonoBehaviour {
                                 if (selectedLevelid == levels[i].id)
                                 {
                                     GUI.enabled = false;
-                                    GUILayout.Button("<color=" + buttonDisabledColorHexString + ">" + levels[i].name + "</color>", "button");
+                                    if (levels[i].GetType() == typeof(OnlineLevelObj)) GUILayout.Button("<color=" + buttonDisabledColorHexString + ">"+ levels[i].name + "-" + ((OnlineLevelObj)levels[i]).creatorNickname + "</color>", "button");
+                                    else GUILayout.Button("<color=" + buttonDisabledColorHexString + ">" + levels[i].name + "</color>", "button");
                                     GUI.enabled = true;
                                 }
                                 else
                                 {
-                                    if (GUILayout.Button(levels[i].name, "button"))
+                                    if (levels[i].GetType() == typeof(OnlineLevelObj))
                                     {
-                                        selectedLevelid = levels[i].id;
-                                        //Environment.SetEnvironmentVariable("SelectedLevel", levels[i].XMLPath.FullName, EnvironmentVariableTarget.Process);
-
+                                        if (GUILayout.Button(levels[i].name + "-" + ((OnlineLevelObj)levels[i]).creatorNickname, "button"))
+                                        {
+                                            selectedLevelid = levels[i].id;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (GUILayout.Button(levels[i].name, "button"))
+                                        {
+                                            selectedLevelid = levels[i].id;
+                                        }
                                     }
                                 }
                                 if (i == LevelsToShow * LevelsCurPage + LevelsToShow - 1) break;
@@ -557,7 +636,7 @@ abstract class Levelobj : MonoBehaviour
         }
         else
         {
-            Debug.Log(path);
+            //Debug.Log(path);
             Debug.Log(thumbdownload.error);
         }
         //Debug.Log("FINISHED!");
@@ -652,7 +731,7 @@ class StoryLevelObj : Levelobj
         GUILayout.EndVertical();
         GUILayout.BeginHorizontal("bottombar");
         GUILayout.FlexibleSpace();
-        if (GUILayout.Button("Spielen", "forwardbackwardbutton"))
+        if (GUILayout.Button("Spielen", "forwardbackwardbuttonfullwidth"))
         {
             SceneManager.Instance.levelToLoad = new LevelAndType(respath, LevelLoader.LevelType.Story);
             SceneManager.Instance.loadScene(SceneManager.Scene.Game);
@@ -701,11 +780,13 @@ class CustomLevelObj : Levelobj
 
 class LocalLevelObj : Levelobj //already on disk
 {
+    public string hash = null;
     public void init(int id, DirectoryInfo levelpath)
     {
         this.id = id;
         this.name = levelpath.Name;
         searchLocalLevel(levelpath);
+        if(XMLPath != null) this.hash = ScoreController.Instance.getMD5ofFile(XMLPath.FullName);
     }
 
     public override void loadHighScores()
@@ -721,7 +802,7 @@ class LocalLevelObj : Levelobj //already on disk
         GUILayout.EndVertical();
         GUILayout.BeginHorizontal("bottombar");
         GUILayout.FlexibleSpace();
-        if (GUILayout.Button("Play ", "forwardbackwardbutton"))
+        if (GUILayout.Button("Play ", "forwardbackwardbuttonfullwidth"))
         {
             SceneManager.Instance.levelToLoad = new LevelAndType(XMLPath.FullName, LevelLoader.LevelType.Normal);
             SceneManager.Instance.loadScene(SceneManager.Scene.Game);
@@ -733,11 +814,15 @@ class LocalLevelObj : Levelobj //already on disk
 
 class OnlineLevelObj : Levelobj //online - not downloaded
 {
-    String hash = null;
+    public String hash = null;
     int onlinelevelid;
 
     private string thumburl = "";
     private string downloadurl = "";
+
+    private bool inplaylist;
+    private bool currentUserIsCreator;
+    public string creatorNickname;
 
     public void init(int id, string onlinehash)
     {
@@ -759,22 +844,41 @@ class OnlineLevelObj : Levelobj //online - not downloaded
         GUILayout.BeginHorizontal("bottombar");
         GUILayout.FlexibleSpace();
         if (NetworkManager.Instance.GlobalStatus == NetworkManager.LoginStatus.LoggedIn) {
-            
-            if(DownloadLevelManager.Instance.GlobalStatus == DownloadLevelManager.DownloadStatus.Downloading)
-            {
-                GUI.enabled = false;
-            }
 
             if (ThumbCurrentlyLoading)
             {
                 GUI.enabled = false;
             }
-            
-            if (GUILayout.Button("Download", "forwardbackwardbutton"))
+
+            if(DownloadLevelManager.Instance.GlobalStatus == DownloadLevelManager.DownloadStatus.Downloading)
             {
-                AddLevelToPlaylistManager.Instance.addToPlaylist(onlinelevelid);
-                DownloadLevelManager.Instance.startDownload(downloadurl, thumburl, thumbnail, name);
+                GUI.enabled = false;
+                GUILayout.Label("Downloading...", "forwardbackwardbuttonfullwidth");
             }
+            else if (DownloadLevelManager.Instance.GlobalStatus == DownloadLevelManager.DownloadStatus.Error)
+            {
+                GUILayout.Label("Download failed", "forwardbackwardbuttonfullwidth");
+            }
+            else if (DownloadLevelManager.Instance.GlobalStatus == DownloadLevelManager.DownloadStatus.Downloaded)
+            {
+                inplaylist = true;
+                DownloadLevelManager.Instance.reset();
+            }else
+            {
+                if (inplaylist == true)
+                {
+                    GUILayout.Label("In Playlist", "forwardbackwardbuttonfullwidth");
+                }
+                else
+                {
+                    if (GUILayout.Button("Download", "forwardbackwardbuttonfullwidth"))
+                    {
+                        AddLevelToPlaylistManager.Instance.addToPlaylist(onlinelevelid);
+                        DownloadLevelManager.Instance.startDownload(downloadurl, thumburl, thumbnail, name+ "-" + creatorNickname);
+                    }
+                }
+            }
+            
             GUI.enabled = true;
         }
         else
@@ -785,14 +889,17 @@ class OnlineLevelObj : Levelobj //online - not downloaded
         GUILayout.EndHorizontal();
     }
 
-    internal void init(int id, int onlinelevelid, string hash, string name, string thumburl, string downloadurl)
+    internal void init(int id, int onlineid, string hash, string name, string thumburl, string dlUrl, bool inplaylist, bool currentUserIsCreator, string creatorNickname)
     {
         this.id = id;
-        this.name = "@" + name;
+        this.name = name;
         this.hash = hash;
         this.thumburl = thumburl;
-        this.onlinelevelid = onlinelevelid;
-        this.downloadurl = downloadurl;
+        this.onlinelevelid = onlineid;
+        this.downloadurl = dlUrl;
+        this.inplaylist = inplaylist;
+        this.currentUserIsCreator = currentUserIsCreator;
+        this.creatorNickname = creatorNickname;
     }
 }
 
