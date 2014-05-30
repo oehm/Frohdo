@@ -459,7 +459,7 @@ public class LevelSelect : MonoBehaviour {
                                 if (selectedLevelid == levels[i].id)
                                 {
                                     GUI.enabled = false;
-                                    if (levels[i].GetType() == typeof(OnlineLevelObj)) GUILayout.Button("<color=" + buttonDisabledColorHexString + ">"+ ((OnlineLevelObj)levels[i]).creatorNickname + "-" + levels[i].name + "</color>", "button");
+                                    if (levels[i].GetType() == typeof(OnlineLevelObj)) GUILayout.Button("<color=" + buttonDisabledColorHexString + ">"+ levels[i].name + "-" + ((OnlineLevelObj)levels[i]).creatorNickname + "</color>", "button");
                                     else GUILayout.Button("<color=" + buttonDisabledColorHexString + ">" + levels[i].name + "</color>", "button");
                                     GUI.enabled = true;
                                 }
@@ -467,7 +467,7 @@ public class LevelSelect : MonoBehaviour {
                                 {
                                     if (levels[i].GetType() == typeof(OnlineLevelObj))
                                     {
-                                        if (GUILayout.Button(((OnlineLevelObj)levels[i]).creatorNickname + "-" + levels[i].name, "button"))
+                                        if (GUILayout.Button(levels[i].name + "-" + ((OnlineLevelObj)levels[i]).creatorNickname, "button"))
                                         {
                                             selectedLevelid = levels[i].id;
                                         }
@@ -874,7 +874,7 @@ class OnlineLevelObj : Levelobj //online - not downloaded
                     if (GUILayout.Button("Download", "forwardbackwardbuttonfullwidth"))
                     {
                         AddLevelToPlaylistManager.Instance.addToPlaylist(onlinelevelid);
-                        DownloadLevelManager.Instance.startDownload(downloadurl, thumburl, thumbnail, name);
+                        DownloadLevelManager.Instance.startDownload(downloadurl, thumburl, thumbnail, name+ "-" + creatorNickname);
                     }
                 }
             }
