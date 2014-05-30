@@ -73,11 +73,12 @@ public class DownloadPlaylistScriptManager : MonoBehaviour
 
         request = new WWW(GlobalVars.Instance.playlistUrl, null, requHeaders);
         yield return request;
+
         Hashtable header = new Hashtable();
         foreach (string s in request.responseHeaders.Keys)
         {
             header.Add(s, request.responseHeaders[s]);
-            //Debug.Log(s + request.responseHeaders[s]);
+           // Debug.Log(s + ": " + request.responseHeaders[s]);
         }
 
         if (header.ContainsKey("STATUS"))

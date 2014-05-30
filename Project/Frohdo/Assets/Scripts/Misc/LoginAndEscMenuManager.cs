@@ -38,6 +38,8 @@ public class LoginAndEscMenuManager : MonoBehaviour
             SceneManager.Instance.getCurrentSceneType() == SceneManager.Scene.Game ||
             SceneManager.Instance.getCurrentSceneType() == SceneManager.Scene.RateScreen
             )
+            && (DownloadLevelManager.Instance == null || DownloadLevelManager.Instance.GlobalStatus != DownloadLevelManager.DownloadStatus.Downloading)
+            && (LevelUploadManager.Instance == null || LevelUploadManager.Instance.GlobalStatus != LevelUploadManager.LevelUploadStatus.Uploading)
             )
         {
             _axisLocked = true;

@@ -77,8 +77,8 @@ public class DownloadTopOnlineLevelListManager : MonoBehaviour {
         request = new WWW(GlobalVars.Instance.TopOnlineLevelListUrl, null, requHeaders);
         yield return request;
         Hashtable header = new Hashtable();
-        Debug.Log(header.Count);
-        Debug.Log(request.text);
+        //Debug.Log(header.Count);
+        //Debug.Log(request.text);
         foreach (string s in request.responseHeaders.Keys)
         {
             header.Add(s, request.responseHeaders[s]);
