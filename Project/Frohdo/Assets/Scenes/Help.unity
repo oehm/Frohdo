@@ -242,6 +242,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e523e9ac1615ed4785ccc5f794b5cc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skin: {fileID: 11400000, guid: 3cc87bbadd88a554bb7086e70f2bb237, type: 2}
+  Basics: {fileID: 2800000, guid: 3857d28c946ac0746a7dead77b6a2a42, type: 3}
+  ColorMixing: {fileID: 2800000, guid: 304170b36d0aef84ea0407e7b464dc2a, type: 3}
+  Controlls: {fileID: 2800000, guid: b859ca48a3085534e95db353a34f04c1, type: 3}
+  Editor: {fileID: 2800000, guid: d6d00399aaa42d64cbd591e813060586, type: 3}
+  Support: {fileID: 2800000, guid: 4ab6d3127dedbf349829c2b611590e44, type: 3}
 --- !u!1001 &990786873
 Prefab:
   m_ObjectHideFlags: 0
