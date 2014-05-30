@@ -147,10 +147,12 @@ public class LevelLoader : MonoBehaviour
         {
             ScoreController.Instance.LevelHash = ScoreController.Instance.getMD5ofFile(path); //just temporary, calculate it later
 
-            WWW thumbdownload = new WWW(SceneManager.Instance.levelToLoad.thumbpath);
+            //WWW thumbdownload = new WWW(SceneManager.Instance.levelToLoad.thumbpath);
 
-            if ( thumbdownload.error != null && type == LevelType.Custom)
+            if (type == LevelType.Custom && !File.Exists(SceneManager.Instance.levelToLoad.thumbpath))
+            //if ( thumbdownload.error != null && type == LevelType.Custom)
             {
+                //Debug.Log("Took Screenshot");
                 Camera.main.transform.position = new Vector3(characterPos.x, characterPos.y, GlobalVars.Instance.mainCamerZ);
                 ScreenShotManager.Instance.takeScreenShot();
             }

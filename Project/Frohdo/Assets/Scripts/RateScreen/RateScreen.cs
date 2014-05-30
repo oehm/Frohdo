@@ -15,6 +15,7 @@ public class RateScreen : MonoBehaviour {
         levelHash_ = ScoreController.Instance.LevelHash;
         pukeCount_ = ScoreController.Instance.pukeCount;
         timeCount_ = ScoreController.Instance.timeCount;
+        Debug.Log(levelHash_);
         ScoreController.Instance.saveLocalPukeHighscore(levelHash_);
         ScoreController.Instance.saveLocalTimeHighScore(levelHash_);
 	}

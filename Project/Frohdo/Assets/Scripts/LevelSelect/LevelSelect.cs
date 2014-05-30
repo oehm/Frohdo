@@ -366,7 +366,7 @@ public class LevelSelect : MonoBehaviour {
         style.customStyles[10].fixedWidth = screenWidth / 6;
 
         style.customStyles[11].fixedWidth = screenWidth / 2;
-        style.customStyles[11].fixedHeight = screenHeight * 0.4f;
+        style.customStyles[11].fixedHeight = screenHeight * 0.3f;
 
         style.customStyles[12].fixedWidth = screenWidth / 2;
         style.customStyles[12].fixedHeight = screenHeight * 0.5f;
@@ -534,19 +534,19 @@ public class LevelSelect : MonoBehaviour {
                     GUILayout.EndVertical();
 
                     GUILayout.BeginVertical("box");
-                        GUILayout.BeginVertical("", "infoBox");
-                
-                        if(selectedLevelid != -1){
-                            levels[selectedLevelid].LevelInfoGui();
-                        }
-                        else
-                        {
+
+                        if(selectedLevelid != -1) levels[selectedLevelid].LevelInfoGui();
+                        else {
+                            GUILayout.BeginVertical("", "infoBox");
                             GUILayout.EndVertical();
                         }
 
                     GUILayout.EndVertical();
+
                 GUILayout.EndHorizontal();
+
             GUILayout.EndArea();
+
         GUILayout.EndVertical();
     }
 }
@@ -750,9 +750,11 @@ class StoryLevelObj : Levelobj
     {
         //Debug.Log(respath);
         if (StartLoadingThumb) loadThumbnail(respath + "_thumb");
-        showThumbnail();
-        showHighscore();
+        GUILayout.BeginVertical("", "infoBox");
+            showThumbnail();
+            showHighscore();
         GUILayout.EndVertical();
+
         GUILayout.BeginHorizontal("bottombar");
         GUILayout.FlexibleSpace();
         if (GUILayout.Button("Spielen", "forwardbackwardbuttonfullwidth"))
@@ -776,9 +778,11 @@ class CustomLevelObj : Levelobj
     public override void LevelInfoGui()
     {
         if (StartLoadingThumb) loadThumbnail("file://" + XMLPath.FullName.Substring(0, XMLPath.FullName.Length - 4) + "_thumb.png");
-        showThumbnail();
-        showHighscore();
+        GUILayout.BeginVertical("", "infoBox");
+            showThumbnail();
+            showHighscore();
         GUILayout.EndVertical();
+
         GUILayout.BeginHorizontal("bottombar");
         GUILayout.FlexibleSpace();
         if (GUILayout.Button("Play", "forwardbackwardbutton"))
@@ -812,10 +816,11 @@ class LocalLevelObj : Levelobj //already on disk
     public override void LevelInfoGui()
     {
         if (StartLoadingThumb) loadThumbnail("file://" + XMLPath.FullName.Substring(0, XMLPath.FullName.Length - 4) + "_thumb.png");
-        showThumbnail();
-        showHighscore();
-
+        GUILayout.BeginVertical("", "infoBox");
+            showThumbnail();
+            showHighscore();
         GUILayout.EndVertical();
+
         GUILayout.BeginHorizontal("bottombar");
         GUILayout.FlexibleSpace();
         if (GUILayout.Button("Play ", "forwardbackwardbuttonfullwidth"))
@@ -858,8 +863,9 @@ class OnlineLevelObj : Levelobj //online - not downloaded
     public override void LevelInfoGui()
     {
         if (StartLoadingThumb) loadThumbnail(GlobalVars.Instance.CommunityBasePath + thumburl);
-        showThumbnail();
-        showHighscore();
+        GUILayout.BeginVertical("", "infoBox");
+            showThumbnail();
+            showHighscore();
         GUILayout.EndVertical();
         GUILayout.BeginHorizontal("bottombar");
         GUILayout.FlexibleSpace();
