@@ -103,11 +103,14 @@ public class GUI_ObjectSelection : GUI_Element
             }
         }
         //find current markedObject in the set of new objects
-        foreach(GUI_ContentObject g in guiController.gui_LevelObjects[colorIndex])
+        if (toMark != null)
         {
-            if(g.prefab.name == toMark.prefab.name)
+            foreach (GUI_ContentObject g in guiController.gui_LevelObjects[colorIndex])
             {
-                toMark = g;
+                if (g.prefab.name == toMark.prefab.name)
+                {
+                    toMark = g;
+                }
             }
         }
 
