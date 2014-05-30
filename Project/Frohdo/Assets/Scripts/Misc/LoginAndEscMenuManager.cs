@@ -36,7 +36,8 @@ public class LoginAndEscMenuManager : MonoBehaviour
             SceneManager.Instance.getCurrentSceneType() == SceneManager.Scene.Editor ||
             SceneManager.Instance.getCurrentSceneType() == SceneManager.Scene.LevelSelect ||
             SceneManager.Instance.getCurrentSceneType() == SceneManager.Scene.Game ||
-            SceneManager.Instance.getCurrentSceneType() == SceneManager.Scene.RateScreen
+            SceneManager.Instance.getCurrentSceneType() == SceneManager.Scene.RateScreen ||
+            SceneManager.Instance.getCurrentSceneType() == SceneManager.Scene.Help
             )
             && (DownloadLevelManager.Instance == null || DownloadLevelManager.Instance.GlobalStatus != DownloadLevelManager.DownloadStatus.Downloading)
             && (LevelUploadManager.Instance == null || LevelUploadManager.Instance.GlobalStatus != LevelUploadManager.LevelUploadStatus.Uploading)

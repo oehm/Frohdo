@@ -123,7 +123,8 @@ public class SceneManager : MonoBehaviour
         LevelSelect,
         RateScreen,
         Login,
-        Options
+        Options,
+        Help
     }
 }
 

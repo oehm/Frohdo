@@ -47,6 +47,10 @@ public class Gui_MainMenu : MonoBehaviour
         {
             SceneManager.Instance.loadScene(SceneManager.Scene.Options);
         }
+        if(GUILayout.Button("Help", mainStyle.button))
+        {
+            SceneManager.Instance.loadScene(SceneManager.Scene.Help);
+        }
         if (GUILayout.Button("Quit", mainStyle.button))
         {
             Application.Quit();
