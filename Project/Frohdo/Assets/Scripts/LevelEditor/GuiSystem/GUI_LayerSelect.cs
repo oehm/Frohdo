@@ -45,7 +45,7 @@ public class GUI_LayerSelect : GUI_Element
         GUILayout.BeginHorizontal();
         GUILayout.Label("LAYER", skin.label);
         int oldSelected = selected;
-        selected = GUILayout.Toolbar(selected, pureContent, skin.button);
+        selected = GUILayout.Toolbar(selected, pureContent, skin.customStyles[8]);
         if (oldSelected != selected)
         {
             content[selected].func(content[selected].layerIndex);
@@ -55,8 +55,8 @@ public class GUI_LayerSelect : GUI_Element
     }
 
 
-    public void select(int layerIndex)
-    {
-        selected = layerIndex;
-    }
+    //public void select(int layerIndex)
+    //{
+    //    selected = layerIndex;
+    //}
 }

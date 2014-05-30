@@ -102,8 +102,17 @@ public class GUI_ObjectSelection : GUI_Element
                 break;
             }
         }
+        //find current markedObject in the set of new objects
+        foreach(GUI_ContentObject g in guiController.gui_LevelObjects[colorIndex])
+        {
+            if(g.prefab.name == toMark.prefab.name)
+            {
+                toMark = g;
+            }
+        }
 
         objects = guiController.gui_LevelObjects[colorIndex];
+
     }
 
     public void showCharacter(bool show)
