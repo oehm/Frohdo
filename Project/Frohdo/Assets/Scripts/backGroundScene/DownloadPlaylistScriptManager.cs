@@ -87,6 +87,7 @@ public class DownloadPlaylistScriptManager : MonoBehaviour
             {
                 //Debug.Log(request.text);
                 XML = request.text;
+                //Debug.Log(XML);
             }
             else
             {

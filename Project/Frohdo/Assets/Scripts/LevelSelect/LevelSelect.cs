@@ -88,7 +88,9 @@ public class LevelSelect : MonoBehaviour {
                         string name = "";
                         string thumburl = "";
                         string dlUrl = "";
+                        string creatorNickname = "";
                         int onlineid = -1;
+                        bool currentUserIsCreator = false;
                         bool inplaylist = false;
 
                         foreach (XmlNode cn in n.ChildNodes)
@@ -98,12 +100,15 @@ public class LevelSelect : MonoBehaviour {
                             if (cn.Name.Equals("urlThumbnail")) thumburl = cn.InnerText;
                             if (cn.Name.Equals("urlXML")) dlUrl = cn.InnerText;
                             if (cn.Name.Equals("levelId")) onlineid = Convert.ToInt32(cn.InnerText);
+                            if (cn.Name.Equals("creatorNick")) creatorNickname = cn.InnerText;
+                            if (cn.Name.Equals("currentUserIsCreator")) currentUserIsCreator = Convert.ToBoolean(cn.InnerText);
+                            if (cn.Name.Equals("levelIsInPlaylist")) inplaylist = Convert.ToBoolean(cn.InnerText);
                             //check if in playlist
                         }
                         try
                         {
                             obj = gameObject.AddComponent(typeof(OnlineLevelObj)) as OnlineLevelObj;
-                            ((OnlineLevelObj)obj).init(id, onlineid, hash, name, thumburl, dlUrl, inplaylist);
+                            ((OnlineLevelObj)obj).init(id, onlineid, hash, name, thumburl, dlUrl, inplaylist, currentUserIsCreator, creatorNickname);
                             id++;
                         }
                         catch (Exception)
@@ -202,6 +207,8 @@ public class LevelSelect : MonoBehaviour {
                 XmlDocument doc = new XmlDocument();
                 doc.LoadXml(DownloadTopOnlineLevelListManager.Instance.XML);
 
+                //Debug.Log(DownloadTopOnlineLevelListManager.Instance.XML);
+
                 DownloadTopOnlineLevelListManager.Instance.reset();
 
                 int id = 0;
@@ -212,7 +219,9 @@ public class LevelSelect : MonoBehaviour {
                     string name = "";
                     string thumburl = "";
                     string dlUrl = "";
+                    string creatorNickname = "";
                     int onlineid = -1;
+                    bool currentUserIsCreator = false;
                     bool inplaylist = false;
 
                     foreach (XmlNode cn in n.ChildNodes)
@@ -222,12 +231,15 @@ public class LevelSelect : MonoBehaviour {
                         if (cn.Name.Equals("urlThumbnail")) thumburl = cn.InnerText;
                         if (cn.Name.Equals("urlXML")) dlUrl = cn.InnerText;
                         if (cn.Name.Equals("id")) onlineid = Convert.ToInt32(cn.InnerText);
+                        if (cn.Name.Equals("creatorNick")) creatorNickname = cn.InnerText;
+                        if (cn.Name.Equals("currentUserIsCreator")) currentUserIsCreator = Convert.ToBoolean(cn.InnerText);
+                        if (cn.Name.Equals("levelIsInPlaylist")) inplaylist = Convert.ToBoolean(cn.InnerText);
                         //check if in playlist
                     }
                     try
                     {
                         obj = gameObject.AddComponent(typeof(OnlineLevelObj)) as OnlineLevelObj;
-                        ((OnlineLevelObj)obj).init(id, onlineid, hash, name, thumburl, dlUrl, inplaylist);
+                        ((OnlineLevelObj)obj).init(id, onlineid, hash, name, thumburl, dlUrl, inplaylist, currentUserIsCreator, creatorNickname);
                         id++;
                     }
                     catch (Exception)
@@ -447,7 +459,7 @@ public class LevelSelect : MonoBehaviour {
                                 if (selectedLevelid == levels[i].id)
                                 {
                                     GUI.enabled = false;
-                                    if (levels[i].GetType() == typeof(OnlineLevelObj)) GUILayout.Button("<color=" + buttonDisabledColorHexString + ">@ - " + levels[i].name + "</color>", "button");
+                                    if (levels[i].GetType() == typeof(OnlineLevelObj)) GUILayout.Button("<color=" + buttonDisabledColorHexString + ">"+ ((OnlineLevelObj)levels[i]).creatorNickname + "-" + levels[i].name + "</color>", "button");
                                     else GUILayout.Button("<color=" + buttonDisabledColorHexString + ">" + levels[i].name + "</color>", "button");
                                     GUI.enabled = true;
                                 }
@@ -455,7 +467,7 @@ public class LevelSelect : MonoBehaviour {
                                 {
                                     if (levels[i].GetType() == typeof(OnlineLevelObj))
                                     {
-                                        if (GUILayout.Button("@ - " + levels[i].name, "button"))
+                                        if (GUILayout.Button(((OnlineLevelObj)levels[i]).creatorNickname + "-" + levels[i].name, "button"))
                                         {
                                             selectedLevelid = levels[i].id;
                                         }
@@ -809,6 +821,8 @@ class OnlineLevelObj : Levelobj //online - not downloaded
     private string downloadurl = "";
 
     private bool inplaylist;
+    private bool currentUserIsCreator;
+    public string creatorNickname;
 
     public void init(int id, string onlinehash)
     {
@@ -875,15 +889,17 @@ class OnlineLevelObj : Levelobj //online - not downloaded
         GUILayout.EndHorizontal();
     }
 
-    internal void init(int id, int onlinelevelid, string hash, string name, string thumburl, string downloadurl, bool inplaylist)
+    internal void init(int id, int onlineid, string hash, string name, string thumburl, string dlUrl, bool inplaylist, bool currentUserIsCreator, string creatorNickname)
     {
         this.id = id;
         this.name = name;
         this.hash = hash;
         this.thumburl = thumburl;
-        this.onlinelevelid = onlinelevelid;
-        this.downloadurl = downloadurl;
+        this.onlinelevelid = onlineid;
+        this.downloadurl = dlUrl;
         this.inplaylist = inplaylist;
+        this.currentUserIsCreator = currentUserIsCreator;
+        this.creatorNickname = creatorNickname;
     }
 }
 
