@@ -54,6 +54,33 @@ public class ScoreController : MonoBehaviour {
         }
 	}
 
+    public void saveLocalTimeHighScore(string hash)
+    {
+        if(getlocalTimeHighscore(hash) == 0 || timeCount < getlocalTimeHighscore(hash))
+        PlayerPrefs.SetInt(hash + "_Time", timeCount);
+    }
+    public void saveLocalPukeHighscore(string hash)
+    {
+        if (getlocalPukeHighscore(hash) == 0 || pukeCount < getlocalPukeHighscore(hash))
+        PlayerPrefs.SetInt(levelHash_ + "_Pukes", pukeCount);
+    }
+    public int getlocalTimeHighscore(string hash)
+    {
+        if (PlayerPrefs.HasKey(hash + "_Time"))
+        {
+            return PlayerPrefs.GetInt(hash + "_Time");
+        }
+        return 0;
+    }
+    public int getlocalPukeHighscore(string hash)
+    {
+        if (PlayerPrefs.HasKey(hash + "_Pukes"))
+        {
+            return PlayerPrefs.GetInt(hash + "_Pukes");
+        }
+        return 0;
+    }
+
     public void CountAPuke()
     {
         if (isRunning)
