@@ -11,6 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e582b7cbe46ab0240867c967f4aad1f9, type: 3}
   m_Name: GlobalVarsInstance
   m_EditorClassIdentifier: 
+  style: {fileID: 11400000, guid: 175c842f18dd1a34da7b8eaf32dcbb8a, type: 2}
   animationTime: .5
   pukeTime: .5
   mainCamerZ: -10
@@ -33,3 +34,4 @@ MonoBehaviour:
   CommunityBasePath: 
   playlistUrl: http://community.mediacube.at/myLevelplaylist.xml
   AddToPlaylistUrl: http://community.mediacube.at/levels/add_level_to_playlist?id=
+  PreventPatcherInBuild: 0
