@@ -29,12 +29,17 @@ public class LevelSelect : MonoBehaviour {
         regsiterToShow = 3;
         reloadLevels = true;
         selectedLevelid = -1;
+        levels = new List<Levelobj>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
         if (reloadLevels)
         {
+            foreach (Levelobj o in levels)
+            {
+                Destroy(o);
+            }
             reloadLevels = false;
             if (DownloadPlaylistScriptManager.Instance.GlobalStatus == DownloadPlaylistScriptManager.DownloadStatus.Downloading)
             {
