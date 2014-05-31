@@ -144,7 +144,7 @@ public class LevelLoader : MonoBehaviour
         }
 
         ScreenShotManager.Instance.reset(); //resets manager. removes all old screens from last level.. 
-        if (SceneManager.Instance.levelToLoad.currentThumb != null) ScreenShotManager.Instance.addScreenshot(SceneManager.Instance.levelToLoad.currentThumb);
+        if (SceneManager.Instance.levelToLoad.currentThumb != null) ScreenShotManager.Instance.addCurrentThumb(SceneManager.Instance.levelToLoad.currentThumb);
 
         if (!editor && type != LevelType.Story)
         {

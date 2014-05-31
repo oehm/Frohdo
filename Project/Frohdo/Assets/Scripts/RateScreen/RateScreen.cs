@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class RateScreen : MonoBehaviour {
 
@@ -187,11 +188,6 @@ public class RateScreen : MonoBehaviour {
     {
     }
 
-    void drawCustomLevelGuiRightHalf()
-    {
-
-    }
-
     void drawStoryLevelGuiLeftMainbody()
     {
         GUILayout.BeginHorizontal();
@@ -221,12 +217,27 @@ public class RateScreen : MonoBehaviour {
 
     void drawStoryLevelGuiRightHalf()
     {
+        drawHighlights();
+    }
+
+    void drawCustomLevelGuiRightHalf()
+    {
+        drawHighlights();
+    }
+
+    void drawPlaylistLevelGuiRightHalf()
+    {
+        drawHighlights();
+    }
+
+    void drawHighlights()
+    {
         GUILayout.Label("Highlights", "CenterAlignLabelDoubleWidth");
         GUILayout.BeginHorizontal();
 
             GUILayout.FlexibleSpace();
 
-                GUILayout.Box(ScreenShotManager.Instance.screens[thumbtoShow], "ScreensBox");
+                GUILayout.Box(ScreenShotManager.Instance.getScreenShot(thumbtoShow), "ScreensBox");
 
             GUILayout.FlexibleSpace();
 
@@ -234,28 +245,21 @@ public class RateScreen : MonoBehaviour {
 
         GUILayout.BeginHorizontal();
 
-            if (ScreenShotManager.Instance.screens.Count <= 1)
+            if (ScreenShotManager.Instance.screenshotcount <= 1)
             {
                 GUI.enabled = false;
             }
 
-            if (GUILayout.Button("<")) thumbtoShow = (thumbtoShow - 1) % ScreenShotManager.Instance.screens.Count;
+            if (GUILayout.Button("<")) thumbtoShow = nfmod(thumbtoShow - 1,ScreenShotManager.Instance.screenshotcount);
 
             GUILayout.Label("Thumbnail", "CenterAlignLabelDoubleWidth");
-
 
             GUI.enabled = true;
 
         GUILayout.EndHorizontal();
-
     }
 
     void drawPlaylistLevelGuiLeftMainbody()
-    {
-
-    }
-
-    void drawPlaylistLevelGuiRightHalf()
     {
 
     }
@@ -335,5 +339,10 @@ public class RateScreen : MonoBehaviour {
     void drawPlaylistLevelButtons()
     {
 
+    }
+
+    int nfmod(int a, int b)
+    {
+        return (int)(a - b * Math.Floor((float)a / (float)b));
     }
 }
