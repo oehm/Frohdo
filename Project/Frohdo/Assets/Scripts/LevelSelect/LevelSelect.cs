@@ -458,10 +458,20 @@ public class LevelSelect : MonoBehaviour {
                             {
                                 if (selectedLevelid == levels[i].id)
                                 {
-                                    GUI.enabled = false;
-                                    if (levels[i].GetType() == typeof(OnlineLevelObj)) GUILayout.Button("<color=" + buttonDisabledColorHexString + ">"+ levels[i].name + "-" + ((OnlineLevelObj)levels[i]).creatorNickname + "</color>", "button");
-                                    else GUILayout.Button("<color=" + buttonDisabledColorHexString + ">" + levels[i].name + "</color>", "button");
-                                    GUI.enabled = true;
+                                    if (levels[i].GetType() == typeof(OnlineLevelObj))
+                                    {
+                                        GUI.enabled = false;
+                                        GUILayout.Button("<color=" + buttonDisabledColorHexString + ">" + levels[i].name + "-" + ((OnlineLevelObj)levels[i]).creatorNickname + "</color>", "button");
+                                        GUI.enabled = true;
+                                    }
+                                    else
+                                    {
+                                        if (GUILayout.Button("<color=" + buttonDisabledColorHexString + ">" + levels[i].name + "</color>", "button"))
+                                        {
+                                            levels[i].StartLevel();
+                                        }
+                                    }
+                                    
                                 }
                                 else
                                 {
@@ -565,6 +575,8 @@ abstract class Levelobj : MonoBehaviour
 
     protected int localPukeHighscore;
     protected int localTimeHighscore;
+
+    public abstract void StartLevel();
 
     protected void searchLocalLevel(DirectoryInfo levelpath)
     {
@@ -753,11 +765,16 @@ class StoryLevelObj : Levelobj
         GUILayout.FlexibleSpace();
         if (GUILayout.Button("Play", "forwardbackwardbuttonfullwidth"))
         {
-            SceneManager.Instance.levelToLoad = new LevelAndType(respath, LevelLoader.LevelType.Story);
-            SceneManager.Instance.loadScene(SceneManager.Scene.Game);
+            StartLevel();
         }
         GUILayout.FlexibleSpace();
         GUILayout.EndHorizontal();
+    }
+
+    public override void StartLevel()
+    {
+        SceneManager.Instance.levelToLoad = new LevelAndType(respath, LevelLoader.LevelType.Story);
+        SceneManager.Instance.loadScene(SceneManager.Scene.Game);
     }
 }
 class CustomLevelObj : Levelobj
@@ -781,8 +798,7 @@ class CustomLevelObj : Levelobj
         GUILayout.FlexibleSpace();
         if (GUILayout.Button("Play", "forwardbackwardbutton"))
         {
-            SceneManager.Instance.levelToLoad = new LevelAndType(XMLPath.FullName, LevelLoader.LevelType.Custom);
-            SceneManager.Instance.loadScene(SceneManager.Scene.Game);
+            StartLevel();
         }
         if (GUILayout.Button("Edit", "forwardbackwardbutton"))
         {
@@ -792,6 +808,12 @@ class CustomLevelObj : Levelobj
         }
         GUILayout.FlexibleSpace();
         GUILayout.EndHorizontal();
+    }
+
+    public override void StartLevel()
+    {
+        SceneManager.Instance.levelToLoad = new LevelAndType(XMLPath.FullName, LevelLoader.LevelType.Custom);
+        SceneManager.Instance.loadScene(SceneManager.Scene.Game);
     }
 }
 
@@ -819,8 +841,7 @@ class LocalLevelObj : Levelobj //already on disk
         GUILayout.FlexibleSpace();
         if (GUILayout.Button("Play ", "forwardbackwardbuttonfullwidth"))
         {
-            SceneManager.Instance.levelToLoad = new LevelAndType(XMLPath.FullName, LevelLoader.LevelType.Normal);
-            SceneManager.Instance.loadScene(SceneManager.Scene.Game);
+            StartLevel();
         }
         GUILayout.FlexibleSpace();
         GUILayout.EndHorizontal();
@@ -834,6 +855,12 @@ class LocalLevelObj : Levelobj //already on disk
             localPukeHighscore = ScoreController.Instance.getlocalPukeHighscore(hash);
             localTimeHighscore = ScoreController.Instance.getlocalTimeHighscore(hash);
         }
+    }
+
+    public override void StartLevel()
+    {
+        SceneManager.Instance.levelToLoad = new LevelAndType(XMLPath.FullName, LevelLoader.LevelType.Normal);
+        SceneManager.Instance.loadScene(SceneManager.Scene.Game);
     }
 }
 
@@ -920,6 +947,11 @@ class OnlineLevelObj : Levelobj //online - not downloaded
         this.inplaylist = inplaylist;
         this.currentUserIsCreator = currentUserIsCreator;
         this.creatorNickname = creatorNickname;
+    }
+
+    public override void StartLevel()
+    {
+        Debug.Log("you mustn´t start an online-level");
     }
 }
 
