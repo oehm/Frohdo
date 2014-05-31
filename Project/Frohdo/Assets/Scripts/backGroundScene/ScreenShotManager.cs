@@ -67,8 +67,8 @@ public class ScreenShotManager : MonoBehaviour {
 
     public void reset()
     {
-        //texture = null;
         screens.Clear();
+        renderedscreens.Clear();
         screenshotcount = 0;
         manuallyaddedScreens = 0;
     }
