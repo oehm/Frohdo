@@ -751,7 +751,7 @@ class StoryLevelObj : Levelobj
 
         GUILayout.BeginHorizontal("bottombar");
         GUILayout.FlexibleSpace();
-        if (GUILayout.Button("Spielen", "forwardbackwardbuttonfullwidth"))
+        if (GUILayout.Button("Play", "forwardbackwardbuttonfullwidth"))
         {
             SceneManager.Instance.levelToLoad = new LevelAndType(respath, LevelLoader.LevelType.Story);
             SceneManager.Instance.loadScene(SceneManager.Scene.Game);

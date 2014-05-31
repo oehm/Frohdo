@@ -123,7 +123,7 @@ public class Login : MonoBehaviour
         GUILayout.BeginVertical();
         GUILayout.FlexibleSpace();
         GUILayout.Label("Logindata incorrect!", "CenterAlignLabelDoubleWidth");
-        if (GUILayout.Button("OK", "ButtonDoubleWidth"))
+        if (GUILayout.Button("OK", "ButtonDoubleWidth") || (Event.current.type == EventType.KeyUp && Event.current.keyCode == KeyCode.Return))
         {
             NetworkManager.Instance.LogOut();
         }
@@ -145,7 +145,7 @@ public class Login : MonoBehaviour
         pass = GUILayout.PasswordField(pass, '*', style.textField);
         GUILayout.FlexibleSpace();
         GUILayout.BeginHorizontal();
-        if (GUILayout.Button("Login"))
+        if (GUILayout.Button("Login") || (Event.current.type == EventType.KeyUp && Event.current.keyCode == KeyCode.Return))
         {
 
             //if (!(login.Trim().Length == 0 || pass.Trim().Length == 0))
@@ -181,7 +181,7 @@ public class Login : MonoBehaviour
             pass = "";
         }
 
-        if (GUILayout.Button("Continue online"))
+        if (GUILayout.Button("Continue online") || (Event.current.type == EventType.KeyUp && Event.current.keyCode == KeyCode.Return))
         {
             SceneManager.Instance.returnFromLoginAndEscMenu();
         }
@@ -212,7 +212,7 @@ public class Login : MonoBehaviour
         GUILayout.BeginVertical();
         GUILayout.FlexibleSpace();
         GUILayout.Label("Unable to Login.\nMaybe you are not properly connected or there are \"Server issues\" (Nope!)", "CenterAlignLabelDoubleWidth");
-        if (GUILayout.Button("back", "ButtonDoubleWidth"))
+        if (GUILayout.Button("back", "ButtonDoubleWidth") || (Event.current.type == EventType.KeyUp && Event.current.keyCode == KeyCode.Return))
         {
             NetworkManager.Instance.LogOut();
         }
