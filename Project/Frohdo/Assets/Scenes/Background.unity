@@ -911,6 +911,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   imgWidth: 1280
   imgHeight: 720
+  screens: []
 --- !u!1001 &1368272278
 Prefab:
   m_ObjectHideFlags: 0

@@ -136,6 +136,8 @@ public class LevelAndType
     public string thumbpath;
     public LevelLoader.LevelType type;
 
+    public Texture2D currentThumb;
+
     public LevelAndType()
     {
         this.LeveltoLoad = "";
@@ -145,12 +147,13 @@ public class LevelAndType
         this.thumbpath = "";
     }
 
-    public LevelAndType(string LeveltoLoad, LevelLoader.LevelType type)
+    public LevelAndType(string LeveltoLoad, LevelLoader.LevelType type, Texture2D thumb = null)
     {
         this.LeveltoLoad = LeveltoLoad;
         this.type = type;
         this.LevelTitle = Path.GetFileNameWithoutExtension(LeveltoLoad);
         this.thumbpath = LeveltoLoad.Substring(0, LeveltoLoad.Length - 4) + "_thumb.png";
         this.LevelDescription = "";
+        this.currentThumb = thumb;
     }
 }

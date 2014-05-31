@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.IO;
+using System.Collections.Generic;
 
 public class ScreenShotManager : MonoBehaviour {
 
@@ -19,6 +20,8 @@ public class ScreenShotManager : MonoBehaviour {
     public int imgWidth;
     public int imgHeight;
 
+    public List<Texture2D> screens = new List<Texture2D>();
+    
     private Texture2D texture;
     private RenderTexture renderTexture;
 
@@ -32,9 +35,21 @@ public class ScreenShotManager : MonoBehaviour {
         }
         instance = this;
     }
+
+    public void addScreenshot(Texture2D screen)
+    {
+        screens.Add(screen);
+    }
+
+    public void reset()
+    {
+        texture = null;
+        screens.Clear();
+    }
 	
 	public Texture2D takeScreenShot(string path = null)
     {
+        bool automaticScreen = path == null ? true : false; //if path is null .. then it is a custom level screenshot and we save it to a list.
         if(path == null)
         {
             path = SceneManager.Instance.levelToLoad.thumbpath;
@@ -107,14 +122,25 @@ public class ScreenShotManager : MonoBehaviour {
             texture.Apply();
 
             camsSorted[i].targetTexture = null;
-
-
         }
         RenderTexture.active = null;
-        
+
+        if (automaticScreen)
+        {
+            screens.Add(texture);
+        }
+        else
+        {
+            byte[] bytes = texture.EncodeToPNG();
+            File.WriteAllBytes(path, bytes);
+        }
+        return texture;
+    }
+
+    public void saveScreenshot(Texture2D screen, string path = null)
+    {
+        if (path == null) path = SceneManager.Instance.levelToLoad.thumbpath;
         byte[] bytes = texture.EncodeToPNG();
         File.WriteAllBytes(path, bytes);
-
-        return texture;
     }
 }

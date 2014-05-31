@@ -773,7 +773,7 @@ class StoryLevelObj : Levelobj
 
     public override void StartLevel()
     {
-        SceneManager.Instance.levelToLoad = new LevelAndType(respath, LevelLoader.LevelType.Story);
+        SceneManager.Instance.levelToLoad = new LevelAndType(respath, LevelLoader.LevelType.Story, thumbnail);
         SceneManager.Instance.loadScene(SceneManager.Scene.Game);
     }
 }
@@ -802,7 +802,7 @@ class CustomLevelObj : Levelobj
         }
         if (GUILayout.Button("Edit", "forwardbackwardbutton"))
         {
-            SceneManager.Instance.levelToLoad = new LevelAndType(XMLPath.FullName, LevelLoader.LevelType.Custom);
+            SceneManager.Instance.levelToLoad = new LevelAndType(XMLPath.FullName, LevelLoader.LevelType.Custom, thumbnail);
             SceneManager.Instance.loadLevelToEdit = true;
             SceneManager.Instance.loadScene(SceneManager.Scene.Editor);
         }
@@ -812,7 +812,7 @@ class CustomLevelObj : Levelobj
 
     public override void StartLevel()
     {
-        SceneManager.Instance.levelToLoad = new LevelAndType(XMLPath.FullName, LevelLoader.LevelType.Custom);
+        SceneManager.Instance.levelToLoad = new LevelAndType(XMLPath.FullName, LevelLoader.LevelType.Custom, thumbnail);
         SceneManager.Instance.loadScene(SceneManager.Scene.Game);
     }
 }
@@ -859,7 +859,7 @@ class LocalLevelObj : Levelobj //already on disk
 
     public override void StartLevel()
     {
-        SceneManager.Instance.levelToLoad = new LevelAndType(XMLPath.FullName, LevelLoader.LevelType.Normal);
+        SceneManager.Instance.levelToLoad = new LevelAndType(XMLPath.FullName, LevelLoader.LevelType.Normal, thumbnail);
         SceneManager.Instance.loadScene(SceneManager.Scene.Game);
     }
 }

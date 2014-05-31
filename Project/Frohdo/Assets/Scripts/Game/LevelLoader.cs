@@ -143,13 +143,16 @@ public class LevelLoader : MonoBehaviour
             }
         }
 
+        ScreenShotManager.Instance.reset(); //resets manager. removes all old screens from last level.. 
+        if (SceneManager.Instance.levelToLoad.currentThumb != null) ScreenShotManager.Instance.addScreenshot(SceneManager.Instance.levelToLoad.currentThumb);
+
         if (!editor && type != LevelType.Story)
         {
             ScoreController.Instance.LevelHash = ScoreController.Instance.getMD5ofFile(path); //just temporary, calculate it later
 
             //WWW thumbdownload = new WWW(SceneManager.Instance.levelToLoad.thumbpath);
 
-            if (type == LevelType.Custom && !File.Exists(SceneManager.Instance.levelToLoad.thumbpath))
+            if (type == LevelType.Custom && SceneManager.Instance.levelToLoad.currentThumb == null)
             //if ( thumbdownload.error != null && type == LevelType.Custom)
             {
                 //Debug.Log("Took Screenshot");
