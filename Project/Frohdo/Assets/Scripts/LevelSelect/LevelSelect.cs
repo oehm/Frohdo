@@ -763,7 +763,7 @@ class StoryLevelObj : Levelobj
 
         GUILayout.BeginHorizontal("bottombar");
         GUILayout.FlexibleSpace();
-        if (GUILayout.Button("Spielen", "forwardbackwardbuttonfullwidth"))
+        if (GUILayout.Button("Play", "forwardbackwardbuttonfullwidth"))
         {
             StartLevel();
         }
