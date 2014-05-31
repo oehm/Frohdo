@@ -62,6 +62,11 @@ public class Login : MonoBehaviour
         style.button.fixedHeight = screenHeight / 10;
         style.button.fixedWidth = screenWidth / 5;
 
+        //font for visit community button
+        style.customStyles[5].fontSize = (int)((screenHeight / 12) * 0.6);
+        style.customStyles[5].fixedWidth = screenWidth / 2.5f;
+        style.customStyles[5].fixedHeight = screenHeight / 8;
+
         //halfbox to split screen into 2 halfs
         style.customStyles[4].fixedWidth = screenWidth / 2f;
         style.customStyles[4].fixedHeight = screenHeight;
@@ -129,12 +134,15 @@ public class Login : MonoBehaviour
     void loggedoff()
     {
         GUILayout.BeginVertical();
+        if (GUILayout.Button("register: community.mediacube.at", "RegisterButton"))
+        {
+            Application.OpenURL("http://community.mediacube.at");
+        }
         GUILayout.FlexibleSpace();
         GUILayout.Label("Login:", style.label);
         login = GUILayout.TextField(login, style.textField);
         GUILayout.Label("Pass:", style.label);
         pass = GUILayout.PasswordField(pass, '*', style.textField);
-        //GUILayout.Space(screenHeight / 10);
         GUILayout.FlexibleSpace();
         GUILayout.BeginHorizontal();
         if (GUILayout.Button("Login"))
