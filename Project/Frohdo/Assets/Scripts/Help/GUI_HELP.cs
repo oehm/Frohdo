@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GUI_HELP : MonoBehaviour {
+public class GUI_HELP : MonoBehaviour
+{
 
     private delegate void Menudelegate();
     private Menudelegate menufunction;
@@ -22,6 +23,11 @@ public class GUI_HELP : MonoBehaviour {
     void OnGUI()
     {
         menufunction();
+    }
+
+    void Update()
+    {
+        skin.box.fixedHeight = ForceAspectRatio.screenHeight - 80;
     }
 
 
@@ -56,9 +62,14 @@ public class GUI_HELP : MonoBehaviour {
         GUILayout.EndArea();
     }
 
+    private void areaFullScreen()
+    {
+        GUILayout.BeginArea(new Rect(ForceAspectRatio.xOffset, ForceAspectRatio.yOffset, ForceAspectRatio.screenWidth, ForceAspectRatio.screenHeight));
+    }
+
     private void backButton()
     {
-        if(GUILayout.Button("Back", skin.button))
+        if (GUILayout.Button("Back", skin.button))
         {
             menufunction = main;
         }
@@ -66,17 +77,17 @@ public class GUI_HELP : MonoBehaviour {
 
     private void basics()
     {
-        GUILayout.BeginArea(ForceAspectRatio.screenRect);
+        areaFullScreen();
 
         GUILayout.Box(Basics, skin.box);
 
         backButton();
-        GUILayout.EndArea();        
+        GUILayout.EndArea();
     }
 
     public void colors()
     {
-        GUILayout.BeginArea(ForceAspectRatio.screenRect);
+        areaFullScreen();
 
         GUILayout.Box(ColorMixing, skin.box);
 
@@ -86,7 +97,7 @@ public class GUI_HELP : MonoBehaviour {
 
     public void controlls()
     {
-        GUILayout.BeginArea(ForceAspectRatio.screenRect);
+        areaFullScreen();
 
         GUILayout.Box(Controlls, skin.box);
 
@@ -96,7 +107,7 @@ public class GUI_HELP : MonoBehaviour {
 
     public void editor()
     {
-        GUILayout.BeginArea(ForceAspectRatio.screenRect);
+        areaFullScreen();
 
         GUILayout.Box(Editor, skin.box);
 
@@ -106,7 +117,7 @@ public class GUI_HELP : MonoBehaviour {
 
     public void support()
     {
-        GUILayout.BeginArea(ForceAspectRatio.screenRect);
+        areaFullScreen();
 
         GUILayout.Box(Support, skin.box);
 
