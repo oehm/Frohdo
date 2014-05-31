@@ -83,8 +83,17 @@ public class PatcherManager : MonoBehaviour
             Debug.Log("PATCHER INACTIVE IN DEBUG MODUS!");
             _globalStatus = PatcherStatus.Patched;
         }
-        else _globalStatus = PatcherStatus.Patching;
-        Debug.Log("PATCHER Debug!");
+        else
+        {
+            if (GlobalVars.Instance.PreventPatcherInBuild)
+            {
+                _globalStatus = PatcherStatus.Patched;
+            }
+            else
+            {
+                _globalStatus = PatcherStatus.Patching;
+            } 
+        }
     }
 
     IEnumerator CheckFiles()
