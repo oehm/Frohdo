@@ -44,7 +44,7 @@ public class RateScreen : MonoBehaviour {
 
         //Center Align Label
         style.customStyles[1].fontSize = (int)((screenHeight / 12) * 0.7);
-        style.customStyles[1].fixedWidth = screenWidth / 4;
+        style.customStyles[1].fixedWidth = screenWidth / 8;
         style.customStyles[1].fixedHeight = screenHeight / 8;
 
         //centerAlignDoubleWidth
@@ -86,6 +86,12 @@ public class RateScreen : MonoBehaviour {
 
         style.customStyles[9].fixedWidth = screenWidth / 2.5f;
         style.customStyles[9].fixedHeight = screenHeight * 0.4f;
+
+
+        //fw b buttons > < 
+        style.customStyles[10].fixedWidth = screenWidth / 6;
+        style.customStyles[10].fixedHeight = screenHeight * 0.1f;
+        style.customStyles[10].fontSize = (int)(screenHeight * 0.065f);
 
         GUI.skin = style;
         GUILayout.BeginArea(new Rect(ForceAspectRatio.xOffset, ForceAspectRatio.yOffset, screenWidth, screenHeight), "", style.customStyles[0]);
@@ -230,35 +236,6 @@ public class RateScreen : MonoBehaviour {
         drawHighlights();
     }
 
-    void drawHighlights()
-    {
-        GUILayout.Label("Highlights", "CenterAlignLabelDoubleWidth");
-        GUILayout.BeginHorizontal();
-
-            GUILayout.FlexibleSpace();
-
-                GUILayout.Box(ScreenShotManager.Instance.getScreenShot(thumbtoShow), "ScreensBox");
-
-            GUILayout.FlexibleSpace();
-
-        GUILayout.EndHorizontal();
-
-        GUILayout.BeginHorizontal();
-
-            if (ScreenShotManager.Instance.screenshotcount <= 1)
-            {
-                GUI.enabled = false;
-            }
-
-            if (GUILayout.Button("<")) thumbtoShow = nfmod(thumbtoShow - 1,ScreenShotManager.Instance.screenshotcount);
-
-            GUILayout.Label("Thumbnail", "CenterAlignLabelDoubleWidth");
-
-            GUI.enabled = true;
-
-        GUILayout.EndHorizontal();
-    }
-
     void drawPlaylistLevelGuiLeftMainbody()
     {
 
@@ -345,4 +322,40 @@ public class RateScreen : MonoBehaviour {
     {
         return (int)(a - b * Math.Floor((float)a / (float)b));
     }
+
+    void drawHighlights()
+    {
+        GUILayout.Label("Highlights", "CenterAlignLabelDoubleWidth");
+        GUILayout.BeginHorizontal();
+
+        GUILayout.FlexibleSpace();
+
+        GUILayout.Box(ScreenShotManager.Instance.getScreenShot(thumbtoShow), "ScreensBox");
+
+        GUILayout.FlexibleSpace();
+
+        GUILayout.EndHorizontal();
+
+        GUILayout.BeginHorizontal();
+
+        if (ScreenShotManager.Instance.screenshotcount <= 1)
+        {
+            GUI.enabled = false;
+        }
+
+        if (GUILayout.Button("<", "ForwardBackwardButton")) thumbtoShow = nfmod(thumbtoShow - 1, ScreenShotManager.Instance.screenshotcount);
+
+        GUILayout.FlexibleSpace();
+
+        GUILayout.Label("Thumbnail", "CenterAlignLabel");
+
+        GUILayout.FlexibleSpace();
+
+        if (GUILayout.Button(">", "ForwardBackwardButton")) thumbtoShow = nfmod(thumbtoShow - 1, ScreenShotManager.Instance.screenshotcount);
+
+        GUI.enabled = true;
+
+        GUILayout.EndHorizontal();
+    }
+
 }
