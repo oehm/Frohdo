@@ -49,9 +49,9 @@ public class PatcherManager : MonoBehaviour
         string appPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 
         if (UnityEngine.Debug.isDebugBuild) localDir = appPath + @"\..\..\";
-        else localDir = appPath;
+        else localDir = appPath + @"\..\..\";
 
-        Debug.LogError(localDir);
+        //Debug.LogError(localDir);
 
         if (!localDir.EndsWith(Path.DirectorySeparatorChar.ToString()))
         {

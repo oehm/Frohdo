@@ -208,6 +208,7 @@ public class ScreenShotManager : MonoBehaviour {
     {
         System.DateTime time = System.DateTime.Now;
         string timeAndDate = time.DayOfYear.ToString() + "_" + time.Year.ToString() + "_" + time.Hour.ToString() + "_" + time.Minute.ToString() + "_" + time.Second.ToString();
+        if (!Directory.Exists(Application.dataPath + "/Screenshots/ScreenShot_")) Directory.CreateDirectory(Application.dataPath + "/Screenshots/ScreenShot_");
         return Application.dataPath + "/Screenshots/ScreenShot_" + timeAndDate + ".png";
     }
 
