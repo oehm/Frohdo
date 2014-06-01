@@ -16,7 +16,7 @@ public class ScreenShotManager : MonoBehaviour {
             return instance;
         }
     }
-    public GameObject camera;
+    public new GameObject camera;
 
 
     public int imgWidth;
