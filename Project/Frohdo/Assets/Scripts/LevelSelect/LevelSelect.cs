@@ -881,6 +881,11 @@ class OnlineLevelObj : Levelobj //online - not downloaded
     private bool currentUserIsCreator;
     public string creatorNickname;
 
+    private string localReservedUrlForDownload;
+    private string localReservedThumbUrlForDownload;
+
+    bool alreadydownloaded = false;
+
     public void init(int id, string onlinehash)
     {
         throw new NotImplementedException();
@@ -888,7 +893,11 @@ class OnlineLevelObj : Levelobj //online - not downloaded
 
     public override void LevelInfoGui()
     {
-        if (StartLoadingThumb) loadThumbnail(GlobalVars.Instance.CommunityBasePath + thumburl);
+        if (StartLoadingThumb)
+        {
+            if (alreadydownloaded) loadThumbnail("file://" + localReservedThumbUrlForDownload);
+            else loadThumbnail(GlobalVars.Instance.CommunityBasePath + thumburl);
+        }
         GUILayout.BeginVertical("", "infoBox");
             showThumbnail();
             showHighscore();
@@ -914,12 +923,16 @@ class OnlineLevelObj : Levelobj //online - not downloaded
             else if (DownloadLevelManager.Instance.GlobalStatus == DownloadLevelManager.DownloadStatus.Downloaded)
             {
                 inplaylist = true;
+                alreadydownloaded = true;
                 DownloadLevelManager.Instance.reset();
             }else
             {
-                if (inplaylist == true)
+                if (alreadydownloaded == true)
                 {
-                    GUILayout.Label("In Playlist", "forwardbackwardbuttonfullwidth");
+                    if (GUILayout.Button("Play ", "forwardbackwardbuttonfullwidth"))
+                    {
+                        StartLevel();
+                    }
                 }
                 else
                 {
@@ -952,11 +965,17 @@ class OnlineLevelObj : Levelobj //online - not downloaded
         this.inplaylist = inplaylist;
         this.currentUserIsCreator = currentUserIsCreator;
         this.creatorNickname = creatorNickname;
+
+        this.localReservedUrlForDownload = Application.dataPath + @"\Levels\downloaded\" + name + "-" + creatorNickname + @"\" + name + "-" + creatorNickname + ".xml";
+        this.localReservedThumbUrlForDownload = Application.dataPath + @"\Levels\downloaded\" + name + "-" + creatorNickname + @"\" + name + "-" + creatorNickname + "_thumb.png";
+
+        alreadydownloaded = File.Exists(localReservedUrlForDownload) && File.Exists(localReservedThumbUrlForDownload);
     }
 
     public override void StartLevel()
     {
-        Debug.Log("you mustn´t start an online-level");
+        SceneManager.Instance.levelToLoad = new LevelAndType(localReservedUrlForDownload, LevelLoader.LevelType.Normal, thumbnail);
+        SceneManager.Instance.loadScene(SceneManager.Scene.Game);
     }
 }
 
