@@ -89,21 +89,21 @@ public class ScreenShotManager : MonoBehaviour {
 
     private IEnumerator ScreenShotCoroutine(ScreenShotCoroutineObj o)
     {
-        try
+        yield return new WaitForSeconds(0.1f);
+        bool automaticScreen = o.path == null ? true : false; //if path is null .. then it is a custom level screenshot and we save it to a list.
+        if (o.path == null)
         {
-            yield return new WaitForSeconds(0.1f);
-            bool automaticScreen = o.path == null ? true : false; //if path is null .. then it is a custom level screenshot and we save it to a list.
-            if (o.path == null)
-            {
-                o.path = SceneManager.Instance.levelToLoad.thumbpath;
-            }
-            else
-            {
-                System.IO.Directory.CreateDirectory(Path.GetDirectoryName(o.path));
-            }
+            o.path = SceneManager.Instance.levelToLoad.thumbpath;
+        }
+        else
+        {
+            System.IO.Directory.CreateDirectory(Path.GetDirectoryName(o.path));
+        }
 
-            if (automaticScreen && o.delay) yield return new WaitForSeconds(Random.Range(0.1f, 0.3f)); //delay on automatic screenshots.. for better pictures. ;)
-            Debug.Log("Screen!");
+        if (automaticScreen && o.delay) yield return new WaitForSeconds(UnityEngine.Random.Range(0.1f, 0.3f)); //delay on automatic screenshots.. for better pictures. ;)
+            try
+            {    
+        
             //texture = new Texture2D(imgWidth, imgHeight);
             renderTexture = new RenderTexture(imgWidth, imgHeight, 32);
 
