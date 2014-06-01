@@ -11,30 +11,26 @@ public class LevelLoader : MonoBehaviour
 
     public GameObject layerPrefab_;
 
-    public Camera camera_;
+    public CameraMovementGame cameraMovementGame_;
+
+    private Camera camera_;
 
     public InputControllerGame inputController_;
 
-    // Use this for initialization
-    void Awake()
+    public void load()
     {
+
+
         string path = SceneManager.Instance.levelToLoad.LeveltoLoad;
         bool editor = SceneManager.Instance.loadLevelToEdit;
-        if (editor)
-        {
-            SceneObjects = GameObject.Find("SceneObjects");
-            camera_ = Camera.main;
-        }
-        LoadLevel(path, editor, SceneManager.Instance.levelToLoad.type);
+        LevelType type = SceneManager.Instance.levelToLoad.type;
+        camera_ = ForceAspectRatio.CameraMain;
+        LoadLevel(path, editor, type);
         SceneManager.Instance.loadLevelToEdit = false;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
 
-    public void LoadLevel(string path, bool editor, LevelType type)
+    private void LoadLevel(string path, bool editor, LevelType type)
     {
         ScreenShotManager.Instance.reset(); //resets manager. removes all old screens from last level.. 
         LevelXML levelXML;
@@ -57,21 +53,15 @@ public class LevelLoader : MonoBehaviour
 
         SceneManager.Instance.background.GetComponentInChildren<Colorable>().colorString = levelXML.backgroundColor;
 
-        if (editor)
-        {
-            Editor_Grid.Instance.initGrid(GlobalVars.Instance.maxLevelSize);
-            LevelEditorParser.Instance.initEmpty();
-            StateManager manager = GameObject.Find("SceneController").GetComponentInChildren<StateManager>() as StateManager;
-            manager.changeBackgroundColor(levelXML.backgroundColor);
-        }
+
         for (int i = 0; i < levelXML.layers.Count; i++)
         {
             GameObject layerObject = (GameObject)Instantiate(layerPrefab_);
             layerObject.transform.parent = SceneObjects.transform;
             Layer layerScript = layerObject.GetComponent<Layer>();
             LayerXML layerXML = levelXML.layers[i];
-
-            Vector3 position = camera_.transform.position;
+            
+            Vector3 position = camera_.gameObject.transform.position;
             position.z = GlobalVars.Instance.layerZPos[i];
             Vector2 parallax = GlobalVars.Instance.layerParallax[i];
             bool isPlayLayer = (i == GlobalVars.Instance.playLayer);
@@ -81,17 +71,6 @@ public class LevelLoader : MonoBehaviour
             layerScript.parallaxFactor_ = parallax;
             layerScript.hasColliders_ = isPlayLayer;
             layerScript.camera_ = camera_;
-            if (editor)
-            {
-                StateManager manager = GameObject.Find("SceneController").GetComponentInChildren<StateManager>() as StateManager;
-                manager.layers[i] = layerObject;
-                GameObject bg = GameObject.Instantiate(Editor_Grid.Instance.layerBg_pref, new Vector3(0, 0, GlobalVars.Instance.layerZPos[i] + 0.02f), Quaternion.identity) as GameObject;
-                bg.transform.localScale = Editor_Grid.Instance.planeSizes[i];
-                bg.transform.parent = GameObject.Find("SceneObjects").GetComponentsInChildren<Layer>()[i].transform;
-                bg.name = "grid"+i.ToString();
-                bg.GetComponent<Renderer>().enabled = false;
-                bg.GetComponent<Renderer>().material.mainTextureScale = Editor_Grid.Instance.planeSizes[i];
-            }
 
             for (int j = 0; j < layerXML.levelObjects.Count; j++)
             {
@@ -99,7 +78,6 @@ public class LevelLoader : MonoBehaviour
 
                 if (!editor)
                 {
-                    //GameObject levelObjectObject =
                     layerScript.AddLevelObjectByName(levelObjectXML.name, levelObjectXML.color, levelObjectXML.pos.Vector2, i, editor);
                 }
                 else
@@ -124,7 +102,7 @@ public class LevelLoader : MonoBehaviour
 
                     inputController_.character_ = characterObject.GetComponentInChildren<Character>();
 
-                    camera_.GetComponent<CameraMovementGame>().character_ = characterObject;
+                    cameraMovementGame_.character_ = characterObject;
                 }
                 else
                 {
@@ -148,7 +126,7 @@ public class LevelLoader : MonoBehaviour
 
         if (!editor && type != LevelType.Story)
         {
-            ScoreController.Instance.LevelHash = ScoreController.Instance.getMD5ofFile(path); //just temporary, calculate it later
+            ScoreController.Instance.LevelHash = ScoreController.Instance.getMD5ofFile(path);
 
             //WWW thumbdownload = new WWW(SceneManager.Instance.levelToLoad.thumbpath);
 

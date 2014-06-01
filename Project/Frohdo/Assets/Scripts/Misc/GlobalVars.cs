@@ -27,6 +27,7 @@ public class GlobalVars : ScriptableObject
     public float pukeTime;
 
     public float mainCamerZ;
+    public float mainCamerFOV;
 
     public int LayerCount
     {

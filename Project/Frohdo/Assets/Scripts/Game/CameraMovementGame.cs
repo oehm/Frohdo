@@ -3,21 +3,25 @@ using System.Collections;
 
 public class CameraMovementGame : MonoBehaviour {
 
-    public GameObject character_;
+    public GameObject character_ { get; set; }
 
     public float cameraMaxSpeed_;
 
+    private GameObject cam;
+
 	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
+        cam = ForceAspectRatio.CameraMain.gameObject;
 	
 	}
 
     // FixedUpdate is called once per physic frame
     void FixedUpdate()
     {
-        Vector3 desiredPos = new Vector3(character_.transform.position.x, character_.transform.position.y, transform.position.z);
+        Vector3 desiredPos = new Vector3(character_.transform.position.x, character_.transform.position.y, cam.transform.position.z);
 
-        Vector3 desiredMove = desiredPos - transform.position;
+        Vector3 desiredMove = desiredPos - cam.transform.position;
 
         //if (desiredMove.magnitude > cameraMaxSpeed_)
         //{
@@ -27,8 +31,8 @@ public class CameraMovementGame : MonoBehaviour {
 
         desiredMove *= cameraMaxSpeed_;
 
-        Vector3 newPos = transform.position + desiredMove;
+        Vector3 newPos = cam.transform.position + desiredMove;
 
-        transform.position = newPos;
+        cam.transform.position = newPos;
 	}
 }
