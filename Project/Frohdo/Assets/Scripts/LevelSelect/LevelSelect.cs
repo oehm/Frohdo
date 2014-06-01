@@ -789,8 +789,10 @@ class StoryLevelObj : Levelobj
 
     public override void StartLevel()
     {
-        SceneManager.Instance.levelToLoad = new LevelAndType(respath, LevelLoader.LevelType.Story, thumbnail);
-        SceneManager.Instance.loadScene(SceneManager.Scene.Game);
+        if (DownloadLevelManager.Instance.GlobalStatus != DownloadLevelManager.DownloadStatus.Downloading) { 
+            SceneManager.Instance.levelToLoad = new LevelAndType(respath, LevelLoader.LevelType.Story, thumbnail);
+            SceneManager.Instance.loadScene(SceneManager.Scene.Game);
+        }
     }
 }
 class CustomLevelObj : Levelobj
@@ -828,8 +830,11 @@ class CustomLevelObj : Levelobj
 
     public override void StartLevel()
     {
-        SceneManager.Instance.levelToLoad = new LevelAndType(XMLPath.FullName, LevelLoader.LevelType.Custom, thumbnail);
-        SceneManager.Instance.loadScene(SceneManager.Scene.Game);
+        if (DownloadLevelManager.Instance.GlobalStatus != DownloadLevelManager.DownloadStatus.Downloading)
+        {
+            SceneManager.Instance.levelToLoad = new LevelAndType(XMLPath.FullName, LevelLoader.LevelType.Custom, thumbnail);
+            SceneManager.Instance.loadScene(SceneManager.Scene.Game);
+        }
     }
 }
 
@@ -875,8 +880,11 @@ class LocalLevelObj : Levelobj //already on disk
 
     public override void StartLevel()
     {
-        SceneManager.Instance.levelToLoad = new LevelAndType(XMLPath.FullName, LevelLoader.LevelType.Normal, thumbnail);
-        SceneManager.Instance.loadScene(SceneManager.Scene.Game);
+        if (DownloadLevelManager.Instance.GlobalStatus != DownloadLevelManager.DownloadStatus.Downloading)
+        {
+            SceneManager.Instance.levelToLoad = new LevelAndType(XMLPath.FullName, LevelLoader.LevelType.Normal, thumbnail);
+            SceneManager.Instance.loadScene(SceneManager.Scene.Game);
+        }
     }
 }
 
@@ -985,8 +993,11 @@ class OnlineLevelObj : Levelobj //online - not downloaded
 
     public override void StartLevel()
     {
-        SceneManager.Instance.levelToLoad = new LevelAndType(localReservedUrlForDownload, LevelLoader.LevelType.Normal, thumbnail);
-        SceneManager.Instance.loadScene(SceneManager.Scene.Game);
+        if (DownloadLevelManager.Instance.GlobalStatus != DownloadLevelManager.DownloadStatus.Downloading)
+        {
+            SceneManager.Instance.levelToLoad = new LevelAndType(localReservedUrlForDownload, LevelLoader.LevelType.Normal, thumbnail);
+            SceneManager.Instance.loadScene(SceneManager.Scene.Game);
+        }
     }
 }
 
