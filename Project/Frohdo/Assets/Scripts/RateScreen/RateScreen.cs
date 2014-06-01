@@ -197,31 +197,41 @@ public class RateScreen : MonoBehaviour {
 
     void drawCustomLevelGuiLeftMainbody()
     {
+        drawCurScore();
+    }
+    void drawPlaylistLevelGuiLeftMainbody()
+    {
+        drawCurScore();
     }
 
     void drawStoryLevelGuiLeftMainbody()
     {
+        drawCurScore();
+    }
+
+    void drawCurScore()
+    {
         GUILayout.BeginHorizontal();
 
-            GUILayout.FlexibleSpace();
+        GUILayout.FlexibleSpace();
 
-                GUILayout.BeginVertical();
+        GUILayout.BeginVertical();
 
-                    GUILayout.BeginHorizontal();
+        GUILayout.BeginHorizontal();
 
-                        GUILayout.Label("Time: " + timeCount_);
+        GUILayout.Label("Time: " + timeCount_);
 
-                    GUILayout.EndHorizontal();
+        GUILayout.EndHorizontal();
 
-                    GUILayout.BeginHorizontal();
+        GUILayout.BeginHorizontal();
 
-                        GUILayout.Label("Pukes: " + pukeCount_);
+        GUILayout.Label("Pukes: " + pukeCount_);
 
-                    GUILayout.EndHorizontal();
+        GUILayout.EndHorizontal();
 
-                GUILayout.EndVertical();
+        GUILayout.EndVertical();
 
-            GUILayout.FlexibleSpace();
+        GUILayout.FlexibleSpace();
 
         GUILayout.EndHorizontal();
     }
@@ -240,11 +250,6 @@ public class RateScreen : MonoBehaviour {
     void drawPlaylistLevelGuiRightHalf()
     {
         drawHighlights();
-    }
-
-    void drawPlaylistLevelGuiLeftMainbody()
-    {
-
     }
 
     void drawCustomLevelButtons()
@@ -322,7 +327,10 @@ public class RateScreen : MonoBehaviour {
 
     void drawPlaylistLevelButtons()
     {
-
+        if (GUILayout.Button("continue", "ButtonDoubleWidth"))
+        {
+            SceneManager.Instance.loadScene(SceneManager.Scene.LevelSelect);
+        }
     }
 
     int nfmod(int a, int b)
@@ -350,7 +358,7 @@ public class RateScreen : MonoBehaviour {
             GUI.enabled = false;
         }
 
-        if (GUILayout.Button("<", "ForwardBackwardButton")) thumbtoShow = nfmod(thumbtoShow + 1, ScreenShotManager.Instance.screenshotcount);
+        if (GUILayout.Button("<", "ForwardBackwardButton")) thumbtoShow = nfmod(thumbtoShow -1, ScreenShotManager.Instance.screenshotcount);
 
         GUILayout.FlexibleSpace();
 
@@ -371,7 +379,7 @@ public class RateScreen : MonoBehaviour {
 
         GUILayout.FlexibleSpace();
 
-        if (GUILayout.Button(">", "ForwardBackwardButton")) thumbtoShow = nfmod(thumbtoShow - 1, ScreenShotManager.Instance.screenshotcount);
+        if (GUILayout.Button(">", "ForwardBackwardButton")) thumbtoShow = nfmod(thumbtoShow + 1, ScreenShotManager.Instance.screenshotcount);
 
         GUI.enabled = true;
 
