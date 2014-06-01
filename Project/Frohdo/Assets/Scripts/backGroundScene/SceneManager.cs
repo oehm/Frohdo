@@ -34,7 +34,7 @@ public class SceneManager : MonoBehaviour
     {
         if (instance != null)
         {
-            Destroy(this);
+            Destroy(gameObject);
         }
         instance = this;
 
@@ -53,6 +53,7 @@ public class SceneManager : MonoBehaviour
             //Debug.Log(async.progress * 100.0f);
             if(async.isDone)
             {
+                PageFlipController.Instance.endFlip();
                 loading = false;
             }
         }
@@ -68,7 +69,8 @@ public class SceneManager : MonoBehaviour
             loginSceneDestroyer.GetComponent<SceneDestroyer>().suicide();
         }
 
-        async = Application.LoadLevelAdditiveAsync((int)nextScene);        
+        PageFlipController.Instance.startFlip();
+        async = Application.LoadLevelAdditiveAsync((int)nextScene);
         destroyer.suicide();
         curscene = nextScene;
         savedSceneWhenInLoginScene = nextScene;

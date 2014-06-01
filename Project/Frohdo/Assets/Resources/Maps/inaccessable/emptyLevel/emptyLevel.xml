@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<Level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <BackgroundColor>W</BackgroundColor>
+  <Layers>
+    <Layer LayerID="0">
+      <LevelObjects />
+    </Layer>
+    <Layer LayerID="1">
+      <LevelObjects>
+      </LevelObjects>
+    </Layer>
+    <Layer LayerID="2">
+    </Layer>
+    <Layer LayerID="3">
+      <LevelObjects>
+      </LevelObjects>
+    </Layer>
+  </Layers>
+</Level>

@@ -14,6 +14,7 @@ MonoBehaviour:
   animationTime: .5
   pukeTime: .5
   mainCamerZ: -10
+  mainCamerFOV: 70
   layerZPos:
   - 0
   - 0

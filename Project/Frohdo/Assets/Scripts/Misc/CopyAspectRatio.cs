@@ -16,13 +16,14 @@ public class CopyAspectRatio : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if ((Screen.height != lastScreenHeight) || (Screen.width != lastScreenWidth) || (Screen.fullScreen != lastfullscreen))
+        if ((Screen.height != lastScreenHeight) || (Screen.width != lastScreenWidth) || (Screen.fullScreen != lastfullscreen || camera.fieldOfView != mainCamera_.fieldOfView))
         {
             lastScreenWidth = Screen.width;
             lastScreenHeight = Screen.height;
             lastfullscreen = Screen.fullScreen;
             camera.rect = mainCamera_.rect;
             camera.aspect = mainCamera_.aspect;
+            camera.fieldOfView = mainCamera_.fieldOfView;
         }
 	}
 

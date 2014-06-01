@@ -44,7 +44,9 @@ public class StateManager : MonoBehaviour
         conditions.Add(conditionCharacterSet);
         conditionVarnishable = new SCondition_Varnishable();
     }
-    void Start()
+
+
+    public void init()
     {
         updateLayer(currentLayer);
         conditionCharacterSet.playLayer = layers[GlobalVars.Instance.playLayer];
