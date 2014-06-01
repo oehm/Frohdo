@@ -89,7 +89,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(707, 20);
             this.textBox1.TabIndex = 4;
-            this.textBox1.Text = "http://community.mediacube.at/uploads/public/";
+            this.textBox1.Text = "http://community.mediacube.at/uploads/public/Patches/";
             // 
             // label1
             // 
