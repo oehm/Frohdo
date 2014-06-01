@@ -474,7 +474,7 @@ public class LevelSelect : MonoBehaviour {
                             {
                                 if (selectedLevelid == levels[i].id)
                                 {
-                                    if (levels[i].GetType() == typeof(OnlineLevelObj))
+                                    if (levels[i].GetType() == typeof(OnlineLevelObj) && !((OnlineLevelObj)levels[i]).alreadydownloaded)
                                     {
                                         GUI.enabled = false;
                                         GUILayout.Button("<color=" + buttonDisabledColorHexString + ">" + levels[i].name + "-" + ((OnlineLevelObj)levels[i]).creatorNickname + "</color>", "button");
@@ -895,7 +895,7 @@ class OnlineLevelObj : Levelobj //online - not downloaded
     private string localReservedUrlForDownload;
     private string localReservedThumbUrlForDownload;
 
-    bool alreadydownloaded = false;
+    public bool alreadydownloaded = false;
 
     public void init(int id, string onlinehash)
     {
