@@ -31,12 +31,6 @@ public class Gui_MainMenu : MonoBehaviour
         {
             SceneManager.Instance.loadScene(SceneManager.Scene.LevelSelect);
         }
-        if (GUILayout.Button("LevelEditorScene", mainStyle.button))
-        {
-            SceneManager.Instance.levelToLoad = new LevelAndType( "Maps/inaccessable/emptyLevel/emptyLevel", LevelLoader.LevelType.Story);
-            SceneManager.Instance.loadLevelToEdit = true;
-            SceneManager.Instance.loadScene(SceneManager.Scene.Editor);
-        }
         if (GUILayout.Button("Options", mainStyle.button))
         {
             SceneManager.Instance.loadScene(SceneManager.Scene.Options);

@@ -74,7 +74,7 @@ MonoBehaviour:
   m_button:
     m_Name: button
     m_Normal:
-      m_Background: {fileID: 2800000, guid: 5fa40c2b92819496aa1797691453a686, type: 3}
+      m_Background: {fileID: 2800000, guid: 75b0ee33acf6c7144a56273339ba7ff2, type: 3}
       m_TextColor: {r: .213235319, g: .213235319, b: .213235319, a: 1}
     m_Hover:
       m_Background: {fileID: 2800000, guid: 75b0ee33acf6c7144a56273339ba7ff2, type: 3}
@@ -1427,7 +1427,7 @@ MonoBehaviour:
     m_StretchHeight: 0
   - m_Name: HalfBox
     m_Normal:
-      m_Background: {fileID: 2800000, guid: f174d0b21eea2f9499b8cd358a49c80d, type: 3}
+      m_Background: {fileID: 2800000, guid: 75b0ee33acf6c7144a56273339ba7ff2, type: 3}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Hover:
       m_Background: {fileID: 2800000, guid: 75b0ee33acf6c7144a56273339ba7ff2, type: 3}

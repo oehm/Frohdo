@@ -54,14 +54,14 @@ public class LevelSelect : MonoBehaviour {
                 DownloadPlaylistScriptManager.Instance.GlobalStatus != DownloadPlaylistScriptManager.DownloadStatus.Downloading)
             {
                 selectedLevelid = -1;
+                LevelMaxPages = (levels.Count - 1) / LevelsToShow + 1;
                 switch (regsiterToShow)
                 {
-                    case 0: loadCustomLevels(); break;
+                    case 0: loadCustomLevels(); LevelMaxPages = levels.Count / LevelsToShow + 1; break;
                     case 1: loadOnlineLevelList(); break;
                     case 2: loadLocalLevelList(); break;
                     case 3: loadStoryLevels(); break;
                 }
-                LevelMaxPages = (levels.Count - 1) / LevelsToShow + 1;
                 LevelsCurPage = 0;
             }
         }
@@ -459,7 +459,18 @@ public class LevelSelect : MonoBehaviour {
                         GUILayout.BeginVertical("levelselectbox");
                         if (levels != null && levels.Count != 0)
                         {
-                            for (int i = LevelsToShow * LevelsCurPage; i < levels.Count; i++)
+                            int l2s = LevelsToShow;
+                            if (regsiterToShow == 0)
+                            {
+                                if (GUILayout.Button("Create new Level", "button"))
+                                {
+                                    SceneManager.Instance.levelToLoad = new LevelAndType("Maps/inaccessable/emptyLevel/emptyLevel", LevelLoader.LevelType.Story);
+                                    SceneManager.Instance.loadLevelToEdit = true;
+                                    SceneManager.Instance.loadScene(SceneManager.Scene.Editor);
+                                }
+                                l2s = LevelsToShow - 1;
+                            }
+                            for (int i = l2s * LevelsCurPage; i < levels.Count && i < l2s * LevelsCurPage + l2s; i++)
                             {
                                 if (selectedLevelid == levels[i].id)
                                 {
