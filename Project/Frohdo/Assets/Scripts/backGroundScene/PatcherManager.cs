@@ -51,6 +51,8 @@ public class PatcherManager : MonoBehaviour
         if (UnityEngine.Debug.isDebugBuild) localDir = appPath + @"\..\..\";
         else localDir = appPath;
 
+        Debug.LogError(localDir);
+
         if (!localDir.EndsWith(Path.DirectorySeparatorChar.ToString()))
         {
             localDir += Path.DirectorySeparatorChar;
@@ -81,7 +83,7 @@ public class PatcherManager : MonoBehaviour
         if (UnityEngine.Debug.isDebugBuild)
         {
             Debug.Log("PATCHER INACTIVE IN DEBUG MODUS!");
-            _globalStatus = PatcherStatus.Patching;
+            _globalStatus = PatcherStatus.Patched;
         }
         else
         {
