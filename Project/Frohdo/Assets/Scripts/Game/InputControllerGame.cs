@@ -44,7 +44,7 @@ public class InputControllerGame : MonoBehaviour
 
         if (Input.GetButton("ScreenShot"))
         {
-             ScreenShotManager.Instance.takeScreenShot(ScreenShotManager.Instance.getScreenShotFolderPath());
+             ScreenShotManager.Instance.takeScreenShot(false ,ScreenShotManager.Instance.getScreenShotFolderPath());
         }
     }
 }

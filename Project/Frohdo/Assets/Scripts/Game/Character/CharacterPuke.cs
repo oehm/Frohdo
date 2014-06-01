@@ -92,7 +92,7 @@ public class CharacterPuke : MonoBehaviour
 
     private void Puke()
     {
-        ScreenShotManager.Instance.takeScreenShot();
+        ScreenShotManager.Instance.takeScreenShot(true);
 
         ScoreController.Instance.CountAPuke();
 

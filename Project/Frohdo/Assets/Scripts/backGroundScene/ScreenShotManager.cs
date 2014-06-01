@@ -2,6 +2,7 @@
 using System.Collections;
 using System.IO;
 using System.Collections.Generic;
+using System;
 
 public class ScreenShotManager : MonoBehaviour {
 
@@ -68,6 +69,7 @@ public class ScreenShotManager : MonoBehaviour {
 
     public void reset()
     {
+        StopCoroutine("ScreenShotCoroutine");
         screens.Clear();
         renderedscreens.Clear();
         alreadysavedscreens.Clear();
@@ -75,101 +77,106 @@ public class ScreenShotManager : MonoBehaviour {
         manuallyaddedScreens = 0;
     }
 	
-	public void takeScreenShot(string path = null)
+	public void takeScreenShot(bool delay, string path = null)
     {
-        StartCoroutine(ScreenShotCoroutine(path));        
+        ScreenShotCoroutineObj o = new ScreenShotCoroutineObj(delay, path);
+        StartCoroutine("ScreenShotCoroutine", o);
     }
     public bool isThumbnail(int index)//returns if given texture is thumbnail of current level (if the thumb got added with addCurrentHumb function)
     {
         return index < manuallyaddedScreens;
     }
 
-    private IEnumerator ScreenShotCoroutine(string path)
+    private IEnumerator ScreenShotCoroutine(ScreenShotCoroutineObj o)
     {
-        yield return new WaitForSeconds(0.1f);
-        bool automaticScreen = path == null ? true : false; //if path is null .. then it is a custom level screenshot and we save it to a list.
-        if (path == null)
+        try
         {
-            path = SceneManager.Instance.levelToLoad.thumbpath;
-        }
-        else
-        {
-            System.IO.Directory.CreateDirectory(Path.GetDirectoryName(path));
-        }
-
-        if (automaticScreen) yield return new WaitForSeconds(Random.Range(0.1f, 0.3f)); //delay on automatic screenshots.. for better pictures. ;)
-        Debug.Log("Screen!");
-        //texture = new Texture2D(imgWidth, imgHeight);
-        renderTexture = new RenderTexture(imgWidth, imgHeight, 32);
-
-        Camera[] cams = GameObject.Find("SceneObjects").GetComponentsInChildren<Camera>();
-        Camera[] camsSorted = new Camera[cams.Length];
-
-        //force draw of character
-        GameObject character = GameObject.Find("Character");
-        if (character != null)
-        {
-            Animator animator = character.GetComponentInChildren<Animator>();
-            if (animator != null)
+            yield return new WaitForSeconds(0.1f);
+            bool automaticScreen = o.path == null ? true : false; //if path is null .. then it is a custom level screenshot and we save it to a list.
+            if (o.path == null)
             {
-                animator.Update(0.1f);
+                o.path = SceneManager.Instance.levelToLoad.thumbpath;
             }
-        }
-
-        //sort Cameras so later camera with least depth get rendered first
-        float lastDepth = 999.0f;
-        float minDepth = -99.0f;
-        Camera minDepthCam = null;
-
-        for (int i = 0; i < cams.Length; i++)
-        {
-            foreach (Camera c in cams)
+            else
             {
-                if (c.depth < lastDepth && c.depth > minDepth)
+                System.IO.Directory.CreateDirectory(Path.GetDirectoryName(o.path));
+            }
+
+            if (automaticScreen && o.delay) yield return new WaitForSeconds(Random.Range(0.1f, 0.3f)); //delay on automatic screenshots.. for better pictures. ;)
+            Debug.Log("Screen!");
+            //texture = new Texture2D(imgWidth, imgHeight);
+            renderTexture = new RenderTexture(imgWidth, imgHeight, 32);
+
+            Camera[] cams = GameObject.Find("SceneObjects").GetComponentsInChildren<Camera>();
+            Camera[] camsSorted = new Camera[cams.Length];
+
+            //force draw of character
+            GameObject character = GameObject.Find("Character");
+            if (character != null)
+            {
+                Animator animator = character.GetComponentInChildren<Animator>();
+                if (animator != null)
                 {
-                    lastDepth = c.depth;
-                    minDepthCam = c;
+                    animator.Update(0.1f);
                 }
             }
-            minDepth = minDepthCam.depth;
-            camsSorted[i] = minDepthCam;
-            lastDepth = 999.0f;
-        }
 
-        //Render all cams in the same texture. Take the sorted cameras so the kind of z-order is right
-        RenderTexture.active = renderTexture;
-        for (int i = 0; i < cams.Length; i++)
-        {
-            CopyAspectRatio camAspect = camsSorted[i].gameObject.GetComponentInChildren<CopyAspectRatio>();
-            if (camAspect)
+            //sort Cameras so later camera with least depth get rendered first
+            float lastDepth = 999.0f;
+            float minDepth = -99.0f;
+            Camera minDepthCam = null;
+
+            for (int i = 0; i < cams.Length; i++)
             {
-                //Force Update so Aspect ratio is correct!
-                camAspect.forceUpdate();
+                foreach (Camera c in cams)
+                {
+                    if (c.depth < lastDepth && c.depth > minDepth)
+                    {
+                        lastDepth = c.depth;
+                        minDepthCam = c;
+                    }
+                }
+                minDepth = minDepthCam.depth;
+                camsSorted[i] = minDepthCam;
+                lastDepth = 999.0f;
             }
 
-            camsSorted[i].targetTexture = renderTexture;
+            //Render all cams in the same texture. Take the sorted cameras so the kind of z-order is right
+            RenderTexture.active = renderTexture;
+            for (int i = 0; i < cams.Length; i++)
+            {
+                CopyAspectRatio camAspect = camsSorted[i].gameObject.GetComponentInChildren<CopyAspectRatio>();
+                if (camAspect)
+                {
+                    //Force Update so Aspect ratio is correct!
+                    camAspect.forceUpdate();
+                }
 
-            //set camera rect back to normal for rendering into texture
-            Rect oldRect = camsSorted[i].rect;
-            camsSorted[i].rect = new Rect(0.0f, 0.0f, 1.0f, 1.0f);
+                camsSorted[i].targetTexture = renderTexture;
 
-            camsSorted[i].Render();
-            //set camerta rect back to old value
-            camsSorted[i].rect = oldRect;
+                //set camera rect back to normal for rendering into texture
+                Rect oldRect = camsSorted[i].rect;
+                camsSorted[i].rect = new Rect(0.0f, 0.0f, 1.0f, 1.0f);
 
-            camsSorted[i].targetTexture = null;
+                camsSorted[i].Render();
+                //set camerta rect back to old value
+                camsSorted[i].rect = oldRect;
+
+                camsSorted[i].targetTexture = null;
+            }
+            RenderTexture.active = null;
+
+            if (automaticScreen)
+            {
+                screens.Add(renderTexture);
+                screenshotcount++;
+            }
+            else
+            {
+                saveScreenshot(renderTexture, o.path);
+            }
         }
-        RenderTexture.active = null;
-
-        if (automaticScreen)
-        {
-            screens.Add(renderTexture);
-            screenshotcount++;
-        }
-        else
-        {
-            saveScreenshot(renderTexture, path);
-        }
+        catch (NullReferenceException) { }
     }
 
     public void saveScreenshot(RenderTexture screen, string path = null)
@@ -205,5 +212,16 @@ public class ScreenShotManager : MonoBehaviour {
     public bool GotThumbAlreadySaved(int index)
     {
         return alreadysavedscreens.Contains(index);
+    }
+}
+
+class ScreenShotCoroutineObj
+{
+    public bool delay;
+    public string path = null;
+    public ScreenShotCoroutineObj(bool delay, string path = null)
+    {
+        this.delay = delay;
+        this.path = path;
     }
 }
