@@ -91,8 +91,8 @@ public class ScreenShotManager : MonoBehaviour {
             System.IO.Directory.CreateDirectory(Path.GetDirectoryName(path));
         }
 
-        if (automaticScreen) yield return new WaitForSeconds(Random.Range(0.2f, 0.6f)); //delay on automatic screenshots.. for better pictures. ;)
-
+        if (automaticScreen) yield return new WaitForSeconds(Random.Range(0.1f, 0.3f)); //delay on automatic screenshots.. for better pictures. ;)
+        Debug.Log("Screen!");
         //texture = new Texture2D(imgWidth, imgHeight);
         renderTexture = new RenderTexture(imgWidth, imgHeight, 32);
 
