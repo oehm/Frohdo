@@ -24,6 +24,7 @@ public class ScreenShotManager : MonoBehaviour {
 
     private List<RenderTexture> screens = new List<RenderTexture>();
     private Hashtable renderedscreens = new Hashtable();
+    private List<int> alreadysavedscreens = new List<int>();
     
     //private Texture2D texture;
     private RenderTexture renderTexture;
@@ -69,6 +70,7 @@ public class ScreenShotManager : MonoBehaviour {
     {
         screens.Clear();
         renderedscreens.Clear();
+        alreadysavedscreens.Clear();
         screenshotcount = 0;
         manuallyaddedScreens = 0;
     }
@@ -76,6 +78,10 @@ public class ScreenShotManager : MonoBehaviour {
 	public void takeScreenShot(string path = null)
     {
         StartCoroutine(ScreenShotCoroutine(path));        
+    }
+    public bool isThumbnail(int index)//returns if given texture is thumbnail of current level (if the thumb got added with addCurrentHumb function)
+    {
+        return index < manuallyaddedScreens;
     }
 
     private IEnumerator ScreenShotCoroutine(string path)
@@ -179,5 +185,25 @@ public class ScreenShotManager : MonoBehaviour {
         RenderTexture.active = null;
         byte[] bytes = texture.EncodeToPNG();
         File.WriteAllBytes(path, bytes);
+    }
+
+    public void saveScreenshot(int index, string path = null)
+    {
+        if (path == null) path = SceneManager.Instance.levelToLoad.thumbpath;
+        byte[] bytes = getScreenShot(index).EncodeToPNG();
+        File.WriteAllBytes(path, bytes);
+        alreadysavedscreens.Add(index);
+    }
+
+    public string getScreenShotFolderPath()
+    {
+        System.DateTime time = System.DateTime.Now;
+        string timeAndDate = time.DayOfYear.ToString() + "_" + time.Year.ToString() + "_" + time.Hour.ToString() + "_" + time.Minute.ToString() + "_" + time.Second.ToString();
+        return Application.dataPath + "/Screenshots/ScreenShot_" + timeAndDate + ".png";
+    }
+
+    public bool GotThumbAlreadySaved(int index)
+    {
+        return alreadysavedscreens.Contains(index);
     }
 }

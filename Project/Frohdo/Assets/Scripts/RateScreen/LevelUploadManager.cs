@@ -20,6 +20,8 @@ public class LevelUploadManager : MonoBehaviour
     public string UploadProgress;
     private bool everythingPreparedForUpload;
 
+    private Texture2D thumb;
+
     public LevelUploadStatus GlobalStatus { get { return _globalStatus; } }
 
     //public HashEqualsStatus GlobalHashStatus { get { return _globalHashStatus; } }
@@ -117,21 +119,21 @@ public class LevelUploadManager : MonoBehaviour
             _globalStatus = LevelUploadStatus.FailedOnUpload;
             yield break;
         }
-        UploadProgress = " (Loading Thumbnail)";
-        WWW thumbnail = new WWW("file:///" + SceneManager.Instance.levelToLoad.thumbpath);
-        yield return xmlFile;
-        if (thumbnail.error != null && !thumbnail.error.Equals(""))
-        {
-            Debug.Log("No thumb found!");
-            _globalStatus = LevelUploadStatus.FailedOnUpload;
-            yield break;
-        }
+        //UploadProgress = " (Loading Thumbnail)";
+        //WWW thumbnail = new WWW("file:///" + SceneManager.Instance.levelToLoad.thumbpath);
+        //yield return xmlFile;
+        //if (thumbnail.error != null && !thumbnail.error.Equals(""))
+        //{
+        //    Debug.Log("No thumb found!");
+        //    _globalStatus = LevelUploadStatus.FailedOnUpload;
+        //    yield break;
+        //}
 
         if (_globalStatus != LevelUploadStatus.FailedOnUpload)
         {            
             Hashtable requHeaders = new Hashtable();
             form.AddBinaryData("level[urlXML]", xmlFile.bytes, SceneManager.Instance.levelToLoad.LevelTitle + ".xml", "text/xml");
-            form.AddBinaryData("level[urlThumbnail]", thumbnail.bytes, SceneManager.Instance.levelToLoad.LevelTitle + "_thumb.png", "image/png");
+            form.AddBinaryData("level[urlThumbnail]", thumb.EncodeToPNG(), SceneManager.Instance.levelToLoad.LevelTitle + "_thumb.png", "image/png");
 
             foreach (string ke in form.headers.Keys)
             {
@@ -182,10 +184,13 @@ public class LevelUploadManager : MonoBehaviour
         everythingPreparedForUpload = false;
     }
 
-    public void StartUploadLevel()
+    public void StartUploadLevel(Texture2D thumb)
     {
         if (NetworkManager.Instance.GlobalStatus == NetworkManager.LoginStatus.LoggedIn && _globalStatus == LevelUploadStatus.ReadyForUpload)
+        {
+            this.thumb = thumb;
             _globalStatus = LevelUploadStatus.Uploading;
+        }
     }
 
     private void checkHashOfLevel()

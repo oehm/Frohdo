@@ -44,17 +44,7 @@ public class InputControllerGame : MonoBehaviour
 
         if (Input.GetButton("ScreenShot"))
         {
-            if (SceneManager.Instance.levelToLoad.type == LevelLoader.LevelType.Custom)
-            {
-                ScreenShotManager.Instance.takeScreenShot();
-            }
-            else
-            {
-                System.DateTime time = System.DateTime.Now;
-                string timeAndDate = time.DayOfYear.ToString() + "_" + time.Year.ToString() + "_" + time.Hour.ToString() + "_" + time.Minute.ToString() + "_" + time.Second.ToString();
-                string path = Application.dataPath + "/Screenshots/ScreenShot_" + timeAndDate + ".png";
-                ScreenShotManager.Instance.takeScreenShot(path);
-            }
+             ScreenShotManager.Instance.takeScreenShot(ScreenShotManager.Instance.getScreenShotFolderPath());
         }
     }
 }

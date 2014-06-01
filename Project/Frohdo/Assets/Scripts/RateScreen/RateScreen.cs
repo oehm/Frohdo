@@ -93,6 +93,11 @@ public class RateScreen : MonoBehaviour {
         style.customStyles[10].fixedHeight = screenHeight * 0.1f;
         style.customStyles[10].fontSize = (int)(screenHeight * 0.065f);
 
+        //save screen button
+        style.customStyles[11].fontSize = (int)((screenHeight / 12) * 0.7);
+        style.customStyles[11].fixedWidth = screenWidth / 8;
+        style.customStyles[11].fixedHeight = screenHeight / 8;
+
         GUI.skin = style;
         GUILayout.BeginArea(new Rect(ForceAspectRatio.xOffset, ForceAspectRatio.yOffset, screenWidth, screenHeight), "", style.customStyles[0]);
 
@@ -228,6 +233,7 @@ public class RateScreen : MonoBehaviour {
 
     void drawCustomLevelGuiRightHalf()
     {
+        GUILayout.Label("Note: On upload, the currently shown Screen is taken as Thumbnail.", "CenterAlignLabelDoubleWidth");
         drawHighlights();
     }
 
@@ -270,7 +276,7 @@ public class RateScreen : MonoBehaviour {
             case LevelUploadManager.LevelUploadStatus.ReadyForUpload:
                 if (GUILayout.Button("Upload Level", style.button))
                 {
-                    LevelUploadManager.Instance.StartUploadLevel();
+                    LevelUploadManager.Instance.StartUploadLevel(ScreenShotManager.Instance.getScreenShot(thumbtoShow));
                 }
                 break;
 
@@ -280,6 +286,7 @@ public class RateScreen : MonoBehaviour {
 
             case LevelUploadManager.LevelUploadStatus.FinishedUploadSuccessful:
                 GUILayout.Label("Upload Finished Successfully", style.label);
+                ScreenShotManager.Instance.saveScreenshot(thumbtoShow);
                 break;
 
             case LevelUploadManager.LevelUploadStatus.FailedOnMD5Check:
@@ -293,7 +300,7 @@ public class RateScreen : MonoBehaviour {
             case LevelUploadManager.LevelUploadStatus.FailedOnUpload:
                 if (GUILayout.Button("Retry", style.button))
                 {
-                    LevelUploadManager.Instance.StartUploadLevel();
+                    LevelUploadManager.Instance.StartUploadLevel(ScreenShotManager.Instance.getScreenShot(thumbtoShow));
                 }
                 GUILayout.Label("Something went wrong while uploading!", style.label);
                 break;
@@ -343,11 +350,24 @@ public class RateScreen : MonoBehaviour {
             GUI.enabled = false;
         }
 
-        if (GUILayout.Button("<", "ForwardBackwardButton")) thumbtoShow = nfmod(thumbtoShow - 1, ScreenShotManager.Instance.screenshotcount);
+        if (GUILayout.Button("<", "ForwardBackwardButton")) thumbtoShow = nfmod(thumbtoShow + 1, ScreenShotManager.Instance.screenshotcount);
 
         GUILayout.FlexibleSpace();
 
-        GUILayout.Label("Thumbnail", "CenterAlignLabel");
+        if(ScreenShotManager.Instance.isThumbnail(thumbtoShow))
+            GUILayout.Label("Thumbnail", "CenterAlignLabel");
+        else
+        {
+            if(ScreenShotManager.Instance.GotThumbAlreadySaved(thumbtoShow))
+            {
+                GUILayout.Label("saved", "CenterAlignLabel");
+            }else{
+                if (GUILayout.Button("Save screen", "SaveScreenButton"))
+                {
+                    ScreenShotManager.Instance.saveScreenshot(thumbtoShow, ScreenShotManager.Instance.getScreenShotFolderPath());
+                }
+            }
+        }
 
         GUILayout.FlexibleSpace();
 
