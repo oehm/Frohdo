@@ -16,6 +16,8 @@ public class ScreenShotManager : MonoBehaviour {
             return instance;
         }
     }
+    public GameObject camera;
+
 
     public int imgWidth;
     public int imgHeight;
@@ -107,7 +109,7 @@ public class ScreenShotManager : MonoBehaviour {
             //texture = new Texture2D(imgWidth, imgHeight);
             renderTexture = new RenderTexture(imgWidth, imgHeight, 32);
 
-            Camera[] cams = GameObject.Find("SceneObjects").GetComponentsInChildren<Camera>();
+            Camera[] cams = camera.GetComponentsInChildren<Camera>();
             Camera[] camsSorted = new Camera[cams.Length];
 
             //force draw of character
