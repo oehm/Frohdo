@@ -92,6 +92,8 @@ public class CharacterPuke : MonoBehaviour
 
     private void Puke()
     {
+        ScreenShotManager.Instance.takeScreenShot(true);
+
         ScoreController.Instance.CountAPuke();
 
         GameObject pukeObject = (GameObject)Instantiate(pukePrefab_);

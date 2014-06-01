@@ -32,6 +32,7 @@ public class LevelLoader : MonoBehaviour
 
     private void LoadLevel(string path, bool editor, LevelType type)
     {
+        ScreenShotManager.Instance.reset(); //resets manager. removes all old screens from last level.. 
         LevelXML levelXML;
         Vector2 characterPos = new Vector2(0, 0);
         if (type == LevelType.Story)
@@ -121,18 +122,20 @@ public class LevelLoader : MonoBehaviour
             }
         }
 
+        if (SceneManager.Instance.levelToLoad.currentThumb != null) ScreenShotManager.Instance.addCurrentThumb(SceneManager.Instance.levelToLoad.currentThumb);
+
         if (!editor && type != LevelType.Story)
         {
             ScoreController.Instance.LevelHash = ScoreController.Instance.getMD5ofFile(path);
 
             //WWW thumbdownload = new WWW(SceneManager.Instance.levelToLoad.thumbpath);
 
-            if (type == LevelType.Custom && !File.Exists(SceneManager.Instance.levelToLoad.thumbpath))
+            if (type == LevelType.Custom && SceneManager.Instance.levelToLoad.currentThumb == null)
             //if ( thumbdownload.error != null && type == LevelType.Custom)
             {
                 //Debug.Log("Took Screenshot");
                 Camera.main.transform.position = new Vector3(characterPos.x, characterPos.y, GlobalVars.Instance.mainCamerZ);
-                ScreenShotManager.Instance.takeScreenShot();
+                ScreenShotManager.Instance.takeScreenShot(false);
             }
         }
     }

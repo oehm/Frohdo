@@ -6,6 +6,8 @@ public class GlobalVars : ScriptableObject
 {
     private static GlobalVars instance = null;
 
+    public GUISkin style;
+
     public static GlobalVars Instance
     {
         get
@@ -61,6 +63,8 @@ public class GlobalVars : ScriptableObject
     public string playlistUrl;
 
     public string AddToPlaylistUrl;
+
+    public bool PreventPatcherInBuild;
 
     void OnEnable()
     {

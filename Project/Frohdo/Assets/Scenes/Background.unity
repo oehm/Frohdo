@@ -1031,6 +1031,45 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 58695204}
+--- !u!1 &1053434820
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1053434822}
+  - 114: {fileID: 1053434821}
+  m_Layer: 0
+  m_Name: PatcherWarning
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1053434821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1053434820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de0c1d5d3b5696645ba7304c43c23b21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  style: {fileID: 11400000, guid: 175c842f18dd1a34da7b8eaf32dcbb8a, type: 2}
+--- !u!4 &1053434822
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1053434820}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -8.31642818, y: -9.37247276, z: 7.59621572}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
 --- !u!1 &1129471647
 GameObject:
   m_ObjectHideFlags: 0
@@ -1171,6 +1210,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   imgWidth: 1280
   imgHeight: 720
+  screenshotcount: 0
 --- !u!1001 &1368272278
 Prefab:
   m_ObjectHideFlags: 0
