@@ -63,15 +63,28 @@ public class State_ObjectSelected : Editor_State
         }
         //try to select sth
         Vector2 matIndex = EditorHelper.getMatIndex(EditorHelper.localMouseToLocalLayer(mousePos, GameObject.Find("SceneObjects").GetComponentsInChildren<Layer>()[manager.currentLayer].gameObject, true), Editor_Grid.Instance.planeSizes[manager.currentLayer]);
-        Debug.Log(matIndex);
+        //Debug.Log(matIndex);
         if (matIndex.x >= 0 && matIndex.y >= 0 && matIndex.x < Editor_Grid.Instance.planeSizes[manager.currentLayer].x && matIndex.y < Editor_Grid.Instance.planeSizes[manager.currentLayer].y)
         {
             GameObject select = Editor_Grid.Instance.levelGrid[manager.currentLayer][(int)matIndex.x][(int)matIndex.y];
             if (select != null)
             {
-                selected = select;
-                manager.selectedGui.obj = selected;
+                //if new selected object is the same object switch to state_move
+                if (select == selected)
+                {
+                    State_Move newState = new State_Move();
+                    newState.manager = manager;
+                    newState.objectToMove = selected;
+                    manager.changeState(newState);
+                }
+                // else just selected the new object
+                else
+                {
+                    selected = select;
+                    manager.selectedGui.obj = selected;
+                }
             }
+            //if nothing got selected with the click change to default state
             else if (!manager.guiController.mouseOnGui(mousePos))
             {
                 State_Default newState = new State_Default();
@@ -79,6 +92,8 @@ public class State_ObjectSelected : Editor_State
                 manager.changeState(newState);
             }
         }
+        // behaviour could be added if user did nether clikc on or gui nor on a plane to edit
+
         //else
         //{
         //    State_Default newState = new State_Default();
