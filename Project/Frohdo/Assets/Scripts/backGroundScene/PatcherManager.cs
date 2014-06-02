@@ -48,8 +48,10 @@ public class PatcherManager : MonoBehaviour
 
         string appPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 
-        if (UnityEngine.Debug.isDebugBuild) localDir = appPath + @"\..\..\test_Data";
-        else localDir = appPath + @"\..\";
+        if (UnityEngine.Debug.isDebugBuild) localDir = appPath + @"\..\..\";
+        else localDir = appPath + @"\..\..\";
+
+        //Debug.LogError(localDir);
 
         if (!localDir.EndsWith(Path.DirectorySeparatorChar.ToString()))
         {
@@ -135,7 +137,7 @@ public class PatcherManager : MonoBehaviour
 
         if (!Directory.Exists(localDir)) Directory.CreateDirectory(localDir);
 
-        //Debug.Log(localDir);
+        //Debug.LogError(localDir);
 
         DirectoryInfo dirInfo = new DirectoryInfo(localDir);
 
@@ -152,9 +154,11 @@ public class PatcherManager : MonoBehaviour
             curCheckedFile = s["name"].ToString();
             if (!s.Equals("output_log.txt")) //exclude output_log.txt
             {
+                //Debug.LogError(s["hashCode"]);
                 if (currentlyhave.Contains(s["name"].ToString()))
                 {
-                    if (!ScoreController.Instance.getMD5ofFile(localDir + s).Equals(s["hashCode"].ToString()))
+                    //Debug.LogError(localDir + s["urlLocalDir"].ToString().Substring(1));
+                    if (!ScoreController.Instance.getMD5ofFile(localDir + s["urlLocalDir"].ToString().Substring(1)).Equals(s["hashCode"].ToString()))
                     {
                         //Debug.Log("Files are not the same " + s["FileName"]);
                         toPatch.Add(s);
@@ -172,7 +176,7 @@ public class PatcherManager : MonoBehaviour
         {
             foreach (Hashtable s in toPatch)
             {
-                Debug.Log("toPatch: " + s["name"]);
+                //Debug.Log("toPatch: " + s["name"]);
             }
             _globalStatus = PatcherStatus.Unpatched;
         }
@@ -226,11 +230,11 @@ public class PatcherManager : MonoBehaviour
 
         foreach (Hashtable s in toPatch)
         {
-            parameter += "\"" + s["urlFiles"] + "\" \"" + s["urlLocalDir"] + s["name"] + "\" ";
+            parameter += "\"" + s["urlFiles"] + "\" \"" + s["urlLocalDir"] + "\" ";
         }
         Debug.Log(localDir + @"\..\Patcher.exe");
         Debug.Log(parameter);
-        System.Diagnostics.Process.Start(localDir + @"..\Patcher.exe", parameter);
+        System.Diagnostics.Process.Start(localDir + @"Patcher.exe", parameter);
         Application.Quit();
     }
 }

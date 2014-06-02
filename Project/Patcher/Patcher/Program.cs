@@ -20,6 +20,7 @@ namespace Patcher
                 {
                     DownloadFile f = new DownloadFile(args[i], args[i + 1]);
                     files.Add(f);
+                    //Console.WriteLine(args[i + 1]);
                 }
                     if (files.Count > 0)
                     {
@@ -28,7 +29,7 @@ namespace Patcher
 #if DEBUG
                         localPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\..\..\..\..\frohdo\";
 #else
-                    localPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\frohdo_Data\";
+                    localPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 #endif
 
                         Console.WriteLine(localPath);
@@ -42,6 +43,7 @@ namespace Patcher
                             try
                             {
                                 Console.WriteLine("Patching File: " + file.uri);
+                                //Console.WriteLine("Creating: " + localPath + " ---- " + file.relSavePath);
                                 byte[] data = client.DownloadData(file.uri);
                                 if (!Directory.Exists(Path.GetDirectoryName(localPath + file.relSavePath)))
                                 {
@@ -59,8 +61,7 @@ namespace Patcher
                         Console.Read();
                         try
                         {
-
-                            Process.Start(localPath + @"..\frohdo.exe");
+                            Process.Start(localPath + @"\frohdo.exe");
                         }
                         catch (Exception ex)
                         {
@@ -69,8 +70,6 @@ namespace Patcher
                             Console.Read();
                         }
                     }
-                Console.Read();
-                Console.Read();
             }
             catch (Exception e)
             {

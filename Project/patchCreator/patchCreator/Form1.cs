@@ -52,19 +52,19 @@ namespace patchCreator
 
                         TreeNode myNode = new TreeNode(substringDirectory);
 
-                        string[] fileArray = Directory.GetFiles(directory);
-
-                        foreach (string file in fileArray)
-                        {
-                            substringFile = file.Substring(file.LastIndexOf('\\') + 1, file.Length - file.LastIndexOf('\\') - 1);
-                            TreeNode fileNode = new TreeNode(substringFile);
-                            myNode.Nodes.Add(fileNode);
-                        }
-
                         parentNode.Nodes.Add(myNode);
 
                         PopulateTreeView(directory, myNode);
                     }
+                }
+
+                string[] fileArray = Directory.GetFiles(directoryValue);
+
+                foreach (string file in fileArray)
+                {
+                    substringFile = file.Substring(file.LastIndexOf('\\') + 1, file.Length - file.LastIndexOf('\\') - 1);
+                    TreeNode fileNode = new TreeNode(substringFile);
+                    parentNode.Nodes.Add(fileNode);
                 }
             }
             catch (UnauthorizedAccessException)
