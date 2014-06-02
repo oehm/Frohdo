@@ -67,7 +67,7 @@ public class StateManager : MonoBehaviour
 
     public void changeState(Editor_State newState)
     {
-        Debug.Log(newState.GetType());
+        //Debug.Log(newState.GetType());
         curState = newState;
         curState.init();
     }
