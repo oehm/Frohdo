@@ -11,6 +11,7 @@ public class State_Move : Editor_State {
     private Vector2 mousePos_;
     private Vector2 oldPos_;
     private Command_ChangePosition command_;
+    private int matLayer_;
 
     public void init()
     {
@@ -40,6 +41,7 @@ public class State_Move : Editor_State {
         }
         else
         {
+            Debug.Log("Mouse on gui stupid!");
             objectToMove.transform.localPosition = oldPos_;
         }
         State_ObjectSelected newState = new State_ObjectSelected();

@@ -15,6 +15,7 @@ public class Command_ChangePosition : Command
         newPos = newPos_;
         layerIndex_ = layerIndex;
         objToEdit_ = objToEdit;
+        Debug.Log(layerIndex);
     }
 
     public bool exectute()
@@ -24,11 +25,14 @@ public class Command_ChangePosition : Command
         {
             return false;
         }
+        //clear old position
         CommandHelper.setMatrixForceOverride(layerIndex_, oldPos_, grid, null);
+        //try inserting at new position
         if (CommandHelper.setMatrix(layerIndex_, newPos_, grid, objToEdit_))
         {
             return true;
         }
+        //In case of fail write the object back to old position
         else
         {
             CommandHelper.setMatrixForceOverride(layerIndex_, oldPos_, grid, objToEdit_);
