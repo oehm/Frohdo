@@ -7,7 +7,7 @@ public class SetUpManager : MonoBehaviour
     public GameObject layerPrefab_;
     public GameObject layerBgPrefab_;
 
-    public string savePath;
+    //public string savePath;
 
     public GUISkin skin;
 
@@ -17,7 +17,7 @@ public class SetUpManager : MonoBehaviour
 
     void Awake()
     {
-        LevelEditorParser.Instance.savePath = savePath;
+        //LevelEditorParser.Instance.savePath = savePath;
         LevelEditorParser.Instance.initEmpty();
 
         Editor_Grid.Instance.layerBg_pref = layerBgPrefab_;

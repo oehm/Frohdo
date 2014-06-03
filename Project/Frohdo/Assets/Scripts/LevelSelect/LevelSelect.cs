@@ -137,7 +137,7 @@ public class LevelSelect : MonoBehaviour {
 
         if (reloadLevels) return;
 
-        DirectoryInfo dinfo = new DirectoryInfo(Application.dataPath + @"\Levels\downloaded\");
+        DirectoryInfo dinfo = new DirectoryInfo(BuildManager.Instance.MapsPath + @"downloaded/");
 
         if (dinfo.Exists)
         {
@@ -267,7 +267,7 @@ public class LevelSelect : MonoBehaviour {
     {
         levels = new List<Levelobj>();
 
-        DirectoryInfo dinfo = new DirectoryInfo(Application.dataPath + @"\Levels\custom\");
+        DirectoryInfo dinfo = new DirectoryInfo(BuildManager.Instance.MapsPath + @"custom/");
 
         if (dinfo.Exists)
         {
@@ -457,19 +457,19 @@ public class LevelSelect : MonoBehaviour {
 
                     GUILayout.BeginVertical("box");
                         GUILayout.BeginVertical("levelselectbox");
+                        int l2s = LevelsToShow;
+                        if (regsiterToShow == 0)
+                        {
+                            if (GUILayout.Button("Create new Level", "button"))
+                            {
+                                SceneManager.Instance.levelToLoad = new LevelAndType("Maps/inaccessable/emptyLevel/emptyLevel", LevelLoader.LevelType.Story);
+                                SceneManager.Instance.loadLevelToEdit = true;
+                                SceneManager.Instance.loadScene(SceneManager.Scene.Editor);
+                            }
+                            l2s = LevelsToShow - 1;
+                        }
                         if (levels != null && levels.Count != 0)
                         {
-                            int l2s = LevelsToShow;
-                            if (regsiterToShow == 0)
-                            {
-                                if (GUILayout.Button("Create new Level", "button"))
-                                {
-                                    SceneManager.Instance.levelToLoad = new LevelAndType("Maps/inaccessable/emptyLevel/emptyLevel", LevelLoader.LevelType.Story);
-                                    SceneManager.Instance.loadLevelToEdit = true;
-                                    SceneManager.Instance.loadScene(SceneManager.Scene.Editor);
-                                }
-                                l2s = LevelsToShow - 1;
-                            }
                             for (int i = l2s * LevelsCurPage; i < levels.Count && i < l2s * LevelsCurPage + l2s; i++)
                             {
                                 if (selectedLevelid == levels[i].id)
@@ -985,8 +985,8 @@ class OnlineLevelObj : Levelobj //online - not downloaded
         this.currentUserIsCreator = currentUserIsCreator;
         this.creatorNickname = creatorNickname;
 
-        this.localReservedUrlForDownload = Application.dataPath + @"\Levels\downloaded\" + name + "-" + creatorNickname + @"\" + name + "-" + creatorNickname + ".xml";
-        this.localReservedThumbUrlForDownload = Application.dataPath + @"\Levels\downloaded\" + name + "-" + creatorNickname + @"\" + name + "-" + creatorNickname + "_thumb.png";
+        this.localReservedUrlForDownload = BuildManager.Instance.MapsPath + @"/ownloaded/" + name + "-" + creatorNickname + @"/" + name + "-" + creatorNickname + ".xml";
+        this.localReservedThumbUrlForDownload = BuildManager.Instance.MapsPath + @"/ownloaded/" + name + "-" + creatorNickname + @"/" + name + "-" + creatorNickname + "_thumb.png";
 
         alreadydownloaded = File.Exists(localReservedUrlForDownload) && File.Exists(localReservedThumbUrlForDownload);
     }

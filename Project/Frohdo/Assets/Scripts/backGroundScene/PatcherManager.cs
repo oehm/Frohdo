@@ -46,12 +46,11 @@ public class PatcherManager : MonoBehaviour
         instance = this;
         _globalStatus = PatcherStatus.Unchecked;
 
-        string appPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+        localDir = BuildManager.Instance.PathForPatcher;
 
-        if (UnityEngine.Debug.isDebugBuild) localDir = appPath + @"\..\..\";
-        else localDir = appPath + @"\..\..\";
-
-        //Debug.LogError(localDir);
+        Debug.LogError("Patcher: " + localDir);
+        Debug.LogError("Maps: " + BuildManager.Instance.MapsPath);
+        Debug.LogError("Data: " + BuildManager.Instance.DataPath);
 
         if (!localDir.EndsWith(Path.DirectorySeparatorChar.ToString()))
         {

@@ -1,8 +1,8 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="..\..\..\Dropbox\FHS\4 Sem\HCI\hfproto\unity\Assets\scripts\CharacterMovement.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Patcher\Program.cs">
     <Files>
-      <File FileName="..\..\..\Dropbox\FHS\4 Sem\HCI\hfproto\unity\Assets\scripts\CharacterMovement.cs" Line="27" Column="54" />
+      <File FileName="Patcher\Program.cs" Line="64" Column="71" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

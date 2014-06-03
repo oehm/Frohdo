@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.IO;
 
 public class LevelEditorParser
 {
@@ -17,7 +18,7 @@ public class LevelEditorParser
         }
     }
 
-    public string savePath;
+    //public string savePath;
     
     private LevelXML level;
     
@@ -57,10 +58,11 @@ public class LevelEditorParser
         clear();
         updateXMLLevelObjects();
 
-        System.IO.Directory.CreateDirectory(Application.dataPath + savePath + SceneManager.Instance.levelToLoad.LevelTitle);
-        SceneManager.Instance.levelToLoad = new LevelAndType(Application.dataPath + savePath + SceneManager.Instance.levelToLoad.LevelTitle + "\\" + SceneManager.Instance.levelToLoad.LevelTitle + ".xml", LevelLoader.LevelType.Custom);
-        SceneManager.Instance.levelToEdit = Application.dataPath + savePath + SceneManager.Instance.levelToLoad.LevelTitle + "\\" + SceneManager.Instance.levelToLoad.LevelTitle + ".xml";
-        XML_Loader.Save(Application.dataPath + savePath + SceneManager.Instance.levelToLoad.LevelTitle + "\\" + SceneManager.Instance.levelToLoad.LevelTitle + ".xml", level);
+        if(!Directory.Exists(BuildManager.Instance.MapsPath + SceneManager.Instance.levelToLoad.LevelTitle))
+            Directory.CreateDirectory(BuildManager.Instance.MapsPath + SceneManager.Instance.levelToLoad.LevelTitle);
+        SceneManager.Instance.levelToLoad = new LevelAndType(BuildManager.Instance.MapsPath + SceneManager.Instance.levelToLoad.LevelTitle + "/" + SceneManager.Instance.levelToLoad.LevelTitle + ".xml", LevelLoader.LevelType.Custom);
+        SceneManager.Instance.levelToEdit = BuildManager.Instance.MapsPath + SceneManager.Instance.levelToLoad.LevelTitle + "/" + SceneManager.Instance.levelToLoad.LevelTitle + ".xml";
+        XML_Loader.Save(BuildManager.Instance.MapsPath + SceneManager.Instance.levelToLoad.LevelTitle + "/" + SceneManager.Instance.levelToLoad.LevelTitle + ".xml", level);
     }
 
     public void addLevelObject(int layerIndex, LevelObjectXML obj)

@@ -112,13 +112,12 @@ public class DownloadLevelManager : MonoBehaviour
                     }
                 }
                 byte[] bytes = thumbnail.EncodeToPNG();
-                //Debug.Log(mapname);
-                //Debug.Log(Application.dataPath + @"\Levels\downloaded\" + mapname + @"\" + " --- created!");
 
-                if (!Directory.Exists(Application.dataPath + @"\Levels\downloaded\" + mapname + @"\")) Directory.CreateDirectory(Application.dataPath + @"\Levels\downloaded\" + mapname + @"\");
+                string savePath = BuildManager.Instance.MapsPath + "downloaded/" + mapname + @"/";
+                if (!Directory.Exists(savePath)) Directory.CreateDirectory(savePath);
 
-                File.WriteAllBytes(Application.dataPath + @"\Levels\downloaded\" + mapname + @"\" + mapname + @"_thumb.png", bytes);
-                System.IO.File.WriteAllText(Application.dataPath + @"\Levels\downloaded\" + mapname + @"\" + mapname + @".xml", request.text);
+                File.WriteAllBytes(savePath + mapname + @"_thumb.png", bytes);
+                System.IO.File.WriteAllText(savePath + mapname + @".xml", request.text);
             }
             else
             {

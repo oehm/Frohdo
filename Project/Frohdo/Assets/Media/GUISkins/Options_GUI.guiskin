@@ -9,7 +9,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12001, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: MainMenu_GUISkin
+  m_Name: Options_GUI
   m_EditorClassIdentifier: 
   m_Font: {fileID: 12800000, guid: 14e59639e917f2a44b9e6396134adda0, type: 3}
   m_box:
@@ -87,13 +87,13 @@ MonoBehaviour:
       m_TextColor: {r: 1, g: 1, b: 1, a: 1}
     m_OnNormal:
       m_Background: {fileID: 2800000, guid: 75b0ee33acf6c7144a56273339ba7ff2, type: 3}
-      m_TextColor: {r: .0344824791, g: 0, b: 1, a: 1}
+      m_TextColor: {r: 1, g: 0, b: 0, a: 1}
     m_OnHover:
-      m_Background: {fileID: 11004, guid: 0000000000000000e000000000000000, type: 0}
-      m_TextColor: {r: 1, g: 1, b: 1, a: 1}
+      m_Background: {fileID: 2800000, guid: 75b0ee33acf6c7144a56273339ba7ff2, type: 3}
+      m_TextColor: {r: .996078432, g: 0, b: 0, a: 1}
     m_OnActive:
-      m_Background: {fileID: 11002, guid: 0000000000000000e000000000000000, type: 0}
-      m_TextColor: {r: .899999976, g: .899999976, b: .899999976, a: 1}
+      m_Background: {fileID: 2800000, guid: 75b0ee33acf6c7144a56273339ba7ff2, type: 3}
+      m_TextColor: {r: .996078432, g: 0, b: 0, a: 1}
     m_OnFocused:
       m_Background: {fileID: 0}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
@@ -103,7 +103,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Margin:
-      m_Left: 61
+      m_Left: 0
       m_Right: 0
       m_Top: 0
       m_Bottom: 0
@@ -118,7 +118,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Font: {fileID: 0}
-    m_FontSize: 42
+    m_FontSize: 28
     m_FontStyle: 0
     m_Alignment: 4
     m_WordWrap: 0
@@ -126,7 +126,7 @@ MonoBehaviour:
     m_TextClipping: 1
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 173.600006
+    m_FixedWidth: 108.5
     m_FixedHeight: 48.7999992
     m_StretchWidth: 1
     m_StretchHeight: 0
@@ -487,16 +487,16 @@ MonoBehaviour:
   m_horizontalSliderThumb:
     m_Name: horizontalsliderthumb
     m_Normal:
-      m_Background: {fileID: 2800000, guid: 0065217e59e58ea4eb1c8d3e790826fa, type: 3}
+      m_Background: {fileID: 2800000, guid: f9a4eae6924fdd54ab589f34da360cca, type: 3}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Hover:
-      m_Background: {fileID: 11012, guid: 0000000000000000e000000000000000, type: 0}
+      m_Background: {fileID: 2800000, guid: f9a4eae6924fdd54ab589f34da360cca, type: 3}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Active:
-      m_Background: {fileID: 11010, guid: 0000000000000000e000000000000000, type: 0}
+      m_Background: {fileID: 2800000, guid: f9a4eae6924fdd54ab589f34da360cca, type: 3}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Focused:
-      m_Background: {fileID: 0}
+      m_Background: {fileID: 2800000, guid: f9a4eae6924fdd54ab589f34da360cca, type: 3}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_OnNormal:
       m_Background: {fileID: 0}
@@ -1421,7 +1421,7 @@ MonoBehaviour:
     m_TextClipping: 0
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 347.200012
+    m_FixedWidth: 542.5
     m_FixedHeight: 61
     m_StretchWidth: 1
     m_StretchHeight: 0
@@ -1479,7 +1479,7 @@ MonoBehaviour:
     m_TextClipping: 0
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 434
+    m_FixedWidth: 542.5
     m_FixedHeight: 488
     m_StretchWidth: 1
     m_StretchHeight: 0
