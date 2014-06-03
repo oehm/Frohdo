@@ -266,7 +266,6 @@ public class LevelSelect : MonoBehaviour {
     void loadCustomLevels()
     {
         levels = new List<Levelobj>();
-
         DirectoryInfo dinfo = new DirectoryInfo(BuildManager.Instance.MapsPath + @"custom/");
 
         if (dinfo.Exists)
@@ -985,8 +984,8 @@ class OnlineLevelObj : Levelobj //online - not downloaded
         this.currentUserIsCreator = currentUserIsCreator;
         this.creatorNickname = creatorNickname;
 
-        this.localReservedUrlForDownload = BuildManager.Instance.MapsPath + @"/ownloaded/" + name + "-" + creatorNickname + @"/" + name + "-" + creatorNickname + ".xml";
-        this.localReservedThumbUrlForDownload = BuildManager.Instance.MapsPath + @"/ownloaded/" + name + "-" + creatorNickname + @"/" + name + "-" + creatorNickname + "_thumb.png";
+        this.localReservedUrlForDownload = BuildManager.Instance.MapsPath + @"/downloaded/" + name + "-" + creatorNickname + @"/" + name + "-" + creatorNickname + ".xml";
+        this.localReservedThumbUrlForDownload = BuildManager.Instance.MapsPath + @"/downloaded/" + name + "-" + creatorNickname + @"/" + name + "-" + creatorNickname + "_thumb.png";
 
         alreadydownloaded = File.Exists(localReservedUrlForDownload) && File.Exists(localReservedThumbUrlForDownload);
     }
