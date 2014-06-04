@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<Level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <BackgroundColor>W</BackgroundColor>
+  <Layers>
+    <Layer LayerID="0">
+      <LevelObjects />
+    </Layer>
+    <Layer LayerID="1">
+      <LevelObjects>
+        <LevelObject>
+          <name>1x1_skull_02</name>
+          <color>R</color>
+          <pos>
+            <X>-3.5</X>
+            <Y>0.5</Y>
+          </pos>
+        </LevelObject>
+        <LevelObject>
+          <name>1x1_skull_02</name>
+          <color>R</color>
+          <pos>
+            <X>-0.5</X>
+            <Y>0.5</Y>
+          </pos>
+        </LevelObject>
+        <LevelObject>
+          <name>1x1_skull_02</name>
+          <color>R</color>
+          <pos>
+            <X>-1.5</X>
+            <Y>0.5</Y>
+          </pos>
+        </LevelObject>
+        <LevelObject>
+          <name>1x1_skull_02</name>
+          <color>R</color>
+          <pos>
+            <X>-2.5</X>
+            <Y>0.5</Y>
+          </pos>
+        </LevelObject>
+        <LevelObject>
+          <name>1x1_skull_02</name>
+          <color>R</color>
+          <pos>
+            <X>0.5</X>
+            <Y>0.5</Y>
+          </pos>
+        </LevelObject>
+        <LevelObject>
+          <name>1x1_skull_02</name>
+          <color>R</color>
+          <pos>
+            <X>1.5</X>
+            <Y>0.5</Y>
+          </pos>
+        </LevelObject>
+        <LevelObject>
+          <name>1x1_skull_02</name>
+          <color>R</color>
+          <pos>
+            <X>2.5</X>
+            <Y>0.5</Y>
+          </pos>
+        </LevelObject>
+        <LevelObject>
+          <name>Door</name>
+          <pos>
+            <X>2</X>
+            <Y>2.5</Y>
+          </pos>
+        </LevelObject>
+      </LevelObjects>
+      <Character>
+        <pos>
+          <X>-3</X>
+          <Y>3.5</Y>
+        </pos>
+      </Character>
+    </Layer>
+    <Layer LayerID="2">
+      <LevelObjects />
+    </Layer>
+    <Layer LayerID="3">
+      <LevelObjects />
+    </Layer>
+  </Layers>
+</Level>

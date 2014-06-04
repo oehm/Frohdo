@@ -58,11 +58,11 @@ public class LevelEditorParser
         clear();
         updateXMLLevelObjects();
 
-        if(!Directory.Exists(BuildManager.Instance.MapsPath + SceneManager.Instance.levelToLoad.LevelTitle))
-            Directory.CreateDirectory(BuildManager.Instance.MapsPath + SceneManager.Instance.levelToLoad.LevelTitle);
-        SceneManager.Instance.levelToLoad = new LevelAndType(BuildManager.Instance.MapsPath + SceneManager.Instance.levelToLoad.LevelTitle + "/" + SceneManager.Instance.levelToLoad.LevelTitle + ".xml", LevelLoader.LevelType.Custom);
-        SceneManager.Instance.levelToEdit = BuildManager.Instance.MapsPath + SceneManager.Instance.levelToLoad.LevelTitle + "/" + SceneManager.Instance.levelToLoad.LevelTitle + ".xml";
-        XML_Loader.Save(BuildManager.Instance.MapsPath + SceneManager.Instance.levelToLoad.LevelTitle + "/" + SceneManager.Instance.levelToLoad.LevelTitle + ".xml", level);
+        if(!Directory.Exists(BuildManager.Instance.MapsPath + @"/Custom/" + SceneManager.Instance.levelToLoad.LevelTitle))
+            Directory.CreateDirectory(BuildManager.Instance.MapsPath + @"/Custom/" + SceneManager.Instance.levelToLoad.LevelTitle);
+        SceneManager.Instance.levelToLoad = new LevelAndType(BuildManager.Instance.MapsPath + @"/Custom/" + SceneManager.Instance.levelToLoad.LevelTitle + "/" + SceneManager.Instance.levelToLoad.LevelTitle + ".xml", LevelLoader.LevelType.Custom);
+        SceneManager.Instance.levelToEdit = BuildManager.Instance.MapsPath + @"/Custom/" + SceneManager.Instance.levelToLoad.LevelTitle + "/" + SceneManager.Instance.levelToLoad.LevelTitle + ".xml";
+        XML_Loader.Save(BuildManager.Instance.MapsPath + @"/Custom/" + SceneManager.Instance.levelToLoad.LevelTitle + "/" + SceneManager.Instance.levelToLoad.LevelTitle + ".xml", level);
     }
 
     public void addLevelObject(int layerIndex, LevelObjectXML obj)
