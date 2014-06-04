@@ -173,10 +173,10 @@ public class PatcherManager : MonoBehaviour
         if (toPatch.Count == 0) _globalStatus = PatcherStatus.Patched;
         else
         {
-            foreach (Hashtable s in toPatch)
-            {
-                //Debug.Log("toPatch: " + s["name"]);
-            }
+            //foreach (Hashtable s in toPatch)
+            //{
+            //    Debug.Log("toPatch: " + s["name"]);
+            //}
             _globalStatus = PatcherStatus.Unpatched;
         }
     }
