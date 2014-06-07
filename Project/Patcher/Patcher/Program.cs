@@ -3,6 +3,7 @@ using System.IO;
 using System.Net;
 using System.Diagnostics;
 using System.Collections.Generic;
+using System.Security.AccessControl;
 
 namespace Patcher
 {
@@ -20,7 +21,6 @@ namespace Patcher
                 {
                     DownloadFile f = new DownloadFile(args[i], args[i + 1]);
                     files.Add(f);
-                    //Console.WriteLine(args[i + 1]);
                 }
                     if (files.Count > 0)
                     {
@@ -31,19 +31,15 @@ namespace Patcher
 #else
                     localPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 #endif
-
-                        Console.WriteLine(localPath);
-                        //string remotePath = @"C:\Users\Dominic\Desktop\test_Data\";
+                        //Console.WriteLine(localPath);
                         WebClient client = new WebClient();
 
-                        Console.WriteLine("Press any key to begin patching.");
-                        Console.Read();
                         foreach(DownloadFile file in files)
                         {
                             try
                             {
                                 Console.WriteLine("Patching File: " + file.uri);
-                                //Console.WriteLine("Creating: " + localPath + " ---- " + file.relSavePath);
+
                                 byte[] data = client.DownloadData(file.uri);
                                 if (!Directory.Exists(Path.GetDirectoryName(localPath + file.relSavePath)))
                                 {
@@ -57,15 +53,14 @@ namespace Patcher
                             }
                         }
                         Console.WriteLine("Patching Done! -- Press any key to restart the game!");
-                        Console.Read();
-                        Console.Read();
                         try
                         {
                             Process.Start(localPath + @"\frohdo.exe");
                         }
                         catch (Exception ex)
                         {
-                            Console.WriteLine("error: " + ex);
+                            Console.WriteLine(ex);
+                            Console.WriteLine("OH NO. Something went wrong within patching routine. Please try again or contact us via Facebook (PowerPukingPanda)");
                             Console.Read();
                             Console.Read();
                         }
@@ -74,6 +69,7 @@ namespace Patcher
             catch (Exception e)
             {
                 Console.WriteLine(e);
+                Console.WriteLine("OH NO. Something went wrong within patching routine. Please try again or contact us via Facebook (PowerPukingPanda)");
                 Console.Read();
                 Console.Read();
             }
