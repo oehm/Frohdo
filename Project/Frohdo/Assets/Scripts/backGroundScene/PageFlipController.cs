@@ -35,8 +35,8 @@ public class PageFlipController : MonoBehaviour {
         {
             isFlipping_ = true;
 
-            ForceAspectRatio.CameraMain.transform.position = new Vector3(0.0f, 0.0f, GlobalVars.Instance.mainCamerZ);
-            ForceAspectRatio.CameraMain.fieldOfView = GlobalVars.Instance.mainCamerFOV;
+            //ForceAspectRatio.CameraMain.transform.position = new Vector3(0.0f, 0.0f, GlobalVars.Instance.mainCamerZ);
+            //ForceAspectRatio.CameraMain.fieldOfView = GlobalVars.Instance.mainCamerFOV;
 
             pageInstance_ = GameObject.Instantiate(pagePrefab_) as GameObject;
             pageInstance_.transform.position = new Vector3(0.0f, 0.0f, -2.0f);

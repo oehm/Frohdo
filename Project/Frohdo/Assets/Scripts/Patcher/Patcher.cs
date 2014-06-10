@@ -28,6 +28,12 @@ public class Patcher : MonoBehaviour {
                 {
                     PatcherManager.Instance.commitPatch();
                 } break;
+            case PatcherManager.PatcherStatus.Patched:
+                if (GUILayout.Button("fjkdls"))
+                {
+                    SceneManager.Instance.loadScene(SceneManager.Scene.MainMenu);
+                }
+                break;
         }
 
     }
@@ -38,7 +44,7 @@ public class Patcher : MonoBehaviour {
         {
             case PatcherManager.PatcherStatus.Patched:
                 SoundController.Instance.startBackgroundSoundLoop();
-                SceneManager.Instance.loadScene(SceneManager.Scene.MainMenu);
+                //SceneManager.Instance.loadScene(SceneManager.Scene.MainMenu);
                 break;
         }
 	}
