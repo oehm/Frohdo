@@ -82,11 +82,11 @@ public class CharacterMovement : MonoBehaviour {
         Vector2 endPoint = character_.gameObject.transform.position;
         endPoint += floorRayEnd_;
 
-        RaycastHit2D hit1 = Physics2D.Linecast(startPoint, midPoint, layerMask);
-        RaycastHit2D hit2 = Physics2D.Linecast(midPoint, endPoint, layerMask);
+        RaycastHit2D hit1 = Physics2D.Linecast(startPoint, new Vector2(midPoint.x + 0.2f, midPoint.y), layerMask);
+        RaycastHit2D hit2 = Physics2D.Linecast(endPoint, new Vector2(midPoint.x - 0.2f, midPoint.y), layerMask);
 
-        Debug.DrawLine(startPoint, midPoint);
-        Debug.DrawLine(midPoint, endPoint);
+        Debug.DrawLine(startPoint, new Vector2(midPoint.x + 0.2f, midPoint.y), Color.black, 1000);
+        Debug.DrawLine(endPoint, new Vector2(midPoint.x - 0.2f, midPoint.y), Color.black, 1000);
 
         return hit1.collider != null || hit2.collider != null;
     }
