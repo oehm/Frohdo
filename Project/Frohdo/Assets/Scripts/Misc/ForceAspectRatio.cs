@@ -14,9 +14,9 @@ public class ForceAspectRatio : MonoBehaviour
     int lastScreenHeight  = 0;
     int lastScreenWidth  = 0;
     bool lastfullscreen = false;
-    public float _wantedAspectRatio = 1.777778f; // (16:9)
+    public float _wantedAspectRatio = 16.0f/9.0f; // (16:9)
     // public float _wantedAspectRatio = 1.3333333f; // 4:3
-    public bool landscapeModeOnly = true;
+    public bool landscapeModeOnly = false;
     static public bool _landscapeModeOnly = true;
     static float wantedAspectRatio;
     public static Camera CameraMain { get { return cam; } }
@@ -30,7 +30,7 @@ public class ForceAspectRatio : MonoBehaviour
     public void activate()
     {
         Debug.Log("Activate");
-        Screen.fullScreen = Screen.fullScreen;
+        //Screen.fullScreen = Screen.fullScreen;
         _landscapeModeOnly = landscapeModeOnly;
         cam = camera;
         if (!cam)
@@ -54,58 +54,64 @@ public class ForceAspectRatio : MonoBehaviour
         cam.transparencySortMode = TransparencySortMode.Orthographic;
     }
 
-	void Update()
+	void FixedUpdate()
 	{
 		// check the screen height and witdh
+        //Debug.LogError(cam.aspect);
 		if ((Screen.height != lastScreenHeight) || (Screen.width != lastScreenWidth) || (Screen.fullScreen != lastfullscreen)) 
 		{
 			lastScreenWidth = Screen.width;
 			lastScreenHeight = Screen.height;
 			lastfullscreen = Screen.fullScreen;
-			SetCamera();
+            //Debug.LogError("aspect changed" + cam.aspect + " _ " + 16.0f/9.0f);
+            StartCoroutine(SetCamera());
 		}
 	}
 
-    public static void SetCamera () {
+    IEnumerator SetCamera() {
+        yield return new WaitForFixedUpdate();
 		float currentAspectRatio = 0.0f;
-		if(Screen.orientation == ScreenOrientation.LandscapeRight ||
-			Screen.orientation == ScreenOrientation.LandscapeLeft) {
-			//Debug.Log ("Landscape detected...");
-        	currentAspectRatio = (float)Screen.width / Screen.height;
-		}
-		else {
-			//Debug.Log ("Portrait detected...?");
-			if(Screen.height >  Screen.width && _landscapeModeOnly) {
-				currentAspectRatio = (float)Screen.height / Screen.width;
-			}
-			else {
-				currentAspectRatio = (float)Screen.width / Screen.height;
-			}
-		}
+        //if(Screen.orientation == ScreenOrientation.LandscapeRight ||
+        //    Screen.orientation == ScreenOrientation.LandscapeLeft) {
+        //    Debug.Log ("Landscape detected...");
+        //    currentAspectRatio = (float)Screen.width / Screen.height;
+        //}
+        //else {
+        //    Debug.Log ("Portrait detected...?");
+        //    if(Screen.height >  Screen.width && _landscapeModeOnly) {
+        //        currentAspectRatio = (float)Screen.height / Screen.width;
+        //    }
+        //    else {
+        //        currentAspectRatio = (float)Screen.width / Screen.height;
+        //    }
+        //}
+        currentAspectRatio = (float)Screen.width / Screen.height;
         // If the current aspect ratio is already approximately equal to the desired aspect ratio,
         // use a full-screen Rect (in case it was set to something else previously)
 
 		// Debug.Log ("currentAspectRatio = " + currentAspectRatio + ", wantedAspectRatio = " + wantedAspectRatio);
 
-        if ((!Screen.fullScreen) && ((int)(currentAspectRatio * 100) / 100.0f == (int)(wantedAspectRatio * 100) / 100.0f))
-        {
-            cam.rect = new Rect(0.0f, 0.0f, 1.0f, 1.0f);
-            if (backgroundCam)
-            {
-                Destroy(backgroundCam.gameObject);
-            }
-            return;
-        }
-
+        //if ((!Screen.fullScreen) && !currentAspectRatio.ToString().Equals(wantedAspectRatio.ToString()))
+        //{
+        //    //cam.rect = new Rect(0.0f, 0.0f, 1.0f, 1.0f);
+        //    //if (backgroundCam)
+        //    //{
+        //    //    Destroy(backgroundCam.gameObject);
+        //    //}
+        //    //return;
+        //}
         // Pillarbox
         if (currentAspectRatio > wantedAspectRatio) {
+            //Debug.LogError("Pillar");
+            //Debug.LogError(currentAspectRatio);
             float inset = 1.0f - wantedAspectRatio/currentAspectRatio;
-            cam.rect = new Rect(inset/2, 0.0f, 1.0f-inset, 1.0f);
+            cam.rect = new Rect(inset / 2, 0.0f, 1.0f - inset, 1.0f);        
         }
         // Letterbox
         else {
+            //Debug.LogError("Letter");
             float inset = 1.0f - currentAspectRatio/wantedAspectRatio;
-            cam.rect = new Rect(0.0f, inset/2, 1.0f, 1.0f-inset);
+            cam.rect = new Rect(0.0f, inset / 2, 1.0f, 1.0f - inset);
         }
         if (!backgroundCam) {
             // Make a new camera behind the normal camera which displays black; otherwise the unused space is undefined
