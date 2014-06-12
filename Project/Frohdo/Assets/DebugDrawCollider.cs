@@ -17,7 +17,7 @@ public class DebugDrawCollider : MonoBehaviour {
         character = gameObject;
         for (int i = 0; i < colliders.Length; i++)
         {
-            Debug.Log(Random.value);
+            //Debug.Log(Random.value);
             colcolors.Add(new Color(Random.value, Random.value, Random.value));
         }
 	}
