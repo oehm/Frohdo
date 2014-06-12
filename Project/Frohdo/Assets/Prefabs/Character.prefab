@@ -83,6 +83,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400008}
   - 50: {fileID: 5000000}
+  - 114: {fileID: 11400016}
   m_Layer: 10
   m_Name: Character
   m_TagString: Character
@@ -194,7 +195,8 @@ PolygonCollider2D:
   m_Poly:
     m_Paths:
     - - {x: .400000006, y: -1.79999995}
-      - {x: 0, y: -2}
+      - {x: .100000001, y: -2}
+      - {x: -.100000001, y: -2}
       - {x: -.400000006, y: -1.79999995}
 --- !u!61 &6100000
 BoxCollider2D:
@@ -335,9 +337,9 @@ MonoBehaviour:
   runForce_: 35
   jumpMaxSpeed_: 15
   jumpForce_: 1500
-  floorRayStart_: {x: .5, y: -1.79999995}
+  floorRayStart_: {x: .899900019, y: -1.39999998}
   floorRayMid_: {x: 0, y: -2.0999999}
-  floorRayEnd_: {x: -.5, y: -1.79999995}
+  floorRayEnd_: {x: -.899900019, y: -1.39999998}
 --- !u!114 &11400008
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -392,6 +394,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textureName_: _OverlayTex
+--- !u!114 &11400016
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f526bccace739654b8996580fbfd256a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

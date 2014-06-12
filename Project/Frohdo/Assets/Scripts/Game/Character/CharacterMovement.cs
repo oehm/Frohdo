@@ -44,6 +44,11 @@ public class CharacterMovement : MonoBehaviour {
         animator_.SetBool("lookLeft", character_.lookLeft);
         animator_.SetBool("jumps", !canJump());
 
+        //if (!canJump()) { 
+        //    Debug.Log("In the air!"); 
+        //    //Debug.Break();
+        //}
+
         float velocity = Mathf.Abs( character_.gameObject.rigidbody2D.velocity.x / runMaxSpeed_);
         animator_.SetFloat("velocity", velocity);
     }
@@ -85,8 +90,8 @@ public class CharacterMovement : MonoBehaviour {
         RaycastHit2D hit1 = Physics2D.Linecast(startPoint, new Vector2(midPoint.x + 0.2f, midPoint.y), layerMask);
         RaycastHit2D hit2 = Physics2D.Linecast(endPoint, new Vector2(midPoint.x - 0.2f, midPoint.y), layerMask);
 
-        Debug.DrawLine(startPoint, new Vector2(midPoint.x + 0.2f, midPoint.y), Color.black, 1000);
-        Debug.DrawLine(endPoint, new Vector2(midPoint.x - 0.2f, midPoint.y), Color.black, 1000);
+        Debug.DrawLine(startPoint, new Vector2(midPoint.x + 0.3f, midPoint.y), Color.green);
+        Debug.DrawLine(endPoint, new Vector2(midPoint.x - 0.3f, midPoint.y), Color.green);
 
         return hit1.collider != null || hit2.collider != null;
     }
