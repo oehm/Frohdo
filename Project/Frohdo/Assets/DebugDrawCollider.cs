@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 
 public class DebugDrawCollider : MonoBehaviour {
 
@@ -35,8 +34,4 @@ public class DebugDrawCollider : MonoBehaviour {
             }
         }
 	}
-    void OnDrawGizmos()
-    {
-        
-    }
 }

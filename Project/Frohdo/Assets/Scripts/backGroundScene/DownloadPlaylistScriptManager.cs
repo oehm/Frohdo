@@ -89,7 +89,7 @@ public class DownloadPlaylistScriptManager : MonoBehaviour
             }
             else
             {
-                Debug.Log("Some errors occured!");
+                Debug.Log("Some errors occured!" + request.error + " " + header["STATUS"].ToString());
                 _globalStatus = DownloadStatus.Error;
                 yield break;
             }

@@ -35,4 +35,4 @@ MonoBehaviour:
   CommunityBasePath: 
   playlistUrl: http://community.mediacube.at/myLevelplaylist.xml
   AddToPlaylistUrl: http://community.mediacube.at/levels/add_level_to_playlist?id=
-  PreventPatcherInBuild: 1
+  PreventPatcherInBuild: 0
