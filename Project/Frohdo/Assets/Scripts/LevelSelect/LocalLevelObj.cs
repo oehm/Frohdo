@@ -5,13 +5,15 @@ using System.IO;
 class LocalLevelObj : Levelobj //already on disk
 {
     public string hash = null;
-    protected bool loadLocalHighscore = true;
     public void init(int id, DirectoryInfo levelpath)
     {
         this.id = id;
         this.name = levelpath.Name;
         searchLocalLevel(levelpath);
         if (XMLPath != null) this.hash = ScoreController.Instance.getMD5ofFile(XMLPath.FullName);
+        
+        if (NetworkManager.Instance.GlobalStatus == NetworkManager.LoginStatus.LoggedIn) highscoresToShow = DownloadHighscoreManager.HighscoreType.OnlineTime;
+        else highscoresToShow = DownloadHighscoreManager.HighscoreType.LocalTime;
     }
 
     public override void LevelInfoGui()
@@ -32,14 +34,11 @@ class LocalLevelObj : Levelobj //already on disk
         GUILayout.EndHorizontal();
     }
 
-    public void loadLocalHighScores()
+    public override void loadLocalHighScores()
     {
-        if (loadLocalHighscore)
-        {
-            loadLocalHighscore = false;
-            localPukeHighscore = ScoreController.Instance.getlocalPukeHighscore(hash);
-            localTimeHighscore = ScoreController.Instance.getlocalTimeHighscore(hash);
-        }
+        //Debug.Log("Load Local Level Highscore");
+        localPukeHighscore = ScoreController.Instance.getlocalPukeHighscore(hash);
+        localTimeHighscore = ScoreController.Instance.getlocalTimeHighscore(hash);
     }
 
     public override void StartLevel()
@@ -48,6 +47,14 @@ class LocalLevelObj : Levelobj //already on disk
         {
             SceneManager.Instance.levelToLoad = new LevelAndType(XMLPath.FullName, LevelLoader.LevelType.Normal, thumbnail);
             SceneManager.Instance.loadScene(SceneManager.Scene.Game);
+        }
+    }
+
+    public override void loadOnlineHighscores(DownloadHighscoreManager.HighscoreType type)
+    {
+        if (NetworkManager.Instance.GlobalStatus == NetworkManager.LoginStatus.LoggedIn)
+        {
+            DownloadHighscoreManager.Instance.startDownload(hash, ref highscores, type);
         }
     }
 }

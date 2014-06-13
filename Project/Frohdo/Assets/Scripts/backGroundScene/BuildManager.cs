@@ -36,6 +36,8 @@ public class BuildManager : MonoBehaviour
         }
         instance = this;
 
+        GlobalVars.Initialise();
+
         //#if UNITY_EDITOR
         //    curPlatform = BuildPlatform.Editor;
         //    dataPath = Application.dataPath;

@@ -9,6 +9,7 @@ class CustomLevelObj : Levelobj
         this.id = id;
         this.name = levelpath.Name;
         searchLocalLevel(levelpath);
+        highscoresToShow = DownloadHighscoreManager.HighscoreType.None;
     }
 
     public override void LevelInfoGui()
@@ -42,5 +43,15 @@ class CustomLevelObj : Levelobj
             SceneManager.Instance.levelToLoad = new LevelAndType(XMLPath.FullName, LevelLoader.LevelType.Custom, thumbnail);
             SceneManager.Instance.loadScene(SceneManager.Scene.Game);
         }
+    }
+
+    public override void loadLocalHighScores()
+    {
+        Debug.Log("No custom level highscores!");
+    }
+
+    public override void loadOnlineHighscores(DownloadHighscoreManager.HighscoreType type)
+    {
+        throw new System.NotImplementedException();
     }
 }

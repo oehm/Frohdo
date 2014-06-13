@@ -6,6 +6,7 @@ using System;
 
 abstract class Levelobj : MonoBehaviour
 {
+
     public int id;
     public new string name;
 
@@ -27,7 +28,27 @@ abstract class Levelobj : MonoBehaviour
 
     public abstract void StartLevel();
 
-    bool highscoresToShow;
+    protected DownloadHighscoreManager.HighscoreType highscoresToShow;
+    private string buttonDisabledColorHexString = GlobalVars.Instance.ButtonDisabledHexString;
+    private string OwnHighscorehiglightColor = GlobalVars.Instance.OwnHighscoreHighlightColor;
+
+    public abstract void loadLocalHighScores();
+
+    public abstract void loadOnlineHighscores(DownloadHighscoreManager.HighscoreType type);
+
+    bool onlineavailable;
+
+    public void ManUpdate()
+    {
+        //Debug.Log("Update_" + name);
+        onlineavailable = NetworkManager.Instance.GlobalStatus == NetworkManager.LoginStatus.LoggedIn && (this.GetType() == typeof(LocalLevelObj) || this.GetType() == typeof(OnlineLevelObj));
+        if (!onlineavailable && (highscoresToShow == DownloadHighscoreManager.HighscoreType.OnlinePuke || highscoresToShow == DownloadHighscoreManager.HighscoreType.OnlineTime))
+        {
+            if (highscoresToShow == DownloadHighscoreManager.HighscoreType.OnlineTime) highscoresToShow = DownloadHighscoreManager.HighscoreType.LocalTime;
+            else if (highscoresToShow == DownloadHighscoreManager.HighscoreType.OnlinePuke) highscoresToShow = DownloadHighscoreManager.HighscoreType.LocalPuke;
+            loadLocalHighScores();
+        }
+    }
 
     protected void searchLocalLevel(DirectoryInfo levelpath)
     {
@@ -88,78 +109,178 @@ abstract class Levelobj : MonoBehaviour
 
     protected void showHighscore()
     {
-        bool onlinehighscores = (this.GetType() == typeof(OnlineLevelObj) || this.GetType() == typeof(LocalLevelObj)) && NetworkManager.Instance.GlobalStatus == NetworkManager.LoginStatus.LoggedIn;
+        bool localavailable = this.GetType() == typeof(StoryLevelObj) || this.GetType() == typeof(LocalLevelObj) || (this.GetType() == typeof(OnlineLevelObj) && ((OnlineLevelObj)this).alreadydownloaded);
         GUILayout.BeginVertical("highscoreBox");
-
-        if (onlinehighscores)
-        {
             GUILayout.BeginHorizontal();
-            GUILayout.Label("Highscores:");
+                GUILayout.FlexibleSpace();
+                    if (localavailable)
+                    {
+                        if (highscoresToShow == DownloadHighscoreManager.HighscoreType.LocalTime || highscoresToShow == DownloadHighscoreManager.HighscoreType.LocalPuke)
+                        {
+                            GUILayout.Label("<color=" + buttonDisabledColorHexString + ">Local</color>", "highscorebuttonfont");
+                        }
+                        else
+                        {
+                            if (GUILayout.Button("Local", "highscorebuttonfont"))
+                            {
+                                loadLocalHighScores();
+                                if (highscoresToShow == DownloadHighscoreManager.HighscoreType.OnlineTime) highscoresToShow = DownloadHighscoreManager.HighscoreType.LocalTime;
+                                else if (highscoresToShow == DownloadHighscoreManager.HighscoreType.OnlinePuke) highscoresToShow = DownloadHighscoreManager.HighscoreType.LocalPuke;
+                            }
+                        }
+                    }
+                    if (onlineavailable)
+                    {
+                        if (highscoresToShow == DownloadHighscoreManager.HighscoreType.OnlineTime || highscoresToShow == DownloadHighscoreManager.HighscoreType.OnlinePuke)
+                        {
+                            GUILayout.Label("<color=" + buttonDisabledColorHexString + ">Online</color>", "highscorebuttonfont");
+                        }
+                        else
+                        {
+                            if (GUILayout.Button("Online", "highscorebuttonfont"))
+                            {
+                                if (highscoresToShow == DownloadHighscoreManager.HighscoreType.LocalTime) highscoresToShow = DownloadHighscoreManager.HighscoreType.OnlineTime;
+                                else if (highscoresToShow == DownloadHighscoreManager.HighscoreType.LocalPuke) highscoresToShow = DownloadHighscoreManager.HighscoreType.OnlinePuke;
+                                loadOnlineHighscores(highscoresToShow);
+                            }
+                        }
+                    }
+                GUILayout.FlexibleSpace();
             GUILayout.EndHorizontal();
 
             GUILayout.BeginHorizontal();
-            GUILayout.BeginVertical("highscoreNumbersBox");
-            GameObject.Find("GUI_LevelSelect").GetComponent<LevelSelect>().style.label.alignment = TextAnchor.MiddleRight;
-            for (int i = 0; i < 5; i++)
-            {
-
-                GUILayout.BeginVertical();
-                GUILayout.Label("#" + (i + 1) + ": ");
-                GUILayout.EndVertical();
-            }
-            GameObject.Find("GUI_LevelSelect").GetComponent<LevelSelect>().style.label.alignment = TextAnchor.MiddleLeft;
-            GUILayout.EndVertical();
-
-            GUILayout.BeginVertical("box");
-            if (onlinehighscores)
-            {
-                for (int i = 0; i < 5; i++)
-                {
-                    GUILayout.BeginVertical();
-                    if (highscores != null && i < highscores.Count)
+                GUILayout.FlexibleSpace();
+                    if (onlineavailable || localavailable)
                     {
-                        GUILayout.Label(highscores[i].score + " - " + highscores[i].user);
+                        if (highscoresToShow == DownloadHighscoreManager.HighscoreType.OnlineTime || highscoresToShow == DownloadHighscoreManager.HighscoreType.LocalTime)
+                        {
+                            GUILayout.Label("<color=" + buttonDisabledColorHexString + ">Time</color>", "highscorebuttonfont");
+                        }
+                        else
+                        {
+                            if (GUILayout.Button("Time", "highscorebuttonfont"))
+                            {
+                                if (highscoresToShow == DownloadHighscoreManager.HighscoreType.LocalPuke) highscoresToShow = DownloadHighscoreManager.HighscoreType.LocalTime;
+                                else if (highscoresToShow == DownloadHighscoreManager.HighscoreType.OnlinePuke)
+                                {
+                                    highscoresToShow = DownloadHighscoreManager.HighscoreType.OnlineTime;
+                                    loadOnlineHighscores(highscoresToShow);
+                                }
+                            }
+                        }
+
+                        if (highscoresToShow == DownloadHighscoreManager.HighscoreType.OnlinePuke || highscoresToShow == DownloadHighscoreManager.HighscoreType.LocalPuke)
+                        {
+                            GUILayout.Label("<color=" + buttonDisabledColorHexString + ">Pukes</color>", "highscorebuttonfont");
+                        }
+                        else
+                        {
+                            if (GUILayout.Button("Pukes", "highscorebuttonfont"))
+                            {
+                                if (highscoresToShow == DownloadHighscoreManager.HighscoreType.LocalTime) highscoresToShow = DownloadHighscoreManager.HighscoreType.LocalPuke;
+                                else if (highscoresToShow == DownloadHighscoreManager.HighscoreType.OnlineTime)
+                                {
+                                    highscoresToShow = DownloadHighscoreManager.HighscoreType.OnlinePuke;
+                                    loadOnlineHighscores(highscoresToShow);
+                                }
+                            }
+                        }
                     }
-                    else
-                    {
-                        GUILayout.Label(" ###");
-                    }
-                    GUILayout.EndVertical();
-                }
-            }
-            GUILayout.EndVertical();
+                GUILayout.FlexibleSpace();
             GUILayout.EndHorizontal();
-        }
-        else
-        {
-            GUILayout.FlexibleSpace();
-
-            GUILayout.BeginHorizontal();
 
             GUILayout.BeginVertical();
-            if (this.GetType() == typeof(StoryLevelObj))
-            {
-                GUILayout.Label("Highscores not available on Story Levels");
-            }
-            if (this.GetType() == typeof(CustomLevelObj))
-            {
-                GUILayout.Label("Highscores not available on Custom Levels");
-            }
-            else if (this.GetType() == typeof(LocalLevelObj))
-            {
-                LocalLevelObj obj = (LocalLevelObj)this;
-                obj.loadLocalHighScores();
-                GUILayout.Label("Offline Highscores:");
-                GUILayout.Label("Time:  " + obj.localTimeHighscore);
-                GUILayout.Label("Pukes: " + obj.localPukeHighscore);
-            }
+                if (highscoresToShow == DownloadHighscoreManager.HighscoreType.OnlineTime)
+                    {
+                        if (highscores.Count == 0)
+                        {
+                            GUILayout.FlexibleSpace();
+                            if (DownloadHighscoreManager.Instance.GlobalStatus == DownloadHighscoreManager.DownloadStatus.Downloading) GUILayout.Label("Loading highscores ...", "highscoreentrybox");
+                            else GUILayout.Label("No highscores yet!", "highscoreentrybox");
+                            GUILayout.FlexibleSpace();
+                        }
+                        else
+                        {
+                            foreach (Highscore score in highscores)
+                            {
+                                string s = score.score.ToString();
+                                while (s.Length < 4)
+                                {
+                                    s += "0";
+                                }
+                                s = s.Insert(s.Length - 3, ".");
+                                s += " sec";
+                                if (score.ownHighscore) GUILayout.Label("<color=" + OwnHighscorehiglightColor + ">" + score.rank + ": " + s + " -- " + score.user + "</color>", "highscoreentryboxleftalign");
+                                else GUILayout.Label(score.rank + ": " + s + " -- " + score.user, "highscoreentryboxleftalign");
+                            }
+                        }
+                    }
+                else if (highscoresToShow == DownloadHighscoreManager.HighscoreType.OnlinePuke)
+                    {
+                        if (highscores.Count == 0)
+                        {
+                            GUILayout.FlexibleSpace();
+                            if (DownloadHighscoreManager.Instance.GlobalStatus == DownloadHighscoreManager.DownloadStatus.Downloading) GUILayout.Label("Loading highscores ...", "highscoreentrybox");
+                            else GUILayout.Label("No highscores yet!", "highscoreentrybox");
+                            GUILayout.FlexibleSpace();
+                        }
+                        else
+                        {
+                            foreach (Highscore score in highscores)
+                            {
+                                string s = score.score.ToString();
+                                if (score.score == 1) s += " puke";
+                                else s += " pukes";
+                                if (score.ownHighscore) GUILayout.Label("<color=" + OwnHighscorehiglightColor + ">" + score.rank + ": " + s + " -- " + score.user + "</color>", "highscoreentryboxleftalign");
+                                else GUILayout.Label(score.rank + ": " + s + " -- " + score.user, "highscoreentryboxleftalign");
+                            }
+                        }
+                    }
+
+                    GUILayout.FlexibleSpace();
+                    
+                    if (highscoresToShow == DownloadHighscoreManager.HighscoreType.LocalTime)
+                    {
+                        if (localTimeHighscore == -1)
+                        {
+                            GUILayout.FlexibleSpace();
+                            GUILayout.Label("No highscore yet!", "highscoreentrybox");
+                            GUILayout.FlexibleSpace();
+                        }
+                        else
+                        {
+                            string s = localTimeHighscore.ToString();
+                            while (s.Length < 4)
+                            {
+                                s += "0";
+                            }
+                            s = s.Insert(s.Length - 3, ".");
+                            s += " sec";
+                            GUILayout.Label(s, "highscoreentrybox");
+                        }
+                    }
+                else if (highscoresToShow == DownloadHighscoreManager.HighscoreType.LocalPuke)
+                    {
+                        if (localPukeHighscore == -1)
+                        {
+                            GUILayout.FlexibleSpace();
+                            GUILayout.Label("No highscore yet!", "highscoreentrybox");
+                            GUILayout.FlexibleSpace();
+                        }
+                        else
+                        {
+                            string s = localPukeHighscore.ToString();
+                            if (localPukeHighscore == 1) s += " puke";
+                            else s += " pukes";
+                            GUILayout.Label(s, "highscoreentrybox");
+                        }
+                    }
+                else if (highscoresToShow == DownloadHighscoreManager.HighscoreType.None)
+                    {
+                        GUILayout.Label("No Highscores available!", "highscoreentrybox");
+                    }
+                GUILayout.FlexibleSpace();
             GUILayout.EndVertical();
-
-            GUILayout.EndHorizontal();
-
-            GUILayout.FlexibleSpace();
-        }
-        GameObject.Find("GUI_LevelSelect").GetComponent<LevelSelect>().style.label.alignment = TextAnchor.MiddleCenter;
 
         GUILayout.EndVertical();
     }

@@ -12,13 +12,16 @@ public class GlobalVars : ScriptableObject
     {
         get
         {
-            if (instance == null)
-            {
-                instance = (GlobalVars)Resources.Load("ScriptableObjectInstances/GlobalVarsInstance");
-                DontDestroyOnLoad(instance);
-            }
-
             return instance;
+        }
+    }
+
+    public static void Initialise()
+    {
+        if (instance == null)
+        {
+            instance = (GlobalVars)Resources.Load("ScriptableObjectInstances/GlobalVarsInstance");
+            DontDestroyOnLoad(instance);
         }
     }
 
@@ -58,6 +61,12 @@ public class GlobalVars : ScriptableObject
 
     public string TopOnlineLevelListUrl;
 
+    public string GetHighscoreUrl;
+
+    public int highscorestoload;
+
+    public string OwnHighscoreHighlightColor;
+
     public string CommunityBasePath;
 
     public string playlistUrl;
@@ -65,6 +74,8 @@ public class GlobalVars : ScriptableObject
     public string AddToPlaylistUrl;
 
     public bool PreventPatcherInBuild;
+
+    public string ButtonDisabledHexString;
 
     void OnEnable()
     {

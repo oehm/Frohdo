@@ -107,7 +107,7 @@ public class LevelUploadManager : MonoBehaviour
         //form.AddBinaryData("level[title]", System.Text.Encoding.UTF8.GetBytes(SceneManager.Instance.levelToLoad.LevelTitle));
         //form.AddBinaryData("level[description]", System.Text.Encoding.UTF8.GetBytes(SceneManager.Instance.levelToLoad.LevelDescription));
 
-        form.AddField("level[hashCode]", ScoreController.Instance.LevelHash);
+        form.AddField("level[hashCode]", ScoreController.Instance.hash);
         form.AddField("level[title]", SceneManager.Instance.levelToLoad.LevelTitle);
         form.AddField("level[description]", SceneManager.Instance.levelToLoad.LevelDescription + "Description");
         UploadProgress = " (Loading XML)";
@@ -196,7 +196,7 @@ public class LevelUploadManager : MonoBehaviour
     private void checkHashOfLevel()
     {
         UploadProgress = " (Checking hash)";
-        if (ScoreController.Instance.LevelHash == ScoreController.Instance.getMD5ofFile(SceneManager.Instance.levelToLoad.LeveltoLoad))
+        if (ScoreController.Instance.hash == ScoreController.Instance.getMD5ofFile(SceneManager.Instance.levelToLoad.LeveltoLoad))
         {
             _globalHashStatus = HashEqualsStatus.HashSame;
         }

@@ -32,7 +32,11 @@ MonoBehaviour:
   LoginUri: http://community.mediacube.at/users/sign_in
   LevelUploadUri: http://community.mediacube.at/levels/
   TopOnlineLevelListUrl: http://community.mediacube.at/levels.xml
+  GetHighscoreUrl: http://community.mediacube.at/toplist/index.xml
+  highscorestoload: 5
+  OwnHighscoreHighlightColor: '#d35400'
   CommunityBasePath: 
   playlistUrl: http://community.mediacube.at/myLevelplaylist.xml
   AddToPlaylistUrl: http://community.mediacube.at/levels/add_level_to_playlist?id=
   PreventPatcherInBuild: 0
+  ButtonDisabledHexString: '#d35400'

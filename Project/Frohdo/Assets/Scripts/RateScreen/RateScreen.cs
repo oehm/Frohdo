@@ -19,10 +19,10 @@ public class RateScreen : MonoBehaviour {
 	// Use this for initialization
     void Start()
     {
-        levelHash_ = ScoreController.Instance.LevelHash;
+        levelHash_ = ScoreController.Instance.hash;
         pukeCount_ = ScoreController.Instance.pukeCount;
         timeCount_ = ScoreController.Instance.timeCount;
-        //Debug.Log(levelHash_);
+        Debug.Log(levelHash_);
         ScoreController.Instance.saveLocalPukeHighscore(levelHash_);
         ScoreController.Instance.saveLocalTimeHighScore(levelHash_);
         thumbtoShow = 0;

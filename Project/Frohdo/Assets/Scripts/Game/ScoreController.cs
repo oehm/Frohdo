@@ -14,26 +14,13 @@ public class ScoreController : MonoBehaviour {
             return instance;
         }
     }
+    public bool isRunning{ get; set; }
 
-    public string LevelHash 
-    { 
-        get 
-        { 
-            return levelHash_; 
-        } 
-        set 
-        { 
-            levelHash_ = value;
-            isRunning = false;
-            pukeCount = 0;
-            timeCount = 0;
-        } 
-    }
-    private string levelHash_;
-    public bool isRunning{get;set;}
-
+    public string hash { get; set; }
     public int pukeCount { get; private set; }
     public int timeCount { get; private set; }
+
+    public LevelAndType curLevel;
 
 	// Use this for initialization
 	void Start () {
@@ -42,8 +29,6 @@ public class ScoreController : MonoBehaviour {
             Destroy(this);
         }
         instance = this;
-
-        LevelHash = "";
 	}
 	
 	// Update is called once per frame
@@ -54,31 +39,40 @@ public class ScoreController : MonoBehaviour {
         }
 	}
 
+    public void reset(LevelAndType newLevel, bool saveHighscoreForthisLevel = true)
+    {
+        isRunning = false;
+        pukeCount = 0;
+        timeCount = 0;
+        if (newLevel.type == LevelLoader.LevelType.Story) hash = newLevel.LevelTitle + "_score";
+        else hash = getMD5ofFile(newLevel.LeveltoLoad);
+    }
+
     public void saveLocalTimeHighScore(string hash)
     {
-        if(getlocalTimeHighscore(hash) == 0 || timeCount < getlocalTimeHighscore(hash))
-        PlayerPrefs.SetInt(hash + "_Time", timeCount);
+        if(getlocalTimeHighscore(hash) == -1 || timeCount < getlocalTimeHighscore(hash))
+        PlayerPrefs.SetInt("highscores_" + hash + "_Time", timeCount);
     }
     public void saveLocalPukeHighscore(string hash)
     {
-        if (getlocalPukeHighscore(hash) == 0 || pukeCount < getlocalPukeHighscore(hash))
-        PlayerPrefs.SetInt(levelHash_ + "_Pukes", pukeCount);
+        if (getlocalPukeHighscore(hash) == -1 || pukeCount < getlocalPukeHighscore(hash))
+        PlayerPrefs.SetInt("highscores_" + hash + "_Pukes", pukeCount);
     }
     public int getlocalTimeHighscore(string hash)
     {
-        if (PlayerPrefs.HasKey(hash + "_Time"))
+        if (PlayerPrefs.HasKey("highscores_" + hash + "_Time"))
         {
-            return PlayerPrefs.GetInt(hash + "_Time");
+            return PlayerPrefs.GetInt("highscores_" + hash + "_Time");
         }
-        return 0;
+        return -1;
     }
     public int getlocalPukeHighscore(string hash)
     {
-        if (PlayerPrefs.HasKey(hash + "_Pukes"))
+        if (PlayerPrefs.HasKey("highscores_" + hash + "_Pukes"))
         {
-            return PlayerPrefs.GetInt(hash + "_Pukes");
+            return PlayerPrefs.GetInt("highscores_" + hash + "_Pukes");
         }
-        return 0;
+        return -1;
     }
 
     public void CountAPuke()

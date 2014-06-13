@@ -106,6 +106,8 @@ class OnlineLevelObj : Levelobj //online - not downloaded
         this.localReservedThumbUrlForDownload = BuildManager.Instance.MapsPath + @"/downloaded/" + name + "-" + creatorNickname + @"/" + name + "-" + creatorNickname + "_thumb.png";
 
         alreadydownloaded = File.Exists(localReservedUrlForDownload) && File.Exists(localReservedThumbUrlForDownload);
+
+        highscoresToShow = DownloadHighscoreManager.HighscoreType.OnlineTime;
     }
 
     public override void StartLevel()
@@ -115,5 +117,19 @@ class OnlineLevelObj : Levelobj //online - not downloaded
             SceneManager.Instance.levelToLoad = new LevelAndType(localReservedUrlForDownload, LevelLoader.LevelType.Normal, thumbnail);
             SceneManager.Instance.loadScene(SceneManager.Scene.Game);
         }
+    }
+
+    public override void loadLocalHighScores() //only for Top online Levels which are already downloaded
+    {
+        //Debug.Log("Load Online Level Highscore");
+        //Debug.Log(hash);
+        localPukeHighscore = ScoreController.Instance.getlocalPukeHighscore(hash);
+        localTimeHighscore = ScoreController.Instance.getlocalTimeHighscore(hash);
+    }
+
+    public override void loadOnlineHighscores(DownloadHighscoreManager.HighscoreType type)
+    {
+        DownloadHighscoreManager.Instance.startDownload(hash, ref highscores, type);
+        //throw new NotImplementedException();
     }
 }

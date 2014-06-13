@@ -11,7 +11,7 @@ public class LevelSelect : MonoBehaviour {
 
     public int LevelsToShow = 10;
     public GUISkin style;
-    public string buttonDisabledColorHexString = "#d35400";
+    public string buttonDisabledColorHexString = GlobalVars.Instance.ButtonDisabledHexString;
 
     public SceneDestroyer destroyer;
 
@@ -64,6 +64,11 @@ public class LevelSelect : MonoBehaviour {
                 }
                 LevelsCurPage = 0;
             }
+        }
+
+        if (selectedLevelid != -1)
+        {
+            levels[selectedLevelid].ManUpdate();
         }
 	}
 
@@ -227,7 +232,7 @@ public class LevelSelect : MonoBehaviour {
 
                     foreach (XmlNode cn in n.ChildNodes)
                     {
-                        if (cn.Name.Equals("hash")) hash = cn.InnerText;
+                        if (cn.Name.Equals("hashCode")) hash = cn.InnerText;
                         if (cn.Name.Equals("title")) name = cn.InnerText;
                         if (cn.Name.Equals("urlThumbnail")) thumburl = cn.InnerText;
                         if (cn.Name.Equals("urlXML")) dlUrl = cn.InnerText;
@@ -319,10 +324,16 @@ public class LevelSelect : MonoBehaviour {
         // 3: levelselectbox -- elem
         // 4: bottombar -- elem
         // 5: forwardbackwardbutton -- button
-        // 6: bottombarCurLevelLabel -- label
-        // 7: mainbox -- elem
-        // 8: imagebox -- elem
-        // 9: highscoreNumbersBox -- elem
+        // 6: forwardbackwarddoublewidth -- button
+        // 7: bottombarCurLevelLabel -- label
+        // 8: mainbox -- elem
+        // 9: imagebox -- elem
+        //10: highscoreNumbersBox -- elem
+        //11: highscorebox -- elem
+        //12: thumbbox -- elem
+        //13: highscoreentrybox -- elem
+        //14: highscorebuttonfont -- font for button label.. 
+        //15: highscoreentryboxleftalign -- elem
 
         float screenHeight = ForceAspectRatio.screenHeight;
         float screenWidth = ForceAspectRatio.screenWidth;
@@ -358,16 +369,28 @@ public class LevelSelect : MonoBehaviour {
         style.customStyles[8].fixedWidth = screenWidth;
         style.customStyles[8].fixedHeight = screenHeight;
 
-        style.customStyles[9].fixedWidth = screenWidth / 2.5f;
-        style.customStyles[9].fixedHeight = screenHeight / 2.5f;
+        style.customStyles[9].fixedWidth = screenWidth / 3f;
+        style.customStyles[9].fixedHeight = screenHeight / 3f;
 
         style.customStyles[10].fixedWidth = screenWidth / 6;
 
         style.customStyles[11].fixedWidth = screenWidth / 2;
-        style.customStyles[11].fixedHeight = screenHeight * 0.3f;
+        style.customStyles[11].fixedHeight = screenHeight * 0.4f;
 
         style.customStyles[12].fixedWidth = screenWidth / 2;
-        style.customStyles[12].fixedHeight = screenHeight * 0.5f;
+        style.customStyles[12].fixedHeight = screenHeight * 0.4f;
+
+        style.customStyles[13].fixedWidth = screenWidth / 2;
+        style.customStyles[13].fixedHeight = screenHeight * 0.06f;
+        style.customStyles[13].fontSize = (int)(screenHeight * 0.05f);
+
+        style.customStyles[14].fixedHeight = screenHeight * 0.06f;
+        style.customStyles[14].fontSize = (int) (screenHeight * 0.05f);
+        style.customStyles[14].fixedWidth = screenWidth / 4.2f;
+
+        style.customStyles[15].fixedWidth = screenWidth / 2;
+        style.customStyles[15].fixedHeight = screenHeight * 0.06f;
+        style.customStyles[15].fontSize = (int)(screenHeight * 0.05f);
 
         style.button.fixedWidth = screenWidth / 2;
         style.button.fixedHeight = screenHeight * 0.8f / LevelsToShow;
@@ -479,14 +502,17 @@ public class LevelSelect : MonoBehaviour {
                                         GUILayout.Button("<color=" + buttonDisabledColorHexString + ">" + levels[i].name + "-" + ((OnlineLevelObj)levels[i]).creatorNickname + "</color>", "button");
                                         GUI.enabled = true;
                                     }
-                                    else
+                                    else if (levels[i].GetType() == typeof(OnlineLevelObj) && ((OnlineLevelObj)levels[i]).alreadydownloaded)
                                     {
-                                        if (GUILayout.Button("<color=" + buttonDisabledColorHexString + ">" + levels[i].name + "</color>", "button"))
+                                        if(GUILayout.Button("<color=" + buttonDisabledColorHexString + ">" + levels[i].name + "-" + ((OnlineLevelObj)levels[i]).creatorNickname + "</color>"))
                                         {
                                             levels[i].StartLevel();
                                         }
                                     }
-                                    
+                                    else if (GUILayout.Button("<color=" + buttonDisabledColorHexString + ">" + levels[i].name + "</color>", "button"))
+                                    {
+                                        levels[i].StartLevel();
+                                    }                                    
                                 }
                                 else
                                 {
@@ -494,6 +520,8 @@ public class LevelSelect : MonoBehaviour {
                                     {
                                         if (GUILayout.Button(levels[i].name + "-" + ((OnlineLevelObj)levels[i]).creatorNickname, "button"))
                                         {
+                                            if (((OnlineLevelObj)levels[i]).alreadydownloaded) levels[i].loadLocalHighScores();
+                                            levels[i].loadOnlineHighscores(DownloadHighscoreManager.HighscoreType.OnlineTime);
                                             selectedLevelid = levels[i].id;
                                         }
                                     }
@@ -501,6 +529,8 @@ public class LevelSelect : MonoBehaviour {
                                     {
                                         if (GUILayout.Button(levels[i].name, "button"))
                                         {
+                                            levels[i].loadLocalHighScores();
+                                            if (levels[i].GetType() == typeof(LocalLevelObj)) levels[i].loadOnlineHighscores(DownloadHighscoreManager.HighscoreType.OnlineTime);
                                             selectedLevelid = levels[i].id;
                                         }
                                     }

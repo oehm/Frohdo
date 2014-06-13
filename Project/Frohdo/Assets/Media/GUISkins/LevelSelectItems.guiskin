@@ -118,7 +118,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Font: {fileID: 0}
-    m_FontSize: 32
+    m_FontSize: 33
     m_FontStyle: 0
     m_Alignment: 3
     m_WordWrap: 0
@@ -126,8 +126,8 @@ MonoBehaviour:
     m_TextClipping: 1
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 518
-    m_FixedHeight: 46.5600014
+    m_FixedWidth: 526
+    m_FixedHeight: 47.2800026
     m_StretchWidth: 1
     m_StretchHeight: 0
   m_toggle:
@@ -236,7 +236,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Font: {fileID: 0}
-    m_FontSize: 32
+    m_FontSize: 33
     m_FontStyle: 0
     m_Alignment: 4
     m_WordWrap: 1
@@ -1247,8 +1247,8 @@ MonoBehaviour:
     m_TextClipping: 0
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 518
-    m_FixedHeight: 465.600006
+    m_FixedWidth: 526
+    m_FixedHeight: 472.800018
     m_StretchWidth: 1
     m_StretchHeight: 0
   - m_Name: topbar
@@ -1305,8 +1305,8 @@ MonoBehaviour:
     m_TextClipping: 0
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 1036
-    m_FixedHeight: 58.2000008
+    m_FixedWidth: 1052
+    m_FixedHeight: 59.1000023
     m_StretchWidth: 1
     m_StretchHeight: 0
   - m_Name: topbarbutton
@@ -1355,7 +1355,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Font: {fileID: 0}
-    m_FontSize: 37
+    m_FontSize: 38
     m_FontStyle: 0
     m_Alignment: 4
     m_WordWrap: 0
@@ -1363,8 +1363,8 @@ MonoBehaviour:
     m_TextClipping: 0
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 172.666672
-    m_FixedHeight: 58.2000008
+    m_FixedWidth: 175.333328
+    m_FixedHeight: 59.1000023
     m_StretchWidth: 1
     m_StretchHeight: 0
   - m_Name: levelselectbox
@@ -1421,8 +1421,8 @@ MonoBehaviour:
     m_TextClipping: 0
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 518
-    m_FixedHeight: 465.600006
+    m_FixedWidth: 526
+    m_FixedHeight: 472.800018
     m_StretchWidth: 1
     m_StretchHeight: 0
   - m_Name: bottombar
@@ -1479,8 +1479,8 @@ MonoBehaviour:
     m_TextClipping: 0
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 518
-    m_FixedHeight: 58.2000008
+    m_FixedWidth: 526
+    m_FixedHeight: 59.1000023
     m_StretchWidth: 1
     m_StretchHeight: 0
   - m_Name: forwardbackwardbutton
@@ -1529,7 +1529,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Font: {fileID: 0}
-    m_FontSize: 37
+    m_FontSize: 38
     m_FontStyle: 0
     m_Alignment: 4
     m_WordWrap: 0
@@ -1537,8 +1537,8 @@ MonoBehaviour:
     m_TextClipping: 0
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 172.666672
-    m_FixedHeight: 58.2000008
+    m_FixedWidth: 175.333328
+    m_FixedHeight: 59.1000023
     m_StretchWidth: 1
     m_StretchHeight: 0
   - m_Name: forwardbackwardbuttonfullwidth
@@ -1587,7 +1587,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Font: {fileID: 0}
-    m_FontSize: 37
+    m_FontSize: 38
     m_FontStyle: 0
     m_Alignment: 4
     m_WordWrap: 0
@@ -1595,8 +1595,8 @@ MonoBehaviour:
     m_TextClipping: 0
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 518
-    m_FixedHeight: 58.2000008
+    m_FixedWidth: 526
+    m_FixedHeight: 59.1000023
     m_StretchWidth: 1
     m_StretchHeight: 0
   - m_Name: bottombarCurLevelLabel
@@ -1645,7 +1645,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Font: {fileID: 0}
-    m_FontSize: 37
+    m_FontSize: 38
     m_FontStyle: 0
     m_Alignment: 4
     m_WordWrap: 0
@@ -1653,8 +1653,8 @@ MonoBehaviour:
     m_TextClipping: 0
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 103.599998
-    m_FixedHeight: 58.2000008
+    m_FixedWidth: 105.199997
+    m_FixedHeight: 59.1000023
     m_StretchWidth: 1
     m_StretchHeight: 0
   - m_Name: mainbox
@@ -1711,8 +1711,8 @@ MonoBehaviour:
     m_TextClipping: 0
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 1036
-    m_FixedHeight: 582
+    m_FixedWidth: 1052
+    m_FixedHeight: 591
     m_StretchWidth: 1
     m_StretchHeight: 0
   - m_Name: imagebox
@@ -1769,13 +1769,13 @@ MonoBehaviour:
     m_TextClipping: 0
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 414.399994
-    m_FixedHeight: 232.800003
+    m_FixedWidth: 350.666656
+    m_FixedHeight: 197
     m_StretchWidth: 1
     m_StretchHeight: 1
   - m_Name: highscoreNumbersBox
     m_Normal:
-      m_Background: {fileID: 2800000, guid: 75b0ee33acf6c7144a56273339ba7ff2, type: 3}
+      m_Background: {fileID: 2800000, guid: e3e18ceae18ae4daab952284d3cd74a2, type: 3}
       m_TextColor: {r: .213235319, g: .213235319, b: .213235319, a: 1}
     m_Hover:
       m_Background: {fileID: 2800000, guid: 75b0ee33acf6c7144a56273339ba7ff2, type: 3}
@@ -1827,7 +1827,7 @@ MonoBehaviour:
     m_TextClipping: 0
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 172.666672
+    m_FixedWidth: 175.333328
     m_FixedHeight: 363.600006
     m_StretchWidth: 1
     m_StretchHeight: 1
@@ -1885,8 +1885,8 @@ MonoBehaviour:
     m_TextClipping: 0
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 518
-    m_FixedHeight: 232.800003
+    m_FixedWidth: 526
+    m_FixedHeight: 236.400009
     m_StretchWidth: 1
     m_StretchHeight: 1
   - m_Name: thumbbox
@@ -1943,8 +1943,182 @@ MonoBehaviour:
     m_TextClipping: 0
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 518
-    m_FixedHeight: 291
+    m_FixedWidth: 526
+    m_FixedHeight: 236.400009
+    m_StretchWidth: 1
+    m_StretchHeight: 1
+  - m_Name: highscoreentrybox
+    m_Normal:
+      m_Background: {fileID: 2800000, guid: 75b0ee33acf6c7144a56273339ba7ff2, type: 3}
+      m_TextColor: {r: .213235319, g: .213235319, b: .213235319, a: 1}
+    m_Hover:
+      m_Background: {fileID: 2800000, guid: 75b0ee33acf6c7144a56273339ba7ff2, type: 3}
+      m_TextColor: {r: .382352948, g: .382352948, b: .382352948, a: 1}
+    m_Active:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_Focused:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_OnNormal:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_OnHover:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_OnActive:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_OnFocused:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_Border:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    m_Margin:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    m_Padding:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    m_Overflow:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    m_Font: {fileID: 0}
+    m_FontSize: 29
+    m_FontStyle: 0
+    m_Alignment: 4
+    m_WordWrap: 0
+    m_RichText: 1
+    m_TextClipping: 0
+    m_ImagePosition: 0
+    m_ContentOffset: {x: 0, y: 0}
+    m_FixedWidth: 526
+    m_FixedHeight: 35.4599991
+    m_StretchWidth: 1
+    m_StretchHeight: 1
+  - m_Name: highscoreButtonFont
+    m_Normal:
+      m_Background: {fileID: 2800000, guid: 75b0ee33acf6c7144a56273339ba7ff2, type: 3}
+      m_TextColor: {r: .213235319, g: .213235319, b: .213235319, a: 1}
+    m_Hover:
+      m_Background: {fileID: 2800000, guid: 75b0ee33acf6c7144a56273339ba7ff2, type: 3}
+      m_TextColor: {r: .382352948, g: .382352948, b: .382352948, a: 1}
+    m_Active:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_Focused:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_OnNormal:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_OnHover:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_OnActive:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_OnFocused:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_Border:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    m_Margin:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    m_Padding:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    m_Overflow:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    m_Font: {fileID: 0}
+    m_FontSize: 29
+    m_FontStyle: 0
+    m_Alignment: 4
+    m_WordWrap: 0
+    m_RichText: 1
+    m_TextClipping: 0
+    m_ImagePosition: 0
+    m_ContentOffset: {x: 0, y: 0}
+    m_FixedWidth: 250.476196
+    m_FixedHeight: 35.4599991
+    m_StretchWidth: 1
+    m_StretchHeight: 1
+  - m_Name: highscoreentryboxleftalign
+    m_Normal:
+      m_Background: {fileID: 2800000, guid: 75b0ee33acf6c7144a56273339ba7ff2, type: 3}
+      m_TextColor: {r: .213235319, g: .213235319, b: .213235319, a: 1}
+    m_Hover:
+      m_Background: {fileID: 2800000, guid: 75b0ee33acf6c7144a56273339ba7ff2, type: 3}
+      m_TextColor: {r: .382352948, g: .382352948, b: .382352948, a: 1}
+    m_Active:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_Focused:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_OnNormal:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_OnHover:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_OnActive:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_OnFocused:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_Border:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    m_Margin:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    m_Padding:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    m_Overflow:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    m_Font: {fileID: 0}
+    m_FontSize: 29
+    m_FontStyle: 0
+    m_Alignment: 4
+    m_WordWrap: 0
+    m_RichText: 1
+    m_TextClipping: 0
+    m_ImagePosition: 0
+    m_ContentOffset: {x: 0, y: 0}
+    m_FixedWidth: 526
+    m_FixedHeight: 35.4599991
     m_StretchWidth: 1
     m_StretchHeight: 1
   m_Settings:

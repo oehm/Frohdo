@@ -67,8 +67,8 @@ MonoBehaviour:
     m_TextClipping: 1
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 458
-    m_FixedHeight: 516
+    m_FixedWidth: 526
+    m_FixedHeight: 591
     m_StretchWidth: 1
     m_StretchHeight: 0
   m_button:
@@ -89,10 +89,10 @@ MonoBehaviour:
       m_Background: {fileID: 2800000, guid: 75b0ee33acf6c7144a56273339ba7ff2, type: 3}
       m_TextColor: {r: .0344824791, g: 0, b: 1, a: 1}
     m_OnHover:
-      m_Background: {fileID: 11004, guid: 0000000000000000e000000000000000, type: 0}
+      m_Background: {fileID: 2800000, guid: 75b0ee33acf6c7144a56273339ba7ff2, type: 3}
       m_TextColor: {r: 1, g: 1, b: 1, a: 1}
     m_OnActive:
-      m_Background: {fileID: 11002, guid: 0000000000000000e000000000000000, type: 0}
+      m_Background: {fileID: 2800000, guid: 75b0ee33acf6c7144a56273339ba7ff2, type: 3}
       m_TextColor: {r: .899999976, g: .899999976, b: .899999976, a: 1}
     m_OnFocused:
       m_Background: {fileID: 0}
@@ -118,7 +118,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Font: {fileID: 0}
-    m_FontSize: 30
+    m_FontSize: 34
     m_FontStyle: 0
     m_Alignment: 4
     m_WordWrap: 0
@@ -126,8 +126,8 @@ MonoBehaviour:
     m_TextClipping: 1
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 229
-    m_FixedHeight: 51
+    m_FixedWidth: 263
+    m_FixedHeight: 59
     m_StretchWidth: 1
     m_StretchHeight: 0
   m_toggle:
@@ -236,7 +236,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Font: {fileID: 12800000, guid: 14e59639e917f2a44b9e6396134adda0, type: 3}
-    m_FontSize: 30
+    m_FontSize: 34
     m_FontStyle: 0
     m_Alignment: 3
     m_WordWrap: 1
@@ -295,7 +295,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Font: {fileID: 12800000, guid: 14e59639e917f2a44b9e6396134adda0, type: 3}
-    m_FontSize: 30
+    m_FontSize: 34
     m_FontStyle: 0
     m_Alignment: 0
     m_WordWrap: 0
@@ -303,8 +303,8 @@ MonoBehaviour:
     m_TextClipping: 1
     m_ImagePosition: 3
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 458.5
-    m_FixedHeight: 43
+    m_FixedWidth: 526
+    m_FixedHeight: 49
     m_StretchWidth: 1
     m_StretchHeight: 0
   m_textArea:
@@ -1247,8 +1247,8 @@ MonoBehaviour:
     m_TextClipping: 0
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 917
-    m_FixedHeight: 516
+    m_FixedWidth: 1052
+    m_FixedHeight: 591
     m_StretchWidth: 0
     m_StretchHeight: 0
   - m_Name: CenterAlignLabel
@@ -1297,7 +1297,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Font: {fileID: 0}
-    m_FontSize: 30
+    m_FontSize: 34
     m_FontStyle: 0
     m_Alignment: 4
     m_WordWrap: 1
@@ -1305,8 +1305,8 @@ MonoBehaviour:
     m_TextClipping: 0
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 114
-    m_FixedHeight: 64
+    m_FixedWidth: 131
+    m_FixedHeight: 73
     m_StretchWidth: 1
     m_StretchHeight: 0
   - m_Name: CenterAlignLabelDoubleWidth
@@ -1355,7 +1355,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Font: {fileID: 0}
-    m_FontSize: 30
+    m_FontSize: 34
     m_FontStyle: 0
     m_Alignment: 4
     m_WordWrap: 1
@@ -1363,13 +1363,13 @@ MonoBehaviour:
     m_TextClipping: 0
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 458.5
-    m_FixedHeight: 64
+    m_FixedWidth: 526
+    m_FixedHeight: 73
     m_StretchWidth: 1
     m_StretchHeight: 0
   - m_Name: ButtonDoubleWidth
     m_Normal:
-      m_Background: {fileID: 2800000, guid: 5fa40c2b92819496aa1797691453a686, type: 3}
+      m_Background: {fileID: 2800000, guid: 75b0ee33acf6c7144a56273339ba7ff2, type: 3}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Hover:
       m_Background: {fileID: 2800000, guid: 75b0ee33acf6c7144a56273339ba7ff2, type: 3}
@@ -1413,7 +1413,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Font: {fileID: 0}
-    m_FontSize: 30
+    m_FontSize: 34
     m_FontStyle: 0
     m_Alignment: 4
     m_WordWrap: 1
@@ -1421,8 +1421,8 @@ MonoBehaviour:
     m_TextClipping: 0
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 458.5
-    m_FixedHeight: 64
+    m_FixedWidth: 526
+    m_FixedHeight: 73
     m_StretchWidth: 1
     m_StretchHeight: 0
   - m_Name: HalfBox
@@ -1479,8 +1479,8 @@ MonoBehaviour:
     m_TextClipping: 0
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 458.5
-    m_FixedHeight: 464.399994
+    m_FixedWidth: 526
+    m_FixedHeight: 531.899963
     m_StretchWidth: 1
     m_StretchHeight: 0
   - m_Name: RegisterButton
@@ -1529,7 +1529,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Font: {fileID: 0}
-    m_FontSize: 25
+    m_FontSize: 29
     m_FontStyle: 0
     m_Alignment: 4
     m_WordWrap: 1
@@ -1537,8 +1537,8 @@ MonoBehaviour:
     m_TextClipping: 0
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 458.5
-    m_FixedHeight: 64
+    m_FixedWidth: 526
+    m_FixedHeight: 73
     m_StretchWidth: 1
     m_StretchHeight: 0
   - m_Name: TitleBox
@@ -1595,8 +1595,8 @@ MonoBehaviour:
     m_TextClipping: 0
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 458
-    m_FixedHeight: 258
+    m_FixedWidth: 526
+    m_FixedHeight: 295.5
     m_StretchWidth: 1
     m_StretchHeight: 0
   - m_Name: ScoreBox
@@ -1653,8 +1653,8 @@ MonoBehaviour:
     m_TextClipping: 0
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 458
-    m_FixedHeight: 206.400009
+    m_FixedWidth: 526
+    m_FixedHeight: 236.400009
     m_StretchWidth: 1
     m_StretchHeight: 0
   - m_Name: ButtonBox
@@ -1711,8 +1711,8 @@ MonoBehaviour:
     m_TextClipping: 0
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 917
-    m_FixedHeight: 51.6000023
+    m_FixedWidth: 1052
+    m_FixedHeight: 59.1000023
     m_StretchWidth: 1
     m_StretchHeight: 0
   - m_Name: ScreensBox
@@ -1769,8 +1769,8 @@ MonoBehaviour:
     m_TextClipping: 0
     m_ImagePosition: 2
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 366.799988
-    m_FixedHeight: 206.400009
+    m_FixedWidth: 420.799988
+    m_FixedHeight: 236.400009
     m_StretchWidth: 1
     m_StretchHeight: 1
   - m_Name: ForwardBackwardButton
@@ -1819,7 +1819,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Font: {fileID: 0}
-    m_FontSize: 33
+    m_FontSize: 38
     m_FontStyle: 0
     m_Alignment: 4
     m_WordWrap: 0
@@ -1827,8 +1827,8 @@ MonoBehaviour:
     m_TextClipping: 0
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 152
-    m_FixedHeight: 51.6000023
+    m_FixedWidth: 175
+    m_FixedHeight: 59.1000023
     m_StretchWidth: 1
     m_StretchHeight: 1
   - m_Name: SaveScreenButton
@@ -1877,7 +1877,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Font: {fileID: 0}
-    m_FontSize: 30
+    m_FontSize: 34
     m_FontStyle: 0
     m_Alignment: 4
     m_WordWrap: 0
@@ -1885,8 +1885,8 @@ MonoBehaviour:
     m_TextClipping: 0
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 114
-    m_FixedHeight: 64
+    m_FixedWidth: 131
+    m_FixedHeight: 73
     m_StretchWidth: 1
     m_StretchHeight: 1
   m_Settings:

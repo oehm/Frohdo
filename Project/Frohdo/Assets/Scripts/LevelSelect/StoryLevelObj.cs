@@ -10,6 +10,7 @@ class StoryLevelObj : Levelobj
         this.id = id;
         this.name = Path.GetFileNameWithoutExtension(levelpath);
         this.respath = levelpath;
+        highscoresToShow = DownloadHighscoreManager.HighscoreType.LocalTime;
     }
 
     public override void LevelInfoGui()
@@ -38,5 +39,17 @@ class StoryLevelObj : Levelobj
             SceneManager.Instance.levelToLoad = new LevelAndType(respath, LevelLoader.LevelType.Story, thumbnail);
             SceneManager.Instance.loadScene(SceneManager.Scene.Game);
         }
+    }
+
+    public override void loadLocalHighScores()
+    {
+        //Debug.Log("Load Story Level Highscore");
+        localPukeHighscore = ScoreController.Instance.getlocalPukeHighscore(name + "_score");
+        localTimeHighscore = ScoreController.Instance.getlocalTimeHighscore(name + "_score");
+    }
+
+    public override void loadOnlineHighscores(DownloadHighscoreManager.HighscoreType type)
+    {
+        throw new System.NotImplementedException();
     }
 }
