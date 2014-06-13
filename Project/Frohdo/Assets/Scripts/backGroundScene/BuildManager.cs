@@ -38,6 +38,13 @@ public class BuildManager : MonoBehaviour
 
         GlobalVars.Initialise();
 
+        if (!PlayerPrefs.HasKey("QualityLevel"))
+        {
+            PlayerPrefs.SetInt("QualityLevel", 3);
+        }
+
+        QualitySettings.SetQualityLevel(PlayerPrefs.GetInt("QualityLevel"));
+
         //#if UNITY_EDITOR
         //    curPlatform = BuildPlatform.Editor;
         //    dataPath = Application.dataPath;
