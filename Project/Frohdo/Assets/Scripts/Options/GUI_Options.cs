@@ -8,7 +8,7 @@ public class GUI_Options : MonoBehaviour
 
     //options
     private Vector2 lastSize;
-    int quallity = 4;
+    int quality;
     public GUIContent[] quallityOptions;
 
     float screenHeight;
@@ -16,6 +16,11 @@ public class GUI_Options : MonoBehaviour
 
     void Start()
     {
+        if (!PlayerPrefs.HasKey("QualityLevel"))
+        {
+            PlayerPrefs.SetInt("QualityLevel", 3);
+        }
+        quality = PlayerPrefs.GetInt("QualityLevel");
         lastSize = new Vector2(Screen.width, Screen.height);                
     }
 
@@ -71,8 +76,8 @@ public class GUI_Options : MonoBehaviour
         GUILayout.FlexibleSpace();
 
         GUILayout.Label("Quality:", style.label);
-        quallity = GUILayout.Toolbar(quallity, quallityOptions);
-        QualitySettings.SetQualityLevel(quallity);
+        quality = GUILayout.Toolbar(quality, quallityOptions);
+        QualitySettings.SetQualityLevel(quality);
 
         if (GUILayout.Button("Fullscreen ON/OFF", "ButtonDoubleWidth"))
         {
@@ -91,8 +96,9 @@ public class GUI_Options : MonoBehaviour
         GUILayout.Label("Sounds", style.label);
         SoundController.Instance.MiscSoundVolume = GUILayout.HorizontalSlider(SoundController.Instance.MiscSoundVolume, 0, 1, style.horizontalSlider, style.horizontalSliderThumb);
 
-        if (GUILayout.Button("Back", "ButtonDoubleWidth"))
+        if (GUILayout.Button("Save & back", "ButtonDoubleWidth"))
         {
+            PlayerPrefs.SetInt("QualityLevel", quality);
             SceneManager.Instance.loadScene(SceneManager.Scene.MainMenu);
         }
         GUILayout.FlexibleSpace();
