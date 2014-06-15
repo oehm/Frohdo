@@ -30,6 +30,7 @@ public class ForceAspectRatio : MonoBehaviour
     public static void resetZAxis()
     {
         //Debug.Log("reset" + GlobalVars.Instance.mainCamerZ);
+        cam.transform.position = new Vector3(0, 0, -10);
         cam.fieldOfView = 60.0f;
     }
 
