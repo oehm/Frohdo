@@ -61,7 +61,7 @@ public class LevelEditorParser
         if(!Directory.Exists(BuildManager.Instance.MapsPath + @"/Custom/" + SceneManager.Instance.levelToLoad.LevelTitle))
             Directory.CreateDirectory(BuildManager.Instance.MapsPath + @"/Custom/" + SceneManager.Instance.levelToLoad.LevelTitle);
         SceneManager.Instance.levelToLoad = new LevelAndType(BuildManager.Instance.MapsPath + @"/Custom/" + SceneManager.Instance.levelToLoad.LevelTitle + "/" + SceneManager.Instance.levelToLoad.LevelTitle + ".xml", LevelLoader.LevelType.Custom);
-        SceneManager.Instance.levelToEdit = BuildManager.Instance.MapsPath + @"/Custom/" + SceneManager.Instance.levelToLoad.LevelTitle + "/" + SceneManager.Instance.levelToLoad.LevelTitle + ".xml";
+        //SceneManager.Instance.previewlevel = BuildManager.Instance.MapsPath + @"/Custom/" + SceneManager.Instance.levelToLoad.LevelTitle + "/" + SceneManager.Instance.levelToLoad.LevelTitle + ".xml";
         XML_Loader.Save(BuildManager.Instance.MapsPath + @"/Custom/" + SceneManager.Instance.levelToLoad.LevelTitle + "/" + SceneManager.Instance.levelToLoad.LevelTitle + ".xml", level);
     }
 

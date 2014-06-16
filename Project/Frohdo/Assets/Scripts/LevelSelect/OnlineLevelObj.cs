@@ -114,6 +114,7 @@ class OnlineLevelObj : Levelobj //online - not downloaded
     {
         if (DownloadLevelManager.Instance.GlobalStatus != DownloadLevelManager.DownloadStatus.Downloading)
         {
+            SceneManager.Instance.previewlevel = false;
             SceneManager.Instance.levelToLoad = new LevelAndType(localReservedUrlForDownload, LevelLoader.LevelType.Normal, thumbnail);
             SceneManager.Instance.loadScene(SceneManager.Scene.Game);
         }

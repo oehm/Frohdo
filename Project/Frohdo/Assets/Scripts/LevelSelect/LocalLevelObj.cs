@@ -45,6 +45,7 @@ class LocalLevelObj : Levelobj //already on disk
     {
         if (DownloadLevelManager.Instance.GlobalStatus != DownloadLevelManager.DownloadStatus.Downloading)
         {
+            SceneManager.Instance.previewlevel = false;
             SceneManager.Instance.levelToLoad = new LevelAndType(XMLPath.FullName, LevelLoader.LevelType.Normal, thumbnail);
             SceneManager.Instance.loadScene(SceneManager.Scene.Game);
         }

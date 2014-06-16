@@ -19,8 +19,6 @@ public class LevelLoader : MonoBehaviour
 
     public void load()
     {
-
-
         string path = SceneManager.Instance.levelToLoad.LeveltoLoad;
         bool editor = SceneManager.Instance.loadLevelToEdit;
         LevelType type = SceneManager.Instance.levelToLoad.type;

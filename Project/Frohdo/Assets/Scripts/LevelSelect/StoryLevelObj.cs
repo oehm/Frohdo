@@ -36,6 +36,7 @@ class StoryLevelObj : Levelobj
     {
         if (DownloadLevelManager.Instance.GlobalStatus != DownloadLevelManager.DownloadStatus.Downloading)
         {
+            SceneManager.Instance.previewlevel = false;
             SceneManager.Instance.levelToLoad = new LevelAndType(respath, LevelLoader.LevelType.Story, thumbnail);
             SceneManager.Instance.loadScene(SceneManager.Scene.Game);
         }

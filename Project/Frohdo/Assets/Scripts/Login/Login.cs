@@ -224,12 +224,24 @@ public class Login : MonoBehaviour
     {
         if (SceneManager.Instance.getSavedSceneTypeWhenInLogin() != SceneManager.Scene.MainMenu)
         {
-            GUILayout.BeginHorizontal();
-            if (GUILayout.Button("Back to main menu", "ButtonDoubleWidth"))
-            {
-                SceneManager.Instance.loadScene(SceneManager.Scene.MainMenu);
-            }
-            GUILayout.EndHorizontal();
+            GUILayout.BeginVertical();
+                GUILayout.BeginHorizontal();
+                if (GUILayout.Button("Back to main menu", "ButtonDoubleWidth"))
+                {
+                    SceneManager.Instance.loadScene(SceneManager.Scene.MainMenu);
+                }
+                GUILayout.EndHorizontal();
+                if (SceneManager.Instance.getSavedSceneTypeWhenInLogin() == SceneManager.Scene.Game && SceneManager.Instance.previewlevel)
+                {
+                    GUILayout.BeginHorizontal();
+                    if (GUILayout.Button("Back to Editor", "ButtonDoubleWidth"))
+                    {
+                        SceneManager.Instance.loadLevelToEdit = true;
+                        SceneManager.Instance.loadScene(SceneManager.Scene.Editor);
+                    }
+                    GUILayout.EndHorizontal();
+                }
+            GUILayout.EndVertical();
         }
     }
 }

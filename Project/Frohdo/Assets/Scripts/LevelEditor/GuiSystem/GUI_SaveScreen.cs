@@ -36,6 +36,7 @@ public class GUI_SaveScreen : GUI_Element
             LevelEditorParser.Instance.saveLevel();
             if(preview)
             {
+                SceneManager.Instance.previewlevel = true;
                 SceneManager.Instance.loadScene(SceneManager.Scene.Game);
             }
             else

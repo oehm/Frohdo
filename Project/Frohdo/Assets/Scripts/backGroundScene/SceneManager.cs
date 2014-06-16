@@ -26,7 +26,7 @@ public class SceneManager : MonoBehaviour
     private bool startup = true;
 
     public LevelAndType levelToLoad { get; set; }
-    public string levelToEdit { get; set; }
+    public bool previewlevel { get; set; }
 
     public bool loadLevelToEdit { get; set; } 
 
@@ -39,7 +39,7 @@ public class SceneManager : MonoBehaviour
         instance = this;
 
         levelToLoad = null;
-        levelToEdit = null;
+        previewlevel = false;
         loadLevelToEdit = false;
 
         Application.LoadLevelAdditive((int)Scene.Patcher);
