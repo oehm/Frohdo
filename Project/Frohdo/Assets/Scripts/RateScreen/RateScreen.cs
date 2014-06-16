@@ -5,7 +5,7 @@ using System;
 public class RateScreen : MonoBehaviour {
 
     public GUISkin style;
-    
+
     private string levelHash_;
 
     private int pukeCount_;
@@ -16,15 +16,35 @@ public class RateScreen : MonoBehaviour {
 
     private int thumbtoShow = 0;
 
+    private LevelLoader.LevelType leveltype;
+
+    private bool rateloadingstarted;
+
+    private int selectedRating, selectedDifficultyRating;
+
 	// Use this for initialization
     void Start()
     {
+        selectedRating = -1;
+        selectedDifficultyRating = -1;
+
         levelHash_ = ScoreController.Instance.hash;
         pukeCount_ = ScoreController.Instance.pukeCount;
         timeCount_ = ScoreController.Instance.timeCount;
         Debug.Log(levelHash_);
+        leveltype = SceneManager.Instance.levelToLoad.type;
         ScoreController.Instance.saveLocalPukeHighscore(levelHash_);
         ScoreController.Instance.saveLocalTimeHighScore(levelHash_);
+        if (leveltype == LevelLoader.LevelType.Normal && NetworkManager.Instance.GlobalStatus == NetworkManager.LoginStatus.LoggedIn)
+        {
+            HighscoreAndRateManager.Instance.loadCurData(levelHash_);
+            rateloadingstarted = true;
+        }
+        else
+        {
+            rateloadingstarted = false;
+        }
+
         thumbtoShow = 0;
     }
 
@@ -50,7 +70,7 @@ public class RateScreen : MonoBehaviour {
         //centerAlignDoubleWidth
         style.customStyles[2].fontSize = (int)((screenHeight / 12) * 0.7);
         style.customStyles[2].fixedWidth = screenWidth / 2f;
-        style.customStyles[2].fixedHeight = screenHeight / 8;
+        style.customStyles[2].fixedHeight = screenHeight / 15;
 
         //double width button
         style.customStyles[3].fontSize = (int)((screenHeight / 12) * 0.7);
@@ -98,12 +118,16 @@ public class RateScreen : MonoBehaviour {
         style.customStyles[11].fixedWidth = screenWidth / 8;
         style.customStyles[11].fixedHeight = screenHeight / 8;
 
+        style.customStyles[12].fontSize = (int)((screenHeight / 12) * 0.7);
+        style.customStyles[12].fixedWidth = screenWidth / 2 / 12;
+        style.customStyles[12].fixedHeight = screenHeight / 2 / 12;
+
         GUI.skin = style;
         GUILayout.BeginArea(new Rect(ForceAspectRatio.xOffset, ForceAspectRatio.yOffset, screenWidth, screenHeight), "", style.customStyles[0]);
 
             GUILayout.BeginVertical();
         
-                GUILayout.BeginHorizontal();        
+                GUILayout.BeginHorizontal();
 
                     GUILayout.BeginVertical("HalfBox");
 
@@ -250,6 +274,125 @@ public class RateScreen : MonoBehaviour {
     void drawPlaylistLevelGuiRightHalf()
     {
         drawHighlights();
+        drawRatingBox();
+    }
+
+    private void drawRatingBox()
+    {
+        GUILayout.BeginHorizontal();
+
+            GUILayout.FlexibleSpace();
+
+                GUILayout.BeginVertical();
+
+                switch (HighscoreAndRateManager.Instance.GlobalStatus)
+                {
+                    case HighscoreAndRateManager.RatingStatus.Unloaded:
+                        if (NetworkManager.Instance.GlobalStatus != NetworkManager.LoginStatus.LoggedIn)
+                        {
+                            GUILayout.Label("Log in for rating and highscore upload!", "CenterAlignLabelDoubleWidth");
+                        }
+                        else
+                        {
+                            GUILayout.Label("Please Wait ...", "CenterAlignLabelDoubleWidth");
+                            if (!rateloadingstarted)
+                            {
+                                rateloadingstarted = true;
+                                HighscoreAndRateManager.Instance.loadCurData(levelHash_);
+                            }
+                        }
+                        break;
+                    case HighscoreAndRateManager.RatingStatus.LevelNotFoundOnline:
+                        GUILayout.Label("Level not found online!", "CenterAlignLabelDoubleWidth");
+                        break;
+
+                    case HighscoreAndRateManager.RatingStatus.Unrated:
+                        GUILayout.Label("You can rate this level:", "CenterAlignLabelDoubleWidth");
+                        GUILayout.Label("Fun & Look", "CenterAlignLabelDoubleWidth");
+                        showRatingpukes(HighscoreAndRateManager.Instance.Rating,ref selectedRating);
+                        GUILayout.Label("Difficulty", "CenterAlignLabelDoubleWidth");
+                        showRatingpukes(HighscoreAndRateManager.Instance.DifficultyRating,ref selectedDifficultyRating);
+                        if (selectedRating == -1 || selectedDifficultyRating == -1)
+                        {
+                            GUILayout.Label("You have to rate to upload scores and ratings!", "CenterAlignLabelDoubleWidth");
+                        }
+                        else
+                        {
+                            if (GUILayout.Button("Upload ratings & scores", "CenterAlignLabelDoubleWidth"))
+                            {
+                                HighscoreAndRateManager.Instance.SetNewData(timeCount_, pukeCount_, selectedRating, selectedDifficultyRating);
+                            }
+                        }
+                        GUI.enabled = true;
+                        break;
+
+                    case HighscoreAndRateManager.RatingStatus.Rated:
+                        GUILayout.Label("You have already rated:", "CenterAlignLabelDoubleWidth");
+                        GUILayout.Label("Fun & Look", "CenterAlignLabelDoubleWidth");
+                        GUILayout.Label("<color=" + GlobalVars.Instance.OwnHighscoreHighlightColor + ">" + HighscoreAndRateManager.Instance.Rating.ToString() + "</color>", "CenterAlignLabelDoubleWidth");
+                        GUILayout.Label("Difficulty", "CenterAlignLabelDoubleWidth");
+                        GUILayout.Label("<color=" + GlobalVars.Instance.OwnHighscoreHighlightColor + ">" + HighscoreAndRateManager.Instance.DifficultyRating.ToString() + "</color>", "CenterAlignLabelDoubleWidth");
+                        if (GUILayout.Button("Upload scores", "CenterAlignLabelDoubleWidth"))
+                        {
+                            HighscoreAndRateManager.Instance.SetNewData(timeCount_, pukeCount_);
+                        }
+                        break;
+
+                    case HighscoreAndRateManager.RatingStatus.Uploading:
+                        GUILayout.Label("Uploading ...", "CenterAlignLabelDoubleWidth");
+                        break;
+
+                    case HighscoreAndRateManager.RatingStatus.Uploaded:
+                        GUILayout.Label("Uploaded", "CenterAlignLabelDoubleWidth");
+                        break;
+
+                    case HighscoreAndRateManager.RatingStatus.LoadingCurData:
+                        GUILayout.Label("Loading ratings", "CenterAlignLabelDoubleWidth");
+                        break;
+                }
+
+                GUILayout.EndVertical();
+
+            GUILayout.FlexibleSpace();
+
+        GUILayout.EndHorizontal();
+    }
+
+    private void showRatingpukes(int p, ref int selrating)
+    {
+        GUILayout.BeginHorizontal();
+            GUILayout.FlexibleSpace();
+                int i = 0;
+                for (; i < p; i++)
+                {
+                    if (i+1 == selrating)
+                    {
+                        GUILayout.Label("<color=" + GlobalVars.Instance.OwnHighscoreHighlightColor + ">" + (i + 1).ToString() + "</color>", "iconbox");
+                    }
+                    else
+                    {
+                        if (GUILayout.Button((i + 1).ToString(), "iconbox"))
+                        {
+                            selrating = i + 1;
+                        }
+                    }
+                }
+                for (; i < 10; i++)
+                {
+                    if (i+1 == selrating)
+                    {
+                        GUILayout.Label("<color=" + GlobalVars.Instance.OwnHighscoreHighlightColor + ">" + (i + 1).ToString() + "</color>", "iconbox");
+                    }
+                    else
+                    {
+                        if (GUILayout.Button((i + 1).ToString(), "iconbox"))
+                        {
+                            selrating = i + 1;
+                        }
+                    }
+                }
+            GUILayout.FlexibleSpace();
+        GUILayout.EndHorizontal();
     }
 
     void drawCustomLevelButtons()
@@ -327,10 +470,12 @@ public class RateScreen : MonoBehaviour {
 
     void drawPlaylistLevelButtons()
     {
+        if (HighscoreAndRateManager.Instance.GlobalStatus == HighscoreAndRateManager.RatingStatus.Uploading) GUI.enabled = false;
         if (GUILayout.Button("continue", "ButtonDoubleWidth"))
         {
             SceneManager.Instance.loadScene(SceneManager.Scene.LevelSelect);
         }
+        GUI.enabled = true;
     }
 
     int nfmod(int a, int b)

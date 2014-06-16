@@ -67,6 +67,10 @@ public class GlobalVars : ScriptableObject
 
     public string OwnHighscoreHighlightColor;
 
+    public string GetCurRatingforLevelUrl;
+
+    public string RateLevelAndUploadHighscoreUrl;
+
     public string CommunityBasePath;
 
     public string playlistUrl;

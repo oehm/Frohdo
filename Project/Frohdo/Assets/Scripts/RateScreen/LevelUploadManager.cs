@@ -11,8 +11,6 @@ public class LevelUploadManager : MonoBehaviour
 
     private static LevelUploadManager instance = null;
 
-    private string _cookie;
-
     private static LevelUploadStatus _globalStatus;
 
     private static HashEqualsStatus _globalHashStatus;

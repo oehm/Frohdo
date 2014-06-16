@@ -196,7 +196,14 @@ abstract class Levelobj : MonoBehaviour
                         {
                             GUILayout.FlexibleSpace();
                             if (DownloadHighscoreManager.Instance.GlobalStatus == DownloadHighscoreManager.DownloadStatus.Downloading) GUILayout.Label("Loading highscores ...", "highscoreentrybox");
-                            else GUILayout.Label("No highscores yet!", "highscoreentrybox");
+                            else if (DownloadHighscoreManager.Instance.GlobalStatus == DownloadHighscoreManager.DownloadStatus.NotFoundOnServer)
+                            {
+                                GUILayout.Label("Level not found online!", "highscoreentrybox");
+                            }
+                            else
+                            {
+                                GUILayout.Label("No highscores yet!", "highscoreentrybox");
+                            }
                             GUILayout.FlexibleSpace();
                         }
                         else
@@ -221,7 +228,14 @@ abstract class Levelobj : MonoBehaviour
                         {
                             GUILayout.FlexibleSpace();
                             if (DownloadHighscoreManager.Instance.GlobalStatus == DownloadHighscoreManager.DownloadStatus.Downloading) GUILayout.Label("Loading highscores ...", "highscoreentrybox");
-                            else GUILayout.Label("No highscores yet!", "highscoreentrybox");
+                            else if (DownloadHighscoreManager.Instance.GlobalStatus == DownloadHighscoreManager.DownloadStatus.NotFoundOnServer)
+                            {
+                                GUILayout.Label("Level not found online!", "highscoreentrybox");
+                            }
+                            else
+                            {
+                                GUILayout.Label("No highscores yet!", "highscoreentrybox");
+                            }
                             GUILayout.FlexibleSpace();
                         }
                         else

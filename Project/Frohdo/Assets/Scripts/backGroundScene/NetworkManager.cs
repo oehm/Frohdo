@@ -108,10 +108,14 @@ public class NetworkManager : MonoBehaviour
 
         if (header.ContainsKey("STATUS"))
         {
-            //Debug.Log(header["STATUS"]);
+            Debug.Log(header["STATUS"]);
             if (header["STATUS"].ToString().Equals("HTTP/1.1 302 Found"))
             {
 
+            }
+            else if (header["STATUS"].ToString().Equals("500 Internal Server Error"))
+            {
+                _globalStatus = LoginStatus.Refused;
             }
             else
             {

@@ -7,7 +7,7 @@ using System;
 public class DownloadHighscoreManager : MonoBehaviour {
 
     public enum HighscoreType { LocalTime, LocalPuke, OnlineTime, OnlinePuke, None };
-    public enum DownloadStatus { NotDownloaded, Downloading, Downloaded, Error };
+    public enum DownloadStatus { NotDownloaded, Downloading, Downloaded, Error, NotFoundOnServer };
 
     private static DownloadHighscoreManager instance = null;
 
@@ -66,8 +66,7 @@ public class DownloadHighscoreManager : MonoBehaviour {
 
     public void startDownload(string hash, ref List<Highscore> highscores, HighscoreType type)
     {
-        if (_globalStatus == DownloadStatus.Downloading) reset();
-
+        reset();
         highscores = new List<Highscore>();
         this.highscores = highscores;
         this.hash = hash;
@@ -101,8 +100,8 @@ public class DownloadHighscoreManager : MonoBehaviour {
             }
             else
             {
-                Debug.Log("Some errors occured!");
-                _globalStatus = DownloadStatus.Error;
+                //Debug.Log("Some errors occured!");
+                _globalStatus = DownloadStatus.NotFoundOnServer;
                 yield break;
             }
         }
