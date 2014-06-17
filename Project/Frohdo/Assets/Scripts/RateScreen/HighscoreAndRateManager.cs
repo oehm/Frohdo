@@ -160,8 +160,8 @@ public class HighscoreAndRateManager : MonoBehaviour
     {
         this.timescore = time;
         this.pukescore = pukes;
-        this.rating = rating;
-        this.difficultyrating = difficultyrating;
+        if(rating != -1) this.rating = rating;
+        if(difficultyrating != -1) this.difficultyrating = difficultyrating;
         _globalStatus = RatingStatus.Uploading;
     }
 

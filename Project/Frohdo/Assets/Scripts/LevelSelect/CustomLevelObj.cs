@@ -48,7 +48,7 @@ class CustomLevelObj : Levelobj
 
     public override void loadLocalHighScores()
     {
-        Debug.Log("No custom level highscores!");
+        //Debug.Log("No custom level highscores!");
     }
 
     public override void loadOnlineHighscores(DownloadHighscoreManager.HighscoreType type)

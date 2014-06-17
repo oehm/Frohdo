@@ -120,6 +120,8 @@ public class DownloadHighscoreManager : MonoBehaviour {
         XmlDocument doc = new XmlDocument();
         doc.LoadXml(XML);
 
+        //Debug.Log(XML);
+
         if (typeToLoad == HighscoreType.OnlineTime)
         {
             foreach (XmlNode n in doc.GetElementsByTagName("toplist_time"))

@@ -103,7 +103,7 @@ abstract class Levelobj : MonoBehaviour
         }
         else
         {
-            Debug.Log(thumbdownload.error);
+            //Debug.Log(thumbdownload.error);
         }
     }
 

@@ -118,7 +118,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Font: {fileID: 0}
-    m_FontSize: 35
+    m_FontSize: 43
     m_FontStyle: 0
     m_Alignment: 4
     m_WordWrap: 0
@@ -236,7 +236,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Font: {fileID: 12800000, guid: 14e59639e917f2a44b9e6396134adda0, type: 3}
-    m_FontSize: 35
+    m_FontSize: 33
     m_FontStyle: 0
     m_Alignment: 3
     m_WordWrap: 1
@@ -295,7 +295,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Font: {fileID: 12800000, guid: 14e59639e917f2a44b9e6396134adda0, type: 3}
-    m_FontSize: 35
+    m_FontSize: 33
     m_FontStyle: 0
     m_Alignment: 0
     m_WordWrap: 0
@@ -304,7 +304,7 @@ MonoBehaviour:
     m_ImagePosition: 3
     m_ContentOffset: {x: 0, y: 0}
     m_FixedWidth: 535.5
-    m_FixedHeight: 50
+    m_FixedHeight: 48.1599998
     m_StretchWidth: 1
     m_StretchHeight: 0
   m_textArea:
@@ -1297,7 +1297,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Font: {fileID: 0}
-    m_FontSize: 35
+    m_FontSize: 33
     m_FontStyle: 0
     m_Alignment: 4
     m_WordWrap: 1
@@ -1355,7 +1355,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Font: {fileID: 0}
-    m_FontSize: 35
+    m_FontSize: 32
     m_FontStyle: 0
     m_Alignment: 4
     m_WordWrap: 1
@@ -1364,7 +1364,7 @@ MonoBehaviour:
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
     m_FixedWidth: 535.5
-    m_FixedHeight: 40
+    m_FixedHeight: 36.1199989
     m_StretchWidth: 1
     m_StretchHeight: 0
   - m_Name: ButtonDoubleWidth
@@ -1413,7 +1413,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Font: {fileID: 0}
-    m_FontSize: 35
+    m_FontSize: 43
     m_FontStyle: 0
     m_Alignment: 4
     m_WordWrap: 1
@@ -1422,7 +1422,7 @@ MonoBehaviour:
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
     m_FixedWidth: 535.5
-    m_FixedHeight: 75
+    m_FixedHeight: 60.2000008
     m_StretchWidth: 1
     m_StretchHeight: 0
   - m_Name: HalfBox
@@ -1529,7 +1529,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Font: {fileID: 0}
-    m_FontSize: 30
+    m_FontSize: 28
     m_FontStyle: 0
     m_Alignment: 4
     m_WordWrap: 1
@@ -1827,7 +1827,7 @@ MonoBehaviour:
     m_TextClipping: 0
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 178
+    m_FixedWidth: 171.360001
     m_FixedHeight: 60.2000008
     m_StretchWidth: 1
     m_StretchHeight: 1
@@ -1877,7 +1877,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Font: {fileID: 0}
-    m_FontSize: 35
+    m_FontSize: 33
     m_FontStyle: 0
     m_Alignment: 4
     m_WordWrap: 0
@@ -1935,6 +1935,64 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Font: {fileID: 0}
+    m_FontSize: 33
+    m_FontStyle: 0
+    m_Alignment: 4
+    m_WordWrap: 0
+    m_RichText: 1
+    m_TextClipping: 0
+    m_ImagePosition: 0
+    m_ContentOffset: {x: 0, y: 0}
+    m_FixedWidth: 42.7999992
+    m_FixedHeight: 24.0799999
+    m_StretchWidth: 1
+    m_StretchHeight: 0
+  - m_Name: highlightsbox
+    m_Normal:
+      m_Background: {fileID: 2800000, guid: 75b0ee33acf6c7144a56273339ba7ff2, type: 3}
+      m_TextColor: {r: .213235319, g: .213235319, b: .213235319, a: 1}
+    m_Hover:
+      m_Background: {fileID: 2800000, guid: 75b0ee33acf6c7144a56273339ba7ff2, type: 3}
+      m_TextColor: {r: .382352948, g: .382352948, b: .382352948, a: 1}
+    m_Active:
+      m_Background: {fileID: 2800000, guid: 75b0ee33acf6c7144a56273339ba7ff2, type: 3}
+      m_TextColor: {r: .04184689, g: .632352948, b: .0703541264, a: 1}
+    m_Focused:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 0}
+    m_OnNormal:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 0}
+    m_OnHover:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 0}
+    m_OnActive:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 0}
+    m_OnFocused:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 0}
+    m_Border:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    m_Margin:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    m_Padding:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    m_Overflow:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    m_Font: {fileID: 0}
     m_FontSize: 35
     m_FontStyle: 0
     m_Alignment: 4
@@ -1943,8 +2001,66 @@ MonoBehaviour:
     m_TextClipping: 0
     m_ImagePosition: 0
     m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 44
-    m_FixedHeight: 25
+    m_FixedWidth: 535
+    m_FixedHeight: 361.200012
+    m_StretchWidth: 1
+    m_StretchHeight: 0
+  - m_Name: ratingsbox
+    m_Normal:
+      m_Background: {fileID: 2800000, guid: 75b0ee33acf6c7144a56273339ba7ff2, type: 3}
+      m_TextColor: {r: .213235319, g: .213235319, b: .213235319, a: 1}
+    m_Hover:
+      m_Background: {fileID: 2800000, guid: 75b0ee33acf6c7144a56273339ba7ff2, type: 3}
+      m_TextColor: {r: .382352948, g: .382352948, b: .382352948, a: 1}
+    m_Active:
+      m_Background: {fileID: 2800000, guid: 75b0ee33acf6c7144a56273339ba7ff2, type: 3}
+      m_TextColor: {r: .04184689, g: .632352948, b: .0703541264, a: 1}
+    m_Focused:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 0}
+    m_OnNormal:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 0}
+    m_OnHover:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 0}
+    m_OnActive:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 0}
+    m_OnFocused:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 0}
+    m_Border:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    m_Margin:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    m_Padding:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    m_Overflow:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    m_Font: {fileID: 0}
+    m_FontSize: 35
+    m_FontStyle: 0
+    m_Alignment: 4
+    m_WordWrap: 0
+    m_RichText: 1
+    m_TextClipping: 0
+    m_ImagePosition: 0
+    m_ContentOffset: {x: 0, y: 0}
+    m_FixedWidth: 535
+    m_FixedHeight: 180.600006
     m_StretchWidth: 1
     m_StretchHeight: 0
   m_Settings:
