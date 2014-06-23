@@ -108,7 +108,7 @@ public class NetworkManager : MonoBehaviour
 
         if (header.ContainsKey("STATUS"))
         {
-            Debug.Log(header["STATUS"]);
+            //Debug.Log(header["STATUS"]);
             if (header["STATUS"].ToString().Equals("HTTP/1.1 302 Found"))
             {
 

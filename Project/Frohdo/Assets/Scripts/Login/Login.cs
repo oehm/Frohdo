@@ -152,7 +152,7 @@ public class Login : MonoBehaviour
             {
                 PlayerPrefs.SetString("LoginName", login.Trim());
                 NetworkManager.Instance.tryConnect(login.Trim(), pass.Trim());
-                Debug.Log("Try to log in: " + login);
+                //Debug.Log("Try to log in: " + login);
             }
         }
 

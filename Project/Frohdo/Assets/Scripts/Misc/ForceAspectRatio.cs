@@ -36,7 +36,7 @@ public class ForceAspectRatio : MonoBehaviour
 
     public void activate()
     {
-        Debug.Log("Activate");
+        //Debug.Log("Activate");
         //Screen.fullScreen = Screen.fullScreen;
         _landscapeModeOnly = landscapeModeOnly;
         cam = camera;

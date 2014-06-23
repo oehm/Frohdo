@@ -79,6 +79,7 @@ public class DownloadLevelManager : MonoBehaviour
         requHeaders.Add("Cookie", NetworkManager.Instance.Cookie);
         //Debug.Log(GlobalVars.Instance.CommunityBasePath + LeveltoDownloadpath);
         request = new WWW(GlobalVars.Instance.CommunityBasePath + LeveltoDownloadpath ,null, requHeaders);
+        //Debug.Log(GlobalVars.Instance.CommunityBasePath + LeveltoDownloadpath);
         yield return request;
 
         Hashtable header = new Hashtable();
