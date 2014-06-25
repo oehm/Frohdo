@@ -33,5 +33,5 @@ public class DebugDrawCollider : MonoBehaviour {
                 Debug.DrawLine(new Vector3(charpos.x + points[j].x, charpos.y + points[j].y, 0), new Vector3(charpos.x + (points[(j + 1) % (points.Length)].x), charpos.y + (points[(j + 1) % (points.Length)].y), 0), colcolors[i]);
             }
         }
-	}
+    }
 }
