@@ -27,7 +27,7 @@ public class SoundController : MonoBehaviour
         set
         {
             PlayerPrefs.SetFloat("MiscVolume", value);
-            _clickSoundsSource.volume = value/2;
+            _clickSoundsSource.volume = value * 0.5f;
         }
     }
 
@@ -44,7 +44,7 @@ public class SoundController : MonoBehaviour
         {
             PlayerPrefs.SetFloat("BackgroundVolume", value);
             if (_backgroundSource != null)
-                _backgroundSource.volume = value;
+                _backgroundSource.volume = value * 0.7f;
         }
     }
 
@@ -69,9 +69,9 @@ public class SoundController : MonoBehaviour
         _clickSoundsSource = this.gameObject.GetComponents<AudioSource>()[1];
 
         _backloopstarted = false;
-        _backgroundSource.volume = BackgroundSoundVolume;
 
-        _clickSoundsSource.volume = MiscSoundVolume;
+        MiscSoundVolume = MiscSoundVolume;
+        BackgroundSoundVolume = BackgroundSoundVolume;
 
         loadAudioFiles();
     }
