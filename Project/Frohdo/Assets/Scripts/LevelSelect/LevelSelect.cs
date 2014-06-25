@@ -521,7 +521,7 @@ public class LevelSelect : MonoBehaviour {
                                         if (SoundButton.newSoundButton(levels[i].name + "-" + ((OnlineLevelObj)levels[i]).creatorNickname, "button"))
                                         {
                                             if (((OnlineLevelObj)levels[i]).alreadydownloaded) levels[i].loadLocalHighScores();
-                                            levels[i].loadOnlineHighscores(DownloadHighscoreManager.HighscoreType.OnlineTime);
+                                            levels[i].loadOnlineHighscores(levels[i].highscoresToShow);
                                             selectedLevelid = levels[i].id;
                                         }
                                     }
@@ -530,7 +530,7 @@ public class LevelSelect : MonoBehaviour {
                                         if (SoundButton.newSoundButton(levels[i].name, "button"))
                                         {
                                             levels[i].loadLocalHighScores();
-                                            if (levels[i].GetType() == typeof(LocalLevelObj)) levels[i].loadOnlineHighscores(DownloadHighscoreManager.HighscoreType.OnlineTime);
+                                            if (levels[i].GetType() == typeof(LocalLevelObj)) levels[i].loadOnlineHighscores(levels[i].highscoresToShow);
                                             selectedLevelid = levels[i].id;
                                         }
                                     }
