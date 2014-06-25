@@ -24,7 +24,7 @@ class StoryLevelObj : Levelobj
 
         GUILayout.BeginHorizontal("bottombar");
         GUILayout.FlexibleSpace();
-        if (GUILayout.Button("Play", "forwardbackwardbuttonfullwidth"))
+        if (SoundButton.newSoundButton("Play", "forwardbackwardbuttonfullwidth"))
         {
             StartLevel();
         }

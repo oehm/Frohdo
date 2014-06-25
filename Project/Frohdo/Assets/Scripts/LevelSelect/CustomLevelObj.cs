@@ -22,11 +22,11 @@ class CustomLevelObj : Levelobj
 
         GUILayout.BeginHorizontal("bottombar");
         GUILayout.FlexibleSpace();
-        if (GUILayout.Button("Play", "forwardbackwardbutton"))
+        if (SoundButton.newSoundButton("Play", "forwardbackwardbutton"))
         {
             StartLevel();
         }
-        if (GUILayout.Button("Edit", "forwardbackwardbutton"))
+        if (SoundButton.newSoundButton("Edit", "forwardbackwardbutton"))
         {
             SceneManager.Instance.levelToLoad = new LevelAndType(XMLPath.FullName, LevelLoader.LevelType.Custom, thumbnail);
             SceneManager.Instance.loadLevelToEdit = true;

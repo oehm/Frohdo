@@ -26,7 +26,7 @@ class LocalLevelObj : Levelobj //already on disk
 
         GUILayout.BeginHorizontal("bottombar");
         GUILayout.FlexibleSpace();
-        if (GUILayout.Button("Play ", "forwardbackwardbuttonfullwidth"))
+        if (SoundButton.newSoundButton("Play ", "forwardbackwardbuttonfullwidth"))
         {
             StartLevel();
         }

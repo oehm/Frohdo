@@ -79,7 +79,7 @@ public class GUI_Options : MonoBehaviour
         quality = GUILayout.Toolbar(quality, quallityOptions);
         QualitySettings.SetQualityLevel(quality);
 
-        if (GUILayout.Button("Fullscreen ON/OFF", "ButtonDoubleWidth"))
+        if (SoundButton.newSoundButton("Fullscreen ON/OFF", "ButtonDoubleWidth"))
         {
             if(!Screen.fullScreen)
             {
@@ -96,7 +96,7 @@ public class GUI_Options : MonoBehaviour
         GUILayout.Label("Sounds", style.label);
         SoundController.Instance.MiscSoundVolume = GUILayout.HorizontalSlider(SoundController.Instance.MiscSoundVolume, 0, 1, style.horizontalSlider, style.horizontalSliderThumb);
 
-        if (GUILayout.Button("Save & back", "ButtonDoubleWidth"))
+        if (SoundButton.newSoundButton("Save & back", "ButtonDoubleWidth"))
         {
             PlayerPrefs.SetInt("QualityLevel", quality);
             SceneManager.Instance.loadScene(SceneManager.Scene.MainMenu);

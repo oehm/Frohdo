@@ -81,19 +81,19 @@ public class Gui_MainMenu : MonoBehaviour
         GUILayout.BeginVertical();
         GUILayout.FlexibleSpace();
 
-        if (GUILayout.Button("Puke around", "ButtonDoubleWidth"))
+        if (SoundButton.newSoundButton("Puke around", "ButtonDoubleWidth"))
         {
             SceneManager.Instance.loadScene(SceneManager.Scene.LevelSelect);
         }
-        if (GUILayout.Button("Change puke things", "ButtonDoubleWidth"))
+        if (SoundButton.newSoundButton("Change puke things", "ButtonDoubleWidth"))
         {
             SceneManager.Instance.loadScene(SceneManager.Scene.Options);
         }
-        if (GUILayout.Button("How to puke", "ButtonDoubleWidth"))
+        if (SoundButton.newSoundButton("How to puke", "ButtonDoubleWidth"))
         {
             SceneManager.Instance.loadScene(SceneManager.Scene.Help);
         }
-        if (GUILayout.Button("End puking", "ButtonDoubleWidth"))
+        if (SoundButton.newSoundButton("End puking", "ButtonDoubleWidth"))
         {
             Application.Quit();
         }

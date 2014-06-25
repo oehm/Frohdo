@@ -31,7 +31,7 @@ public class GUI_SaveScreen : GUI_Element
         //}
         SceneManager.Instance.levelToLoad.LevelTitle = GUILayout.TextField(SceneManager.Instance.levelToLoad.LevelTitle, skin.textField);
         GUILayout.BeginHorizontal();
-        if (GUILayout.Button("OKAY!", skin.button) || (Event.current.type == EventType.KeyUp && Event.current.keyCode == KeyCode.Return))
+        if (SoundButton.newSoundButton("OKAY!", skin.button) || (Event.current.type == EventType.KeyUp && Event.current.keyCode == KeyCode.Return))
         {
             LevelEditorParser.Instance.saveLevel();
             if(preview)
@@ -46,7 +46,7 @@ public class GUI_SaveScreen : GUI_Element
                 manger.changeState(newState);
             }
         }
-        if (GUILayout.Button("CANCEL!",skin.button))
+        if (SoundButton.newSoundButton("CANCEL!",skin.button))
         {
             State_Default newState = new State_Default();
             newState.manager = manger;

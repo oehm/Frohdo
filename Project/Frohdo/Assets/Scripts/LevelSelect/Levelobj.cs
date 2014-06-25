@@ -121,7 +121,7 @@ abstract class Levelobj : MonoBehaviour
                         }
                         else
                         {
-                            if (GUILayout.Button("Local", "highscorebuttonfont"))
+                            if (SoundButton.newSoundButton("Local", "highscorebuttonfont"))
                             {
                                 loadLocalHighScores();
                                 if (highscoresToShow == DownloadHighscoreManager.HighscoreType.OnlineTime) highscoresToShow = DownloadHighscoreManager.HighscoreType.LocalTime;
@@ -137,7 +137,7 @@ abstract class Levelobj : MonoBehaviour
                         }
                         else
                         {
-                            if (GUILayout.Button("Online", "highscorebuttonfont"))
+                            if (SoundButton.newSoundButton("Online", "highscorebuttonfont"))
                             {
                                 if (highscoresToShow == DownloadHighscoreManager.HighscoreType.LocalTime) highscoresToShow = DownloadHighscoreManager.HighscoreType.OnlineTime;
                                 else if (highscoresToShow == DownloadHighscoreManager.HighscoreType.LocalPuke) highscoresToShow = DownloadHighscoreManager.HighscoreType.OnlinePuke;
@@ -158,7 +158,7 @@ abstract class Levelobj : MonoBehaviour
                         }
                         else
                         {
-                            if (GUILayout.Button("Time", "highscorebuttonfont"))
+                            if (SoundButton.newSoundButton("Time", "highscorebuttonfont"))
                             {
                                 if (highscoresToShow == DownloadHighscoreManager.HighscoreType.LocalPuke) highscoresToShow = DownloadHighscoreManager.HighscoreType.LocalTime;
                                 else if (highscoresToShow == DownloadHighscoreManager.HighscoreType.OnlinePuke)
@@ -175,7 +175,7 @@ abstract class Levelobj : MonoBehaviour
                         }
                         else
                         {
-                            if (GUILayout.Button("Pukes", "highscorebuttonfont"))
+                            if (SoundButton.newSoundButton("Pukes", "highscorebuttonfont"))
                             {
                                 if (highscoresToShow == DownloadHighscoreManager.HighscoreType.LocalTime) highscoresToShow = DownloadHighscoreManager.HighscoreType.LocalPuke;
                                 else if (highscoresToShow == DownloadHighscoreManager.HighscoreType.OnlineTime)

@@ -29,7 +29,7 @@ public class Patcher : MonoBehaviour {
                     PatcherManager.Instance.commitPatch();
                 } break;
             //case PatcherManager.PatcherStatus.Patched:
-            //    if (GUILayout.Button("fjkdls"))
+            //    if (SoundButton.newSoundButton("fjkdls"))
             //    {
             //        SceneManager.Instance.loadScene(SceneManager.Scene.MainMenu);
             //    }

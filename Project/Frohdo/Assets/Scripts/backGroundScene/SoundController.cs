@@ -148,7 +148,7 @@ public class SoundController : MonoBehaviour
     public void playClickSound()
     {
         if (_clickSoundsSource.clip != null &&  _clickSoundsSource.isPlaying) _clickSoundsSource.Stop();
-        _clickSoundsSource.Play();
+        _clickSoundsSource.PlayOneShot(_clickSoundsSource.clip);
     }
 
     void Update()

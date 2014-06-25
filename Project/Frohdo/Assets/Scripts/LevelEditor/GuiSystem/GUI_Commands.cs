@@ -18,11 +18,11 @@ public class GUI_Commands : GUI_Element
         GUILayout.BeginArea(_rect);
         GUILayout.BeginHorizontal();
         GUILayout.Label("UNDO/REDO", skin.label);
-        if (GUILayout.Button("<", skin.customStyles[2]))
+        if (SoundButton.newSoundButton("<", skin.customStyles[2]))
         {
             EditCommandManager.Instance.undo();
         }
-        if (GUILayout.Button(">", skin.customStyles[2]))
+        if (SoundButton.newSoundButton(">", skin.customStyles[2]))
         {
             EditCommandManager.Instance.redo();
         }

@@ -363,7 +363,7 @@ public class RateScreen : MonoBehaviour {
                     }
                     else
                     {
-                        if (GUILayout.Button((i + 1).ToString(), "iconbox"))
+                        if (SoundButton.newSoundButton((i + 1).ToString(), "iconbox"))
                         {
                             selrating = i + 1;
                         }
@@ -377,7 +377,7 @@ public class RateScreen : MonoBehaviour {
                     }
                     else
                     {
-                        if (GUILayout.Button((i + 1).ToString(), "iconbox"))
+                        if (SoundButton.newSoundButton((i + 1).ToString(), "iconbox"))
                         {
                             selrating = i + 1;
                         }
@@ -392,7 +392,7 @@ public class RateScreen : MonoBehaviour {
         if (LevelUploadManager.Instance.GlobalStatus == LevelUploadManager.LevelUploadStatus.Uploading)
         {
             GUI.enabled = false;
-            if (GUILayout.Button("continue", "ButtonDoubleWidth"))
+            if (SoundButton.newSoundButton("continue", "ButtonDoubleWidth"))
             {
                 SceneManager.Instance.loadScene(SceneManager.Scene.LevelSelect);
             }
@@ -400,7 +400,7 @@ public class RateScreen : MonoBehaviour {
         }
         else
         {
-            if (GUILayout.Button("continue", "ButtonDoubleWidth"))
+            if (SoundButton.newSoundButton("continue", "ButtonDoubleWidth"))
             {
                 SceneManager.Instance.loadScene(SceneManager.Scene.LevelSelect);
             }
@@ -414,7 +414,7 @@ public class RateScreen : MonoBehaviour {
         switch (LevelUploadManager.Instance.GlobalStatus)
         {
             case LevelUploadManager.LevelUploadStatus.ReadyForUpload:
-                if (GUILayout.Button("Upload Level", "ButtonDoubleWidth"))
+                if (SoundButton.newSoundButton("Upload Level", "ButtonDoubleWidth"))
                 {
                     LevelUploadManager.Instance.StartUploadLevel(ScreenShotManager.Instance.getScreenShot(thumbtoShow));
                 }
@@ -430,7 +430,7 @@ public class RateScreen : MonoBehaviour {
                 break;
 
             case LevelUploadManager.LevelUploadStatus.FailedOnMD5Check:
-                if (GUILayout.Button("Shoot yourself", "ButtonDoubleWidth"))
+                if (SoundButton.newSoundButton("Shoot yourself", "ButtonDoubleWidth"))
                 {
                     SceneManager.Instance.loadScene(SceneManager.Scene.LevelSelect);
                 }
@@ -438,7 +438,7 @@ public class RateScreen : MonoBehaviour {
                 break;
 
             case LevelUploadManager.LevelUploadStatus.FailedOnUpload:
-                if (GUILayout.Button("Retry", "ButtonDoubleWidth"))
+                if (SoundButton.newSoundButton("Retry", "ButtonDoubleWidth"))
                 {
                     LevelUploadManager.Instance.StartUploadLevel(ScreenShotManager.Instance.getScreenShot(thumbtoShow));
                 }
@@ -454,7 +454,7 @@ public class RateScreen : MonoBehaviour {
 
     void drawStoryLevelButtons()
     {
-        if (GUILayout.Button("continue", "ButtonDoubleWidth"))
+        if (SoundButton.newSoundButton("continue", "ButtonDoubleWidth"))
         {
             SceneManager.Instance.loadScene(SceneManager.Scene.LevelSelect);
         }
@@ -463,7 +463,7 @@ public class RateScreen : MonoBehaviour {
     void drawPlaylistLevelButtons()
     {
         if (HighscoreAndRateManager.Instance.GlobalStatus == HighscoreAndRateManager.RatingStatus.Uploading) GUI.enabled = false;
-        if (GUILayout.Button("continue", "ButtonDoubleWidth"))
+        if (SoundButton.newSoundButton("continue", "ButtonDoubleWidth"))
         {
             SceneManager.Instance.loadScene(SceneManager.Scene.LevelSelect);
         }
@@ -479,7 +479,7 @@ public class RateScreen : MonoBehaviour {
                     }
                     else
                     {
-                        if (GUILayout.Button("Upload ratings & scores", "ButtonDoubleWidth"))
+                        if (SoundButton.newSoundButton("Upload ratings & scores", "ButtonDoubleWidth"))
                         {
                             HighscoreAndRateManager.Instance.SetNewData(timeCount_, pukeCount_, selectedRating, selectedDifficultyRating);
                         }
@@ -488,7 +488,7 @@ public class RateScreen : MonoBehaviour {
                     break;
 
                 case HighscoreAndRateManager.RatingStatus.Rated:
-                    if (GUILayout.Button("Upload scores", "ButtonDoubleWidth"))
+                    if (SoundButton.newSoundButton("Upload scores", "ButtonDoubleWidth"))
                     {
                         HighscoreAndRateManager.Instance.SetNewData(timeCount_, pukeCount_);
                     }
@@ -531,7 +531,7 @@ public class RateScreen : MonoBehaviour {
                 GUI.enabled = false;
             }
 
-            if (GUILayout.Button("<", "ForwardBackwardButton")) thumbtoShow = nfmod(thumbtoShow -1, ScreenShotManager.Instance.screenshotcount);
+            if (SoundButton.newSoundButton("<", "ForwardBackwardButton")) thumbtoShow = nfmod(thumbtoShow -1, ScreenShotManager.Instance.screenshotcount);
 
             GUILayout.FlexibleSpace();
 
@@ -543,7 +543,7 @@ public class RateScreen : MonoBehaviour {
                 {
                     GUILayout.Label("saved", "CenterAlignLabel");
                 }else{
-                    if (GUILayout.Button("Save screen", "SaveScreenButton"))
+                    if (SoundButton.newSoundButton("Save screen", "SaveScreenButton"))
                     {
                         ScreenShotManager.Instance.saveScreenshot(thumbtoShow, ScreenShotManager.Instance.getScreenShotFolderPath());
                     }
@@ -552,7 +552,7 @@ public class RateScreen : MonoBehaviour {
 
             GUILayout.FlexibleSpace();
 
-            if (GUILayout.Button(">", "ForwardBackwardButton")) thumbtoShow = nfmod(thumbtoShow + 1, ScreenShotManager.Instance.screenshotcount);
+            if (SoundButton.newSoundButton(">", "ForwardBackwardButton")) thumbtoShow = nfmod(thumbtoShow + 1, ScreenShotManager.Instance.screenshotcount);
 
             GUI.enabled = true;
 

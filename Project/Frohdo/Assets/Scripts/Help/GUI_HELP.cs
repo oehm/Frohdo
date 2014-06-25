@@ -35,27 +35,27 @@ public class GUI_HELP : MonoBehaviour
     {
         GUILayout.BeginArea(new Rect((ForceAspectRatio.screenWidth) / 2 - 300 + ForceAspectRatio.xOffset, (ForceAspectRatio.screenHeight) / 2 - 200 + ForceAspectRatio.yOffset, 600, 400));
 
-        if (GUILayout.Button("The Basics", skin.button))
+        if (SoundButton.newSoundButton("The Basics", skin.button))
         {
             menufunction = basics;
         }
-        if (GUILayout.Button("Mixing Colors", skin.button))
+        if (SoundButton.newSoundButton("Mixing Colors", skin.button))
         {
             menufunction = colors;
         }
-        if (GUILayout.Button("Controlls", skin.button))
+        if (SoundButton.newSoundButton("Controlls", skin.button))
         {
             menufunction = controlls;
         }
-        if (GUILayout.Button("Editor", skin.button))
+        if (SoundButton.newSoundButton("Editor", skin.button))
         {
             menufunction = editor;
         }
-        if (GUILayout.Button("Support and Bug report", skin.button))
+        if (SoundButton.newSoundButton("Support and Bug report", skin.button))
         {
             menufunction = support;
         }
-        if (GUILayout.Button("Back", skin.button))
+        if (SoundButton.newSoundButton("Back", skin.button))
         {
             SceneManager.Instance.loadScene(SceneManager.Scene.MainMenu);
         }
@@ -69,7 +69,7 @@ public class GUI_HELP : MonoBehaviour
 
     private void backButton()
     {
-        if (GUILayout.Button("Back", skin.button))
+        if (SoundButton.newSoundButton("Back", skin.button))
         {
             menufunction = main;
         }

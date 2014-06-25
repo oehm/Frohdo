@@ -44,7 +44,7 @@ public class GUI_Background : GUI_Element
         GUILayout.BeginArea(_rect);
         if (!popUp)
         {
-            if (GUILayout.Button(content[selected].content, skin.customStyles[7]))
+            if (SoundButton.newSoundButton(content[selected].content, skin.customStyles[7]))
             {
                 popUp = true;
             }
@@ -54,7 +54,7 @@ public class GUI_Background : GUI_Element
             //GUILayout.BeginVertical();
             for (int i = 0; i < content.Count; i++)
             {
-                if (GUILayout.Button(content[i].content, skin.customStyles[7]))
+                if (SoundButton.newSoundButton(content[i].content, skin.customStyles[7]))
                 {
                     selected = i;
                     content[i].func(content[i].color);

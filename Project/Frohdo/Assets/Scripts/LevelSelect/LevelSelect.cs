@@ -406,12 +406,12 @@ public class LevelSelect : MonoBehaviour {
                     if (regsiterToShow == 3)
                     {
                         GUI.enabled = false;
-                        GUILayout.Button("<color=" + buttonDisabledColorHexString + ">Story</color>", "topbarbutton");
+                        SoundButton.newSoundButton("<color=" + buttonDisabledColorHexString + ">Story</color>", "topbarbutton");
                         GUI.enabled = true;
                     }
                     else
                     {
-                        if (GUILayout.Button("Story", "topbarbutton"))
+                        if (SoundButton.newSoundButton("Story", "topbarbutton"))
                         {
                             regsiterToShow = 3;
                             reloadLevels = true;
@@ -421,12 +421,12 @@ public class LevelSelect : MonoBehaviour {
                     if (regsiterToShow == 2)
                     {
                         GUI.enabled = false;
-                        GUILayout.Button("<color=" + buttonDisabledColorHexString + ">Playlist</color>", "topbarbutton");
+                        SoundButton.newSoundButton("<color=" + buttonDisabledColorHexString + ">Playlist</color>", "topbarbutton");
                         GUI.enabled = true;
                     }
                     else
                     {
-                        if (GUILayout.Button("Playlist", "topbarbutton"))
+                        if (SoundButton.newSoundButton("Playlist", "topbarbutton"))
                         {
                             regsiterToShow = 2;
                             reloadLevels = true;
@@ -436,12 +436,12 @@ public class LevelSelect : MonoBehaviour {
                     if (regsiterToShow == 0)
                     {
                         GUI.enabled = false;
-                        GUILayout.Button("<color=" + buttonDisabledColorHexString + ">Custom</color>", "topbarbutton");
+                        SoundButton.newSoundButton("<color=" + buttonDisabledColorHexString + ">Custom</color>", "topbarbutton");
                         GUI.enabled = true;
                     }
                     else
                     {
-                        if (GUILayout.Button("Custom", "topbarbutton"))
+                        if (SoundButton.newSoundButton("Custom", "topbarbutton"))
                         {
                             regsiterToShow = 0;
                             reloadLevels = true;
@@ -457,14 +457,14 @@ public class LevelSelect : MonoBehaviour {
                         else
                         {
                             GUI.enabled = false;
-                            GUILayout.Button("<color=" + buttonDisabledColorHexString + ">Top Online</color>", "topbarbutton");
+                            SoundButton.newSoundButton("<color=" + buttonDisabledColorHexString + ">Top Online</color>", "topbarbutton");
                             GUI.enabled = true;
                         }
                     }
                     else
                     {
                         if (NetworkManager.Instance.GlobalStatus != NetworkManager.LoginStatus.LoggedIn) GUI.enabled = false;
-                        if (GUILayout.Button("Top Online", "topbarbutton"))
+                        if (SoundButton.newSoundButton("Top Online", "topbarbutton"))
                         {
                             regsiterToShow = 1;
                             reloadLevels = true;
@@ -482,7 +482,7 @@ public class LevelSelect : MonoBehaviour {
                         int l2s = LevelsToShow;
                         if (regsiterToShow == 0)
                         {
-                            if (GUILayout.Button("Create new Level", "button"))
+                            if (SoundButton.newSoundButton("Create new Level", "button"))
                             {
                                 SceneManager.Instance.levelToLoad = new LevelAndType("Maps/inaccessable/emptyLevel/emptyLevel", LevelLoader.LevelType.Story);
                                 SceneManager.Instance.loadLevelToEdit = true;
@@ -499,17 +499,17 @@ public class LevelSelect : MonoBehaviour {
                                     if (levels[i].GetType() == typeof(OnlineLevelObj) && !((OnlineLevelObj)levels[i]).alreadydownloaded)
                                     {
                                         GUI.enabled = false;
-                                        GUILayout.Button("<color=" + buttonDisabledColorHexString + ">" + levels[i].name + "-" + ((OnlineLevelObj)levels[i]).creatorNickname + "</color>", "button");
+                                        SoundButton.newSoundButton("<color=" + buttonDisabledColorHexString + ">" + levels[i].name + "-" + ((OnlineLevelObj)levels[i]).creatorNickname + "</color>", "button");
                                         GUI.enabled = true;
                                     }
                                     else if (levels[i].GetType() == typeof(OnlineLevelObj) && ((OnlineLevelObj)levels[i]).alreadydownloaded)
                                     {
-                                        if(GUILayout.Button("<color=" + buttonDisabledColorHexString + ">" + levels[i].name + "-" + ((OnlineLevelObj)levels[i]).creatorNickname + "</color>"))
+                                        if(SoundButton.newSoundButton("<color=" + buttonDisabledColorHexString + ">" + levels[i].name + "-" + ((OnlineLevelObj)levels[i]).creatorNickname + "</color>"))
                                         {
                                             levels[i].StartLevel();
                                         }
                                     }
-                                    else if (GUILayout.Button("<color=" + buttonDisabledColorHexString + ">" + levels[i].name + "</color>", "button"))
+                                    else if (SoundButton.newSoundButton("<color=" + buttonDisabledColorHexString + ">" + levels[i].name + "</color>", "button"))
                                     {
                                         levels[i].StartLevel();
                                     }                                    
@@ -518,7 +518,7 @@ public class LevelSelect : MonoBehaviour {
                                 {
                                     if (levels[i].GetType() == typeof(OnlineLevelObj))
                                     {
-                                        if (GUILayout.Button(levels[i].name + "-" + ((OnlineLevelObj)levels[i]).creatorNickname, "button"))
+                                        if (SoundButton.newSoundButton(levels[i].name + "-" + ((OnlineLevelObj)levels[i]).creatorNickname, "button"))
                                         {
                                             if (((OnlineLevelObj)levels[i]).alreadydownloaded) levels[i].loadLocalHighScores();
                                             levels[i].loadOnlineHighscores(DownloadHighscoreManager.HighscoreType.OnlineTime);
@@ -527,7 +527,7 @@ public class LevelSelect : MonoBehaviour {
                                     }
                                     else
                                     {
-                                        if (GUILayout.Button(levels[i].name, "button"))
+                                        if (SoundButton.newSoundButton(levels[i].name, "button"))
                                         {
                                             levels[i].loadLocalHighScores();
                                             if (levels[i].GetType() == typeof(LocalLevelObj)) levels[i].loadOnlineHighscores(DownloadHighscoreManager.HighscoreType.OnlineTime);
@@ -552,12 +552,12 @@ public class LevelSelect : MonoBehaviour {
                         if (LevelsCurPage == 0)
                         {
                             GUI.enabled = false;
-                            GUILayout.Button("", "forwardbackwardbutton");
+                            SoundButton.newSoundButton("", "forwardbackwardbutton");
                             GUI.enabled = true;
                         }
                         else
                         {
-                            if (GUILayout.Button("< Page " + LevelsCurPage, "forwardbackwardbutton"))
+                            if (SoundButton.newSoundButton("< Page " + LevelsCurPage, "forwardbackwardbutton"))
                             {
                                 LevelsCurPage -= 1;
                             }
@@ -566,12 +566,12 @@ public class LevelSelect : MonoBehaviour {
                         if (LevelsCurPage == LevelMaxPages - 1)
                         {
                             GUI.enabled = false;
-                            GUILayout.Button("", "forwardbackwardbutton");
+                            SoundButton.newSoundButton("", "forwardbackwardbutton");
                             GUI.enabled = true;
                         }
                         else
                         {
-                            if (GUILayout.Button("Page: " + (LevelsCurPage + 2) + " >", "forwardbackwardbutton"))
+                            if (SoundButton.newSoundButton("Page: " + (LevelsCurPage + 2) + " >", "forwardbackwardbutton"))
                             {
                                 LevelsCurPage += 1;
                             }

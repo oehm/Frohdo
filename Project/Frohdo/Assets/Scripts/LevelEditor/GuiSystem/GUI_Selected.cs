@@ -47,7 +47,7 @@ public class GUI_Selected : GUI_Element {
     {
         if (!active) return;
         GUILayout.BeginArea(_rect);
-        if (GUILayout.Button("", skin.customStyles[6]))
+        if (SoundButton.newSoundButton("", skin.customStyles[6]))
         {
             manager.deleteObject(obj, layerIdx);
         }

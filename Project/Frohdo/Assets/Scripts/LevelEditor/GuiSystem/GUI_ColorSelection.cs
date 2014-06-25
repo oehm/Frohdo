@@ -24,7 +24,7 @@ public List<GUI_ContentColor> content { get; set; }
         //GUILayout.Label("COLORS", skin.label);
         foreach (GUI_ContentColor g in content)
         {
-            if (GUILayout.Button(g.content, skin.customStyles[1]))
+            if (SoundButton.newSoundButton(g.content, skin.customStyles[1]))
             {
                 g.func(g.color);
             }

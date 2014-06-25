@@ -65,14 +65,14 @@ class OnlineLevelObj : Levelobj //online - not downloaded
             {
                 if (alreadydownloaded == true)
                 {
-                    if (GUILayout.Button("Play ", "forwardbackwardbuttonfullwidth"))
+                    if (SoundButton.newSoundButton("Play ", "forwardbackwardbuttonfullwidth"))
                     {
                         StartLevel();
                     }
                 }
                 else
                 {
-                    if (GUILayout.Button("Download", "forwardbackwardbuttonfullwidth"))
+                    if (SoundButton.newSoundButton("Download", "forwardbackwardbuttonfullwidth"))
                     {
                         AddLevelToPlaylistManager.Instance.addToPlaylist(onlinelevelid);
                         DownloadLevelManager.Instance.startDownload(downloadurl, thumburl, thumbnail, name + "-" + creatorNickname);

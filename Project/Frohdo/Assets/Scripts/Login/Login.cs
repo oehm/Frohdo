@@ -123,7 +123,7 @@ public class Login : MonoBehaviour
         GUILayout.BeginVertical();
         GUILayout.FlexibleSpace();
         GUILayout.Label("Logindata incorrect!", "CenterAlignLabelDoubleWidth");
-        if (GUILayout.Button("OK", "ButtonDoubleWidth") || (Event.current.type == EventType.KeyUp && Event.current.keyCode == KeyCode.Return))
+        if (SoundButton.newSoundButton("OK", "ButtonDoubleWidth") || (Event.current.type == EventType.KeyUp && Event.current.keyCode == KeyCode.Return))
         {
             NetworkManager.Instance.LogOut();
         }
@@ -134,7 +134,7 @@ public class Login : MonoBehaviour
     void loggedoff()
     {
         GUILayout.BeginVertical();
-        if (GUILayout.Button("register: community.mediacube.at", "RegisterButton"))
+        if (SoundButton.newSoundButton("register: community.mediacube.at", "RegisterButton"))
         {
             Application.OpenURL("http://community.mediacube.at");
         }
@@ -145,7 +145,7 @@ public class Login : MonoBehaviour
         pass = GUILayout.PasswordField(pass, '*', style.textField);
         GUILayout.FlexibleSpace();
         GUILayout.BeginHorizontal();
-        if (GUILayout.Button("Login") || (Event.current.type == EventType.KeyUp && Event.current.keyCode == KeyCode.Return))
+        if (SoundButton.newSoundButton("Login") || (Event.current.type == EventType.KeyUp && Event.current.keyCode == KeyCode.Return))
         {
 
             //if (!(login.Trim().Length == 0 || pass.Trim().Length == 0))
@@ -156,7 +156,7 @@ public class Login : MonoBehaviour
             }
         }
 
-        if (GUILayout.Button("Stay offline"))
+        if (SoundButton.newSoundButton("Stay offline"))
         {
             SceneManager.Instance.returnFromLoginAndEscMenu();
         }
@@ -175,13 +175,13 @@ public class Login : MonoBehaviour
         GUILayout.Label("You are Logged In as: " + NetworkManager.Instance.User, "CenterAlignLabelDoubleWidth");
         GUILayout.FlexibleSpace();
         GUILayout.BeginHorizontal();
-        if (GUILayout.Button("Logout"))
+        if (SoundButton.newSoundButton("Logout"))
         {
             NetworkManager.Instance.LogOut();
             pass = "";
         }
 
-        if (GUILayout.Button("Continue online") || (Event.current.type == EventType.KeyUp && Event.current.keyCode == KeyCode.Return))
+        if (SoundButton.newSoundButton("Continue online") || (Event.current.type == EventType.KeyUp && Event.current.keyCode == KeyCode.Return))
         {
             SceneManager.Instance.returnFromLoginAndEscMenu();
         }
@@ -212,7 +212,7 @@ public class Login : MonoBehaviour
         GUILayout.BeginVertical();
         GUILayout.FlexibleSpace();
         GUILayout.Label("Unable to Login.\nMaybe you are not properly connected or there are \"Server issues\" (Nope!)", "CenterAlignLabelDoubleWidth");
-        if (GUILayout.Button("back", "ButtonDoubleWidth") || (Event.current.type == EventType.KeyUp && Event.current.keyCode == KeyCode.Return))
+        if (SoundButton.newSoundButton("back", "ButtonDoubleWidth") || (Event.current.type == EventType.KeyUp && Event.current.keyCode == KeyCode.Return))
         {
             NetworkManager.Instance.LogOut();
         }
@@ -226,7 +226,7 @@ public class Login : MonoBehaviour
         {
             GUILayout.BeginVertical();
                 GUILayout.BeginHorizontal();
-                if (GUILayout.Button("Back to main menu", "ButtonDoubleWidth"))
+                if (SoundButton.newSoundButton("Back to main menu", "ButtonDoubleWidth"))
                 {
                     SceneManager.Instance.loadScene(SceneManager.Scene.MainMenu);
                 }
@@ -234,7 +234,7 @@ public class Login : MonoBehaviour
                 if (SceneManager.Instance.getSavedSceneTypeWhenInLogin() == SceneManager.Scene.Game && SceneManager.Instance.previewlevel)
                 {
                     GUILayout.BeginHorizontal();
-                    if (GUILayout.Button("Back to Editor", "ButtonDoubleWidth"))
+                    if (SoundButton.newSoundButton("Back to Editor", "ButtonDoubleWidth"))
                     {
                         SceneManager.Instance.loadLevelToEdit = true;
                         SceneManager.Instance.loadScene(SceneManager.Scene.Editor);

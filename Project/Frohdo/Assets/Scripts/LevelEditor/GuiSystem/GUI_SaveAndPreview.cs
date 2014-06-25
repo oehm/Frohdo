@@ -18,13 +18,13 @@ public class GUI_SaveAndPreview : GUI_Element
         if (!active) return;
         GUILayout.BeginArea(_rect);
         GUILayout.BeginHorizontal();
-        if (GUILayout.Button("SAVE", skin.button))
+        if (SoundButton.newSoundButton("SAVE", skin.button))
         {
             manager.saveLevel(false);
             //LevelEditorParser.Instance.levelName = "TEST";            
             //LevelEditorParser.Instance.saveLevel();
         }
-        if (GUILayout.Button("PREV", skin.button))
+        if (SoundButton.newSoundButton("PREV", skin.button))
         {
             manager.saveLevel(true);
             //LevelEditorParser.Instance.levelName = "TEST";
