@@ -45,7 +45,7 @@ public class CharacterPuke : MonoBehaviour
         isPuking_ = false;
         playPukeSound_ = false;
         animationTimeCount_ = 0.0f;
-        pukesound_.volume = PlayerPrefs.GetFloat("MiscVolume");
+        pukesound_.volume = SoundController.Instance.MiscSoundVolume;
 	}
 
 

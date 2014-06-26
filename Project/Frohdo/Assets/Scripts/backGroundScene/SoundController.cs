@@ -27,6 +27,7 @@ public class SoundController : MonoBehaviour
         set
         {
             PlayerPrefs.SetFloat("MiscVolume", value);
+            _clickSoundsSource.volume = value * 0.5f;
         }
     }
 
@@ -43,7 +44,7 @@ public class SoundController : MonoBehaviour
         {
             PlayerPrefs.SetFloat("BackgroundVolume", value);
             if (_backgroundSource != null)
-                _backgroundSource.volume = value;
+                _backgroundSource.volume = value * 0.7f;
         }
     }
 
@@ -68,9 +69,9 @@ public class SoundController : MonoBehaviour
         _clickSoundsSource = this.gameObject.GetComponents<AudioSource>()[1];
 
         _backloopstarted = false;
-        _backgroundSource.volume = BackgroundSoundVolume;
 
-        _clickSoundsSource.volume = MiscSoundVolume;
+        MiscSoundVolume = MiscSoundVolume;
+        BackgroundSoundVolume = BackgroundSoundVolume;
 
         loadAudioFiles();
     }
@@ -79,11 +80,17 @@ public class SoundController : MonoBehaviour
     {
         //Background Clips load
         Background_clips.Add((AudioClip)Resources.Load("Sounds/Backgrounds/Menue"));
+        Background_clips.Add((AudioClip)Resources.Load("Sounds/Backgrounds/Menue2"));
 
         //PukeSounds load
         Pukeclips.Add((AudioClip)Resources.Load("Sounds/Pukes/puke1"));
+        Pukeclips.Add((AudioClip)Resources.Load("Sounds/Pukes/puke2"));
+        Pukeclips.Add((AudioClip)Resources.Load("Sounds/Pukes/puke3"));
+        Pukeclips.Add((AudioClip)Resources.Load("Sounds/Pukes/puke4"));
+        Pukeclips.Add((AudioClip)Resources.Load("Sounds/Pukes/puke5"));
+        Pukeclips.Add((AudioClip)Resources.Load("Sounds/Pukes/puke6"));
 
-        _clickSoundsSource.clip = (AudioClip)Resources.Load("Sounds/Misc/Click");
+        _clickSoundsSource.clip = (AudioClip)Resources.Load("Sounds/Misc/Click2");
     }
 
     public void startBackgroundSoundLoop()
@@ -100,7 +107,7 @@ public class SoundController : MonoBehaviour
     {
         if (Background_clips.Count > 0)
         {
-            return Background_clips[Random.Range(0, Background_clips.Count - 1)];
+            return Background_clips[Random.Range(0, Background_clips.Count)];
         }
         return null;
     }
@@ -136,7 +143,7 @@ public class SoundController : MonoBehaviour
     {
         if (Pukeclips.Count > 0)
         {
-            return Pukeclips[Random.Range(0, Pukeclips.Count - 1)];
+            return Pukeclips[Random.Range(0, Pukeclips.Count)];
         }
         else
         {
@@ -148,7 +155,8 @@ public class SoundController : MonoBehaviour
     public void playClickSound()
     {
         if (_clickSoundsSource.clip != null &&  _clickSoundsSource.isPlaying) _clickSoundsSource.Stop();
-        _clickSoundsSource.PlayOneShot(_clickSoundsSource.clip);
+        //_clickSoundsSource.PlayOneShot(_clickSoundsSource.clip);
+        _clickSoundsSource.Play();
     }
 
     void Update()
