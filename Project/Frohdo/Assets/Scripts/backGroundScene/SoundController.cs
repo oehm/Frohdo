@@ -84,13 +84,13 @@ public class SoundController : MonoBehaviour
 
         //PukeSounds load
         Pukeclips.Add((AudioClip)Resources.Load("Sounds/Pukes/puke1"));
-        //Pukeclips.Add((AudioClip)Resources.Load("Sounds/Pukes/puke2"));
-        //Pukeclips.Add((AudioClip)Resources.Load("Sounds/Pukes/puke3"));
+        Pukeclips.Add((AudioClip)Resources.Load("Sounds/Pukes/puke7"));
+        Pukeclips.Add((AudioClip)Resources.Load("Sounds/Pukes/puke8"));
         //Pukeclips.Add((AudioClip)Resources.Load("Sounds/Pukes/puke4"));
         //Pukeclips.Add((AudioClip)Resources.Load("Sounds/Pukes/puke5"));
         //Pukeclips.Add((AudioClip)Resources.Load("Sounds/Pukes/puke6"));
 
-        _clickSoundsSource.clip = (AudioClip)Resources.Load("Sounds/Misc/Click2");
+        _clickSoundsSource.clip = (AudioClip)Resources.Load("Sounds/Misc/Click");
     }
 
     public void startBackgroundSoundLoop()
