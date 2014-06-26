@@ -70,19 +70,19 @@ public class State_ObjectSelected : Editor_State
             if (select != null)
             {
                 //if new selected object is the same object switch to state_move
-                //if (select == selected)
-                //{
-                //    State_Move newState = new State_Move();
-                //    newState.manager = manager;
-                //    newState.objectToMove = selected;
-                //    manager.changeState(newState);
-                //}
+                if (select == selected)
+                {
+                    State_Move newState = new State_Move();
+                    newState.manager = manager;
+                    newState.objectToMove = selected;
+                    manager.changeState(newState);
+                }
                 // else just selected the new object
-                //else
-                //{
+                else
+                {
                     selected = select;
                     manager.selectedGui.obj = selected;
-                //}
+                }
             }
             //if nothing got selected with the click change to default state
             else if (!manager.guiController.mouseOnGui(mousePos))

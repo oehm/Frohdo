@@ -36,14 +36,15 @@ public class State_Move : Editor_State {
             command_.setUpCommand(oldPos_, objectToMove.transform.localPosition, manager.currentLayer, objectToMove);
             if(!EditCommandManager.Instance.executeCommand(command_))
             {
+                Debug.Log("Move fail!");
                 objectToMove.transform.localPosition = oldPos_;
             }
         }
         else
         {
-            Debug.Log("Mouse on gui stupid!");
             objectToMove.transform.localPosition = oldPos_;
         }
+        //Debug.Log("State change!");
         State_ObjectSelected newState = new State_ObjectSelected();
         newState.manager = manager;
         newState.selected = objectToMove;
@@ -59,11 +60,11 @@ public class State_Move : Editor_State {
 
     public void updateColor(string color)
     {
-        //throw new System.NotImplementedException();
+        throw new System.NotImplementedException();
     }
 
     public void updateObject(GameObject obj)
     {
-        //throw new System.NotImplementedException();
+        throw new System.NotImplementedException();
     }
 }
