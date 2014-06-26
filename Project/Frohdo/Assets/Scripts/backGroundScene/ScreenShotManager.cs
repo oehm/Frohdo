@@ -92,6 +92,7 @@ public class ScreenShotManager : MonoBehaviour {
     private IEnumerator ScreenShotCoroutine(ScreenShotCoroutineObj o)
     {
         yield return new WaitForSeconds(0.1f);
+        //yield break;
         bool automaticScreen = o.path == null ? true : false; //if path is null .. then it is a custom level screenshot and we save it to a list.
         if (o.path == null)
         {
@@ -147,22 +148,34 @@ public class ScreenShotManager : MonoBehaviour {
             RenderTexture.active = renderTexture;
             for (int i = 0; i < cams.Length; i++)
             {
-                CopyAspectRatio camAspect = camsSorted[i].gameObject.GetComponentInChildren<CopyAspectRatio>();
-                if (camAspect)
-                {
-                    //Force Update so Aspect ratio is correct!
-                    camAspect.forceUpdate();
-                }
+                //CopyAspectRatio camAspect = camsSorted[i].gameObject.GetComponentInChildren<CopyAspectRatio>();
+                //if (camAspect)
+                //{
+                //    //Force Update so Aspect ratio is correct!
+                //    camAspect.forceUpdate();
+                //}
 
                 camsSorted[i].targetTexture = renderTexture;
 
                 //set camera rect back to normal for rendering into texture
-                Rect oldRect = camsSorted[i].rect;
+                Rect oldRect = new Rect(camsSorted[i].rect.xMin, camsSorted[i].rect.yMin, camsSorted[i].rect.width, camsSorted[i].rect.height);
+                //Debug.LogError(camsSorted[i].rect.xMin + " " + camsSorted[i].rect.yMin + " " + camsSorted[i].rect.width + " " + camsSorted[i].rect.height);
+                //Debug.LogError(camsSorted[i].fieldOfView + " " + camsSorted[i].aspect);
+                float oldAspect = camsSorted[i].aspect;
+
                 camsSorted[i].rect = new Rect(0.0f, 0.0f, 1.0f, 1.0f);
 
                 camsSorted[i].Render();
                 //set camerta rect back to old value
-                camsSorted[i].rect = oldRect;
+                camsSorted[i].rect = new Rect(oldRect.xMin, oldRect.yMin, oldRect.width, oldRect.height);
+
+
+                camsSorted[i].aspect = oldAspect;
+                //Debug.LogError(camsSorted[i].rect.xMin + " " + camsSorted[i].rect.yMin + " " + camsSorted[i].rect.width + " " + camsSorted[i].rect.height);
+                //Debug.LogError(camsSorted[i].fieldOfView + " " + camsSorted[i].aspect);
+                //ForceAspectRatio.resetZAxis();
+
+                //camsSorted[i].fieldOfView = 60;
 
                 camsSorted[i].targetTexture = null;
             }
