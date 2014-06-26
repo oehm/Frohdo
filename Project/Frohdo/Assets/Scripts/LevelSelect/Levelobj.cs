@@ -28,7 +28,7 @@ abstract class Levelobj : MonoBehaviour
 
     public abstract void StartLevel();
 
-    protected DownloadHighscoreManager.HighscoreType highscoresToShow;
+    public DownloadHighscoreManager.HighscoreType highscoresToShow;
     private string buttonDisabledColorHexString = GlobalVars.Instance.ButtonDisabledHexString;
     private string OwnHighscorehiglightColor = GlobalVars.Instance.OwnHighscoreHighlightColor;
 

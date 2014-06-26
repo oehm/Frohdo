@@ -12,10 +12,9 @@ public class Command_ChangePosition : Command
     public void setUpCommand(Vector2 oldPos, Vector2 newPos, int layerIndex, GameObject objToEdit)
     {
         oldPos_ = oldPos;
-        newPos = newPos_;
+        newPos_ = newPos;
         layerIndex_ = layerIndex;
         objToEdit_ = objToEdit;
-        Debug.Log(layerIndex);
     }
 
     public bool exectute()
@@ -45,6 +44,7 @@ public class Command_ChangePosition : Command
         Gridable grid = objToEdit_.GetComponentInChildren<Gridable>();
         CommandHelper.setMatrixForceOverride(layerIndex_, newPos_, grid, null);
         CommandHelper.setMatrixForceOverride(layerIndex_, oldPos_, grid, objToEdit_);
+        objToEdit_.transform.localPosition = oldPos_;
     }
 
     public void redo()
